@@ -1,0 +1,481 @@
+{
+  "activities": {
+    "activity": {
+      "metadata": {
+        "id": "2729",
+        "name": "1617Q2AS_06",
+        "startDate": "2017-11-28",
+        "endDate": "2017-11-28",
+        "sites": [
+          {
+            "id": "100",
+            "name": "Seisia Meatworks",
+            "description": "Meatworks in Seisia township where Sentinel Cattle are kept",
+            "locationDatum": {
+              "wkt": "POLYGON ((142.36729 -10.84713, 142.36681 -10.84856, 142.36897 -10.84938, 142.36917 -10.84841, 142.36729 -10.84713))",
+              "srsName": "WGS84"
+            }
+          },
+          {
+            "id": "101",
+            "name": "Thursday Island",
+            "description": "Thursday Island",
+            "locationDatum": {
+              "wkt": "POLYGON ((142.36729 -10.84713, 142.36681 -10.84856, 142.36897 -10.84938, 142.36917 -10.84841, 142.36729 -10.84713))",
+              "srsName": "WGS84"
+            }
+          },
+          {
+            "id": "102",
+            "name": "Boigu Island",
+            "description": "Boigu Island",
+            "locationDatum": {
+              "wkt": "POLYGON ((142.36729 -10.84713, 142.36681 -10.84856, 142.36897 -10.84938, 142.36917 -10.84841, 142.36729 -10.84713))",
+              "srsName": "WGS84"
+            }
+          },
+          {
+            "id": "99999",
+            "name": "New Site",
+            "description": "New Site",
+            "locationDatum": {}
+          }
+        ],
+        "species": [
+          {
+            "speciesCode": "CTL",
+            "defaultSamples": [
+              {
+                "sampleTypeCode": "BL",
+                "testFors": [
+                  {
+                    "testForCode": "2",
+                    "testForName": "BTV",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "3",
+                    "testForName": "Surra",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "4",
+                    "testForName": "AKA",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "5",
+                    "testForName": "BEF",
+                    "commentRequired": "N"
+                  }
+                ]
+              }
+            ],
+            "fieldTests": [
+                {
+                  "fieldTestCde": "LF",
+                  "fieldTestName": "Lateral flow device (LFD)",
+                  "diseases": {
+                    "disease": [
+                      {
+                        "diseaseCde": "F",
+                        "diseaseName": "FMD (viral anitgen)"
+                      }
+                    ]
+                  }
+                }
+              ]
+          },
+          {
+            "speciesCode": "BUF",
+            "defaultSamples": [
+              {
+                "sampleTypeCode": "BL",
+                "testFors": [
+                  {
+                    "testForCode": "2",
+                    "testForName": "BTV",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "3",
+                    "testForName": "Surra",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "4",
+                    "testForName": "AKA",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "5",
+                    "testForName": "BEF",
+                    "commentRequired": "N"
+                  }
+                ]
+              }
+            ],
+            "fieldTests": [
+              {
+                "fieldTestCde": "LF",
+                "fieldTestName": "Lateral flow device (LFD)",
+                "diseases": {
+                  "disease": [
+                    {
+                      "diseaseCde": "F",
+                      "diseaseName": "FMD (viral anitgen)"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "speciesCode": "CAM",
+            "defaultSamples": [
+              {
+                "sampleTypeCode": "BL",
+                "testFors": [
+                  {
+                    "testForCode": "2",
+                    "testForName": "BTV",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "3",
+                    "testForName": "Surra",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "4",
+                    "testForName": "AKA",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "5",
+                    "testForName": "BEF",
+                    "commentRequired": "N"
+                  }
+                ]
+              }
+            ],
+            "fieldTests": [
+              {
+                "fieldTestCde": "LF",
+                "fieldTestName": "Lateral flow device (LFD)",
+                "diseases": {
+                  "disease": [
+                    {
+                      "diseaseCde": "F",
+                      "diseaseName": "FMD (viral anitgen)"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "speciesCode": "CAT",
+            "defaultSamples": [
+              {
+                "sampleTypeCode": "BL",
+                "testFors": [
+                  {
+                    "testForCode": "2",
+                    "testForName": "BTV",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "3",
+                    "testForName": "Surra",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "4",
+                    "testForName": "AKA",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "5",
+                    "testForName": "BEF",
+                    "commentRequired": "N"
+                  }
+                ]
+              }
+            ],
+            "fieldTests": []
+          },
+          {
+            "speciesCode": "DER",
+            "defaultSamples": [
+              {
+                "sampleTypeCode": "BL",
+                "testFors": [
+                  {
+                    "testForCode": "2",
+                    "testForName": "BTV",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "3",
+                    "testForName": "Surra",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "4",
+                    "testForName": "AKA",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "5",
+                    "testForName": "BEF",
+                    "commentRequired": "N"
+                  }
+                ]
+              }
+            ],
+            "fieldTests": []
+          },
+          {
+            "speciesCode": "GOT",
+            "defaultSamples": [
+              {
+                "sampleTypeCode": "BL",
+                "testFors": [
+                  {
+                    "testForCode": "2",
+                    "testForName": "BTV",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "3",
+                    "testForName": "Surra",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "4",
+                    "testForName": "AKA",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "5",
+                    "testForName": "BEF",
+                    "commentRequired": "N"
+                  }
+                ]
+              }
+            ],
+            "fieldTests": [
+              {
+                "fieldTestCde": "LF",
+                "fieldTestName": "Lateral flow device (LFD)",
+                "diseases": {
+                  "disease": [
+                    {
+                      "diseaseCde": "F",
+                      "diseaseName": "FMD (viral anitgen)"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "speciesCode": "HOR",
+            "defaultSamples": [
+              {
+                "sampleTypeCode": "BL",
+                "testFors": [
+                  {
+                    "testForCode": "2",
+                    "testForName": "BTV",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "3",
+                    "testForName": "Surra",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "4",
+                    "testForName": "AKA",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "5",
+                    "testForName": "BEF",
+                    "commentRequired": "N"
+                  }
+                ]
+              }
+            ],
+            "fieldTests": []
+          },
+          {
+            "speciesCode": "DKY",
+            "defaultSamples": [
+              {
+                "sampleTypeCode": "BL",
+                "testFors": [
+                  {
+                    "testForCode": "2",
+                    "testForName": "BTV",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "3",
+                    "testForName": "Surra",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "4",
+                    "testForName": "AKA",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "5",
+                    "testForName": "BEF",
+                    "commentRequired": "N"
+                  }
+                ]
+              }
+            ],
+            "fieldTests": []
+          },
+          {
+            "speciesCode": "PIG",
+            "defaultSamples": [
+              {
+                "sampleTypeCode": "BL",
+                "testFors": [
+                  {
+                    "testForCode": "2",
+                    "testForName": "BTV",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "3",
+                    "testForName": "Surra",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "4",
+                    "testForName": "AKA",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "5",
+                    "testForName": "BEF",
+                    "commentRequired": "N"
+                  }
+                ]
+              }
+            ],
+            "fieldTests": [
+              {
+                "fieldTestCde": "LF",
+                "fieldTestName": "Lateral flow device (LFD)",
+                "diseases": {
+                  "disease": [
+                    {
+                      "diseaseCde": "F",
+                      "diseaseName": "FMD (viral anitgen)"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "speciesCode": "DOG",
+            "defaultSamples": [
+              {
+                "sampleTypeCode": "BL",
+                "testFors": [
+                  {
+                    "testForCode": "2",
+                    "testForName": "BTV",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "3",
+                    "testForName": "Surra",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "4",
+                    "testForName": "AKA",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "5",
+                    "testForName": "BEF",
+                    "commentRequired": "N"
+                  }
+                ]
+              }
+            ],
+            "fieldTests": [
+              {
+                "fieldTestCde": "4D",
+                "fieldTestName": "Idexx SNAP 4Dx Plus Test",
+                "diseases": {
+                  "disease": [
+                    {
+                      "diseaseCde": "E",
+                      "diseaseName": "Ehrlichiosis"
+                    },
+                    {
+                      "diseaseCde": "A",
+                      "diseaseName": "Anaplasmosis"
+                    },
+                    {
+                      "diseaseCde": "H",
+                      "diseaseName": "Heartworm"
+                    },
+                    {
+                      "diseaseCde": "L",
+                      "diseaseName": "Lyme Disease"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "speciesCode": "AVI",
+            "defaultSamples": [
+              {
+                "sampleTypeCode": "BL",
+                "testFors": [
+                  {
+                    "testForCode": "2",
+                    "testForName": "BTV",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "3",
+                    "testForName": "Surra",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "4",
+                    "testForName": "AKA",
+                    "commentRequired": "N"
+                  },
+                  {
+                    "testForCode": "5",
+                    "testForName": "BEF",
+                    "commentRequired": "N"
+                  }
+                ]
+              }
+            ],
+            "fieldTests": []
+          }
+        ],
+        "status": "R"
+      }
+    }
+  }
+}

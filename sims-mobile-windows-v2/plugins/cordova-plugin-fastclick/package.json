@@ -1,0 +1,28 @@
+{
+  "name": "cordova-plugin-fastclick",
+  "version": "1.0.0",
+  "description": "Cordova plugin to remove click delays on browsers with touch UIs.",
+  "cordova": {
+    "id": "cordova-plugin-fastclick",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chemerisuk/cordova-plugin-fastclick"
+  },
+  "keywords": [
+    "fastclick",
+    "polyfill"
+  ],
+  "engines": {
+    "cordova": ">=3.0.0"
+  },
+  "author": "Maksim Chemerisuk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chemerisuk/cordova-plugin-fastclick/issues"
+  },
+  "homepage": "https://github.com/chemerisuk/cordova-plugin-fastclick#readme"
+}

@@ -1,0 +1,61 @@
+{
+   "staffs": {
+      "staff": [
+         {
+            "id": "286",
+            "displayName": "Burgoyne, Charlotte",
+            "logonId": "burgoyne charlotte"
+         },
+         {
+            "id": "285",
+            "displayName": "Byers, Michele",
+            "logonId": "byers michele"
+         },
+         {
+            "id": "282",
+            "displayName": "De Ridder, Thomas",
+            "logonId": "deridder thomas"
+         },
+         {
+            "id": "261",
+            "displayName": "Fard, Nasser",
+            "logonId": "fard nasser"
+         },
+         {
+            "id": "6",
+            "displayName": "Hart, Glen",
+            "logonId": "hart glen"
+         },
+         {
+            "id": "3",
+            "displayName": "Keating, Jen",
+            "logonId": "keating jen"
+         },
+         {
+            "id": "287",
+            "displayName": "Mccrudden, Elizabeth",
+            "logonId": "mccrudden elizabeth"
+         },
+         {
+            "id": "2",
+            "displayName": "Morris, Glen",
+            "logonId": "morris glen"
+         },
+         {
+            "id": "5",
+            "displayName": "Srinivasan, Sudhahar",
+            "logonId": "srinivasan sudhahar"
+         },
+         {
+            "id": "4",
+            "displayName": "Tran, Charles",
+            "logonId": "tran charles"
+         },
+         {
+            "id": "283",
+            "displayName": "Weeratunga, Madusha",
+            "logonId": "weeratunga madusha"
+         }
+      ]
+   }
+}

@@ -1,0 +1,104 @@
+{
+  "settings": {
+    "mapSets": [
+      {
+        "mapsetID": 1,
+        "mapSetName": "Australia Street Maps",
+        "downloadPath": "http://sprinq.com.au/files/AU.zip",
+        "mapPath": "ms-appdata:///local/maps/AU/",
+        "emptyTilePath": "maps/empty.png",
+        "startZoom": 7,
+        "endZoom": 15,
+        "activeFlag": 0,
+        "downloaded": 0,
+        "lastDownloadDate":  "",
+        "mapCenter": {
+          "lat": "-35.30873",
+          "lng": "149.124412"
+        },
+        "mapBounds": {
+          "topLat": "-8.55413",
+          "leftLng": "138.79849",
+          "bottomLat": "-29.01318",
+          "rightLng": "154.67349"
+        }
+      },
+      {
+        "mapsetID": 2,
+        "mapSetName": "Papua New Guinea Street Maps",
+        "downloadPath": "http://sprinq.com.au/files/PNG.zip",
+        "mapPath": "ms-appdata:///local/maps/PNG/",
+        "emptyTilePath": "maps/empty.png",
+        "startZoom": 7,
+        "endZoom": 15,
+        "activeFlag": 1,
+        "downloaded": 0,
+        "lastDownloadDate": "09/09/1900",
+        "mapCenter": {
+          "lat": "-5.95452",
+          "lng": "144.60374"
+        },
+        "mapBounds": {
+          "topLat": "-2.528109",
+          "leftLng": "140.65029",
+          "bottomLat": "-10.9648",
+          "rightLng": "151.197165"
+        }
+      },
+      {
+        "mapsetID": 3,
+        "mapSetName": "East Timor Street Maps",
+        "downloadPath": "http://sprinq.com.au/files/ET.zip",
+        "mapPath": "ms-appdata:///local/maps/ET/",
+        "emptyTilePath": "maps/empty.png",
+        "startZoom": 7,
+        "endZoom": 15,
+        "activeFlag": 0,
+        "downloaded": 0,
+        "lastDownloadDate": "",
+        "mapCenter": {
+          "lat": "-8.79854",
+          "lng": "125.83805"
+        },
+        "mapBounds": {
+          "topLat": "-8.12481",
+          "leftLng": "124.84378",
+          "bottomLat": "-9.57940",
+          "rightLng": "128.22757"
+        }
+      }
+    ],
+    "device": {
+      "ownerId": "1",
+      "ownerName": "Raj Jonnalagedda",
+      "ownerRole": "Botanist",
+      "samplePrefix": "RJ",
+      "sampleStartNumber": 0
+    },
+    "logging": {
+      "allowLogging": 1,
+      "allowView": 1,
+      "allowDownload": 1,
+      "downloadPath": ""
+    },
+    "auth": {
+      "authenticated": 0,
+      "authURL": "",
+      "currentToken": "",
+      "currentTokenExpiryDateTime": "",
+      "lastLoggedInUser": "",
+      "lastLoggedInDateTime": "",
+      "useOTP": 1,
+      "currentOTP": 1234,
+      "currentOTPExpiryDateTime": "",
+      "lastOTPUser": "",
+      "lastOTPDateTime": "",
+      "otpReset": 0,
+      "signedOut": 0
+    },
+    "app": {
+      "dataReset": 0,
+      "appMode": "PH"
+    }
+  }
+}

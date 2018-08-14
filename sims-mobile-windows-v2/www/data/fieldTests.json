@@ -1,0 +1,66 @@
+{
+   "fieldTests": {
+    "fieldTest": [
+      {
+        "fieldTestCde": "4D",
+        "fieldTestName": "Idexx SNAP 4Dx Plus Test",
+        "diseases": {
+          "disease": [
+            {
+              "diseaseCde": "E",
+              "diseaseName": "Ehrlichiosis"
+            },
+            {
+              "diseaseCde": "A",
+              "diseaseName": "Anaplasmosis"
+            },
+            {
+              "diseaseCde": "H",
+              "diseaseName": "Heartworm"
+            },
+            {
+              "diseaseCde": "L",
+              "diseaseName": "Lyme Disease"
+            }
+          ]
+        }
+      },
+      {
+        "fieldTestCde": "LF",
+        "fieldTestName": "Lateral flow device (LFD)",
+        "diseases": {
+          "disease": [
+            {
+              "diseaseCde": "F",
+              "diseaseName": "FMD (viral anitgen)"
+            }
+          ]
+        }
+      },
+      {
+        "fieldTestCde": "AILFD",
+        "fieldTestName": "AI Lateral flow device (LFD)",
+        "diseases": {
+          "disease": [
+            {
+              "diseaseCde": "F",
+              "diseaseName": "FMD (viral anitgen)"
+            }
+          ]
+        }
+      },
+      {
+        "fieldTestCde": "NDLFD",
+        "fieldTestName": "ND Lateral flow device (LFD)",
+        "diseases": {
+          "disease": [
+            {
+              "diseaseCde": "F",
+              "diseaseName": "FMD (viral anitgen)"
+            }
+          ]
+        }
+      }
+    ]
+   }
+}

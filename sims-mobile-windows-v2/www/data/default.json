@@ -1,0 +1,37 @@
+{
+  "observations": [
+    {
+      "surveillanceActivity": "1617Q5AS_06",
+      "siteCommunity": "100",
+      "waypoint": "1234",
+      "latitude": "-10.579917",
+      "longitude": "142.219391",
+      "datum": "WGS84",
+      "obsDate": "21-OCT-2017",
+      "userName": "Prasad, Jayant",
+      "plantName_1": "Plant 1",
+      "statType_1": "C",
+      "statTypeVal_1": "10",
+      "weed_1": "No",
+      "both_1": "No",
+      "earmark_1": "No",
+      "extPhoto_1": "No",
+      "notes_1": "Hello",
+      "latitude_1": "-10.579917",
+      "longitude_1": "142.219391",
+      "datum_1": "WGS84",
+      "plantPic_1_1": "plant.png",
+      "plantPic_1_2": "plant.png",
+      "plantPic_1_3": "plant.png",
+      "plantPic_1_4": "plant.png",
+      "plantPic_1_5": "plant.png",
+      "plantPic_1_6": "plant.png",
+      "plantPic_1_7": "plant.png",
+      "plantPic_1_8": "plant.png",
+      "id": "3",
+      "status": "0",
+      "discipline": "B",
+      "obType": "2"
+    }
+  ]
+}

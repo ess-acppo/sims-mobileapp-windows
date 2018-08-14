@@ -1,0 +1,99 @@
+﻿<div class="row col-md-12 col-sm-12 col-xs-12 hostweed collapsed">
+    <i class="fa fa-arrow-circle-up fa-3x text-arrows collapse hide" data-action="collapse"></i>
+    <i class="fa fa-arrow-circle-down fa-3x expand text-arrows" data-action="expand"></i>
+    <div class="row col-md-12 col-sm-12 col-xs-12 pl-0 py-0">
+        <div class="form-group col-md-4 col-sm-4 col-xs-12">
+            <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5" data-original-title="1">1</span>
+            <label><span class="bold-red">*&nbsp;</span>Taxon ID</label>
+            <input type="number" class="form-control" placeholder="Taxon ID" name="PlantTaxonId_O_N" min="0" max="99999999" maxlength="8">
+        </div>
+        <div class="form-group col-md-7 col-sm-7 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Host Name</label>
+            <input type="text" class="form-control" placeholder="Host Name" name="PlantTaxonText_M_S" data-section="PlantObsTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12 pl-0 py-0">
+        <div class="form-group col-md-6 col-sm-6 col-xs-6">
+            <label><span class="bold-red">*&nbsp;</span></label>
+            <input type="radio" class="minimal" name="CountList_M_S" value="Count" data-validate="N" maxlength="1" data-section="PlantObsTab">&nbsp;
+            <label>Count</label>
+        </div>
+        <div class="form-group col-md-6 col-sm-6 col-xs-6">
+            <input type="radio" class="minimal" name="CountList_M_S" value="List" data-validate="N" maxlength="1" data-section="PlantObsTab">&nbsp;
+            <label>List</label>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12 countArea hide">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Statistic Type</label>
+            <select class="form-control select2" name="PlantStatisticType" data-section="PlantObsTab"></select>
+        </div>
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Count/Area</label>&nbsp;<span data-toggle="tooltip" title="0" class="badge bg-grey" data-original-title="0">0</span>
+            <br />
+            <button type="button" class="btn btn-md btn-default qtyminus"><i class="fa fa-minus"></i></button>
+            <input type="number" class="qty count" name="HostStatCount_M_N" value="0" min="0" max="99999999" maxlength="8" data-section="PlantObsTab">
+            <input type="number" class="qty area" name="HostStatAreaNo_M_N" value="0" min="0" max="99999999" maxlength="8" data-section="PlantObsTab">
+            <button type="button" class="btn btn-md btn-default qtyplus"><i class="fa fa-plus"></i></button>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12 pl-0 py-0">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <input type="checkbox" name="CheckFutureSurveyFlag_O_S" class="minimal" maxlength="1" data-section="PlantObsTab">&nbsp;
+            <label>Flag</label>
+        </div>
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <input type="checkbox" name="ExternalPhotoExistFlag_O_S" class="minimal" maxlength="1" data-section="PlantObsTab">&nbsp;
+            <label>External Photo</label>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12 pl-0 py-0">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label>Latitude</label>
+            <input type="number" class="form-control hostweedlat" name="Latitude" placeholder="Latitude" data-section="PlantObsTab">
+        </div>
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label>Longitude</label>
+            <input type="number" class="form-control hostweedlng" name="Longitude" placeholder="Longitude" data-section="PlantObsTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12 hide">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Point WKT</label>
+            <input type="text" class="form-control" readonly name="LocationPointWktClob_O_S" data-section="PlantObsTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12 pl-0 py-0">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label>Datum</label>
+            <select class="form-control hostweeddat" name="GpsDatumId_O_S" data-section="PlantObsTab">
+                <option>WGS84</option>
+                <option>GDA94</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <button class="btn btn-md btn-default getPlantCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12 pl-0 py-0">
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label>Notes</label>
+            <textarea class="form-control" rows="6" name="CommentText_O_S" style="height:60px;" maxlength="400" data-section="PlantObsTab"></textarea>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12 pl-0 py-0">
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <img class="pp" src="images/plant.png" name="iPlantObsAttachment1_O_S">
+            <input type="hidden" name="PlantObsAttachment1_O_S" value="" data-section="PlantObsAttachmentTab"><img class="pp" src="images/plant.png" name="iPlantObsAttachment2_O_S">
+            <input type="hidden" name="PlantObsAttachment2_O_S" value="" data-section="PlantObsAttachmentTab"><img class="pp" src="images/plant.png" name="iPlantObsAttachment3_O_S">
+            <input type="hidden" name="PlantObsAttachment3_O_S" value="" data-section="PlantObsAttachmentTab"><img class="pp" src="images/plant.png" name="iPlantObsAttachment4_O_S">
+            <input type="hidden" name="PlantObsAttachment4_O_S" value="" data-section="PlantObsAttachmentTab"><img class="pp" src="images/plant.png" name="iPlantObsAttachment5_O_S">
+            <input type="hidden" name="PlantObsAttachment5_O_S" value="" data-section="PlantObsAttachmentTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12 pl-0 py-0">
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <a href="#" class="text-danger removePlant" data-action="removePlant">Delete</a>
+        </div>
+    </div>
+</div>

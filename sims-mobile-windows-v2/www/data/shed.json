@@ -1,0 +1,22 @@
+{
+   "sh_schedules": {
+      "sh_schedule": {
+         "metadata": {
+            "id": "2729",
+            "name": "1617Q2AS_06",
+            "startDate": "2017-11-28",
+            "endDate": "2017-11-28",
+            "site": {
+               "id": "100",
+               "name": "Seisia Meatworks",
+               "description": "Meatworks in Seisia township where Sentinel Cattle are kept",
+               "locationDatum": {
+                  "wkt": "POLYGON ((142.36729 -10.84713, 142.36681 -10.84856, 142.36897 -10.84938, 142.36917 -10.84841, 142.36729 -10.84713))",
+                  "srsName": "WGS84"
+               }
+            },
+            "status": "R"
+         }
+      }
+   }
+}

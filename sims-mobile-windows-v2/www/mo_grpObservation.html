@@ -1,0 +1,367 @@
+﻿<form role="form" id="form1">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active first middle fat"><a href="#tab_0" data-toggle="tab"><i class="fa fa-hand-lizard-o fa-2x"></i></a></li>
+                    <li class="middle fat"><a href="#tab_1" data-toggle="tab"><i class="fa fa-search fa-2x"></i></a></li>
+                    <li class="middle fat"><a href="#tab_2" data-toggle="tab"><i class="fa fa-snowflake-o fa-2x"></i></a></li>
+                    <li class="last fat"><a href="#tab_3" data-toggle="tab"><i class="fa fa-paperclip fa-2x"></i></a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_0">
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-5">
+                                <label><span class="bold-red">*</span>Activity</label>
+                                <select class="form-control" name="surveillanceActivity">
+                                    <option selected>1617Q5AS_06</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-5">
+                                <label><span class="bold-red">*</span>Animal Type</label>
+                                <select class="form-control" name="animalType">
+                                    <option selected>Wild</option>
+                                    <option>Managed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-5">
+                                <label><span class="bold-red">*</span>Species Common Name</label>
+                                <select class="form-control" name="commonName">
+                                    <option>Common Name</option>
+                                    <option selected>Pig</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-5">
+                                <label><span class="bold-red">*</span>Species Taxon</label>
+                                <select class="form-control" name="taxon">
+                                    <option>Taxon</option>
+                                    <option selected>Suss scrofa</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-5">
+                                <label><span class="bold-red">*</span>Total Number in Group</label>
+                                <input type="text" class="form-control" placeholder="0" name="groupNum">
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <hr />
+                            <div class="form-group col-sm-6">
+                                <h4>Geo Tracking</h4>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-6">
+                                <div data-role="fieldcontain" class="ui-hide-label">
+                                    <input class="hide" type="text" name="track_id" id="track_id" readonly placeholder="Track ID" />
+                                    <textarea class="form-control hide" rows="6" name="trackfile" id="trackfile">None</textarea>
+                                </div>
+                                <p id="startTracking_status"></p>
+                                <button type="button" class="btn btn-circle btn-lg btn-success" id="startTracking_start"><i class="fa fa-play"></i></button>
+                                <button type="button" class="btn btn-circle btn-lg btn-success" id="startTracking_stop"><i class="fa fa-stop"></i></button>
+                                <button type="button" class="btn btn-circle btn-lg btn-success" id="track_info"><i class="fa fa-map"></i></button>
+                                <p id="startTracking_debug"></p>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <hr />
+                            <div class="form-group col-sm-4">
+                                <h4>Timer</h4>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-6">
+                                <div class="timer well timerblack"></div>
+                                <button type="button" class="btn btn-circle btn-lg btn-info" id="timerstart"><i class="fa fa-play"></i></button>
+                                <button type="button" class="btn btn-circle btn-lg btn-info" id="timerstop"><i class="fa fa-stop"></i></button>
+                                <button type="button" class="btn btn-circle btn-lg btn-info" id="timerrestart"><i class="fa fa-forward"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab_1">
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-5">
+                                <label><span class="bold-red">*</span>Observation Date</label>
+                                <input type="text" class="form-control datetimepicker" placeholder="Date" name="sDate">
+                                <i class="fa fa-calendar form-control-feedback"></i>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-5">
+                                <label><span class="bold-red">*</span>Observed by</label>
+                                <select class="form-control" name="userName">
+                                    <option>UserName</option>
+                                    <option selected>Shen, Angela</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-5">
+                                <label><span class="bold-red">*</span>Latitude</label>
+                                <input type="text" class="form-control" placeholder="Latitude" name="latitude">
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-5">
+                                <label><span class="bold-red">*</span>Longitude</label>
+                                <input type="text" class="form-control" placeholder="Longitude" name="longitude">
+                            </div>
+                            <div class="form-group col-sm-2">
+                                <button type="button" class="btn btn-md btn-circle btn-info getGPS"><i class="fa fa-map-marker fa-2x"></i></button>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-5">
+                                <label><span class="bold-red">*</span>Datum</label>
+                                <select class="form-control" name="datum">
+                                    <option>WGS84</option>
+                                    <option>GDA94</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class='form-group col-sm-5'>
+                                <label><span class="bold-red">*</span>Observation Proximity</label>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-4 bg-gray-blue-first">
+                                <input type="radio" class="minimal" name="obsProximity" value="Aerial"><label class="label-x">Aerial <br />&nbsp;</label>
+                            </div>
+                            <div class="form-group col-sm-3 bg-gray-blue">
+                                <input type="radio" class="minimal" name="obsProximity" value="Ground (distant)"><label class="label-x">Ground <br />(distant)</label>
+                            </div>
+                            <div class="form-group col-sm-4 bg-gray-blue-last">
+                                <input type="radio" class="minimal" name="obsProximity" value="Ground (close)"><label class="label-x">Ground <br />(close)</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab_2">
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-6">
+                                <label><span class="bold-red">*</span><b>Age Class >></b></label>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label><b>Gender (Optional) >></b></label>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-3">
+                                <label>Adult</label>
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <input type="text" class="form-control" placeholder="0" name="adultNumber">
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <input type="text" class="form-control" placeholder="0%" name="adultPercent">
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <label>&nbsp;</label>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label>Male</label>
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <input type="text" class="form-control" placeholder="0" name="maleNumber">
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <input type="text" class="form-control" placeholder="0%" name="malePercent">
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-3">
+                                <label>Juvenile</label>
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <input type="text" class="form-control" placeholder="0" name="juvNumber">
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <input type="text" class="form-control" placeholder="0%" name="juvPercent">
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <label>&nbsp;</label>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label>Female</label>
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <input type="text" class="form-control" placeholder="0" name="femaleNumber">
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <input type="text" class="form-control" placeholder="0%" name="femalePercent">
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-3">
+                                <label>Unknown</label>
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <input type="text" class="form-control" placeholder="0" name="aunkNumber">
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <input type="text" class="form-control" placeholder="0" name="aunkPercent">
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <label>&nbsp;</label>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label>Unknown</label>
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <input type="text" class="form-control" placeholder="0" name="gunkNumber">
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <input type="text" class="form-control" placeholder="0" name="gunkpercent">
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims" style="padding-top:10px;">
+                            <div class="form-group col-sm-4">
+                                <label>Are there any obvious clinical syndromes?<span class="bold-red">*</span></label>
+                            </div>
+                            <div class="form-group col-sm-3 bg-gray-blue-first">
+                                <input type="radio" class="minimal" name="optSyndromes" value="Yes"><label class="label-x">Yes</label>
+                            </div>
+                            <div class="form-group col-sm-3 bg-gray-blue-last">
+                                <input type="radio" class="minimal" name="optSyndromes" value="No"><label class="label-x">No</label>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-sm-6">
+                                <label><b>Syndromes</b></label>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class="form-group col-md-7">
+                                <select class="form-control lstSyndromes">
+                                    <option selected>Abnormal aggression, attacking other animals, people or objects</option>
+                                    <option>Wobbly, weakness, staggers, unable to rise or paralysed</option>
+                                    <option>Depressed or looks sick</option>
+                                    <option>Itchy, always scratching, chewing or licking</option>
+                                    <option>Abnormal breathing, coughing, sneezing, gasping for air or can't breath</option>
+                                    <option>Drooling and/or mouth wounds/ lesions +/- lameness</option>
+                                    <option>Diarrhoea +/- skinny or losing weight</option>
+                                    <option>Abortion/stillbirth</option>
+                                    <option>Acute febrile disease</option>
+                                    <option>Alimentary signs other than diarrhoea</option>
+                                    <option>Circulatory/anaemia/oedema</option>
+                                    <option>Congenital defect</option>
+                                    <option>Diarrhoea</option>
+                                    <option>Generalised oedema</option>
+                                    <option>Genital lesions</option>
+                                    <option>Ill thrift/weight loss</option>
+                                    <option>Increased mortality/sudden death/ unexplained death</option>
+                                    <option>Infertility</option>
+                                    <option>Jaundice</option>
+                                    <option>Lameness</option>
+                                    <option>Lymphadenopathy</option>
+                                    <option>Nasal discharge</option>
+                                    <option>Nervous signs</option>
+                                    <option>Oral lesions or salivation</option>
+                                    <option>Production drop/mastitis</option>
+                                    <option>Pruritis</option>
+                                    <option>Respiratory signs</option>
+                                    <option>Skin lesions</option>
+                                    <option>Weakness/depression/anorexia/malaise</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-1">
+                                <button type="button" class="btn btn-md btn-default addSyndrome"><i class="fa fa-plus"></i>Add Syndrome</button>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims addedSyndrome" style="margin-left:2px;height:250px;overflow-y:scroll;vertical-align:top;background-color:#f8f8f8;">
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class='form-group col-md-11'>
+                                <label class="label-y">Additional Observations</label>
+                                <textarea class="form-control" rows="6" name="addlObsrvns" style="height:100px;">None</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab_3">
+                        <div class="form-group col-md-12">
+                            &nbsp;
+                        </div>
+                        <div class="form-group col-md-12">
+                            <button type="button" class="btn btn-sm btn-default"><i class="fa fa-paperclip"></i>Add Image</button>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <table class="table table-bordered table-hover no-padding no-right-padding">
+                                <thead class="no-right-padding">
+                                    <tr>
+                                        <th>Filename</th>
+                                        <th>Description</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="no-right-padding">
+                                    <tr class="border-all">
+                                        <td class="border-right">Label_Example_1.png</td>
+                                        <td class="border-right">Sample File</td>
+                                        <td class="border-right">-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class='form-group col-sm-5'>
+                                <label><span class="bold-red">*</span>Generate Sample ID</label>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims">
+                            <div class='form-group col-sm-5'>
+                                <div class="nextid well timerblack"></div>
+                            </div>
+                            <div class='form-group col-sm-2'>
+                                <button type="button" class="btn btn-circle btn-lg btn-info" onClick="getNextID();"><i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 sims hide">
+                            <div class='form-group col-sm-5'>
+                                <input type="text" name="id" readonly /><br />
+                                <input type="text" name="status" readonly />
+                                <input type="text" name="obType" value="1" readonly />
+                                <input type="text" name="discipline" value="G" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" id="pageScript">
+    $('#mt').text('Animal Group Summary');
+    $('#mt2').text('Animal Group Summary');
+    $('.timer').countimer({
+        autoStart: false
+    });
+    $(document).on('click', '#timerstart', function () {
+        $('.timer').countimer('start');
+    })
+    $(document).on('click', '#timerstop', function () {
+        $('.timer').countimer('stop');
+    })
+    $(document).on('click', '#timerrestart', function () {
+        $('.timer').countimer('restart');
+    })
+    $('.datetimepicker').datetimepicker({
+        format: 'd-MMM-YYYY hh:mm Z',
+        defaultDate: Date.now()
+    });
+    $('.datepicker').datepicker({
+        format: 'd-MMM-YYYY hh:mm Z',
+        todayHighlight: true,
+        autoclose: true
+    });
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue'
+    });
+</script>

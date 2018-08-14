@@ -1,29 +1,465 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-    <head>
-    <!--
-        Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
-        For details, see http://go.microsoft.com/fwlink/?LinkID=617521
-    -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-        
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>simsmobilewindowsv2</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: ms-appdata: https://ssl.gstatic.com 'unsafe-eval'; img-src * data: gap: ms-appdata: https://ssl.gstatic.com 'unsafe-eval'; style-src * 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+    <title>ESFA - Enterprise Surveillance Field App</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="css/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="scripts/iCheck/square/blue.css">
+    <link rel="stylesheet" href="scripts/iCheck/all.css">
+    <link rel="stylesheet" href="scripts/datepicker/datepicker3.css">
+    <link rel="stylesheet" href="scripts/datepicker/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="scripts/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="scripts/timepicker/bootstrap-timepicker.min.css">
+    <link href="scripts/growl/jquery.growl.css" rel="stylesheet" type="text/css" />
+    <link href="scripts/jquery-confirm/jquery-confirm.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/SHMOStyles.css" />
+    <style>
+        #map, #mapc {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            right: 0;
+            top: 0;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <!--<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHMxQijzVI_ZdrKHgUYn8MmVT5rABxbzQ&ensor=false&libraries=geometry" type="text/javascript"></script>-->
+</head>
+<body>
+    <div class="modal" tabindex="-1" role="dialog" id="modalForm" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-remove text-default"></i></span></button>
+                    <span class="modal-title" id="mt"></span><br />
+                    <small class="text-info esfatitle"><b>ESFA</b> - Enterprise Surveillance Field App</small>
+                    <div class="overlay hide">
+                        <center><b>Loading ...</b></center>
+                    </div>
+                </div>
+                <div class="modal-body" id="mb">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-warning" id="Submit2"><i class="fa fa-arrow-circle-o-right"></i>&nbsp;Submit</button>
+                    <button type="button" class="btn btn-sm btn-default" id="Save"><i class="fa fa-save"></i>&nbsp;Save</button>
+                    <button type="button" class="btn btn-sm btn-info" id="SaveExit"><i class="fa fa-save"></i>&nbsp;Save'Exit</button>
+                    <a href="#" class="text-danger pull-left" id="Delete">Delete</a>&nbsp;
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="modalGrid" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-remove text-default"></i></span></button>
+                    <span class="modal-title" id="mt1"></span><br />
+                    <small class="text-info esfatitle"><b>ESFA</b> - Enterprise Surveillance Field App</small>
+                    <div class="overlay hide">
+                        <center><b>Loading ...</b></center>
+                    </div>
+                </div>
+                <div class="modal-body" id="mb1" style="padding:20px;margin-right:20px;">
+                    <form role="form" id="form2">
+                        <table id="srchTable" class="table table-bordered table-hover display" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>SurveillanceActivity</th>
+                                    <th>CommonName</th>
+                                    <th>Date</th>
+                                    <th>Latitude</th>
+                                    <th>Longitude</th>
+                                    <th>Datum</th>
+                                    <th>Id</th>
+                                    <th>Status</th>
+                                    <th>Discipline</th>
+                                    <th>obType</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-circle btn-lg btn-info export" id="Download"><i class="fa fa-download fa-2x"></i></button>
+                    <button type="button" class="btn btn-circle btn-lg btn-success sync" id="Sync"><i class="fa fa-refresh fa-2x"></i></button>
+                    <a href="#" class="text-info pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="modalPHGrid" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-remove text-default"></i></span></button>
+                    <span class="modal-title" id="mt1">All Observations</span><br />
+                    <small class="text-info esfatitle"><b>ESFA</b> - Enterprise Surveillance Field App</small>
+                    <div class="overlay hide">
+                        <center><b>Loading ...</b></center>
+                    </div>
+                </div>
+                <div class="modal-body" id="mb1" style="padding:20px;margin-right:20px;">
+                    <form role="form" id="form2">
+                        <table id="srchPHTable" class="table table-bordered table-hover display" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Discipline</th>
+                                    <th>SurveillanceActivity</th>
+                                    <th>Site</th>
+                                    <th>Date</th>
+                                    <th>Waypoint</th>
+                                    <th>Location</th>
+                                    <th>Datum</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-md btn-default" id="newObservation"><i class="fa fa-plus"></i>&nbsp;New</button>
+                    <button type="button" class="btn btn-md btn-default export" id="Download"><i class="fa fa-download"></i>&nbsp;Download</button>
+                    <button type="button" class="btn btn-md btn-info sync" id="Sync"><i class="fa fa-refresh"></i>&nbsp;Sync</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="modalMap" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-remove text-default"></i></span></button>
+                    <span class="modal-title" id="mt2"></span><br />
+                    <small class="text-info esfatitle"><b>ESFA</b> - Enterprise Surveillance Field App</small>
+                    <div class="overlay hide">
+                        <center><b>Loading ...</b></center>
+                    </div>
+                </div>
+                <div class="modal-body" id="mb2">
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="text-info pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
+                    <button type="button" id="zoomlevel2" class="btn btn-circle btn-lg btn-info"><i class="fa fa-search-plus fa-2x"></i></button>&nbsp;&nbsp;&nbsp;
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="modalMenu" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-remove text-default"></i></span></button>
+                    <span class="modal-title" id="mt3">Choose a Form</span><br />
+                    <small class="text-info esfatitle"><b>ESFA</b> - Enterprise Surveillance Field App</small>
+                    <div class="overlay hide">
+                        <center><b>Loading ...</b></center>
+                    </div>
+                </div>
+                <div class="modal-body" id="mb3">
+                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                        <div class="form-group col-md-2 col-sm-2 col-xs-2">
+                            <input type="radio" class="minimal" value="mo_sngObservation" name="optObs" data-id="0" data-discipline="S">
+                        </div>
+                        <div class="form-group col-md-10 col-sm-10 col-xs-10">
+                            <h5>Single Opportunisitic Observation (IAH)</h5>
+                        </div>
+                    </div>
+                    <!--<div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                        <div class="form-group col-md-2">
+                            <input type="radio" class="minimal" value="mo_grpObservation" name="optObs" data-id="1">
+                        </div>
+                        <div class="form-group col-md-10">
+                            <label>Group Observation</label>
+                        </div>
+                    </div>-->
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="text-info pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
+                    <button type="button" id="showForm" class="btn btn-circle btn-lg btn-info"><i class="fa fa-check fa-2x"></i></button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="modalAHMenu" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-remove text-default"></i></span></button>
+                    <span class="modal-title" id="mt3">Choose a Form</span><br />
+                    <small class="text-info esfatitle"><b>ESFA</b> - Enterprise Surveillance Field App</small>
+                    <div class="overlay hide">
+                        <center><b>Loading ...</b></center>
+                    </div>
+                </div>
+                <div class="modal-body" id="mb3">
+                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                        <div class="form-group col-md-2 col-sm-2 col-xs-2">
+                            <input type="radio" class="minimal" value="mo_sngObservation" name="optObs" data-id="0" data-discipline="S">
+                        </div>
+                        <div class="form-group col-md-10 col-sm-10 col-xs-10">
+                            <h5>Single Domestic Observation</h5>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                        <div class="form-group col-md-2 col-sm-2 col-xs-2">
+                            <input type="radio" class="minimal" value="mo_grpObservation" name="optObs" data-id="1" data-discipline="G">
+                        </div>
+                        <div class="form-group col-md-10 col-sm-10 col-xs-10">
+                            <h5>Group Observation</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="text-info pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
+                    <button type="button" id="showFormAH" class="btn btn-circle btn-lg btn-info"><i class="fa fa-check fa-2x"></i></button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="modalPHMenu" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-remove text-default"></i></span></button>
+                    <span class="modal-title" id="mt3">Choose a Form</span><br />
+                    <small class="text-info esfatitle"><b>ESFA</b> - Enterprise Surveillance Field App</small>
+                    <div class="overlay hide">
+                        <center><b>Loading ...</b></center>
+                    </div>
+                </div>
+                <div class="modal-body" id="mb3">
+                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                        <div class="form-group col-md-2 col-sm-2 col-xs-2 text-center">
+                            <input type="radio" class="minimal" value="mo_BotObservation" name="optObs" data-id="2" data-discipline="B">
+                        </div>
+                        <div class="form-group col-md-10 col-sm-10 col-xs-10">
+                            <h4>Botany Observation</h4>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                        <div class="form-group col-md-2 col-sm-2 col-xs-2 text-center">
+                            <input type="radio" class="minimal" value="mo_EntObservation" name="optObs" data-id="3" data-discipline="E">
+                        </div>
+                        <div class="form-group col-md-10 col-sm-10 col-xs-10">
+                            <h4>Entomology Observation</h4>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                        <div class="form-group col-md-2 col-sm-2 col-xs-2 text-center">
+                            <input type="radio" class="minimal" value="mo_PatObservation" name="optObs" data-id="4" data-discipline="P">
+                        </div>
+                        <div class="form-group col-md-10 col-sm-10 col-xs-10">
+                            <h4>Pathology Observation</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="padding-bottom:20px;">
+                    <button type="button" id="showFormPH" class="btn btn-md btn-default"><i class="fa fa-check"></i>&nbsp;Done</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="modalVerify" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body" id="mb4">
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <br /><br />
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-3">&nbsp;</div>
+                        <div class="col-md-6" style="text-align:center;">
+                            <img src="images/icon-96-xhdpi.png" />
+                        </div>
+                        <div class="col-md-3">&nbsp;</div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <br /><br /><br />
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-3">&nbsp;</div>
+                        <div class="col-md-6" style="text-align:center;">
+                            <input class="otp-verify-input"
+                                   placeholder="000000"
+                                   maxlength="6"
+                                   value="" type="tel" />
+                            <button type="button" class="btn btn-lg btn-warning otp-verify-send">Verify</button>
+                            <div class="otp-verify-result">
+                                <i class='fa'></i>
+                                <span class='text'></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-3">&nbsp;</div>
+                        <div class="col-md-6" style="text-align:center;">
+                            <h6>Department of Agriculture and Water Resources.</h6>
+                        </div>
+                        <div class="col-md-3">&nbsp;</div>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="modalAuth" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body" id="mb6">
+                    <div class="login-box text-center">
+                        <div class="login-logo" style="margin-top:30px;">
+                            <div class="login-logo" style="margin-top:30px;">
+                                <h1 class="text-info">ESFA</h1><small>Enterprise Surveillance Field App</small>
+                            </div>
+                        </div>
+                        <!-- /.login-logo -->
+                        <div class="login-box-body" style="margin-top:30px;">
+                            <div class="row col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-6">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-3">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <div class="row col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-6">
+                                    <form role="form" id="form4">
+                                        <div class="form-group input-group-lg">
+                                            <input type="hidden" name="grant_type" id="grant_type" value="password">
+                                            <input class="form-control auth-username" name="username" id="username" placeholder="username" maxlength="40" value="" type="email">
+                                        </div>
+                                        <div class="form-group input-group-lg">
+                                            <input class=" form-control auth-password" name="password" id="password" placeholder="password" maxlength="40" value="" type="password">
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-lg btn-warning auth-send" type="button"><i class="fa fa-circle-o-notch fa-spin hide"></i>Login</button>
+                                        </div>
+                                        <div class="auth-result text-center">
+                                            <i class="fa"></i>
+                                            <span class="text"></span>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-3">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <div class="row col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-md-3 col-sm-6">&nbsp;</div>
+                                <div class="col-md-6 col-sm-6" style="text-align:center;">
+                                    <small>Copyright © 2018.<br />Department of Agriculture and Water Resources.</small>
+                                </div>
+                                <div class="col-md-3 col-sm-6">&nbsp;</div>
+                            </div>
+                        </div>
+                        <!-- /.login-box-body -->
+                    </div>
+                </div>
+                <div class="modal-footer" style="border: 0px;">
+                    &nbsp;
+                </div>
+            </div><!-- /.modal-content -->
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-        <script type="text/javascript" src="scripts/index.js"></script>
-    </body>
+    </div><!-- /.modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="modalSettings" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-remove text-default"></i></span></button>
+                    <span class="modal-title" id="mt5"></span><br />
+                    <small class="text-info esfatitle"><b>ESFA</b> - Enterprise Surveillance Field App</small>
+                    <div class="overlay hide">
+                        <span class="progText">Loading...</span>
+                    </div>
+                </div>
+                <div class="modal-body" id="mb5" style="overflow-x:hidden">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-md btn-info" id="SaveSettingsExit"><i class="fa fa-save"></i>&nbsp;Save</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="modalProgress" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body" id="mb6">
+                    <span class="progText" style="margin-top:10px;">Loading...</span>
+                    <div class="progress" style="margin-top:10px;">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:90%">
+                            0%
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div id="map"></div>
+    <div class="topButton">
+        <button type="button" id="settings" class="btn btn-circle btn-lg btn-warning"><i class="fa fa-cog fa-2x"></i></button>
+        <button type="button" id="CSV" class="btn btn-circle btn-lg btn-warning" onclick="downloadCSV()"><i class="fa fa-tasks fa-2x"></i></button>
+        <button type="button" id="init" class="btn btn-circle btn-lg btn-warning" onclick="myLoc()"><i class="fa fa-map-marker fa-2x"></i></button>
+        <button type="button" id="zplus" class="btn btn-circle btn-lg btn-warning"><i class="fa fa-plus fa-2x"></i></button>
+        <button type="button" id="zminus" class="btn btn-circle btn-lg btn-warning"><i class="fa fa-minus fa-2x"></i></button>
+    </div>
+    <div class="bottomButton">
+        <span class="label label-success" id="status"></span>
+        <span class="label label-default" id="zoomlevel"></span>
+        <span class="label label-default" id="AppMode"></span>
+        <span class="label label-default" id="AppVersion"></span>
+    </div>
+    <script type="text/javascript" src="scripts/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="scripts/fastclick.js"></script>
+    <script type="text/javascript" src="mapapi.js"></script>
+    <script type="text/javascript" src="scripts/markerclusterer.js"></script>
+    <!--<script type="text/javascript" src="scripts/AHRules.js"></script>-->
+    <script type="text/javascript" src="scripts/PHRules.js"></script>
+    <script type="text/javascript" src="scripts/_init.js"></script>
+    <!--<script type="text/javascript" src="scripts/geotracker.js"></script>-->
+    <script type="text/javascript" src="scripts/index.js"></script>
+    <script type="text/javascript" src="scripts/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="scripts/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="scripts/iCheck/icheck.min.js"></script>
+    <script type="text/javascript" src="scripts/moment.min.js"></script>
+    <script type="text/javascript" src="scripts/datepicker/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="scripts/growl/jquery.growl.js"></script>
+    <script type="text/javascript" src="scripts/jquery-confirm/jquery-confirm.min.js"></script>
+    <script type="text/javascript" src="scripts/ez.countimer.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.inputmask.js"></script>
+    <script type="text/javascript" src="scripts/jquery.inputmask.date.extensions.js"></script>
+    <script type="text/javascript" src="scripts/jquery.inputmask.extensions.js"></script>
+    <script type="text/javascript" src="scripts/wicket/wicket.js"></script>
+    <script type="text/javascript" src="scripts/wicket/wicket-gmap3.js"></script>
+    <script type="text/javascript" src="scripts/sha1.js"></script>
+    <script type="text/javascript" src="scripts/pbkdf2.js"></script>
+    <script type="text/javascript" src="scripts/auth.js"></script>
+    <script type="text/javascript" src="scripts/hammer.min.js"></script>
+    <!--<script type="text/javascript" src="scripts/otp.js"></script>
+    <script type="text/javascript" src="scripts/otplib-browser.js"></script>
+    <script type="text/javascript" src="scripts/qrcode.min.js"></script>-->
+</body>
 </html>

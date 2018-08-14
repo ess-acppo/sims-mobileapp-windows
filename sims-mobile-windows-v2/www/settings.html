@@ -1,0 +1,130 @@
+﻿<form role="form" id="form3">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#tab_MS" data-toggle="tab"><i class="fa fa-map mxr-5"></i>Maps</a>
+                    </li>
+                    <li class="">
+                        <a href="#tab_AS" data-toggle="tab"><i class="fa fa-cog mxr-5"></i>Device</a>
+                    </li>
+                    <li class="">
+                        <a href="#tab_DS" data-toggle="tab"><i class="fa fa-tablet mxr-5"></i>Application</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_MS">
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <input type="radio" class="minimal" value="AU" name="optMaps" data-id="0" data-url="http://sprinq.com.au/files/" data-files="1">
+                                Queensland Maps
+                                <label class="mapNotes text-sm"></label>
+                                <a href="#" class="btn btn-sm btn-default downloadMaps pull-right">Download</a><br /><br />
+                            </div>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <input type="radio" class="minimal" value="PNG" name="optMaps" data-id="1" data-url="http://sprinq.com.au/files/" data-files="28">
+                                Papua New Guinea Maps
+                                <label class="mapNotes text-sm"></label>
+                                <a href="#" class="btn btn-md btn-sm btn-default downloadMaps pull-right">Download</a><br /><br />
+                            </div>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <input type="radio" class="minimal" value="ET" name="optMaps" data-id="2" data-url="http://sprinq.com.au/files/" data-files="1">
+                                East Timor Maps
+                                <label class="mapNotes text-sm"></label>
+                                <a href="#" class="btn btn-md btn-sm btn-default downloadMaps pull-right">Download</a><br /><br />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab_AS">
+                        <div class="row col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <h5>Application Mode</h5>
+                                <small>Set application modes for various streams: PH = Planth Health</small>
+                                <select class="form-control pull-right" id="appMode">
+                                    <option value=PH>Plant Health (PH)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <h5>Data Backup</h5>
+                                <small>Backup your observations to a local folder.</small>
+                                <a href="#" class="btn btn-md btn-sm btn-default pull-right btnBackupData"><i class="fa fa-database"></i>&nbsp;Data Backup</a>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <h5>Data Restore</h5>
+                                <small>Backup your observations to a local folder.</small>
+                                <a href="#" class="btn btn-md btn-sm btn-default pull-right btnRestoreData"><i class="fa fa-rotate-left"></i>&nbsp;Data Restore</a>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <h5>Data Reset</h5>
+                                <small>Clear all observations and start from scratch.</small>
+                                <a href="#" class="btn btn-md btn-sm btn-default pull-right btnResetData"><i class="fa fa-power-off"></i>&nbsp;Data Reset</a>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <h5>Reset OTP</h5>
+                                <small>Reset your OTP (one-time-password). You will be prompted to verify your current OTP.</small>
+                                <a href="#" class="btn btn-md btn-sm btn-default pull-right btnResetOTP"><i class="fa fa-power-off"></i>&nbsp;OTP Reset</a>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <h5>SignIn Status</h5>
+                                <small>Click this button to signout. You will be prompted to signin next time you launch the app.</small>
+                                <a href="#" class="btn btn-sm btn-default pull-right btnSignout"><i class="fa fa-sign-out"></i>&nbsp;SignOut</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab_DS">
+                        <div class="row col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <h5>Device Owner</h5>
+                                <small>Select this device Owner from the picklist. All observations will be submitted as the device owner.</small>
+                                <select class="form-control pull-right" id="deviceOwner"></select>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <h5>Sample Prefix</h5>
+                                <small>Set the 2-letter prefix for your samples. By default, this value is set to 'XX'.</small>
+                                <input type="text" class="form-control pull-right" name="samplePrefix" />
+                            </div>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <h5>Sample Start Number</h5>
+                                <small>Set the start number for your samples sequence number. By default, this value is set to '0'.</small>
+                                <input type="text" class="form-control pull-right" readonly name="sampleStartNum" />
+                            </div>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <h5>Sample Current Number</h5>
+                                <small>Set the current number for your samples sequence number. By default, this value shown the current running number.</small>
+                                <input type="text" class="form-control pull-right" name="sampleCurrNum" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" id="pageScript">
+    $('#mt5').text('Application Settings');
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue'
+    });
+</script>

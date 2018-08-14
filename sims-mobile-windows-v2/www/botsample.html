@@ -1,0 +1,172 @@
+﻿<div class="row col-md-12 col-sm-12 col-xs-12 sample collapsed">
+    <i class="fa fa-arrow-circle-up fa-3x text-arrows collapse hide" data-action="collapse"></i>
+    <i class="fa fa-arrow-circle-down fa-3x expand text-arrows" data-action="expand"></i>
+    <div class="row col-md-12 col-sm-12 col-xs-12 pl-0 py-0">
+        <div class="form-group col-md-4 col-sm-4 col-xs-12">
+            <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5" data-original-title="1">1</span>
+            <label><span class="bold-red">*&nbsp;</span>Sample Field ID </label>
+            <input type="text" class="form-control nextid" placeholder="Sample Field ID" name="SampleFieldLabelText_M_S" data-section="PlantSampleTab">
+        </div>
+        <div class="form-group col-md-7 col-sm-7 col-xs-12">
+            <input class="mxr-5 minimal" type="checkbox" name="AdditionalCollectorTab" data-section="PlantSampleTab">
+            <label>Additional Collectors</label>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12 addlCollectors hide">
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <select class="form-control" name="AdditionalCollectorName1_O_S" data-section="PlantSampleTab"></select>
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <select class="form-control" name="AdditionalCollectorName2_O_S" data-section="PlantSampleTab"></select>
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <select class="form-control" name="AdditionalCollectorName3_O_S" data-section="PlantSampleTab"></select>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12 addlCollectors hide">
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <select class="form-control" name="AdditionalCollectorName4_O_S" data-section="PlantSampleTab"></select>
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <select class="form-control" name="AdditionalCollectorName5_O_S" data-section="PlantSampleTab"></select>
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <select class="form-control" name="AdditionalCollectorName6_O_S" data-section="PlantSampleTab"></select>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Number Collected </label>
+            <input type="number" class="form-control" placeholder="Number Collected" name="CollectedSampleCount_O_N" min="0" max="99999999" maxlength="8" data-section="PlantSampleTab">
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label>Linked Sample #</label>
+            <input type="text" class="form-control" placeholder="Linked Sample #" name="LinkedSampleFieldLabelText_O_S" maxlength="50" data-section="PlantSampleTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Preliminary Taxon ID </label>
+            <input type="number" class="form-control" placeholder="Preliminary ID" name="PrelimTaxonId_O_N" min="0" max="99999999" maxlength="8" data-section="PlantSampleTab">
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Preliminary Taxon Text </label>
+            <input type="text" class="form-control" placeholder="Preliminary ID" name="PrelimTaxonText_M_S" maxlength="50" data-section="PlantSampleTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Latitude </label>
+            <input type="number" class="form-control samplelat" placeholder="Latitude" name="Latitude" data-section="PlantSampleTab">
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Longitude </label>
+            <input type="number" class="form-control samplelng" placeholder="Longitude" name="Longitude" data-section="PlantSampleTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-11 col-sm-11 col-xs-11 hide">
+            <label><span class="bold-red">*&nbsp;</span>Point WKT</label>
+            <input type="text" class="form-control" readonly name="SamplePointWktClob_M_S" data-section="PlantSampleTab">
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Datum</label>
+            <select class="form-control sampledat" name="GpsDatumId_M_S" data-section="PlantSampleTab">
+                <option>WGS84</option>
+                <option>GDA94</option>
+            </select>
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <button class="btn btn-md btn-default getSampleCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label>Time</label>
+            <input type="datetime-local" class="form-control" placeholder="Time" name="CollectedDatetime_M_D" maxlength="20" data-section="PlantSampleTab">
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label>Altitude (Meters)</label>
+            <input type="number" class="form-control samplealt" placeholder="Altitude" name="CollectedAltitudeNo_O_N" min="0" max="9999" maxlength="4" data-section="PlantSampleTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <label>Additional Comments</label>
+            <textarea class="form-control" rows="6" name="CommentText_O_S" style="height:60px;" maxlength="400" data-section="PlantSampleTab"></textarea>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label>Identified By</label>
+            <select class="form-control" name="HostIdentifiedUserId_O_N" data-section="PlantSampleTab"></select>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Habit </label>
+            <input type="text" class="form-control" placeholder="Habit" name="HabitText_O_S" maxlength="200" data-section="PlantSampleTab">
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Description </label>
+            <input type="text" class="form-control" placeholder="Description" name="DetailedDescriptionText_O_S" maxlength="400" data-section="PlantSampleTab">
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Habitat </label>
+            <input type="text" class="form-control" placeholder="Habitat" name="HabitatText_O_S" maxlength="400" data-section="PlantSampleTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Landform </label>
+            <input type="text" class="form-control" placeholder="LandForm" name="LandformText_O_S" maxlength="200" data-section="PlantSampleTab">
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Soil/Geology </label>
+            <input type="text" class="form-control" placeholder="Soil/Geology" name="SoilGeologyText_O_S" maxlength="200" data-section="PlantSampleTab">
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label>Abundance</label>
+            <input type="text" class="form-control" placeholder="Abundance" name="AbundanceText_O_S" maxlength="200" data-section="PlantSampleTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-2 col-sm-2 col-xs-2">
+            <label>Preservation Type</label>
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <input type="checkbox" name="PlantPreservationTab-SP_O_S" class="minimal" data-attr="PlantPreservationTab" data-code="SP" data-desc="Spirit Sample" data-seq="1" maxlength="2" data-section="PlantSampleTab">&nbsp;
+            <label>Spirit Sample</label>
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <input type="checkbox" name="PlantPreservationTab-DN_O_S" class="minimal" data-attr="PlantPreservationTab" data-code="DN" data-desc="DNA Sample" data-seq="2" maxlength="2" data-section="PlantSampleTab">&nbsp;
+            <label>DNA Sample</label>
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <input type="checkbox" name="PlantPreservationTab-O_O_S" class="minimal" data-attr="PlantPreservationTab" data-code="O" data-desc="Other" data-seq="3" maxlength="2" data-section="PlantSampleTab">&nbsp;
+            <label>Other</label>&nbsp;
+            <input type="text" class="form-control hide" placeholder="Other Text" name="BotPlantPreserverOtherText_O_S" maxlength="50" data-section="PlantSampleTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <img class="pp" src="images/plant.png" name="iPlantSampleAttachment1_O_S">
+            <input type="hidden" name="PlantSampleAttachment1_O_S" value="" data-section="SampleAttachmentTab"><img class="pp" src="images/plant.png" name="iPlantSampleAttachment2_O_S">
+            <input type="hidden" name="PlantSampleAttachment2_O_S" value="" data-section="SampleAttachmentTab"><img class="pp" src="images/plant.png" name="iPlantSampleAttachment3_O_S">
+            <input type="hidden" name="PlantSampleAttachment3_O_S" value="" data-section="SampleAttachmentTab"><img class="pp" src="images/plant.png" name="iPlantSampleAttachment4_O_S">
+            <input type="hidden" name="PlantSampleAttachment4_O_S" value="" data-section="SampleAttachmentTab"><img class="pp" src="images/plant.png" name="iPlantSampleAttachment5_O_S">
+            <input type="hidden" name="PlantSampleAttachment5_O_S" value="" data-section="SampleAttachmentTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <input type="checkbox" name="ExternalPhotoExistFlag_O_S" class="minimal" maxlength="1" data-section="PlantSampleTab">&nbsp;&nbsp;
+            <label>Photo(s) taken using external camera</label>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <a href="#" class="text-danger removeBotSample">Delete</a>
+        </div>
+    </div>
+</div>
