@@ -2160,7 +2160,7 @@ function getFileandExtract(url, mapset, i, n) {
                         $.growl({ title: "", message: "Maps downloaded successfully.", location: "bc", size: "large" });
                         return false;
                     } else {
-                        getFileandExtract(url, mapset, i, n);
+                        setTimeout(getFileandExtract(url, mapset, i, n), 10000);
                     }
                 }, function (e) {
                     console.log("Failed file save: " + e.toString());
@@ -2181,7 +2181,7 @@ function processZip2(zipSource, destination) {
         to: extracted
     }, function () {
         console.log('unzip success!');
-        removefile(filename);
+        setTimeout(removefile(filename), 10000);
     }, function (e) {
         console.log('unzip error: ', e);
         $('#modalProgress').modal('hide');
@@ -2214,7 +2214,7 @@ function writeFile(fileEntry, filename, dataObj, i, n) {
             t3 = t3 + Math.round((t1 - t0));
             $('#mb6 .progText').text("Extracting Zip file " + i + " out of " + n + ". This might take a while ...");
             $('.progress-bar').css('width', Math.round(i / n * 100) + '%').attr('aria-valuenow', Math.round(i / n * 100)).text(Math.round(i / n * 100) + '%');
-            processZip2(fileEntry.toURL(), "maps/" + filename);
+            setTimeout(processZip2(fileEntry.toURL(), "maps/" + filename), 20000);
         };
         fileWriter.onerror = function (e) {
             console.log("Failed file write: " + e.toString());
