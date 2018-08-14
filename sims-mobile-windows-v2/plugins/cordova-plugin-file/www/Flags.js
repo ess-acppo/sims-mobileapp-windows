@@ -28,11 +28,7 @@
  *            {boolean} used with create; if true the command will fail if
  *            target path exists
  */
-<<<<<<< HEAD
-function Flags (create, exclusive) {
-=======
 function Flags(create, exclusive) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     this.create = create || false;
     this.exclusive = exclusive || false;
 }

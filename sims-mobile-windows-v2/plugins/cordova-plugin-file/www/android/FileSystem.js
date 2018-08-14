@@ -19,17 +19,10 @@
  *
 */
 
-<<<<<<< HEAD
-FILESYSTEM_PROTOCOL = 'cdvfile'; // eslint-disable-line no-undef
-
-module.exports = {
-    __format__: function (fullPath, nativeUrl) {
-=======
 FILESYSTEM_PROTOCOL = "cdvfile";
 
 module.exports = {
     __format__: function(fullPath, nativeUrl) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         var path;
         var contentUrlMatch = /^content:\/\//.exec(nativeUrl);
         if (contentUrlMatch) {
@@ -39,32 +32,18 @@ module.exports = {
             // doesn't match the string for which permission was originally granted.
             path = nativeUrl.substring(contentUrlMatch[0].length - 1);
         } else {
-<<<<<<< HEAD
-            path = FileSystem.encodeURIPath(fullPath); // eslint-disable-line no-undef
-            if (!/^\//.test(path)) {
-                path = '/' + path;
-            }
-
-=======
             path = FileSystem.encodeURIPath(fullPath);
             if (!/^\//.test(path)) {
                 path = '/' + path;
             }
             
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             var m = /\?.*/.exec(nativeUrl);
             if (m) {
                 path += m[0];
             }
         }
 
-<<<<<<< HEAD
-        return FILESYSTEM_PROTOCOL + '://localhost/' + this.name + path; // eslint-disable-line no-undef
-    }
-};
-=======
         return FILESYSTEM_PROTOCOL + '://localhost/' + this.name + path;
     }
 };
 
->>>>>>> 64eb6f1... Plant Health Screens Draft 1

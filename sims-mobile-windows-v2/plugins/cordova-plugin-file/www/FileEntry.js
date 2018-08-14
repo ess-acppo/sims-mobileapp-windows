@@ -19,21 +19,12 @@
  *
 */
 
-<<<<<<< HEAD
-var utils = require('cordova/utils');
-var exec = require('cordova/exec');
-var Entry = require('./Entry');
-var FileWriter = require('./FileWriter');
-var File = require('./File');
-var FileError = require('./FileError');
-=======
 var utils = require('cordova/utils'),
     exec = require('cordova/exec'),
     Entry = require('./Entry'),
     FileWriter = require('./FileWriter'),
     File = require('./File'),
     FileError = require('./FileError');
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
 /**
  * An interface representing a file on the file system.
@@ -44,11 +35,7 @@ var utils = require('cordova/utils'),
  * {DOMString} fullPath the absolute full path to the file (readonly)
  * {FileSystem} filesystem on which the file resides (readonly)
  */
-<<<<<<< HEAD
-var FileEntry = function (name, fullPath, fileSystem, nativeURL) {
-=======
 var FileEntry = function(name, fullPath, fileSystem, nativeURL) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     // remove trailing slash if it is present
     if (fullPath && /\/$/.test(fullPath)) {
         fullPath = fullPath.substring(0, fullPath.length - 1);
@@ -68,19 +55,11 @@ utils.extend(FileEntry, Entry);
  * @param {Function} successCallback is called with the new FileWriter
  * @param {Function} errorCallback is called with a FileError
  */
-<<<<<<< HEAD
-FileEntry.prototype.createWriter = function (successCallback, errorCallback) {
-    this.file(function (filePointer) {
-        var writer = new FileWriter(filePointer);
-
-        if (writer.localURL === null || writer.localURL === '') {
-=======
 FileEntry.prototype.createWriter = function(successCallback, errorCallback) {
     this.file(function(filePointer) {
         var writer = new FileWriter(filePointer);
 
         if (writer.localURL === null || writer.localURL === "") {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             if (errorCallback) {
                 errorCallback(new FileError(FileError.INVALID_STATE_ERR));
             }
@@ -98,20 +77,6 @@ FileEntry.prototype.createWriter = function(successCallback, errorCallback) {
  * @param {Function} successCallback is called with the new File object
  * @param {Function} errorCallback is called with a FileError
  */
-<<<<<<< HEAD
-FileEntry.prototype.file = function (successCallback, errorCallback) {
-    var localURL = this.toInternalURL();
-    var win = successCallback && function (f) {
-        var file = new File(f.name, localURL, f.type, f.lastModifiedDate, f.size);
-        successCallback(file);
-    };
-    var fail = errorCallback && function (code) {
-        errorCallback(new FileError(code));
-    };
-    exec(win, fail, 'File', 'getFileMetadata', [localURL]);
-};
-
-=======
 FileEntry.prototype.file = function(successCallback, errorCallback) {
     var localURL = this.toInternalURL();
     var win = successCallback && function(f) {
@@ -125,5 +90,4 @@ FileEntry.prototype.file = function(successCallback, errorCallback) {
 };
 
 
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 module.exports = FileEntry;

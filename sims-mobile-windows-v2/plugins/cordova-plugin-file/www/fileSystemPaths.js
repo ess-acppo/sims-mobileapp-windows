@@ -51,13 +51,8 @@ exports.file = {
 };
 
 channel.waitForInitialization('onFileSystemPathsReady');
-<<<<<<< HEAD
-channel.onCordovaReady.subscribe(function () {
-    function after (paths) {
-=======
 channel.onCordovaReady.subscribe(function() {
     function after(paths) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         for (var k in paths) {
             exports.file[k] = paths[k];
         }
@@ -65,7 +60,4 @@ channel.onCordovaReady.subscribe(function() {
     }
     exec(after, null, 'File', 'requestAllPaths', []);
 });
-<<<<<<< HEAD
-=======
 
->>>>>>> 64eb6f1... Plant Health Screens Draft 1

@@ -1,10 +1,3 @@
-<<<<<<< HEAD
----
-title: Whitelist
-description: Whitelist external content accessible by your app.
----
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 <!--
 # license: Licensed to the Apache Software Foundation (ASF) under one
 #         or more contributor license agreements.  See the NOTICE file
@@ -30,17 +23,6 @@ This plugin implements a whitelist policy for navigating the application webview
 
 :warning: Report issues on the [Apache Cordova issue tracker](https://issues.apache.org/jira/issues/?jql=project%20%3D%20CB%20AND%20status%20in%20%28Open%2C%20%22In%20Progress%22%2C%20Reopened%29%20AND%20resolution%20%3D%20Unresolved%20AND%20component%20%3D%20%22Plugin%20Whitelist%22%20ORDER%20BY%20priority%20DESC%2C%20summary%20ASC%2C%20updatedDate%20DESC)
 
-<<<<<<< HEAD
-## Installation
-
-You can install whitelist plugin with Cordova CLI, from npm:
-
-```
-$ cordova plugin add cordova-plugin-whitelist
-$ cordova prepare
-```
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
 ## Supported Cordova Platforms
 

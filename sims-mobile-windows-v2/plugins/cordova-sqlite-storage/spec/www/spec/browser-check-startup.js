@@ -12,11 +12,7 @@ window.hasBrowser = true;
 // and in actual test scripts
 window.hasWebKitBrowser = (!isWindows && !isWP8 && !isMac && (isAndroid || !(window.webkit && window.webkit.messageHandlers)));
 
-<<<<<<< HEAD
 describe('Check startup for navigator.userAgent: ' + navigator.userAgent, function() {
-=======
-describe('check startup', function() {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
   it('receives deviceready event', function(done) {
     expect(true).toBe(true);
     document.addEventListener("deviceready", function() {

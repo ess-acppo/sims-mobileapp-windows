@@ -21,15 +21,9 @@ description: Access GPS data.
 #         under the License.
 -->
 
-<<<<<<< HEAD
-|AppVeyor|Travis CI|
-|:-:|:-:|
-|[![Build status](https://ci.appveyor.com/api/projects/status/github/apache/cordova-plugin-geolocation?branch=master)](https://ci.appveyor.com/project/ApacheSoftwareFoundation/cordova-plugin-geolocation)|[![Build Status](https://travis-ci.org/apache/cordova-plugin-geolocation.svg?branch=master)](https://travis-ci.org/apache/cordova-plugin-geolocation)|
-=======
 |Android 4.4|Android 5.1|Android 6.0|iOS 9.3|iOS 10.0|Windows 10 Store|Travis CI|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=android-4.4,PLUGIN=cordova-plugin-geolocation)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=android-4.4,PLUGIN=cordova-plugin-geolocation/)|[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=android-5.1,PLUGIN=cordova-plugin-geolocation)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=android-5.1,PLUGIN=cordova-plugin-geolocation/)|[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=android-6.0,PLUGIN=cordova-plugin-geolocation)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=android-6.0,PLUGIN=cordova-plugin-geolocation/)|[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=ios-9.3,PLUGIN=cordova-plugin-geolocation)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=ios-9.3,PLUGIN=cordova-plugin-geolocation/)|[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=ios-10.0,PLUGIN=cordova-plugin-geolocation)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=ios-10.0,PLUGIN=cordova-plugin-geolocation/)|[![Build Status](http://cordova-ci.cloudapp.net:8080/buildStatus/icon?job=cordova-periodic-build/PLATFORM=windows-10-store,PLUGIN=cordova-plugin-geolocation)](http://cordova-ci.cloudapp.net:8080/job/cordova-periodic-build/PLATFORM=windows-10-store,PLUGIN=cordova-plugin-geolocation/)|[![Build Status](https://travis-ci.org/apache/cordova-plugin-geolocation.svg?branch=master)](https://travis-ci.org/apache/cordova-plugin-geolocation)|
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
 # cordova-plugin-geolocation
 
@@ -94,10 +88,6 @@ It is also possible to install via repo url directly ( unstable )
 
 ## Supported Platforms
 
-<<<<<<< HEAD
-- Android
-- iOS
-=======
 - Amazon Fire OS
 - Android
 - BlackBerry 10
@@ -105,7 +95,6 @@ It is also possible to install via repo url directly ( unstable )
 - iOS
 - Tizen
 - Windows Phone 7 and 8
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 - Windows
 
 ## Methods
@@ -172,21 +161,6 @@ error, the `geolocationError` callback is passed a
 
 ### iOS Quirks
  
-<<<<<<< HEAD
- Since iOS 10 it's mandatory to provide an usage description in the `info.plist` if trying to access privacy-sensitive data. When the system prompts the user to allow access, this usage description string will displayed as part of the permission dialog box, but if you didn't provide the usage description, the app will crash before showing the dialog. Also, Apple will reject apps that access private data but don't provide an usage description.
-
- This plugins requires the following usage description:
-
- * `NSLocationWhenInUseUsageDescription` describes the reason that the app accesses the user's location. 
-
- To add this entry into the `info.plist`, you can use the `edit-config` tag in the `config.xml` like this:
-
-```
-<edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
-    <string>need location access to find things nearby</string>
-</edit-config>
-```
-=======
  Since iOS 10 it's mandatory to add a `NSLocationWhenInUseUsageDescription` entry in the info.plist.
  
  `NSLocationWhenInUseUsageDescription` describes the reason that the app accesses the user's location. When the system prompts the user to allow access, this string is displayed as part of the dialog box. To add this entry you can pass the variable `GEOLOCATION_USAGE_DESCRIPTION` on plugin install.
@@ -195,7 +169,6 @@ error, the `geolocationError` callback is passed a
  `cordova plugin add cordova-plugin-geolocation --variable GEOLOCATION_USAGE_DESCRIPTION="your usage message"`
  
  If you don't pass the variable, the plugin will add an empty string as value.
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
  
 ### Android Quirks
 
@@ -332,13 +305,10 @@ It contains a set of properties that describe the geographic coordinates of a po
 
 * __speed__: Current ground speed of the device, specified in meters per second. _(Number)_
 
-<<<<<<< HEAD
-=======
 ###  Amazon Fire OS Quirks
 
 __altitudeAccuracy__: Not supported by Android devices, returning `null`.
 
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 ### Android Quirks
 
 __altitudeAccuracy__: Not supported by Android devices, returning `null`.

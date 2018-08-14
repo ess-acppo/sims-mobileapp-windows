@@ -202,15 +202,9 @@ class SQLiteConnectorDatabase extends SQLiteAndroidDatabase
                     myStatement.bindNull(i + 1);
                 } else {
                     Object p = paramsAsJson.get(i);
-<<<<<<< HEAD
                     if (p instanceof Float || p instanceof Double)
                         myStatement.bindDouble(i + 1, paramsAsJson.getDouble(i));
                     else if (p instanceof Number)
-=======
-                    if (p instanceof Float || p instanceof Double) 
-                        myStatement.bindDouble(i + 1, paramsAsJson.getDouble(i));
-                    else if (p instanceof Number) 
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         myStatement.bindLong(i + 1, paramsAsJson.getLong(i));
                     else
                         myStatement.bindTextNativeString(i + 1, paramsAsJson.getString(i));

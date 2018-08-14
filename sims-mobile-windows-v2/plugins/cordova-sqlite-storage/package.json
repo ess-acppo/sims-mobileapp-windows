@@ -1,10 +1,6 @@
 {
   "name": "cordova-sqlite-storage",
-<<<<<<< HEAD
-  "version": "2.3.3",
-=======
-  "version": "2.3.1",
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
+  "version": "2.3.2",
   "description": "Native interface to SQLite for PhoneGap/Cordova",
   "cordova": {
     "id": "cordova-sqlite-storage",

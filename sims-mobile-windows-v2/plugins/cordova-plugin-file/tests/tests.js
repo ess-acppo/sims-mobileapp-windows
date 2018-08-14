@@ -18,65 +18,23 @@
  *
  */
 
-<<<<<<< HEAD
-/* eslint-env jasmine */
-/* global WebKitBlobBuilder */
-
-exports.defineAutoTests = function () {
-    /* eslint-disable no-undef */
-    var isBrowser = (cordova.platformId === 'browser');
-=======
 /* jshint jasmine: true */
 /* global WebKitBlobBuilder */
 
 exports.defineAutoTests = function () {
     var isBrowser = (cordova.platformId === "browser");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     // Use feature detection to determine current browser instead of checking user-agent
     var isChrome = isBrowser && window.webkitRequestFileSystem && window.webkitResolveLocalFileSystemURL;
     var isIE = isBrowser && (window.msIndexedDB);
     var isIndexedDBShim = isBrowser && !isChrome;   // Firefox and IE for example
 
-<<<<<<< HEAD
-    var isWindows = (cordova.platformId === 'windows' || cordova.platformId === 'windows8');
-    /* eslint-enable no-undef */
-=======
     var isWindows = (cordova.platformId === "windows" || cordova.platformId === "windows8");
 
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     var MEDIUM_TIMEOUT = 15000;
 
     describe('File API', function () {
         // Adding a Jasmine helper matcher, to report errors when comparing to FileError better.
         var fileErrorMap = {
-<<<<<<< HEAD
-            1: 'NOT_FOUND_ERR',
-            2: 'SECURITY_ERR',
-            3: 'ABORT_ERR',
-            4: 'NOT_READABLE_ERR',
-            5: 'ENCODING_ERR',
-            6: 'NO_MODIFICATION_ALLOWED_ERR',
-            7: 'INVALID_STATE_ERR',
-            8: 'SYNTAX_ERR',
-            9: 'INVALID_MODIFICATION_ERR',
-            10: 'QUOTA_EXCEEDED_ERR',
-            11: 'TYPE_MISMATCH_ERR',
-            12: 'PATH_EXISTS_ERR'
-        };
-        var root;
-        var temp_root;
-        var persistent_root;
-        beforeEach(function (done) {
-            // Custom Matchers
-            jasmine.Expectation.addMatchers({
-                toBeFileError: function () {
-                    return {
-                        compare: function (error, code) {
-                            var pass = error.code === code;
-                            return {
-                                pass: pass,
-                                message: 'Expected FileError with code ' + fileErrorMap[error.code] + ' (' + error.code + ') to be ' + fileErrorMap[code] + '(' + code + ')'
-=======
             1 : 'NOT_FOUND_ERR',
             2 : 'SECURITY_ERR',
             3 : 'ABORT_ERR',
@@ -103,22 +61,10 @@ exports.defineAutoTests = function () {
                             return {
                                 pass : pass,
                                 message : 'Expected FileError with code ' + fileErrorMap[error.code] + ' (' + error.code + ') to be ' + fileErrorMap[code] + '(' + code + ')'
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             };
                         }
                     };
                 },
-<<<<<<< HEAD
-                toCanonicallyMatch: function () {
-                    return {
-                        compare: function (currentPath, path) {
-                            var a = path.split('/').join('').split('\\').join('');
-                            var b = currentPath.split('/').join('').split('\\').join('');
-                            var pass = a === b;
-                            return {
-                                pass: pass,
-                                message: 'Expected paths to match : ' + path + ' should be ' + currentPath
-=======
                 toCanonicallyMatch : function () {
                     return {
                         compare : function (currentPath, path) {
@@ -128,20 +74,10 @@ exports.defineAutoTests = function () {
                             return {
                                 pass : pass,
                                 message : 'Expected paths to match : ' + path + ' should be ' + currentPath
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             };
                         }
                     };
                 },
-<<<<<<< HEAD
-                toFailWithMessage: function () {
-                    return {
-                        compare: function (error, message) { // eslint-disable-line handle-callback-err
-                            var pass = false;
-                            return {
-                                pass: pass,
-                                message: message
-=======
                 toFailWithMessage : function () {
                     return {
                         compare : function (error, message) {
@@ -149,18 +85,13 @@ exports.defineAutoTests = function () {
                             return {
                                 pass : pass,
                                 message : message
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             };
                         }
                     };
                 },
                 toBeDataUrl: function () {
                     return {
-<<<<<<< HEAD
-                        compare: function (url) {
-=======
                         compare : function (url) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             var pass = false;
                             // "data:application/octet-stream;base64,"
                             var header = url.substr(0, url.indexOf(','));
@@ -172,40 +103,23 @@ exports.defineAutoTests = function () {
                             }
                             var message = 'Expected ' + url + ' to be a valid data url. ' + header + ' is not valid header for data uris';
                             return {
-<<<<<<< HEAD
-                                pass: pass,
-                                message: message
-=======
                                 pass : pass,
                                 message : message
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             };
                         }
                     };
                 }
             });
-<<<<<<< HEAD
-            // Define global variables
-=======
             //Define global variables
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             var onError = function (e) {
                 console.log('[ERROR] Problem setting up root filesystem for test running! Error to follow.');
                 console.log(JSON.stringify(e));
             };
-<<<<<<< HEAD
-            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) { // eslint-disable-line no-undef
-                root = fileSystem.root;
-                // set in file.tests.js
-                persistent_root = root;
-                window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, function (fileSystem) { // eslint-disable-line no-undef
-=======
             window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
                 root = fileSystem.root;
                 // set in file.tests.js
                 persistent_root = root;
                 window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, function (fileSystem) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     temp_root = fileSystem.root;
                     // set in file.tests.js
                     done();
@@ -217,11 +131,7 @@ exports.defineAutoTests = function () {
         var deleteEntry = function (name, success, error) {
             // deletes entry, if it exists
             // entry.remove success callback is required: http://www.w3.org/TR/2011/WD-file-system-api-20110419/#the-entry-interface
-<<<<<<< HEAD
-            success = success || function () {};
-=======
             success = success || function() {};
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             error = error || failed.bind(null, success, 'deleteEntry failed.');
 
             window.resolveLocalFileSystemURL(root.toURL() + '/' + name, function (entry) {
@@ -235,16 +145,6 @@ exports.defineAutoTests = function () {
         // deletes file, if it exists, then invokes callback
         var deleteFile = function (fileName, callback) {
             // entry.remove success callback is required: http://www.w3.org/TR/2011/WD-file-system-api-20110419/#the-entry-interface
-<<<<<<< HEAD
-            callback = callback || function () {};
-
-            root.getFile(fileName, null, // remove file system entry
-                function (entry) {
-                    entry.remove(callback, function () {
-                        console.log('[ERROR] deleteFile cleanup method invoked fail callback.');
-                    });
-                }, // doesn't exist
-=======
             callback = callback || function() {};
 
             root.getFile(fileName, null, // remove file system entry
@@ -253,18 +153,13 @@ exports.defineAutoTests = function () {
                     console.log('[ERROR] deleteFile cleanup method invoked fail callback.');
                 });
             }, // doesn't exist
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 callback);
         };
         // deletes and re-creates the specified file
         var createFile = function (fileName, success, error) {
             deleteEntry(fileName, function () {
                 root.getFile(fileName, {
-<<<<<<< HEAD
-                    create: true
-=======
                     create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 }, success, error);
             }, error);
         };
@@ -272,31 +167,18 @@ exports.defineAutoTests = function () {
         var createDirectory = function (dirName, success, error) {
             deleteEntry(dirName, function () {
                 root.getDirectory(dirName, {
-<<<<<<< HEAD
-                    create: true
-                }, success, error);
-            }, error);
-        };
-        function failed (done, msg, error) {
-            var info = typeof msg === 'undefined' ? 'Unexpected error callback' : msg;
-=======
                     create : true
                 }, success, error);
             }, error);
         };
         function failed(done, msg, error) {
             var info = typeof msg == 'undefined' ? 'Unexpected error callback' : msg;
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             var codeMsg = (error && error.code) ? (': ' + fileErrorMap[error.code]) : '';
             expect(true).toFailWithMessage(info + '\n' + JSON.stringify(error) + codeMsg);
             done();
         }
         var succeed = function (done, msg) {
-<<<<<<< HEAD
-            var info = typeof msg === 'undefined' ? 'Unexpected success callback' : msg;
-=======
             var info = typeof msg == 'undefined' ? 'Unexpected success callback' : msg;
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             expect(true).toFailWithMessage(info);
             done();
         };
@@ -310,12 +192,7 @@ exports.defineAutoTests = function () {
             return base + extension;
         };
         describe('FileError object', function () {
-<<<<<<< HEAD
-            /* eslint-disable no-undef */
-            it('file.spec.1 should define FileError constants', function () {
-=======
             it("file.spec.1 should define FileError constants", function () {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 expect(FileError.NOT_FOUND_ERR).toBe(1);
                 expect(FileError.SECURITY_ERR).toBe(2);
                 expect(FileError.ABORT_ERR).toBe(3);
@@ -331,18 +208,6 @@ exports.defineAutoTests = function () {
             });
         });
         describe('LocalFileSystem', function () {
-<<<<<<< HEAD
-            it('file.spec.2 should define LocalFileSystem constants', function () {
-                expect(LocalFileSystem.TEMPORARY).toBe(0);
-                expect(LocalFileSystem.PERSISTENT).toBe(1);
-                /* eslint-enable no-undef */
-            });
-            describe('window.requestFileSystem', function () {
-                it('file.spec.3 should be defined', function () {
-                    expect(window.requestFileSystem).toBeDefined();
-                });
-                it('file.spec.4 should be able to retrieve a PERSISTENT file system', function (done) {
-=======
             it("file.spec.2 should define LocalFileSystem constants", function () {
                 expect(LocalFileSystem.TEMPORARY).toBe(0);
                 expect(LocalFileSystem.PERSISTENT).toBe(1);
@@ -352,20 +217,13 @@ exports.defineAutoTests = function () {
                     expect(window.requestFileSystem).toBeDefined();
                 });
                 it("file.spec.4 should be able to retrieve a PERSISTENT file system", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     var win = function (fileSystem) {
                         expect(fileSystem).toBeDefined();
                         expect(fileSystem.name).toBeDefined();
                         if (isChrome) {
-<<<<<<< HEAD
-                            expect(fileSystem.name).toContain('Persistent');
-                        } else {
-                            expect(fileSystem.name).toBe('persistent');
-=======
                             expect(fileSystem.name).toContain("Persistent");
                         } else {
                             expect(fileSystem.name).toBe("persistent");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }
                         expect(fileSystem.root).toBeDefined();
                         expect(fileSystem.root.filesystem).toBeDefined();
@@ -380,17 +238,6 @@ exports.defineAutoTests = function () {
                     var spaceRequired = isBrowser ? 0 : 1024;
 
                     // retrieve PERSISTENT file system
-<<<<<<< HEAD
-                    window.requestFileSystem(LocalFileSystem.PERSISTENT, spaceRequired, win, failed.bind(null, done, 'window.requestFileSystem - Error retrieving PERSISTENT file system')); // eslint-disable-line no-undef
-                });
-                it('file.spec.5 should be able to retrieve a TEMPORARY file system', function (done) {
-                    var win = function (fileSystem) {
-                        expect(fileSystem).toBeDefined();
-                        if (isChrome) {
-                            expect(fileSystem.name).toContain('Temporary');
-                        } else {
-                            expect(fileSystem.name).toBe('temporary');
-=======
                     window.requestFileSystem(LocalFileSystem.PERSISTENT, spaceRequired, win, failed.bind(null, done, 'window.requestFileSystem - Error retrieving PERSISTENT file system'));
                 });
                 it("file.spec.5 should be able to retrieve a TEMPORARY file system", function (done) {
@@ -400,52 +247,28 @@ exports.defineAutoTests = function () {
                             expect(fileSystem.name).toContain("Temporary");
                         } else {
                             expect(fileSystem.name).toBe("temporary");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }
                         expect(fileSystem.root).toBeDefined();
                         expect(fileSystem.root.filesystem).toBeDefined();
                         expect(fileSystem.root.filesystem).toBe(fileSystem);
                         done();
                     };
-<<<<<<< HEAD
-                    // retrieve TEMPORARY file system
-                    window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, win, failed.bind(null, done, 'window.requestFileSystem - Error retrieving TEMPORARY file system')); // eslint-disable-line no-undef
-                });
-                it('file.spec.6 should error if you request a file system that is too large', function (done) {
-                    if (isBrowser) {
-                        /* window.requestFileSystem TEMPORARY and PERSISTENT filesystem quota is not limited in Chrome.
-=======
                     //retrieve TEMPORARY file system
                     window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, win, failed.bind(null, done, 'window.requestFileSystem - Error retrieving TEMPORARY file system'));
                 });
                 it("file.spec.6 should error if you request a file system that is too large", function (done) {
                     if (isBrowser) {
                         /*window.requestFileSystem TEMPORARY and PERSISTENT filesystem quota is not limited in Chrome.
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         Firefox filesystem size is not limited but every 50MB request user permission.
                         IE10 allows up to 10mb of combined AppCache and IndexedDB used in implementation
                         of filesystem without prompting, once you hit that level you will be asked if you
                         want to allow it to be increased up to a max of 250mb per site.
-<<<<<<< HEAD
-                        So `size` parameter for `requestFileSystem` function does not affect on filesystem in Firefox and IE. */
-=======
                         So `size` parameter for `requestFileSystem` function does not affect on filesystem in Firefox and IE.*/
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         pending();
                     }
 
                     var fail = function (error) {
                         expect(error).toBeDefined();
-<<<<<<< HEAD
-                        expect(error).toBeFileError(FileError.QUOTA_EXCEEDED_ERR); // eslint-disable-line no-undef
-                        done();
-                    };
-                    // win = createWin('window.requestFileSystem');
-                    // Request the file system
-                    window.requestFileSystem(LocalFileSystem.TEMPORARY, 1000000000000000, failed.bind(null, done, 'window.requestFileSystem - Error retrieving TEMPORARY file system'), fail); // eslint-disable-line no-undef
-                });
-                it('file.spec.7 should error out if you request a file system that does not exist', function (done) {
-=======
                         expect(error).toBeFileError(FileError.QUOTA_EXCEEDED_ERR);
                         done();
                     };
@@ -454,24 +277,15 @@ exports.defineAutoTests = function () {
                     window.requestFileSystem(LocalFileSystem.TEMPORARY, 1000000000000000, failed.bind(null, done, 'window.requestFileSystem - Error retrieving TEMPORARY file system'), fail);
                 });
                 it("file.spec.7 should error out if you request a file system that does not exist", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
                     var fail = function (error) {
                         expect(error).toBeDefined();
                         if (isChrome) {
-<<<<<<< HEAD
-                            /* INVALID_MODIFICATION_ERR (code: 9) or ??? (code: 13) is thrown instead of SYNTAX_ERR(code: 8)
-                            on requesting of a non-existant filesystem. */
-                            // expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
-                        } else {
-                            expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-=======
                             /*INVALID_MODIFICATION_ERR (code: 9) is thrown instead of SYNTAX_ERR(code: 8)
                             on requesting of a non-existant filesystem.*/
                             expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
                         } else {
                             expect(error).toBeFileError(FileError.SYNTAX_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }
                         done();
                     };
@@ -480,17 +294,10 @@ exports.defineAutoTests = function () {
                 });
             });
             describe('window.resolveLocalFileSystemURL', function () {
-<<<<<<< HEAD
-                it('file.spec.8 should be defined', function () {
-                    expect(window.resolveLocalFileSystemURL).toBeDefined();
-                });
-                it('file.spec.9 should resolve a valid file name', function (done) {
-=======
                 it("file.spec.8 should be defined", function () {
                     expect(window.resolveLocalFileSystemURL).toBeDefined();
                 });
                 it("file.spec.9 should resolve a valid file name", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     var fileName = 'file.spec.9';
                     var win = function (fileEntry) {
                         expect(fileEntry).toBeDefined();
@@ -506,11 +313,7 @@ exports.defineAutoTests = function () {
                         window.resolveLocalFileSystemURL(entry.toURL(), win, failed.bind(null, done, 'window.resolveLocalFileSystemURL - Error resolving file URL: ' + entry.toURL()));
                     }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName), failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
                 });
-<<<<<<< HEAD
-                it('file.spec.9.1 should resolve a file even with a terminating slash', function (done) {
-=======
                 it("file.spec.9.1 should resolve a file even with a terminating slash", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     var fileName = 'file.spec.9.1';
                     var win = function (fileEntry) {
                         expect(fileEntry).toBeDefined();
@@ -527,11 +330,7 @@ exports.defineAutoTests = function () {
                         window.resolveLocalFileSystemURL(entryURL, win, failed.bind(null, done, 'window.resolveLocalFileSystemURL - Error resolving file URL: ' + entryURL));
                     }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName), failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
                 });
-<<<<<<< HEAD
-                it('file.spec.9.5 should resolve a directory', function (done) {
-=======
                 it("file.spec.9.5 should resolve a directory", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     var fileName = 'file.spec.9.5';
                     var win = function (fileEntry) {
                         expect(fileEntry).toBeDefined();
@@ -543,21 +342,13 @@ exports.defineAutoTests = function () {
                         // cleanup
                         deleteEntry(fileName, done);
                     };
-<<<<<<< HEAD
-                    function gotDirectory (entry) {
-=======
                     function gotDirectory(entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         // lookup file system entry
                         window.resolveLocalFileSystemURL(entry.toURL(), win, failed.bind(null, done, 'window.resolveLocalFileSystemURL - Error resolving directory URL: ' + entry.toURL()));
                     }
                     createDirectory(fileName, gotDirectory, failed.bind(null, done, 'createDirectory - Error creating directory: ' + fileName), failed.bind(null, done, 'createDirectory - Error creating directory: ' + fileName));
                 });
-<<<<<<< HEAD
-                it('file.spec.9.6 should resolve a directory even without a terminating slash', function (done) {
-=======
                 it("file.spec.9.6 should resolve a directory even without a terminating slash", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     var fileName = 'file.spec.9.6';
                     var win = function (fileEntry) {
                         expect(fileEntry).toBeDefined();
@@ -569,11 +360,7 @@ exports.defineAutoTests = function () {
                         // cleanup
                         deleteEntry(fileName, done);
                     };
-<<<<<<< HEAD
-                    function gotDirectory (entry) {
-=======
                     function gotDirectory(entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         // lookup file system entry
                         var entryURL = entry.toURL();
                         entryURL = entryURL.substring(0, entryURL.length - 1);
@@ -582,18 +369,9 @@ exports.defineAutoTests = function () {
                     createDirectory(fileName, gotDirectory, failed.bind(null, done, 'createDirectory - Error creating directory: ' + fileName), failed.bind(null, done, 'createDirectory - Error creating directory: ' + fileName));
                 });
 
-<<<<<<< HEAD
-                it('file.spec.9.7 should resolve a file with valid nativeURL', function (done) {
-                    if (isBrowser) {
-                        pending('browsers doesn\'t return nativeURL');
-                    }
-                    var fileName = 'de.create.file';
-                    var win = function (entry) {
-=======
                 it("file.spec.9.7 should resolve a file with valid nativeURL", function (done) {
                     var fileName = "de.create.file",
                     win = function (entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         var path = entry.nativeURL.split('///')[1];
                         expect(/\/{2,}/.test(path)).toBeFalsy();
                         // cleanup
@@ -604,21 +382,12 @@ exports.defineAutoTests = function () {
                     }, win, succeed.bind(null, done, 'root.getFile - Error unexpected callback, file should not exists: ' + fileName));
                 });
 
-<<<<<<< HEAD
-                it('file.spec.10 resolve valid file name with parameters', function (done) {
-                    var fileName = 'resolve.file.uri.params';
-                    var win = function (fileEntry) {
-                        expect(fileEntry).toBeDefined();
-                        if (fileEntry.toURL().toLowerCase().substring(0, 10) === 'cdvfile://') {
-                            expect(fileEntry.fullPath).toBe('/' + fileName + '?1234567890');
-=======
                 it("file.spec.10 resolve valid file name with parameters", function (done) {
                     var fileName = "resolve.file.uri.params",
                     win = function (fileEntry) {
                         expect(fileEntry).toBeDefined();
                         if (fileEntry.toURL().toLowerCase().substring(0, 10) === "cdvfile://") {
                             expect(fileEntry.fullPath).toBe("/" + fileName + "?1234567890");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }
                         expect(fileEntry.name).toBe(fileName);
                         // cleanup
@@ -626,20 +395,6 @@ exports.defineAutoTests = function () {
                     };
                     // create a new file entry
                     createFile(fileName, function (entry) {
-<<<<<<< HEAD
-                        window.resolveLocalFileSystemURL(entry.toURL() + '?1234567890', win, failed.bind(null, done, 'window.resolveLocalFileSystemURL - Error resolving file URI: ' + entry.toURL()));
-                    }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
-                });
-                it('file.spec.11 should error (NOT_FOUND_ERR) when resolving (non-existent) invalid file name', function (done) {
-                    var fileName = cordova.platformId === 'windowsphone' ? root.toURL() + '/' + 'this.is.not.a.valid.file.txt' : joinURL(root.toURL(), 'this.is.not.a.valid.file.txt'); // eslint-disable-line no-undef
-                    var fail = function (error) {
-                        expect(error).toBeDefined();
-                        if (isChrome) {
-                            expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                        } else {
-                            expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                        }
-=======
                         window.resolveLocalFileSystemURL(entry.toURL() + "?1234567890", win, failed.bind(null, done, 'window.resolveLocalFileSystemURL - Error resolving file URI: ' + entry.toURL()));
                     }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
                 });
@@ -648,29 +403,16 @@ exports.defineAutoTests = function () {
                         fail = function (error) {
                         expect(error).toBeDefined();
                         expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         done();
                     };
                     // lookup file system entry
                     window.resolveLocalFileSystemURL(fileName, succeed.bind(null, done, 'window.resolveLocalFileSystemURL - Error unexpected callback resolving file URI: ' + fileName), fail);
                 });
-<<<<<<< HEAD
-                it('file.spec.12 should error (ENCODING_ERR) when resolving invalid URI with leading /', function (done) {
-                    var fileName = '/this.is.not.a.valid.url';
-                    var fail = function (error) {
-                        expect(error).toBeDefined();
-                        if (isChrome) {
-                        // O.o chrome returns error code 0
-                        } else {
-                            expect(error).toBeFileError(FileError.ENCODING_ERR); // eslint-disable-line no-undef
-                        }
-=======
                 it("file.spec.12 should error (ENCODING_ERR) when resolving invalid URI with leading /", function (done) {
                     var fileName = "/this.is.not.a.valid.url",
                         fail = function (error) {
                         expect(error).toBeDefined();
                         expect(error).toBeFileError(FileError.ENCODING_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         done();
                     };
                     // lookup file system entry
@@ -678,29 +420,17 @@ exports.defineAutoTests = function () {
                 });
             });
         });
-<<<<<<< HEAD
-        // LocalFileSystem
-        describe('Metadata interface', function () {
-            it('file.spec.13 should exist and have the right properties', function () {
-                var metadata = new Metadata(); // eslint-disable-line no-undef
-=======
         //LocalFileSystem
         describe('Metadata interface', function () {
             it("file.spec.13 should exist and have the right properties", function () {
                 var metadata = new Metadata();
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 expect(metadata).toBeDefined();
                 expect(metadata.modificationTime).toBeDefined();
             });
         });
         describe('Flags interface', function () {
-<<<<<<< HEAD
-            it('file.spec.14 should exist and have the right properties', function () {
-                var flags = new Flags(false, true); // eslint-disable-line no-undef
-=======
             it("file.spec.14 should exist and have the right properties", function () {
                 var flags = new Flags(false, true);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 expect(flags).toBeDefined();
                 expect(flags.create).toBeDefined();
                 expect(flags.create).toBe(false);
@@ -709,11 +439,7 @@ exports.defineAutoTests = function () {
             });
         });
         describe('FileSystem interface', function () {
-<<<<<<< HEAD
-            it('file.spec.15 should have a root that is a DirectoryEntry', function (done) {
-=======
             it("file.spec.15 should have a root that is a DirectoryEntry", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 var win = function (entry) {
                     expect(entry).toBeDefined();
                     expect(entry.isFile).toBe(false);
@@ -736,36 +462,15 @@ exports.defineAutoTests = function () {
             });
         });
         describe('DirectoryEntry', function () {
-<<<<<<< HEAD
-            it('file.spec.16 getFile: get Entry for file that does not exist', function (done) {
-                var fileName = 'de.no.file';
-                var fail = function (error) {
-                    expect(error).toBeDefined();
-                    if (isChrome) {
-                        expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                    } else {
-                        expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                    }
-=======
             it("file.spec.16 getFile: get Entry for file that does not exist", function (done) {
                 var fileName = "de.no.file",
                 fail = function (error) {
                     expect(error).toBeDefined();
                     expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     done();
                 };
                 // create:false, exclusive:false, file does not exist
                 root.getFile(fileName, {
-<<<<<<< HEAD
-                    create: false
-                }, succeed.bind(null, done, 'root.getFile - Error unexpected callback, file should not exists: ' + fileName), fail);
-            });
-            it('file.spec.17 getFile: create new file', function (done) {
-                var fileName = 'de.create.file';
-                var filePath = joinURL(root.fullPath, fileName);
-                var win = function (entry) {
-=======
                     create : false
                 }, succeed.bind(null, done, 'root.getFile - Error unexpected callback, file should not exists: ' + fileName), fail);
             });
@@ -773,7 +478,6 @@ exports.defineAutoTests = function () {
                 var fileName = "de.create.file",
                 filePath = joinURL(root.fullPath, fileName),
                 win = function (entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(entry).toBeDefined();
                     expect(entry.isFile).toBe(true);
                     expect(entry.isDirectory).toBe(false);
@@ -784,15 +488,6 @@ exports.defineAutoTests = function () {
                 };
                 // create:true, exclusive:false, file does not exist
                 root.getFile(fileName, {
-<<<<<<< HEAD
-                    create: true
-                }, win, succeed.bind(null, done, 'root.getFile - Error unexpected callback, file should not exists: ' + fileName));
-            });
-            it('file.spec.18 getFile: create new file (exclusive)', function (done) {
-                var fileName = 'de.create.exclusive.file';
-                var filePath = joinURL(root.fullPath, fileName);
-                var win = function (entry) {
-=======
                     create : true
                 }, win, succeed.bind(null, done, 'root.getFile - Error unexpected callback, file should not exists: ' + fileName));
             });
@@ -800,7 +495,6 @@ exports.defineAutoTests = function () {
                 var fileName = "de.create.exclusive.file",
                 filePath = joinURL(root.fullPath, fileName),
                 win = function (entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(entry).toBeDefined();
                     expect(entry.isFile).toBe(true);
                     expect(entry.isDirectory).toBe(false);
@@ -811,17 +505,6 @@ exports.defineAutoTests = function () {
                 };
                 // create:true, exclusive:true, file does not exist
                 root.getFile(fileName, {
-<<<<<<< HEAD
-                    create: true,
-                    exclusive: true
-                }, win, failed.bind(null, done, 'root.getFile - Error creating file: ' + fileName));
-            });
-            it('file.spec.19 getFile: create file that already exists', function (done) {
-                var fileName = 'de.create.existing.file';
-                var filePath = joinURL(root.fullPath, fileName);
-
-                function win (entry) {
-=======
                     create : true,
                     exclusive : true
                 }, win, failed.bind(null, done, 'root.getFile - Error creating file: ' + fileName));
@@ -831,7 +514,6 @@ exports.defineAutoTests = function () {
                 filePath = joinURL(root.fullPath, fileName);
 
                 function win(entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(entry).toBeDefined();
                     expect(entry.isFile).toBe(true);
                     expect(entry.isDirectory).toBe(false);
@@ -841,39 +523,15 @@ exports.defineAutoTests = function () {
                     deleteEntry(entry.name, done);
                 }
 
-<<<<<<< HEAD
-                function getFile (file) {
-                    // create:true, exclusive:false, file exists
-                    root.getFile(fileName, {
-                        create: true
-=======
                 function getFile(file) {
                     // create:true, exclusive:false, file exists
                     root.getFile(fileName, {
                         create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }, win, failed.bind(null, done, 'root.getFile - Error creating file: ' + fileName));
                 }
 
                 // create file to kick off it
                 root.getFile(fileName, {
-<<<<<<< HEAD
-                    create: true
-                }, getFile, failed.bind(null, done, 'root.getFile - Error on initial creating file: ' + fileName));
-            });
-            it('file.spec.20 getFile: create file that already exists (exclusive)', function (done) {
-                var fileName = 'de.create.exclusive.existing.file';
-                var existingFile;
-
-                function fail (error) {
-                    expect(error).toBeDefined();
-                    if (isChrome) {
-                        /* INVALID_MODIFICATION_ERR (code: 9) or ??? (code: 13) is thrown instead of PATH_EXISTS_ERR(code: 12)
-                        on trying to exclusively create a file, which already exists in Chrome. */
-                        // expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
-                    } else {
-                        expect(error).toBeFileError(FileError.PATH_EXISTS_ERR); // eslint-disable-line no-undef
-=======
                     create : true
                 }, getFile, failed.bind(null, done, 'root.getFile - Error on initial creating file: ' + fileName));
             });
@@ -889,41 +547,22 @@ exports.defineAutoTests = function () {
                         expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
                     } else {
                         expect(error).toBeFileError(FileError.PATH_EXISTS_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }
                     // cleanup
                     deleteEntry(existingFile.name, done);
                 }
 
-<<<<<<< HEAD
-                function getFile (file) {
-                    existingFile = file;
-                    // create:true, exclusive:true, file exists
-                    root.getFile(fileName, {
-                        create: true,
-                        exclusive: true
-=======
                 function getFile(file) {
                     existingFile = file;
                     // create:true, exclusive:true, file exists
                     root.getFile(fileName, {
                         create : true,
                         exclusive : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }, succeed.bind(null, done, 'root.getFile - getFile function - Error unexpected callback, file should exists: ' + fileName), fail);
                 }
 
                 // create file to kick off it
                 root.getFile(fileName, {
-<<<<<<< HEAD
-                    create: true
-                }, getFile, failed.bind(null, done, 'root.getFile - Error creating file: ' + fileName));
-            });
-            it('file.spec.21 DirectoryEntry.getFile: get Entry for existing file', function (done) {
-                var fileName = 'de.get.file';
-                var filePath = joinURL(root.fullPath, fileName);
-                var win = function (entry) {
-=======
                     create : true
                 }, getFile, failed.bind(null, done, 'root.getFile - Error creating file: ' + fileName));
             });
@@ -931,7 +570,6 @@ exports.defineAutoTests = function () {
                 var fileName = "de.get.file",
                 filePath = joinURL(root.fullPath, fileName),
                 win = function (entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(entry).toBeDefined();
                     expect(entry.isFile).toBe(true);
                     expect(entry.isDirectory).toBe(false);
@@ -939,15 +577,6 @@ exports.defineAutoTests = function () {
                     expect(entry.fullPath).toCanonicallyMatch(filePath);
                     expect(entry.filesystem).toBeDefined();
                     expect(entry.filesystem).toBe(root.filesystem);
-<<<<<<< HEAD
-                    // clean up
-                    deleteEntry(entry.name, done);
-                };
-                var getFile = function (file) {
-                    // create:false, exclusive:false, file exists
-                    root.getFile(fileName, {
-                        create: false
-=======
                     //clean up
                     deleteEntry(entry.name, done);
                 },
@@ -955,27 +584,10 @@ exports.defineAutoTests = function () {
                     // create:false, exclusive:false, file exists
                     root.getFile(fileName, {
                         create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }, win, failed.bind(null, done, 'root.getFile - Error getting file entry: ' + fileName));
                 };
                 // create file to kick off it
                 root.getFile(fileName, {
-<<<<<<< HEAD
-                    create: true
-                }, getFile, failed.bind(null, done, 'root.getFile - Error creating file: ' + fileName));
-            });
-            it('file.spec.22 DirectoryEntry.getFile: get FileEntry for invalid path', function (done) {
-                if (isBrowser) {
-                    /* The plugin does not follow to ["8.3 Naming restrictions"]
-                    (http://www.w3.org/TR/2011/WD-file-system-api-20110419/#naming-restrictions). */
-                    pending();
-                }
-
-                var fileName = 'de:invalid:path';
-                var fail = function (error) {
-                    expect(error).toBeDefined();
-                    expect(error).toBeFileError(FileError.ENCODING_ERR); // eslint-disable-line no-undef
-=======
                     create : true
                 }, getFile, failed.bind(null, done, 'root.getFile - Error creating file: ' + fileName));
             });
@@ -990,25 +602,10 @@ exports.defineAutoTests = function () {
                 fail = function (error) {
                     expect(error).toBeDefined();
                     expect(error).toBeFileError(FileError.ENCODING_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     done();
                 };
                 // create:false, exclusive:false, invalid path
                 root.getFile(fileName, {
-<<<<<<< HEAD
-                    create: false
-                }, succeed.bind(null, done, 'root.getFile - Error unexpected callback, file should not exists: ' + fileName), fail);
-            });
-            it('file.spec.23 DirectoryEntry.getDirectory: get Entry for directory that does not exist', function (done) {
-                var dirName = 'de.no.dir';
-                var fail = function (error) {
-                    expect(error).toBeDefined();
-                    if (isChrome) {
-                        expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                    } else {
-                        expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                    }
-=======
                     create : false
                 }, succeed.bind(null, done, 'root.getFile - Error unexpected callback, file should not exists: ' + fileName), fail);
             });
@@ -1017,20 +614,10 @@ exports.defineAutoTests = function () {
                 fail = function (error) {
                     expect(error).toBeDefined();
                     expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     done();
                 };
                 // create:false, exclusive:false, directory does not exist
                 root.getDirectory(dirName, {
-<<<<<<< HEAD
-                    create: false
-                }, succeed.bind(null, done, 'root.getDirectory - Error unexpected callback, directory should not exists: ' + dirName), fail);
-            });
-            it('file.spec.24 DirectoryEntry.getDirectory: create new dir with space then resolveLocalFileSystemURL', function (done) {
-                var dirName = 'de create dir';
-
-                function win (directory) {
-=======
                     create : false
                 }, succeed.bind(null, done, 'root.getDirectory - Error unexpected callback, directory should not exists: ' + dirName), fail);
             });
@@ -1038,7 +625,6 @@ exports.defineAutoTests = function () {
                 var dirName = "de create dir";
 
                 function win(directory) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(directory).toBeDefined();
                     expect(directory.isFile).toBe(false);
                     expect(directory.isDirectory).toBe(true);
@@ -1048,11 +634,7 @@ exports.defineAutoTests = function () {
                     deleteEntry(directory.name, done);
                 }
 
-<<<<<<< HEAD
-                function getDir (dirEntry) {
-=======
                 function getDir(dirEntry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(dirEntry.filesystem).toBeDefined();
                     expect(dirEntry.filesystem).toBe(root.filesystem);
                     var dirURI = dirEntry.toURL();
@@ -1062,11 +644,7 @@ exports.defineAutoTests = function () {
 
                 // create:true, exclusive:false, directory does not exist
                 root.getDirectory(dirName, {
-<<<<<<< HEAD
-                    create: true
-=======
                     create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 }, getDir, failed.bind(null, done, 'root.getDirectory - Error creating directory : ' + dirName));
             });
             // This test is excluded, and should probably be removed. Filesystem
@@ -1075,19 +653,11 @@ exports.defineAutoTests = function () {
             // handled by the implementation.
             // If a particular platform uses paths internally rather than URLs, // then that platform should careful to pass them correctly to its
             // backend.
-<<<<<<< HEAD
-            xit('file.spec.25 DirectoryEntry.getDirectory: create new dir with space resolveLocalFileSystemURL with encoded URI', function (done) {
-                var dirName = 'de create dir2';
-                var dirPath = joinURL(root.fullPath, dirName);
-
-                function win (directory) {
-=======
             xit("file.spec.25 DirectoryEntry.getDirectory: create new dir with space resolveLocalFileSystemURL with encoded URI", function (done) {
                 var dirName = "de create dir2",
                 dirPath = joinURL(root.fullPath, dirName);
 
                 function win(directory) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(directory).toBeDefined();
                     expect(directory.isFile).toBe(false);
                     expect(directory.isDirectory).toBe(true);
@@ -1097,11 +667,7 @@ exports.defineAutoTests = function () {
                     deleteEntry(directory.name, done);
                 }
 
-<<<<<<< HEAD
-                function getDir (dirEntry) {
-=======
                 function getDir(dirEntry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     var dirURI = dirEntry.toURL();
                     // now encode URI and try to resolve
                     window.resolveLocalFileSystemURL(encodeURI(dirURI), win, failed.bind(null, done, 'window.resolveLocalFileSystemURL - getDir function - Error resolving directory: ' + dirURI));
@@ -1109,15 +675,6 @@ exports.defineAutoTests = function () {
 
                 // create:true, exclusive:false, directory does not exist
                 root.getDirectory(dirName, {
-<<<<<<< HEAD
-                    create: true
-                }, getDir, failed.bind(null, done, 'root.getDirectory - Error creating directory : ' + dirName));
-            });
-            it('file.spec.26 DirectoryEntry.getDirectory: create new directory', function (done) {
-                var dirName = 'de.create.dir';
-                var dirPath = joinURL(root.fullPath, dirName);
-                var win = function (directory) {
-=======
                     create : true
                 }, getDir, failed.bind(null, done, 'root.getDirectory - Error creating directory : ' + dirName));
             });
@@ -1125,7 +682,6 @@ exports.defineAutoTests = function () {
                 var dirName = "de.create.dir",
                 dirPath = joinURL(root.fullPath, dirName),
                 win = function (directory) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(directory).toBeDefined();
                     expect(directory.isFile).toBe(false);
                     expect(directory.isDirectory).toBe(true);
@@ -1138,15 +694,6 @@ exports.defineAutoTests = function () {
                 };
                 // create:true, exclusive:false, directory does not exist
                 root.getDirectory(dirName, {
-<<<<<<< HEAD
-                    create: true
-                }, win, failed.bind(null, done, 'root.getDirectory - Error creating directory : ' + dirName));
-            });
-            it('file.spec.27 DirectoryEntry.getDirectory: create new directory (exclusive)', function (done) {
-                var dirName = 'de.create.exclusive.dir';
-                var dirPath = joinURL(root.fullPath, dirName);
-                var win = function (directory) {
-=======
                     create : true
                 }, win, failed.bind(null, done, 'root.getDirectory - Error creating directory : ' + dirName));
             });
@@ -1154,7 +701,6 @@ exports.defineAutoTests = function () {
                 var dirName = "de.create.exclusive.dir",
                 dirPath = joinURL(root.fullPath, dirName),
                 win = function (directory) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(directory).toBeDefined();
                     expect(directory.isFile).toBe(false);
                     expect(directory.isDirectory).toBe(true);
@@ -1167,16 +713,6 @@ exports.defineAutoTests = function () {
                 };
                 // create:true, exclusive:true, directory does not exist
                 root.getDirectory(dirName, {
-<<<<<<< HEAD
-                    create: true,
-                    exclusive: true
-                }, win, failed.bind(null, done, 'root.getDirectory - Error creating directory : ' + dirName));
-            });
-            it('file.spec.28 DirectoryEntry.getDirectory: create directory that already exists', function (done) {
-                var dirName = 'de.create.existing.dir';
-                var dirPath = joinURL(root.fullPath, dirName);
-                var win = function (directory) {
-=======
                     create : true,
                     exclusive : true
                 }, win, failed.bind(null, done, 'root.getDirectory - Error creating directory : ' + dirName));
@@ -1185,7 +721,6 @@ exports.defineAutoTests = function () {
                 var dirName = "de.create.existing.dir",
                 dirPath = joinURL(root.fullPath, dirName),
                 win = function (directory) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(directory).toBeDefined();
                     expect(directory.isFile).toBe(false);
                     expect(directory.isDirectory).toBe(true);
@@ -1196,27 +731,6 @@ exports.defineAutoTests = function () {
                 };
                 // create directory to kick off it
                 root.getDirectory(dirName, {
-<<<<<<< HEAD
-                    create: true
-                }, function () {
-                    root.getDirectory(dirName, {
-                        create: true
-                    }, win, failed.bind(null, done, 'root.getDirectory - Error creating existent second directory : ' + dirName));
-                }, failed.bind(null, done, 'root.getDirectory - Error creating directory : ' + dirName));
-            });
-            it('file.spec.29 DirectoryEntry.getDirectory: create directory that already exists (exclusive)', function (done) {
-
-                var dirName = 'de.create.exclusive.existing.dir';
-                var existingDir;
-                var fail = function (error) {
-                    expect(error).toBeDefined();
-                    if (isChrome) {
-                    /* INVALID_MODIFICATION_ERR (code: 9) or ??? (code: 13) is thrown instead of PATH_EXISTS_ERR(code: 12)
-                    on trying to exclusively create a file or directory, which already exists (Chrome). */
-                    // expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
-                    } else {
-                        expect(error).toBeFileError(FileError.PATH_EXISTS_ERR); // eslint-disable-line no-undef
-=======
                     create : true
                 }, function () {
                     root.getDirectory(dirName, {
@@ -1236,33 +750,17 @@ exports.defineAutoTests = function () {
                         expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
                     } else {
                         expect(error).toBeFileError(FileError.PATH_EXISTS_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }
                     // cleanup
                     deleteEntry(existingDir.name, done);
                 };
                 // create directory to kick off it
                 root.getDirectory(dirName, {
-<<<<<<< HEAD
-                    create: true
-=======
                     create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 }, function (directory) {
                     existingDir = directory;
                     // create:true, exclusive:true, directory exists
                     root.getDirectory(dirName, {
-<<<<<<< HEAD
-                        create: true,
-                        exclusive: true
-                    }, failed.bind(null, done, 'root.getDirectory - Unexpected success callback, second directory should not be created : ' + dirName), fail);
-                }, failed.bind(null, done, 'root.getDirectory - Error creating directory : ' + dirName));
-            });
-            it('file.spec.30 DirectoryEntry.getDirectory: get Entry for existing directory', function (done) {
-                var dirName = 'de.get.dir';
-                var dirPath = joinURL(root.fullPath, dirName);
-                var win = function (directory) {
-=======
                         create : true,
                         exclusive : true
                     }, failed.bind(null, done, 'root.getDirectory - Unexpected success callback, second directory should not be created : ' + dirName), fail);
@@ -1272,7 +770,6 @@ exports.defineAutoTests = function () {
                 var dirName = "de.get.dir",
                 dirPath = joinURL(root.fullPath, dirName),
                 win = function (directory) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(directory).toBeDefined();
                     expect(directory.isFile).toBe(false);
                     expect(directory.isDirectory).toBe(true);
@@ -1283,26 +780,6 @@ exports.defineAutoTests = function () {
                 };
                 // create directory to kick it off
                 root.getDirectory(dirName, {
-<<<<<<< HEAD
-                    create: true
-                }, function () {
-                    root.getDirectory(dirName, {
-                        create: false
-                    }, win, failed.bind(null, done, 'root.getDirectory - Error getting directory entry : ' + dirName));
-                }, failed.bind(null, done, 'root.getDirectory - Error creating directory : ' + dirName));
-            });
-            it('file.spec.31 DirectoryEntry.getDirectory: get DirectoryEntry for invalid path', function (done) {
-                if (isBrowser) {
-                    /* The plugin does not follow to ["8.3 Naming restrictions"]
-                    (http://www.w3.org/TR/2011/WD-file-system-api-20110419/#naming-restrictions). */
-                    pending();
-                }
-
-                var dirName = 'de:invalid:path';
-                var fail = function (error) {
-                    expect(error).toBeDefined();
-                    expect(error).toBeFileError(FileError.ENCODING_ERR); // eslint-disable-line no-undef
-=======
                     create : true
                 }, function () {
                     root.getDirectory(dirName, {
@@ -1321,26 +798,10 @@ exports.defineAutoTests = function () {
                 fail = function (error) {
                     expect(error).toBeDefined();
                     expect(error).toBeFileError(FileError.ENCODING_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     done();
                 };
                 // create:false, exclusive:false, invalid path
                 root.getDirectory(dirName, {
-<<<<<<< HEAD
-                    create: false
-                }, succeed.bind(null, done, 'root.getDirectory - Unexpected success callback, directory should not exists: ' + dirName), fail);
-            });
-            it('file.spec.32 DirectoryEntry.getDirectory: get DirectoryEntry for existing file', function (done) {
-                var fileName = 'de.existing.file';
-                var existingFile;
-                var fail = function (error) {
-                    expect(error).toBeDefined();
-                    if (isChrome) {
-                    // chrome returns an unknown error with code 17
-                    } else {
-                        expect(error).toBeFileError(FileError.TYPE_MISMATCH_ERR); // eslint-disable-line no-undef
-                    }
-=======
                     create : false
                 }, succeed.bind(null, done, 'root.getDirectory - Unexpected success callback, directory should not exists: ' + dirName), fail);
             });
@@ -1350,32 +811,11 @@ exports.defineAutoTests = function () {
                 fail = function (error) {
                     expect(error).toBeDefined();
                     expect(error).toBeFileError(FileError.TYPE_MISMATCH_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     // cleanup
                     deleteEntry(existingFile.name, done);
                 };
                 // create file to kick off it
                 root.getFile(fileName, {
-<<<<<<< HEAD
-                    create: true
-                }, function (file) {
-                    existingFile = file;
-                    root.getDirectory(fileName, {
-                        create: false
-                    }, succeed.bind(null, done, 'root.getDirectory - Unexpected success callback, directory should not exists: ' + fileName), fail);
-                }, failed.bind(null, done, 'root.getFile - Error creating file : ' + fileName));
-            });
-            it('file.spec.33 DirectoryEntry.getFile: get FileEntry for existing directory', function (done) {
-                var dirName = 'de.existing.dir';
-                var existingDir;
-                var fail = function (error) {
-                    expect(error).toBeDefined();
-                    if (isChrome) {
-                    // chrome returns an unknown error with code 17
-                    } else {
-                        expect(error).toBeFileError(FileError.TYPE_MISMATCH_ERR); // eslint-disable-line no-undef
-                    }
-=======
                     create : true
                 }, function (file) {
                     existingFile = file;
@@ -1390,32 +830,11 @@ exports.defineAutoTests = function () {
                 fail = function (error) {
                     expect(error).toBeDefined();
                     expect(error).toBeFileError(FileError.TYPE_MISMATCH_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     // cleanup
                     deleteEntry(existingDir.name, done);
                 };
                 // create directory to kick off it
                 root.getDirectory(dirName, {
-<<<<<<< HEAD
-                    create: true
-                }, function (directory) {
-                    existingDir = directory;
-                    root.getFile(dirName, {
-                        create: false
-                    }, succeed.bind(null, done, 'root.getFile - Unexpected success callback, file should not exists: ' + dirName), fail);
-                }, failed.bind(null, done, 'root.getDirectory - Error creating directory : ' + dirName));
-            });
-            it('file.spec.34 DirectoryEntry.removeRecursively on directory', function (done) {
-                var dirName = 'de.removeRecursively';
-                var subDirName = 'dir';
-                var dirExists = function (error) {
-                    expect(error).toBeDefined();
-                    if (isChrome) {
-                        expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                    } else {
-                        expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                    }
-=======
                     create : true
                 }, function (directory) {
                     existingDir = directory;
@@ -1430,21 +849,10 @@ exports.defineAutoTests = function () {
                 dirExists = function (error) {
                     expect(error).toBeDefined();
                     expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     done();
                 };
                 // create a new directory entry to kick off it
                 root.getDirectory(dirName, {
-<<<<<<< HEAD
-                    create: true
-                }, function (entry) {
-                    entry.getDirectory(subDirName, {
-                        create: true
-                    }, function (dir) {
-                        entry.removeRecursively(function () {
-                            root.getDirectory(dirName, {
-                                create: false
-=======
                     create : true
                 }, function (entry) {
                     entry.getDirectory(subDirName, {
@@ -1453,46 +861,28 @@ exports.defineAutoTests = function () {
                         entry.removeRecursively(function () {
                             root.getDirectory(dirName, {
                                 create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             }, succeed.bind(null, done, 'root.getDirectory - Unexpected success callback, directory should not exists: ' + dirName), dirExists);
                         }, failed.bind(null, done, 'entry.removeRecursively - Error removing directory recursively : ' + dirName));
                     }, failed.bind(null, done, 'root.getDirectory - Error creating directory : ' + subDirName));
                 }, failed.bind(null, done, 'root.getDirectory - Error creating directory : ' + dirName));
             });
-<<<<<<< HEAD
-            it('file.spec.35 createReader: create reader on existing directory', function () {
-=======
             it("file.spec.35 createReader: create reader on existing directory", function () {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create reader for root directory
                 var reader = root.createReader();
                 expect(reader).toBeDefined();
                 expect(typeof reader.readEntries).toBe('function');
             });
-<<<<<<< HEAD
-            it('file.spec.36 removeRecursively on root file system', function (done) {
-=======
             it("file.spec.36 removeRecursively on root file system", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
                 var remove = function (error) {
                     expect(error).toBeDefined();
                     if (isChrome) {
-<<<<<<< HEAD
-                        /* INVALID_MODIFICATION_ERR (code: 9) or ??? (code: 13) is thrown instead of
-                        NO_MODIFICATION_ALLOWED_ERR(code: 6) on trying to call removeRecursively
-                        on the root file system (Chrome). */
-                        // expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
-                    } else {
-                        expect(error).toBeFileError(FileError.NO_MODIFICATION_ALLOWED_ERR); // eslint-disable-line no-undef
-=======
                         /*INVALID_MODIFICATION_ERR (code: 9) is thrown instead of
                         NO_MODIFICATION_ALLOWED_ERR(code: 6) on trying to call removeRecursively
                         on the root file system (Chrome).*/
                         expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
                     } else {
                         expect(error).toBeFileError(FileError.NO_MODIFICATION_ALLOWED_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }
                     done();
                 };
@@ -1501,17 +891,10 @@ exports.defineAutoTests = function () {
             });
         });
         describe('DirectoryReader interface', function () {
-<<<<<<< HEAD
-            describe('readEntries', function () {
-                it('file.spec.37 should read contents of existing directory', function (done) {
-                    var reader;
-                    var win = function (entries) {
-=======
             describe("readEntries", function () {
                 it("file.spec.37 should read contents of existing directory", function (done) {
                     var reader,
                     win = function (entries) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         expect(entries).toBeDefined();
                         expect(entries instanceof Array).toBe(true);
                         done();
@@ -1521,16 +904,6 @@ exports.defineAutoTests = function () {
                     // read entries
                     reader.readEntries(win, failed.bind(null, done, 'reader.readEntries - Error reading entries'));
                 });
-<<<<<<< HEAD
-                it('file.spec.37.1 should read contents of existing directory', function (done) {
-                    var dirName = 'readEntries.dir';
-                    var fileName = 'readeEntries.file';
-                    root.getDirectory(dirName, {
-                        create: true
-                    }, function (directory) {
-                        directory.getFile(fileName, {
-                            create: true
-=======
                 it("file.spec.37.1 should read contents of existing directory", function (done) {
                     var dirName = 'readEntries.dir',
                     fileName = 'readeEntries.file';
@@ -1539,7 +912,6 @@ exports.defineAutoTests = function () {
                     }, function (directory) {
                         directory.getFile(fileName, {
                             create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }, function (fileEntry) {
                             var reader = directory.createReader();
                             reader.readEntries(function (entries) {
@@ -1550,16 +922,10 @@ exports.defineAutoTests = function () {
                                 expect(entries[0].filesystem).not.toBe(null);
                                 if (isChrome) {
                                     // Slicing '[object {type}]' -> '{type}'
-<<<<<<< HEAD
-                                    expect(entries[0].filesystem.toString().slice(8, -1)).toEqual('DOMFileSystem');
-                                } else {
-                                    expect(entries[0].filesystem instanceof FileSystem).toBe(true); // eslint-disable-line no-undef
-=======
                                     expect(entries[0].filesystem.toString().slice(8, -1)).toEqual("DOMFileSystem");
                                 }
                                 else {
                                     expect(entries[0].filesystem instanceof FileSystem).toBe(true);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 }
 
                                 // cleanup
@@ -1568,17 +934,6 @@ exports.defineAutoTests = function () {
                         }, failed.bind(null, done, 'directory.getFile - Error creating file : ' + fileName));
                     }, failed.bind(null, done, 'root.getDirectory - Error creating directory : ' + dirName));
                 });
-<<<<<<< HEAD
-                it('file.spec.109 should return an empty entry list on the second call', function (done) {
-                    var reader;
-                    var fileName = 'test109.txt';
-                    // Add a file to ensure the root directory is non-empty and then read the contents of the directory.
-                    root.getFile(fileName, {
-                        create: true
-                    }, function (entry) {
-                        reader = root.createReader();
-                        // First read
-=======
                 it("file.spec.109 should return an empty entry list on the second call", function (done) {
                     var reader,
                     fileName = 'test109.txt';
@@ -1588,72 +943,38 @@ exports.defineAutoTests = function () {
                     }, function (entry) {
                         reader = root.createReader();
                         //First read
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         reader.readEntries(function (entries) {
                             expect(entries).toBeDefined();
                             expect(entries instanceof Array).toBe(true);
                             expect(entries.length).not.toBe(0);
-<<<<<<< HEAD
-                            // Second read
-=======
                             //Second read
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             reader.readEntries(function (entries_) {
                                 expect(entries_).toBeDefined();
                                 expect(entries_ instanceof Array).toBe(true);
                                 expect(entries_.length).toBe(0);
-<<<<<<< HEAD
-                                // Clean up
-=======
                                 //Clean up
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 deleteEntry(entry.name, done);
                             }, failed.bind(null, done, 'reader.readEntries - Error during SECOND reading of entries from [root] directory'));
                         }, failed.bind(null, done, 'reader.readEntries - Error during FIRST reading of entries from [root] directory'));
                     }, failed.bind(null, done, 'root.getFile - Error creating file : ' + fileName));
                 });
             });
-<<<<<<< HEAD
-            it('file.spec.38 should read contents of directory that has been removed', function (done) {
-                var dirName = 'de.createReader.notfound';
-                // create a new directory entry to kick off it
-                root.getDirectory(dirName, {
-                    create: true
-=======
             it("file.spec.38 should read contents of directory that has been removed", function (done) {
                 var dirName = "de.createReader.notfound";
                 // create a new directory entry to kick off it
                 root.getDirectory(dirName, {
                     create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 }, function (directory) {
                     directory.removeRecursively(function () {
                         var reader = directory.createReader();
                         reader.readEntries(succeed.bind(null, done, 'reader.readEntries - Unexpected success callback, it should not read entries from deleted dir: ' + dirName), function (error) {
                             expect(error).toBeDefined();
-<<<<<<< HEAD
-                            if (isChrome) {
-                                expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                            } else {
-                                expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                            }
-                            root.getDirectory(dirName, {
-                                create: false
-                            }, succeed.bind(null, done, 'root.getDirectory - Unexpected success callback, it should not get deleted directory: ' + dirName), function (err) {
-                                expect(err).toBeDefined();
-                                if (isChrome) {
-                                    expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                                } else {
-                                    expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                                }
-=======
                             expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
                             root.getDirectory(dirName, {
                                 create : false
                             }, succeed.bind(null, done, 'root.getDirectory - Unexpected success callback, it should not get deleted directory: ' + dirName), function (err) {
                                 expect(err).toBeDefined();
                                 expect(err).toBeFileError(FileError.NOT_FOUND_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 done();
                             });
                         });
@@ -1661,16 +982,6 @@ exports.defineAutoTests = function () {
                 }, failed.bind(null, done, 'root.getDirectory - Error creating directory : ' + dirName));
             });
         });
-<<<<<<< HEAD
-        // DirectoryReader interface
-        describe('File', function () {
-            it('file.spec.39 constructor should be defined', function () {
-                expect(File).toBeDefined(); // eslint-disable-line no-undef
-                expect(typeof File).toBe('function');
-            });
-            it('file.spec.40 should be define File attributes', function () {
-                var file = new File(); // eslint-disable-line no-undef
-=======
         //DirectoryReader interface
         describe('File', function () {
             it("file.spec.39 constructor should be defined", function () {
@@ -1679,28 +990,18 @@ exports.defineAutoTests = function () {
             });
             it("file.spec.40 should be define File attributes", function () {
                 var file = new File();
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 expect(file.name).toBeDefined();
                 expect(file.type).toBeDefined();
                 expect(file.lastModifiedDate).toBeDefined();
                 expect(file.size).toBeDefined();
             });
         });
-<<<<<<< HEAD
-        // File
-        describe('FileEntry', function () {
-
-            it('file.spec.41 should be define FileEntry methods', function (done) {
-                var fileName = 'fe.methods';
-                var testFileEntry = function (fileEntry) {
-=======
         //File
         describe('FileEntry', function () {
 
             it("file.spec.41 should be define FileEntry methods", function (done) {
                 var fileName = "fe.methods",
                 testFileEntry = function (fileEntry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(fileEntry).toBeDefined();
                     expect(typeof fileEntry.createWriter).toBe('function');
                     expect(typeof fileEntry.file).toBe('function');
@@ -1709,21 +1010,6 @@ exports.defineAutoTests = function () {
                 };
                 // create a new file entry to kick off it
                 root.getFile(fileName, {
-<<<<<<< HEAD
-                    create: true
-                }, testFileEntry, failed.bind(null, done, 'root.getFile - Error creating file : ' + fileName));
-            });
-            it('file.spec.42 createWriter should return a FileWriter object', function (done) {
-                var fileName = 'fe.createWriter';
-                var testFile;
-                var testWriter = function (writer) {
-                    expect(writer).toBeDefined();
-                    if (isChrome) {
-                    // Slicing '[object {type}]' -> '{type}'
-                        expect(writer.toString().slice(8, -1)).toEqual('FileWriter');
-                    } else {
-                        expect(writer instanceof FileWriter).toBe(true); // eslint-disable-line no-undef
-=======
                     create : true
                 }, testFileEntry, failed.bind(null, done, 'root.getFile - Error creating file : ' + fileName));
             });
@@ -1738,7 +1024,6 @@ exports.defineAutoTests = function () {
                     }
                     else {
                         expect(writer instanceof FileWriter).toBe(true);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }
 
                     // cleanup
@@ -1746,28 +1031,12 @@ exports.defineAutoTests = function () {
                 };
                 // create a new file entry to kick off it
                 root.getFile(fileName, {
-<<<<<<< HEAD
-                    create: true
-=======
                     create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 }, function (fileEntry) {
                     testFile = fileEntry;
                     fileEntry.createWriter(testWriter, failed.bind(null, done, 'fileEntry.createWriter - Error creating Writer from entry'));
                 }, failed.bind(null, done, 'root.getFile - Error creating file : ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.43 file should return a File object', function (done) {
-                var fileName = 'fe.file';
-                var newFile;
-                var testFile = function (file) {
-                    expect(file).toBeDefined();
-                    if (isChrome) {
-                    // Slicing '[object {type}]' -> '{type}'
-                        expect(file.toString().slice(8, -1)).toEqual('File');
-                    } else {
-                        expect(file instanceof File).toBe(true); // eslint-disable-line no-undef
-=======
             it("file.spec.43 file should return a File object", function (done) {
                 var fileName = "fe.file",
                 newFile,
@@ -1779,7 +1048,6 @@ exports.defineAutoTests = function () {
                     }
                     else {
                         expect(file instanceof File).toBe(true);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }
 
                     // cleanup
@@ -1787,63 +1055,34 @@ exports.defineAutoTests = function () {
                 };
                 // create a new file entry to kick off it
                 root.getFile(fileName, {
-<<<<<<< HEAD
-                    create: true
-=======
                     create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 }, function (fileEntry) {
                     newFile = fileEntry;
                     fileEntry.file(testFile, failed.bind(null, done, 'fileEntry.file - Error reading file using fileEntry: ' + fileEntry.name));
                 }, failed.bind(null, done, 'root.getFile - Error creating file : ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.44 file: on File that has been removed', function (done) {
-                var fileName = 'fe.no.file';
-                // create a new file entry to kick off it
-                root.getFile(fileName, {
-                    create: true
-=======
             it("file.spec.44 file: on File that has been removed", function (done) {
                 var fileName = "fe.no.file";
                 // create a new file entry to kick off it
                 root.getFile(fileName, {
                     create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 }, function (fileEntry) {
                     fileEntry.remove(function () {
                         fileEntry.file(succeed.bind(null, done, 'fileEntry.file - Unexpected success callback, file it should not be created from removed entry'), function (error) {
                             expect(error).toBeDefined();
-<<<<<<< HEAD
-                            if (isChrome) {
-                                expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                            } else {
-                                expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                            }
-=======
                             expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             done();
                         });
                     }, failed.bind(null, done, 'fileEntry.remove - Error removing entry : ' + fileName));
                 }, failed.bind(null, done, 'root.getFile - Error creating file : ' + fileName));
             });
         });
-<<<<<<< HEAD
-        // FileEntry
-        describe('Entry', function () {
-            it('file.spec.45 Entry object', function (done) {
-                var fileName = 'entry';
-                var fullPath = joinURL(root.fullPath, fileName);
-                var winEntry = function (entry) {
-=======
         //FileEntry
         describe('Entry', function () {
             it("file.spec.45 Entry object", function (done) {
                 var fileName = "entry",
                 fullPath = joinURL(root.fullPath, fileName),
                 winEntry = function (entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(entry).toBeDefined();
                     expect(entry.isFile).toBe(true);
                     expect(entry.isDirectory).toBe(false);
@@ -1864,68 +1103,41 @@ exports.defineAutoTests = function () {
                 // create a new file entry
                 createFile(fileName, winEntry, failed.bind(null, done, 'createFile - Error creating file : ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.46 Entry.getMetadata on file', function (done) {
-                var fileName = 'entry.metadata.file';
-=======
             it("file.spec.46 Entry.getMetadata on file", function (done) {
                 var fileName = "entry.metadata.file";
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new file entry
                 createFile(fileName, function (entry) {
                     entry.getMetadata(function (metadata) {
                         expect(metadata).toBeDefined();
                         expect(metadata.modificationTime instanceof Date).toBe(true);
-<<<<<<< HEAD
-                        expect(typeof metadata.size).toBe('number');
-=======
                         expect(typeof metadata.size).toBe("number");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         // cleanup
                         deleteEntry(fileName, done);
                     }, failed.bind(null, done, 'entry.getMetadata - Error getting metadata from entry : ' + fileName));
                 }, failed.bind(null, done, 'createFile - Error creating file : ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.47 Entry.getMetadata on directory', function (done) {
-=======
             it("file.spec.47 Entry.getMetadata on directory", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* Does not support metadata for directories (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var dirName = 'entry.metadata.dir';
-=======
                 var dirName = "entry.metadata.dir";
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new directory entry
                 createDirectory(dirName, function (entry) {
                     entry.getMetadata(function (metadata) {
                         expect(metadata).toBeDefined();
                         expect(metadata.modificationTime instanceof Date).toBe(true);
-<<<<<<< HEAD
-                        expect(typeof metadata.size).toBe('number');
-=======
                         expect(typeof metadata.size).toBe("number");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         expect(metadata.size).toBe(0);
                         // cleanup
                         deleteEntry(dirName, done);
                     }, failed.bind(null, done, 'entry.getMetadata - Error getting metadata from entry : ' + dirName));
                 }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + dirName));
             });
-<<<<<<< HEAD
-            it('file.spec.48 Entry.getParent on file in root file system', function (done) {
-                var fileName = 'entry.parent.file';
-                var rootPath = root.fullPath;
-=======
             it("file.spec.48 Entry.getParent on file in root file system", function (done) {
                 var fileName = "entry.parent.file",
                 rootPath = root.fullPath;
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new file entry
                 createFile(fileName, function (entry) {
                     entry.getParent(function (parent) {
@@ -1936,15 +1148,9 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'entry.getParent - Error getting parent directory of file : ' + fileName));
                 }, failed.bind(null, done, 'createFile - Error creating file : ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.49 Entry.getParent on directory in root file system', function (done) {
-                var dirName = 'entry.parent.dir';
-                var rootPath = root.fullPath;
-=======
             it("file.spec.49 Entry.getParent on directory in root file system", function (done) {
                 var dirName = "entry.parent.dir",
                 rootPath = root.fullPath;
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new directory entry
                 createDirectory(dirName, function (entry) {
                     entry.getParent(function (parent) {
@@ -1955,15 +1161,9 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'entry.getParent - Error getting parent directory of directory : ' + dirName));
                 }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + dirName));
             });
-<<<<<<< HEAD
-            it('file.spec.50 Entry.getParent on root file system', function (done) {
-                var rootPath = root.fullPath;
-                var winParent = function (parent) {
-=======
             it("file.spec.50 Entry.getParent on root file system", function (done) {
                 var rootPath = root.fullPath,
                 winParent = function (parent) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(parent).toBeDefined();
                     expect(parent.fullPath).toCanonicallyMatch(rootPath);
                     done();
@@ -1971,17 +1171,10 @@ exports.defineAutoTests = function () {
                 // create a new directory entry
                 root.getParent(winParent, failed.bind(null, done, 'root.getParent - Error getting parent directory of root'));
             });
-<<<<<<< HEAD
-            it('file.spec.51 Entry.toURL on file', function (done) {
-                var fileName = 'entry.uri.file';
-                var rootPath = root.fullPath;
-                var winURI = function (entry) {
-=======
             it("file.spec.51 Entry.toURL on file", function (done) {
                 var fileName = "entry.uri.file",
                 rootPath = root.fullPath,
                 winURI = function (entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     var uri = entry.toURL();
                     expect(uri).toBeDefined();
                     expect(uri.indexOf(rootPath)).not.toBe(-1);
@@ -1991,15 +1184,6 @@ exports.defineAutoTests = function () {
                 // create a new file entry
                 createFile(fileName, winURI, failed.bind(null, done, 'createFile - Error creating file : ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.52 Entry.toURL on directory', function (done) {
-                var dirName_1 = 'num 1';
-                var dirName_2 = 'num 2';
-                var rootPath = root.fullPath;
-                createDirectory(dirName_1, function (entry) {
-                    entry.getDirectory(dirName_2, {
-                        create: true
-=======
             it("file.spec.52 Entry.toURL on directory", function (done) {
                 var dirName_1 = "num 1",
                 dirName_2 = "num 2",
@@ -2007,7 +1191,6 @@ exports.defineAutoTests = function () {
                 createDirectory(dirName_1, function (entry) {
                     entry.getDirectory(dirName_2, {
                         create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }, function (entryFile) {
                         var uri = entryFile.toURL();
                         expect(uri).toBeDefined();
@@ -2018,114 +1201,51 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'entry.getDirectory - Error creating directory : ' + dirName_2));
                 }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + dirName_1));
             });
-<<<<<<< HEAD
-            it('file.spec.53 Entry.remove on file', function (done) {
-                var fileName = 'entr .rm.file';
-=======
             it("file.spec.53 Entry.remove on file", function (done) {
                 var fileName = "entr .rm.file";
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new file entry
                 createFile(fileName, function (entry) {
                     expect(entry).toBeDefined();
                     entry.remove(function () {
                         root.getFile(fileName, null, succeed.bind(null, done, 'root.getFile - Unexpected success callback, it should not get deleted file : ' + fileName), function (error) {
                             expect(error).toBeDefined();
-<<<<<<< HEAD
-                            if (isChrome) {
-                                expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                            } else {
-                                expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                            }
-=======
                             expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             // cleanup
                             deleteEntry(fileName, done);
                         });
                     }, failed.bind(null, done, 'entry.remove - Error removing entry : ' + fileName));
                 }, failed.bind(null, done, 'createFile - Error creating file : ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.53.1 Entry.remove on filename with #s', function (done) {
-                if (isBrowser) {
-                    pending('Browsers can\'t do that');
-                }
-                var fileName = 'entry.#rm#.file';
-=======
             it("file.spec.53.1 Entry.remove on filename with #s", function (done) {
                 var fileName = "entry.#rm#.file";
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new file entry
                 createFile(fileName, function (entry) {
                     expect(entry).toBeDefined();
                     entry.remove(function () {
                         root.getFile(fileName, null, succeed.bind(null, done, 'root.getFile - Unexpected success callback, it should not get deleted file : ' + fileName), function (error) {
                             expect(error).toBeDefined();
-<<<<<<< HEAD
-                            expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-=======
                             expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             // cleanup
                             deleteEntry(fileName, done);
                         });
                     }, failed.bind(null, done, 'entry.remove - Error removing entry : ' + fileName));
                 }, failed.bind(null, done, 'createFile - Error creating file : ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.54 remove on empty directory', function (done) {
-                var dirName = 'entry.rm.dir';
-=======
             it("file.spec.54 remove on empty directory", function (done) {
                 var dirName = "entry.rm.dir";
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new directory entry
                 createDirectory(dirName, function (entry) {
                     expect(entry).toBeDefined();
                     entry.remove(function () {
                         root.getDirectory(dirName, null, succeed.bind(null, done, 'root.getDirectory - Unexpected success callback, it should not get deleted directory : ' + dirName), function (error) {
                             expect(error).toBeDefined();
-<<<<<<< HEAD
-                            if (isChrome) {
-                                expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                            } else {
-                                expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                            }
-=======
                             expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             // cleanup
                             deleteEntry(dirName, done);
                         });
                     }, failed.bind(null, done, 'entry.remove - Error removing entry : ' + dirName));
                 }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + dirName));
             });
-<<<<<<< HEAD
-            it('file.spec.55 remove on non-empty directory', function (done) {
-                if (isIndexedDBShim) {
-                    /* Both Entry.remove and directoryEntry.removeRecursively don't fail when removing
-                    non-empty directories - directories being removed are cleaned
-                    along with contents instead (Firefox, IE) */
-                    pending();
-                }
-
-                var dirName = 'ent y.rm.dir.not.empty';
-                var fileName = 're ove.txt';
-                var fullPath = joinURL(root.fullPath, dirName);
-                // create a new directory entry
-                createDirectory(dirName, function (entry) {
-                    entry.getFile(fileName, {
-                        create: true
-                    }, function (fileEntry) {
-                        entry.remove(succeed.bind(null, done, 'entry.remove - Unexpected success callback, it should not remove a directory that contains files : ' + dirName), function (error) {
-                            expect(error).toBeDefined();
-                            if (isChrome) {
-                                // chrome is returning unknown error with code 13
-                            } else {
-                                expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR); // eslint-disable-line no-undef
-                            }
-=======
             it("file.spec.55 remove on non-empty directory", function (done) {
                 if (isIndexedDBShim) {
                     /* Both Entry.remove and directoryEntry.removeRecursively don't fail when removing
@@ -2145,7 +1265,6 @@ exports.defineAutoTests = function () {
                         entry.remove(succeed.bind(null, done, 'entry.remove - Unexpected success callback, it should not remove a directory that contains files : ' + dirName), function (error) {
                             expect(error).toBeDefined();
                             expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             root.getDirectory(dirName, null, function (entry) {
                                 expect(entry).toBeDefined();
                                 expect(entry.fullPath).toCanonicallyMatch(fullPath);
@@ -2156,46 +1275,26 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'entry.getFile - Error creating file : ' + fileName + ' inside of ' + dirName));
                 }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + dirName));
             });
-<<<<<<< HEAD
-            it('file.spec.56 remove on root file system', function (done) {
-=======
             it("file.spec.56 remove on root file system", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
                 // remove entry that doesn't exist
                 root.remove(succeed.bind(null, done, 'entry.remove - Unexpected success callback, it should not remove entry that it does not exists'), function (error) {
                     expect(error).toBeDefined();
                     if (isChrome) {
-<<<<<<< HEAD
-                        /* INVALID_MODIFICATION_ERR (code: 9) or ??? (code: 13) is thrown instead of
-                        NO_MODIFICATION_ALLOWED_ERR(code: 6) on trying to call removeRecursively
-                        on the root file system. */
-                        // expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
-                    } else {
-                        expect(error).toBeFileError(FileError.NO_MODIFICATION_ALLOWED_ERR); // eslint-disable-line no-undef
-=======
                         /*INVALID_MODIFICATION_ERR (code: 9) is thrown instead of
                         NO_MODIFICATION_ALLOWED_ERR(code: 6) on trying to call removeRecursively
                         on the root file system.*/
                         expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
                     } else {
                         expect(error).toBeFileError(FileError.NO_MODIFICATION_ALLOWED_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }
                     done();
                 });
             });
-<<<<<<< HEAD
-            it('file.spec.57 copyTo: file', function (done) {
-                var file1 = 'entry copy.file1';
-                var file2 = 'entry copy.file2';
-                var fullPath = joinURL(root.fullPath, file2);
-=======
             it("file.spec.57 copyTo: file", function (done) {
                 var file1 = "entry copy.file1",
                 file2 = "entry copy.file2",
                 fullPath = joinURL(root.fullPath, file2);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new file entry to kick off it
                 deleteEntry(file2, function () {
                     createFile(file1, function (fileEntry) {
@@ -2207,11 +1306,7 @@ exports.defineAutoTests = function () {
                             expect(entry.fullPath).toCanonicallyMatch(fullPath);
                             expect(entry.name).toCanonicallyMatch(file2);
                             root.getFile(file2, {
-<<<<<<< HEAD
-                                create: false
-=======
                                 create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             }, function (entry2) {
                                 expect(entry2).toBeDefined();
                                 expect(entry2.isFile).toBe(true);
@@ -2227,65 +1322,36 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'createFile - Error creating file : ' + file1));
                 }, failed.bind(null, done, 'deleteEntry - Error removing file : ' + file2));
             });
-<<<<<<< HEAD
-            it('file.spec.58 copyTo: file onto itself', function (done) {
-                var file1 = 'entry.copy.fos.file1';
-=======
             it("file.spec.58 copyTo: file onto itself", function (done) {
                 var file1 = "entry.copy.fos.file1";
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new file entry to kick off it
                 createFile(file1, function (entry) {
                     // copy file1 onto itself
                     entry.copyTo(root, null, succeed.bind(null, done, 'entry.copyTo - Unexpected success callback, it should not copy a null file'), function (error) {
                         expect(error).toBeDefined();
-<<<<<<< HEAD
-                        if (isChrome) {
-                            // chrome returns unknown error with code 13
-                        } else {
-                            expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR); // eslint-disable-line no-undef
-                        }
-=======
                         expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         // cleanup
                         deleteEntry(file1, done);
                     });
                 }, failed.bind(null, done, 'createFile - Error creating file : ' + file1));
             });
-<<<<<<< HEAD
-            it('file.spec.59 copyTo: directory', function (done) {
-=======
             it("file.spec.59 copyTo: directory", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* `copyTo` and `moveTo` functions do not support directories (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var file1 = 'file1';
-                var srcDir = 'entry.copy.srcDir';
-                var dstDir = 'entry.copy.dstDir';
-                var dstPath = joinURL(root.fullPath, dstDir);
-                var filePath = joinURL(dstPath, file1);
-=======
                 var file1 = "file1",
                 srcDir = "entry.copy.srcDir",
                 dstDir = "entry.copy.dstDir",
                 dstPath = joinURL(root.fullPath, dstDir),
                 filePath = joinURL(dstPath, file1);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new directory entry to kick off it
                 deleteEntry(dstDir, function () {
                     createDirectory(srcDir, function (directory) {
                         // create a file within new directory
                         directory.getFile(file1, {
-<<<<<<< HEAD
-                            create: true
-=======
                             create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }, function () {
                             directory.copyTo(root, dstDir, function (directory) {
                                 expect(directory).toBeDefined();
@@ -2294,11 +1360,7 @@ exports.defineAutoTests = function () {
                                 expect(directory.fullPath).toCanonicallyMatch(dstPath);
                                 expect(directory.name).toCanonicallyMatch(dstDir);
                                 root.getDirectory(dstDir, {
-<<<<<<< HEAD
-                                    create: false
-=======
                                     create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 }, function (dirEntry) {
                                     expect(dirEntry).toBeDefined();
                                     expect(dirEntry.isFile).toBe(false);
@@ -2306,11 +1368,7 @@ exports.defineAutoTests = function () {
                                     expect(dirEntry.fullPath).toCanonicallyMatch(dstPath);
                                     expect(dirEntry.name).toCanonicallyMatch(dstDir);
                                     dirEntry.getFile(file1, {
-<<<<<<< HEAD
-                                        create: false
-=======
                                         create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                     }, function (fileEntry) {
                                         expect(fileEntry).toBeDefined();
                                         expect(fileEntry.isFile).toBe(true);
@@ -2328,38 +1386,22 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + srcDir));
                 }, failed.bind(null, done, 'deleteEntry - Error removing directory : ' + dstDir));
             });
-<<<<<<< HEAD
-            it('file.spec.60 copyTo: directory to backup at same root directory', function (done) {
-=======
             it("file.spec.60 copyTo: directory to backup at same root directory", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* `copyTo` and `moveTo` functions do not support directories (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var file1 = 'file1';
-                var srcDir = 'entry.copy srcDirSame';
-                var dstDir = 'entry.copy srcDirSame-backup';
-                var dstPath = joinURL(root.fullPath, dstDir);
-                var filePath = joinURL(dstPath, file1);
-=======
                 var file1 = "file1",
                 srcDir = "entry.copy srcDirSame",
                 dstDir = "entry.copy srcDirSame-backup",
                 dstPath = joinURL(root.fullPath, dstDir),
                 filePath = joinURL(dstPath, file1);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new directory entry to kick off it
                 deleteEntry(dstDir, function () {
                     createDirectory(srcDir, function (directory) {
                         directory.getFile(file1, {
-<<<<<<< HEAD
-                            create: true
-=======
                             create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }, function () {
                             directory.copyTo(root, dstDir, function (directory) {
                                 expect(directory).toBeDefined();
@@ -2368,11 +1410,7 @@ exports.defineAutoTests = function () {
                                 expect(directory.fullPath).toCanonicallyMatch(dstPath);
                                 expect(directory.name).toCanonicallyMatch(dstDir);
                                 root.getDirectory(dstDir, {
-<<<<<<< HEAD
-                                    create: false
-=======
                                     create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 }, function (dirEntry) {
                                     expect(dirEntry).toBeDefined();
                                     expect(dirEntry.isFile).toBe(false);
@@ -2380,11 +1418,7 @@ exports.defineAutoTests = function () {
                                     expect(dirEntry.fullPath).toCanonicallyMatch(dstPath);
                                     expect(dirEntry.name).toCanonicallyMatch(dstDir);
                                     dirEntry.getFile(file1, {
-<<<<<<< HEAD
-                                        create: false
-=======
                                         create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                     }, function (fileEntry) {
                                         expect(fileEntry).toBeDefined();
                                         expect(fileEntry.isFile).toBe(true);
@@ -2402,62 +1436,33 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + srcDir));
                 }, failed.bind(null, done, 'deleteEntry - Error removing directory : ' + dstDir));
             });
-<<<<<<< HEAD
-            it('file.spec.61 copyTo: directory onto itself', function (done) {
-=======
             it("file.spec.61 copyTo: directory onto itself", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* `copyTo` and `moveTo` functions do not support directories (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var file1 = 'file1';
-                var srcDir = 'entry.copy.dos.srcDir';
-                var srcPath = joinURL(root.fullPath, srcDir);
-                var filePath = joinURL(srcPath, file1);
-=======
                 var file1 = "file1",
                 srcDir = "entry.copy.dos.srcDir",
                 srcPath = joinURL(root.fullPath, srcDir),
                 filePath = joinURL(srcPath, file1);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new directory entry to kick off it
                 createDirectory(srcDir, function (directory) {
                     // create a file within new directory
                     directory.getFile(file1, {
-<<<<<<< HEAD
-                        create: true
-=======
                         create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }, function (fileEntry) {
                         // copy srcDir onto itself
                         directory.copyTo(root, null, succeed.bind(null, done, 'directory.copyTo - Unexpected success callback, it should not copy file: ' + srcDir + ' to a null destination'), function (error) {
                             expect(error).toBeDefined();
-<<<<<<< HEAD
-                            if (isChrome) {
-                                // chrome returns unknown error with code 13
-                            } else {
-                                expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR); // eslint-disable-line no-undef
-                            }
-                            root.getDirectory(srcDir, {
-                                create: false
-=======
                             expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
                             root.getDirectory(srcDir, {
                                 create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             }, function (dirEntry) {
                                 expect(dirEntry).toBeDefined();
                                 expect(dirEntry.fullPath).toCanonicallyMatch(srcPath);
                                 dirEntry.getFile(file1, {
-<<<<<<< HEAD
-                                    create: false
-=======
                                     create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 }, function (fileEntry) {
                                     expect(fileEntry).toBeDefined();
                                     expect(fileEntry.fullPath).toCanonicallyMatch(filePath);
@@ -2469,43 +1474,23 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'directory.getFile - Error creating file : ' + file1));
                 }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + srcDir));
             });
-<<<<<<< HEAD
-            it('file.spec.62 copyTo: directory into itself', function (done) {
-=======
             it("file.spec.62 copyTo: directory into itself", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* `copyTo` and `moveTo` functions do not support directories (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var srcDir = 'entry.copy.dis.srcDir';
-                var dstDir = 'entry.copy.dis.dstDir';
-                var srcPath = joinURL(root.fullPath, srcDir);
-=======
                 var srcDir = "entry.copy.dis.srcDir",
                 dstDir = "entry.copy.dis.dstDir",
                 srcPath = joinURL(root.fullPath, srcDir);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new directory entry to kick off it
                 createDirectory(srcDir, function (directory) {
                     // copy source directory into itself
                     directory.copyTo(directory, dstDir, succeed.bind(null, done, 'directory.copyTo - Unexpected success callback, it should not copy a directory ' + srcDir + ' into itself'), function (error) {
                         expect(error).toBeDefined();
-<<<<<<< HEAD
-                        if (isChrome) {
-                            // chrome returns unknown error with code 13
-                        } else {
-                            expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR); // eslint-disable-line no-undef
-                        }
-                        root.getDirectory(srcDir, {
-                            create: false
-=======
                         expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
                         root.getDirectory(srcDir, {
                             create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }, function (dirEntry) {
                             // returning confirms existence so just check fullPath entry
                             expect(dirEntry).toBeDefined();
@@ -2516,46 +1501,21 @@ exports.defineAutoTests = function () {
                     });
                 }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + srcDir));
             });
-<<<<<<< HEAD
-            it('file.spec.63 copyTo: directory that does not exist', function (done) {
-                var file1 = 'entry.copy.dnf.file1';
-                var dirName = 'dir-foo';
-=======
             it("file.spec.63 copyTo: directory that does not exist", function (done) {
                 var file1 = "entry.copy.dnf.file1",
                 dirName = 'dir-foo';
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 createFile(file1, function (fileEntry) {
                     createDirectory(dirName, function (dirEntry) {
                         dirEntry.remove(function () {
                             fileEntry.copyTo(dirEntry, null, succeed.bind(null, done, 'fileEntry.copyTo - Unexpected success callback, it should not copy a file ' + file1 + ' into a removed directory'), function (error) {
                                 expect(error).toBeDefined();
-<<<<<<< HEAD
-                                if (isChrome) {
-                                    expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                                } else {
-                                    expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                                }
-=======
                                 expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 done();
                             });
                         }, failed.bind(null, done, 'dirEntry.remove - Error removing directory : ' + dirName));
                     }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + dirName));
                 }, failed.bind(null, done, 'createFile - Error creating file : ' + file1));
             });
-<<<<<<< HEAD
-            it('file.spec.64 copyTo: invalid target name', function (done) {
-                if (isBrowser) {
-                    /* The plugin does not follow ["8.3 Naming restrictions"]
-                    (http://www.w3.org/TR/2011/WD-file-system-api-20110419/#naming-restrictions */
-                    pending();
-                }
-
-                var file1 = 'entry.copy.itn.file1';
-                var file2 = 'bad:file:name';
-=======
             it("file.spec.64 copyTo: invalid target name", function (done) {
                 if (isBrowser) {
                     /*The plugin does not follow ["8.3 Naming restrictions"]
@@ -2565,33 +1525,21 @@ exports.defineAutoTests = function () {
 
                 var file1 = "entry.copy.itn.file1",
                 file2 = "bad:file:name";
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new file entry
                 createFile(file1, function (entry) {
                     // copy file1 to file2
                     entry.copyTo(root, file2, succeed.bind(null, done, 'entry.copyTo - Unexpected success callback, it should not copy a file ' + file1 + ' to an invalid file name: ' + file2), function (error) {
                         expect(error).toBeDefined();
-<<<<<<< HEAD
-                        expect(error).toBeFileError(FileError.ENCODING_ERR); // eslint-disable-line no-undef
-=======
                         expect(error).toBeFileError(FileError.ENCODING_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         // cleanup
                         deleteEntry(file1, done);
                     });
                 }, failed.bind(null, done, 'createFile - Error creating file : ' + file1));
             });
-<<<<<<< HEAD
-            it('file.spec.65 moveTo: file to same parent', function (done) {
-                var file1 = 'entry.move.fsp.file1';
-                var file2 = 'entry.move.fsp.file2';
-                var dstPath = joinURL(root.fullPath, file2);
-=======
             it("file.spec.65 moveTo: file to same parent", function (done) {
                 var file1 = "entry.move.fsp.file1",
                 file2 = "entry.move.fsp.file2",
                 dstPath = joinURL(root.fullPath, file2);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new file entry to kick off it
                 createFile(file1, function (entry) {
                     // move file1 to file2
@@ -2602,32 +1550,16 @@ exports.defineAutoTests = function () {
                         expect(entry.fullPath).toCanonicallyMatch(dstPath);
                         expect(entry.name).toCanonicallyMatch(file2);
                         root.getFile(file2, {
-<<<<<<< HEAD
-                            create: false
-=======
                             create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }, function (fileEntry) {
                             expect(fileEntry).toBeDefined();
                             expect(fileEntry.fullPath).toCanonicallyMatch(dstPath);
                             root.getFile(file1, {
-<<<<<<< HEAD
-                                create: false
-                            }, succeed.bind(null, done, 'root.getFile - Unexpected success callback, it should not get invalid or moved file: ' + file1), function (error) {
-                                // expect(navigator.fileMgr.testFileExists(srcPath) === false, "original file should not exist.");
-                                expect(error).toBeDefined();
-                                if (isChrome) {
-                                    expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                                } else {
-                                    expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                                }
-=======
                                 create : false
                             }, succeed.bind(null, done, 'root.getFile - Unexpected success callback, it should not get invalid or moved file: ' + file1), function (error) {
                                 //expect(navigator.fileMgr.testFileExists(srcPath) === false, "original file should not exist.");
                                 expect(error).toBeDefined();
                                 expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 // cleanup
                                 deleteEntry(file1, function () {
                                     deleteEntry(file2, done);
@@ -2637,28 +1569,17 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'entry.moveTo - Error moving file : ' + file1 + ' to root as: ' + file2));
                 }, failed.bind(null, done, 'createFile - Error creating file : ' + file1));
             });
-<<<<<<< HEAD
-            it('file.spec.66 moveTo: file to new parent', function (done) {
-                var file1 = 'entry.move.fnp.file1';
-                var dir = 'entry.move.fnp.dir';
-                var dstPath = joinURL(joinURL(root.fullPath, dir), file1);
-=======
             it("file.spec.66 moveTo: file to new parent", function (done) {
                 var file1 = "entry.move.fnp.file1",
                 dir = "entry.move.fnp.dir",
                 dstPath = joinURL(joinURL(root.fullPath, dir), file1);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // ensure destination directory is cleaned up first
                 deleteEntry(dir, function () {
                     // create a new file entry to kick off it
                     createFile(file1, function (entry) {
                         // create a parent directory to move file to
                         root.getDirectory(dir, {
-<<<<<<< HEAD
-                            create: true
-=======
                             create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }, function (directory) {
                             // move file1 to new directory
                             // move the file
@@ -2670,30 +1591,15 @@ exports.defineAutoTests = function () {
                                 expect(entry.name).toCanonicallyMatch(file1);
                                 // test the moved file exists
                                 directory.getFile(file1, {
-<<<<<<< HEAD
-                                    create: false
-=======
                                     create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 }, function (fileEntry) {
                                     expect(fileEntry).toBeDefined();
                                     expect(fileEntry.fullPath).toCanonicallyMatch(dstPath);
                                     root.getFile(file1, {
-<<<<<<< HEAD
-                                        create: false
-                                    }, succeed.bind(null, done, 'root.getFile - Unexpected success callback, it should not get invalid or moved file: ' + file1), function (error) {
-                                        expect(error).toBeDefined();
-                                        if (isChrome) {
-                                            expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                                        } else {
-                                            expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                                        }
-=======
                                         create : false
                                     }, succeed.bind(null, done, 'root.getFile - Unexpected success callback, it should not get invalid or moved file: ' + file1), function (error) {
                                         expect(error).toBeDefined();
                                         expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                         // cleanup
                                         deleteEntry(file1, function () {
                                             deleteEntry(dir, done);
@@ -2705,40 +1611,24 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'createFile - Error creating file : ' + file1));
                 }, failed.bind(null, done, 'deleteEntry - Error removing directory : ' + dir));
             });
-<<<<<<< HEAD
-            it('file.spec.67 moveTo: directory to same parent', function (done) {
-=======
             it("file.spec.67 moveTo: directory to same parent", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* `copyTo` and `moveTo` functions do not support directories (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var file1 = 'file1';
-                var srcDir = 'entry.move.dsp.srcDir';
-                var dstDir = 'entry.move.dsp.dstDir';
-                var dstPath = joinURL(root.fullPath, dstDir);
-                var filePath = joinURL(dstPath, file1);
-=======
                 var file1 = "file1",
                 srcDir = "entry.move.dsp.srcDir",
                 dstDir = "entry.move.dsp.dstDir",
                 dstPath = joinURL(root.fullPath, dstDir),
                 filePath = joinURL(dstPath, file1);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // ensure destination directory is cleaned up before it
                 deleteEntry(dstDir, function () {
                     // create a new directory entry to kick off it
                     createDirectory(srcDir, function (directory) {
                         // create a file within directory
                         directory.getFile(file1, {
-<<<<<<< HEAD
-                            create: true
-=======
                             create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }, function () {
                             // move srcDir to dstDir
                             directory.moveTo(root, dstDir, function (directory) {
@@ -2749,35 +1639,18 @@ exports.defineAutoTests = function () {
                                 expect(directory.name).toCanonicallyMatch(dstDir);
                                 // test that moved file exists in destination dir
                                 directory.getFile(file1, {
-<<<<<<< HEAD
-                                    create: false
-=======
                                     create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 }, function (fileEntry) {
                                     expect(fileEntry).toBeDefined();
                                     expect(fileEntry.fullPath).toCanonicallyMatch(filePath);
                                     // check that the moved file no longer exists in original dir
                                     root.getFile(file1, {
-<<<<<<< HEAD
-                                        create: false
-                                    }, succeed.bind(null, done, 'directory.getFile - Unexpected success callback, it should not get invalid or moved file: ' + file1), function (error) {
-                                        expect(error).toBeDefined();
-                                        if (isChrome) {
-                                            expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                                        } else {
-                                            expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                                        }
-                                        // cleanup
-                                        deleteEntry(srcDir, function () {
-=======
                                         create : false
                                     }, succeed.bind(null, done, 'directory.getFile - Unexpected success callback, it should not get invalid or moved file: ' + file1), function (error) {
                                         expect(error).toBeDefined();
                                         expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
                                         // cleanup
                                         deleteEntry(srcDir, function() {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                             deleteEntry(dstDir, done);
                                         });
                                     });
@@ -2787,40 +1660,24 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + srcDir));
                 }, failed.bind(null, done, 'deleteEntry - Error removing directory : ' + dstDir));
             });
-<<<<<<< HEAD
-            it('file.spec.68 moveTo: directory to same parent with same name', function (done) {
-=======
             it("file.spec.68 moveTo: directory to same parent with same name", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* `copyTo` and `moveTo` functions do not support directories (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var file1 = 'file1';
-                var srcDir = 'entry.move.dsp.srcDir';
-                var dstDir = 'entry.move.dsp.srcDir-backup';
-                var dstPath = joinURL(root.fullPath, dstDir);
-                var filePath = joinURL(dstPath, file1);
-=======
                 var file1 = "file1",
                 srcDir = "entry.move.dsp.srcDir",
                 dstDir = "entry.move.dsp.srcDir-backup",
                 dstPath = joinURL(root.fullPath, dstDir),
                 filePath = joinURL(dstPath, file1);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // ensure destination directory is cleaned up before it
                 deleteEntry(dstDir, function () {
                     // create a new directory entry to kick off it
                     createDirectory(srcDir, function (directory) {
                         // create a file within directory
                         directory.getFile(file1, {
-<<<<<<< HEAD
-                            create: true
-=======
                             create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }, function () {
                             // move srcDir to dstDir
                             directory.moveTo(root, dstDir, function (directory) {
@@ -2831,35 +1688,18 @@ exports.defineAutoTests = function () {
                                 expect(directory.name).toCanonicallyMatch(dstDir);
                                 // check that moved file exists in destination dir
                                 directory.getFile(file1, {
-<<<<<<< HEAD
-                                    create: false
-=======
                                     create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 }, function (fileEntry) {
                                     expect(fileEntry).toBeDefined();
                                     expect(fileEntry.fullPath).toCanonicallyMatch(filePath);
                                     // check that the moved file no longer exists in original dir
                                     root.getFile(file1, {
-<<<<<<< HEAD
-                                        create: false
-                                    }, succeed.bind(null, done, 'directory.getFile - Unexpected success callback, it should not get invalid or moved file: ' + file1), function (error) {
-                                        expect(error).toBeDefined();
-                                        if (isChrome) {
-                                            expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                                        } else {
-                                            expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                                        }
-                                        // cleanup
-                                        deleteEntry(srcDir, function () {
-=======
                                         create : false
                                     }, succeed.bind(null, done, 'directory.getFile - Unexpected success callback, it should not get invalid or moved file: ' + file1), function (error) {
                                         expect(error).toBeDefined();
                                         expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
                                         // cleanup
                                         deleteEntry(srcDir, function() {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                             deleteEntry(dstDir, done);
                                         });
                                     });
@@ -2869,40 +1709,24 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + srcDir));
                 }, failed.bind(null, done, 'deleteEntry - Error removing directory : ' + dstDir));
             });
-<<<<<<< HEAD
-            it('file.spec.69 moveTo: directory to new parent', function (done) {
-=======
             it("file.spec.69 moveTo: directory to new parent", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* `copyTo` and `moveTo` functions do not support directories (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var file1 = 'file1';
-                var srcDir = 'entry.move.dnp.srcDir';
-                var dstDir = 'entry.move.dnp.dstDir';
-                var dstPath = joinURL(root.fullPath, dstDir);
-                var filePath = joinURL(dstPath, file1);
-=======
                 var file1 = "file1",
                 srcDir = "entry.move.dnp.srcDir",
                 dstDir = "entry.move.dnp.dstDir",
                 dstPath = joinURL(root.fullPath, dstDir),
                 filePath = joinURL(dstPath, file1);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // ensure destination directory is cleaned up before it
                 deleteEntry(dstDir, function () {
                     // create a new directory entry to kick off it
                     createDirectory(srcDir, function (directory) {
                         // create a file within directory
                         directory.getFile(file1, {
-<<<<<<< HEAD
-                            create: true
-=======
                             create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }, function () {
                             // move srcDir to dstDir
                             directory.moveTo(root, dstDir, function (dirEntry) {
@@ -2913,35 +1737,18 @@ exports.defineAutoTests = function () {
                                 expect(dirEntry.name).toCanonicallyMatch(dstDir);
                                 // test that moved file exists in destination dir
                                 dirEntry.getFile(file1, {
-<<<<<<< HEAD
-                                    create: false
-=======
                                     create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 }, function (fileEntry) {
                                     expect(fileEntry).toBeDefined();
                                     expect(fileEntry.fullPath).toCanonicallyMatch(filePath);
                                     // test that the moved file no longer exists in original dir
                                     root.getFile(file1, {
-<<<<<<< HEAD
-                                        create: false
-                                    }, succeed.bind(null, done, 'root.getFile - Unexpected success callback, it should not get invalid or moved file: ' + file1), function (error) {
-                                        expect(error).toBeDefined();
-                                        if (isChrome) {
-                                            expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                                        } else {
-                                            expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                                        }
-                                        // cleanup
-                                        deleteEntry(srcDir, function () {
-=======
                                         create : false
                                     }, succeed.bind(null, done, 'root.getFile - Unexpected success callback, it should not get invalid or moved file: ' + file1), function (error) {
                                         expect(error).toBeDefined();
                                         expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
                                         // cleanup
                                         deleteEntry(srcDir, function() {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                             deleteEntry(dstDir, done);
                                         });
                                     });
@@ -2952,49 +1759,27 @@ exports.defineAutoTests = function () {
                 }, failed.bind(null, done, 'deleteEntry - Error removing directory : ' + dstDir));
             });
 
-<<<<<<< HEAD
-            it('file.spec.131 moveTo: directories tree to new parent', function (done) {
-=======
             it("file.spec.131 moveTo: directories tree to new parent", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* `copyTo` and `moveTo` functions do not support directories (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var srcDir = 'entry.move.dnp.srcDir';
-                var srcDirNestedFirst = 'entry.move.dnp.srcDir.Nested1';
-                var srcDirNestedSecond = 'entry.move.dnp.srcDir.Nested2';
-                var dstDir = 'entry.move.dnp.dstDir';
-=======
                 var srcDir = "entry.move.dnp.srcDir";
                 var srcDirNestedFirst = "entry.move.dnp.srcDir.Nested1";
                 var srcDirNestedSecond = "entry.move.dnp.srcDir.Nested2";
                 var dstDir = "entry.move.dnp.dstDir";
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
                 createDirectory(dstDir, function (dstDirectory) {
                     createDirectory(srcDir, function (srcDirectory) {
                         srcDirectory.getDirectory(srcDirNestedFirst, { create: true }, function () {
                             srcDirectory.getDirectory(srcDirNestedSecond, { create: true }, function () {
-<<<<<<< HEAD
-                                srcDirectory.moveTo(dstDirectory, srcDir, function successMove (transferredDirectory) {
-                                    var directoryReader = transferredDirectory.createReader();
-                                    directoryReader.readEntries(function successRead (entries) {
-                                        expect(entries.length).toBe(2);
-                                        if (!isChrome) {
-                                            expect(entries[0].name).toBe(srcDirNestedFirst);
-                                            expect(entries[1].name).toBe(srcDirNestedSecond);
-                                        }
-=======
                                 srcDirectory.moveTo(dstDirectory, srcDir, function successMove(transferredDirectory) {
                                     var directoryReader = transferredDirectory.createReader();
                                     directoryReader.readEntries(function successRead(entries) {
                                         expect(entries.length).toBe(2);
                                         expect(entries[0].name).toBe(srcDirNestedFirst);
                                         expect(entries[1].name).toBe(srcDirNestedSecond);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                         deleteEntry(dstDir, done);
                                     }, failed.bind(null, done, 'Error getting entries from: ' + transferredDirectory));
                                 }, failed.bind(null, done, 'directory.moveTo - Error moving directory : ' + srcDir + ' to root as: ' + dstDir));
@@ -3004,65 +1789,35 @@ exports.defineAutoTests = function () {
                 }, failed.bind(null, done, 'createDirectory - Error creating dest directory : ' + dstDir));
             });
 
-<<<<<<< HEAD
-            it('file.spec.70 moveTo: directory onto itself', function (done) {
-=======
             it("file.spec.70 moveTo: directory onto itself", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* `copyTo` and `moveTo` functions do not support directories (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var file1 = 'file1';
-                var srcDir = 'entry.move.dos.srcDir';
-                var srcPath = joinURL(root.fullPath, srcDir);
-                var filePath = joinURL(srcPath, file1);
-=======
                 var file1 = "file1",
                 srcDir = "entry.move.dos.srcDir",
                 srcPath = joinURL(root.fullPath, srcDir),
                 filePath = joinURL(srcPath, file1);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new directory entry to kick off it
                 createDirectory(srcDir, function (directory) {
                     // create a file within new directory
                     directory.getFile(file1, {
-<<<<<<< HEAD
-                        create: true
-=======
                         create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }, function () {
                         // move srcDir onto itself
                         directory.moveTo(root, null, succeed.bind(null, done, 'directory.moveTo - Unexpected success callback, it should not move directory to invalid path'), function (error) {
                             expect(error).toBeDefined();
-<<<<<<< HEAD
-                            if (isChrome) {
-                                // chrome returns unknown error with code 13
-                            } else {
-                                expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR); // eslint-disable-line no-undef
-                            }
-                            // test that original dir still exists
-                            root.getDirectory(srcDir, {
-                                create: false
-=======
                             expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
                             // test that original dir still exists
                             root.getDirectory(srcDir, {
                                 create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             }, function (dirEntry) {
                                 // returning confirms existence so just check fullPath entry
                                 expect(dirEntry).toBeDefined();
                                 expect(dirEntry.fullPath).toCanonicallyMatch(srcPath);
                                 dirEntry.getFile(file1, {
-<<<<<<< HEAD
-                                    create: false
-=======
                                     create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 }, function (fileEntry) {
                                     expect(fileEntry).toBeDefined();
                                     expect(fileEntry.fullPath).toCanonicallyMatch(filePath);
@@ -3074,45 +1829,24 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'directory.getFile - Error creating file : ' + file1));
                 }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + srcDir));
             });
-<<<<<<< HEAD
-            it('file.spec.71 moveTo: directory into itself', function (done) {
-=======
             it("file.spec.71 moveTo: directory into itself", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* `copyTo` and `moveTo` functions do not support directories (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var srcDir = 'entry.move.dis.srcDir';
-                var dstDir = 'entry.move.dis.dstDir';
-                var srcPath = joinURL(root.fullPath, srcDir);
-=======
                 var srcDir = "entry.move.dis.srcDir",
                 dstDir = "entry.move.dis.dstDir",
                 srcPath = joinURL(root.fullPath, srcDir);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new directory entry to kick off it
                 createDirectory(srcDir, function (directory) {
                     // move source directory into itself
                     directory.moveTo(directory, dstDir, succeed.bind(null, done, 'directory.moveTo - Unexpected success callback, it should not move a directory into itself: ' + srcDir), function (error) {
                         expect(error).toBeDefined();
-<<<<<<< HEAD
-                        if (isChrome) {
-                            // chrome returns unknown error with code 13
-                        } else {
-                            expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR); // eslint-disable-line no-undef
-                        }
-                        // make sure original directory still exists
-                        root.getDirectory(srcDir, {
-                            create: false
-=======
                         expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
                         // make sure original directory still exists
                         root.getDirectory(srcDir, {
                             create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }, function (entry) {
                             expect(entry).toBeDefined();
                             expect(entry.fullPath).toCanonicallyMatch(srcPath);
@@ -3122,36 +1856,12 @@ exports.defineAutoTests = function () {
                     });
                 }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + srcDir));
             });
-<<<<<<< HEAD
-            it('file.spec.130 moveTo: directory into similar directory', function (done) {
-=======
             it("file.spec.130 moveTo: directory into similar directory", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* `copyTo` and `moveTo` functions do not support directories (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var srcDir = 'entry.move.dis.srcDir';
-                var dstDir = 'entry.move.dis.srcDir-backup';
-                // create a new directory entry to kick off it
-                createDirectory(srcDir, function (srcDirEntry) {
-                    deleteEntry(dstDir, function () {
-                        createDirectory(dstDir, function (dstDirEntry) {
-                    // move source directory into itself
-                            srcDirEntry.moveTo(dstDirEntry, 'file', function (newDirEntry) {
-                                expect(newDirEntry).toBeDefined();
-                                deleteEntry(dstDir, done);
-                            }, failed.bind(null, done, 'directory.moveTo - Error moving a directory into a similarly-named directory: ' + srcDir));
-                        }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + dstDir));
-                    }, failed.bind(null, done, 'deleteEntry - Error deleting directory : ' + dstDir));
-                }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + srcDir));
-            });
-            it('file.spec.72 moveTo: file onto itself', function (done) {
-                var file1 = 'entry.move.fos.file1';
-                var filePath = joinURL(root.fullPath, file1);
-=======
                 var srcDir = "entry.move.dis.srcDir",
                 dstDir = "entry.move.dis.srcDir-backup";
                 // create a new directory entry to kick off it
@@ -3170,27 +1880,15 @@ exports.defineAutoTests = function () {
             it("file.spec.72 moveTo: file onto itself", function (done) {
                 var file1 = "entry.move.fos.file1",
                 filePath = joinURL(root.fullPath, file1);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new file entry to kick off it
                 createFile(file1, function (entry) {
                     // move file1 onto itself
                     entry.moveTo(root, null, succeed.bind(null, done, 'entry.moveTo - Unexpected success callback, it should not move a file: ' + file1 + ' into the same parent'), function (error) {
                         expect(error).toBeDefined();
-<<<<<<< HEAD
-                        if (isChrome) {
-                            // chrome returns unknown error with code 13
-                        } else {
-                            expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR); // eslint-disable-line no-undef
-                        }
-                        // test that original file still exists
-                        root.getFile(file1, {
-                            create: false
-=======
                         expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
                         //test that original file still exists
                         root.getFile(file1, {
                             create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }, function (fileEntry) {
                             expect(fileEntry).toBeDefined();
                             expect(fileEntry.fullPath).toCanonicallyMatch(filePath);
@@ -3200,69 +1898,37 @@ exports.defineAutoTests = function () {
                     });
                 }, failed.bind(null, done, 'createFile - Error creating file : ' + file1));
             });
-<<<<<<< HEAD
-            it('file.spec.73 moveTo: file onto existing directory', function (done) {
-                var file1 = 'entry.move.fod.file1';
-                var dstDir = 'entry.move.fod.dstDir';
-                var subDir = 'subDir';
-                var dirPath = joinURL(joinURL(root.fullPath, dstDir), subDir);
-                var filePath = joinURL(root.fullPath, file1);
-=======
             it("file.spec.73 moveTo: file onto existing directory", function (done) {
                 var file1 = "entry.move.fod.file1",
                 dstDir = "entry.move.fod.dstDir",
                 subDir = "subDir",
                 dirPath = joinURL(joinURL(root.fullPath, dstDir), subDir),
                 filePath = joinURL(root.fullPath, file1);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // ensure destination directory is cleaned up before it
                 deleteEntry(dstDir, function () {
                     // create a new file entry to kick off it
                     createFile(file1, function (entry) {
                         // create top level directory
                         root.getDirectory(dstDir, {
-<<<<<<< HEAD
-                            create: true
-                        }, function (directory) {
-                            // create sub-directory
-                            directory.getDirectory(subDir, {
-                                create: true
-=======
                             create : true
                         }, function (directory) {
                             // create sub-directory
                             directory.getDirectory(subDir, {
                                 create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             }, function (subDirectory) {
                                 // move file1 onto sub-directory
                                 entry.moveTo(directory, subDir, succeed.bind(null, done, 'entry.moveTo - Unexpected success callback, it should not move a file: ' + file1 + ' into directory: ' + dstDir + '\n' + subDir + ' directory already exists'), function (error) {
                                     expect(error).toBeDefined();
-<<<<<<< HEAD
-                                    if (isChrome) {
-                                        // chrome returns unknown error with code 13
-                                    } else {
-                                        expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR); // eslint-disable-line no-undef
-                                    }
-                                    // check that original dir still exists
-                                    directory.getDirectory(subDir, {
-                                        create: false
-=======
                                     expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
                                     // check that original dir still exists
                                     directory.getDirectory(subDir, {
                                         create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                     }, function (dirEntry) {
                                         expect(dirEntry).toBeDefined();
                                         expect(dirEntry.fullPath).toCanonicallyMatch(dirPath);
                                         // check that original file still exists
                                         root.getFile(file1, {
-<<<<<<< HEAD
-                                            create: false
-=======
                                             create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                         }, function (fileEntry) {
                                             expect(fileEntry).toBeDefined();
                                             expect(fileEntry.fullPath).toCanonicallyMatch(filePath);
@@ -3278,66 +1944,36 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'createFile - Error creating file : ' + file1));
                 }, failed.bind(null, done, 'deleteEntry - Error removing directory : ' + dstDir));
             });
-<<<<<<< HEAD
-            it('file.spec.74 moveTo: directory onto existing file', function (done) {
-=======
             it("file.spec.74 moveTo: directory onto existing file", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* `copyTo` and `moveTo` functions do not support directories (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var file1 = 'entry.move.dof.file1';
-                var srcDir = 'entry.move.dof.srcDir';
-                var dirPath = joinURL(root.fullPath, srcDir);
-                var filePath = joinURL(root.fullPath, file1);
-=======
                 var file1 = "entry.move.dof.file1",
                 srcDir = "entry.move.dof.srcDir",
                 dirPath = joinURL(root.fullPath, srcDir),
                 filePath = joinURL(root.fullPath, file1);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new directory entry to kick off it
                 createDirectory(srcDir, function (entry) {
                     // create file
                     root.getFile(file1, {
-<<<<<<< HEAD
-                        create: true
-=======
                         create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }, function (fileEntry) {
                         // move directory onto file
                         entry.moveTo(root, file1, succeed.bind(null, done, 'entry.moveTo - Unexpected success callback, it should not move : \n' + srcDir + ' into root directory renamed as ' + file1 + '\n' + file1 + ' file already exists'), function (error) {
                             expect(error).toBeDefined();
-<<<<<<< HEAD
-                            if (isChrome) {
-                                // chrome returns unknown error with code 13
-                            } else {
-                                expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR); // eslint-disable-line no-undef
-                            }
-                            // test that original directory exists
-                            root.getDirectory(srcDir, {
-                                create: false
-=======
                             expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
                             // test that original directory exists
                             root.getDirectory(srcDir, {
                                 create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             }, function (dirEntry) {
                                 // returning confirms existence so just check fullPath entry
                                 expect(dirEntry).toBeDefined();
                                 expect(dirEntry.fullPath).toCanonicallyMatch(dirPath);
                                 // test that original file exists
                                 root.getFile(file1, {
-<<<<<<< HEAD
-                                    create: false
-=======
                                     create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 }, function (fileEntry) {
                                     expect(fileEntry).toBeDefined();
                                     expect(fileEntry.fullPath).toCanonicallyMatch(filePath);
@@ -3351,66 +1987,36 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'root.getFile - Error creating file : ' + file1));
                 }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + srcDir));
             });
-<<<<<<< HEAD
-            it('file.spec.75 copyTo: directory onto existing file', function (done) {
-=======
             it("file.spec.75 copyTo: directory onto existing file", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* `copyTo` and `moveTo` functions do not support directories (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var file1 = 'entry.copy.dof.file1';
-                var srcDir = 'entry.copy.dof.srcDir';
-                var dirPath = joinURL(root.fullPath, srcDir);
-                var filePath = joinURL(root.fullPath, file1);
-=======
                 var file1 = "entry.copy.dof.file1",
                 srcDir = "entry.copy.dof.srcDir",
                 dirPath = joinURL(root.fullPath, srcDir),
                 filePath = joinURL(root.fullPath, file1);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new directory entry to kick off it
                 createDirectory(srcDir, function (entry) {
                     // create file
                     root.getFile(file1, {
-<<<<<<< HEAD
-                        create: true
-=======
                         create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }, function () {
                         // copy directory onto file
                         entry.copyTo(root, file1, succeed.bind(null, done, 'entry.copyTo - Unexpected success callback, it should not copy : \n' + srcDir + ' into root directory renamed as ' + file1 + '\n' + file1 + ' file already exists'), function (error) {
                             expect(error).toBeDefined();
-<<<<<<< HEAD
-                            if (isChrome) {
-                                // chrome returns unknown error with code 13
-                            } else {
-                                expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR); // eslint-disable-line no-undef
-                            }
-                            // check that original dir still exists
-                            root.getDirectory(srcDir, {
-                                create: false
-=======
                             expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
                             //check that original dir still exists
                             root.getDirectory(srcDir, {
                                 create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             }, function (dirEntry) {
                                 // returning confirms existence so just check fullPath entry
                                 expect(dirEntry).toBeDefined();
                                 expect(dirEntry.fullPath).toCanonicallyMatch(dirPath);
                                 // test that original file still exists
                                 root.getFile(file1, {
-<<<<<<< HEAD
-                                    create: false
-=======
                                     create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 }, function (fileEntry) {
                                     expect(fileEntry).toBeDefined();
                                     expect(fileEntry.fullPath).toCanonicallyMatch(filePath);
@@ -3424,78 +2030,43 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'root.getFile - Error creating file : ' + file1));
                 }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + srcDir));
             });
-<<<<<<< HEAD
-            it('file.spec.76 moveTo: directory onto directory that is not empty', function (done) {
-=======
             it("file.spec.76 moveTo: directory onto directory that is not empty", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* `copyTo` and `moveTo` functions do not support directories (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var srcDir = 'entry.move.dod.srcDir';
-                var dstDir = 'entry.move.dod.dstDir';
-                var subDir = 'subDir';
-                var srcPath = joinURL(root.fullPath, srcDir);
-                var dstPath = joinURL(joinURL(root.fullPath, dstDir), subDir);
-=======
                 var srcDir = "entry.move.dod.srcDir",
                 dstDir = "entry.move.dod.dstDir",
                 subDir = "subDir",
                 srcPath = joinURL(root.fullPath, srcDir),
                 dstPath = joinURL(joinURL(root.fullPath, dstDir), subDir);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // ensure destination directory is cleaned up before it
                 deleteEntry(dstDir, function () {
                     // create a new file entry to kick off it
                     createDirectory(srcDir, function (entry) {
                         // create top level directory
                         root.getDirectory(dstDir, {
-<<<<<<< HEAD
-                            create: true
-                        }, function (directory) {
-                            // create sub-directory
-                            directory.getDirectory(subDir, {
-                                create: true
-=======
                             create : true
                         }, function (directory) {
                             // create sub-directory
                             directory.getDirectory(subDir, {
                                 create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             }, function () {
                                 // move srcDir onto dstDir (not empty)
                                 entry.moveTo(root, dstDir, succeed.bind(null, done, 'entry.moveTo - Unexpected success callback, it should not copy : \n' + srcDir + ' into root directory renamed as ' + dstDir + '\n' + dstDir + ' directory already exists'), function (error) {
                                     expect(error).toBeDefined();
-<<<<<<< HEAD
-                                    if (isChrome) {
-                                        // chrome returns unknown error with code 13
-                                    } else {
-                                        expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR); // eslint-disable-line no-undef
-                                    }
-                                    // making sure destination directory still exists
-                                    directory.getDirectory(subDir, {
-                                        create: false
-=======
                                     expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
                                     // making sure destination directory still exists
                                     directory.getDirectory(subDir, {
                                         create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                     }, function (dirEntry) {
                                         // returning confirms existence so just check fullPath entry
                                         expect(dirEntry).toBeDefined();
                                         expect(dirEntry.fullPath).toCanonicallyMatch(dstPath);
                                         // making sure source directory exists
                                         root.getDirectory(srcDir, {
-<<<<<<< HEAD
-                                            create: false
-=======
                                             create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                         }, function (srcEntry) {
                                             expect(srcEntry).toBeDefined();
                                             expect(srcEntry.fullPath).toCanonicallyMatch(srcPath);
@@ -3511,26 +2082,15 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'createDirectory - Error creating directory : ' + srcDir));
                 }, failed.bind(null, done, 'deleteEntry - Error removing directory : ' + dstDir));
             });
-<<<<<<< HEAD
-            it('file.spec.77 moveTo: file replace existing file', function (done) {
-                var file1 = 'entry.move.frf.file1';
-                var file2 = 'entry.move.frf.file2';
-                var file2Path = joinURL(root.fullPath, file2);
-=======
             it("file.spec.77 moveTo: file replace existing file", function (done) {
                 var file1 = "entry.move.frf.file1",
                 file2 = "entry.move.frf.file2",
                 file2Path = joinURL(root.fullPath, file2);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new directory entry to kick off it
                 createFile(file1, function (entry) {
                     // create file
                     root.getFile(file2, {
-<<<<<<< HEAD
-                        create: true
-=======
                         create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }, function () {
                         // replace file2 with file1
                         entry.moveTo(root, file2, function (entry2) {
@@ -3541,19 +2101,6 @@ exports.defineAutoTests = function () {
                             expect(entry2.name).toCanonicallyMatch(file2);
                             // old file should not exists
                             root.getFile(file1, {
-<<<<<<< HEAD
-                                create: false
-                            }, succeed.bind(null, done, 'root.getFile - Unexpected success callback, file: ' + file1 + ' should not exists'), function (error) {
-                                expect(error).toBeDefined();
-                                if (isChrome) {
-                                    expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                                } else {
-                                    expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                                }
-                                // test that new file exists
-                                root.getFile(file2, {
-                                    create: false
-=======
                                 create : false
                             }, succeed.bind(null, done, 'root.getFile - Unexpected success callback, file: ' + file1 + ' should not exists'), function (error) {
                                 expect(error).toBeDefined();
@@ -3561,7 +2108,6 @@ exports.defineAutoTests = function () {
                                 // test that new file exists
                                 root.getFile(file2, {
                                     create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 }, function (fileEntry) {
                                     expect(fileEntry).toBeDefined();
                                     expect(fileEntry.fullPath).toCanonicallyMatch(file2Path);
@@ -3575,48 +2121,28 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'root.getFile - Error creating file: ' + file2));
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + file1));
             });
-<<<<<<< HEAD
-            it('file.spec.78 moveTo: directory replace empty directory', function (done) {
-=======
             it("file.spec.78 moveTo: directory replace empty directory", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* `copyTo` and `moveTo` functions do not support directories (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var file1 = 'file1';
-                var srcDir = 'entry.move.drd.srcDir';
-                var dstDir = 'entry.move.drd.dstDir';
-                var dstPath = joinURL(root.fullPath, dstDir);
-                var filePath = dstPath + '/' + file1;
-=======
                 var file1 = "file1",
                 srcDir = "entry.move.drd.srcDir",
                 dstDir = "entry.move.drd.dstDir",
                 dstPath = joinURL(root.fullPath, dstDir),
                 filePath = dstPath + '/' + file1;
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // ensure destination directory is cleaned up before it
                 deleteEntry(dstDir, function () {
                     // create a new directory entry to kick off it
                     createDirectory(srcDir, function (directory) {
                         // create a file within source directory
                         directory.getFile(file1, {
-<<<<<<< HEAD
-                            create: true
-                        }, function () {
-                            // create destination directory
-                            root.getDirectory(dstDir, {
-                                create: true
-=======
                             create : true
                         }, function () {
                             // create destination directory
                             root.getDirectory(dstDir, {
                                 create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             }, function () {
                                 // move srcDir to dstDir
                                 directory.moveTo(root, dstDir, function (dirEntry) {
@@ -3627,31 +2153,16 @@ exports.defineAutoTests = function () {
                                     expect(dirEntry.name).toCanonicallyMatch(dstDir);
                                     // check that old directory contents have been moved
                                     dirEntry.getFile(file1, {
-<<<<<<< HEAD
-                                        create: false
-=======
                                         create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                     }, function (fileEntry) {
                                         expect(fileEntry).toBeDefined();
                                         expect(fileEntry.fullPath).toCanonicallyMatch(filePath);
                                         // check that old directory no longer exists
                                         root.getDirectory(srcDir, {
-<<<<<<< HEAD
-                                            create: false
-                                        }, succeed.bind(null, done, 'root.getDirectory - Unexpected success callback, directory: ' + srcDir + ' should not exists'), function (error) {
-                                            expect(error).toBeDefined();
-                                            if (isChrome) {
-                                                expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                                            } else {
-                                                expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                                            }
-=======
                                             create : false
                                         }, succeed.bind(null, done, 'root.getDirectory - Unexpected success callback, directory: ' + srcDir + ' should not exists'), function (error) {
                                             expect(error).toBeDefined();
                                             expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                             // cleanup
                                             deleteEntry(srcDir, function () {
                                                 deleteEntry(dstDir, done);
@@ -3664,19 +2175,6 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'createDirectory - Error creating directory: ' + srcDir));
                 }, failed.bind(null, done, 'deleteEntry - Error removing directory : ' + dstDir));
             });
-<<<<<<< HEAD
-            it('file.spec.79 moveTo: directory that does not exist', function (done) {
-                if (isChrome) {
-                    pending('chrome freak out about non-existend dir not being a DirectoryEntry');
-                }
-                var file1 = 'entry.move.dnf.file1';
-                var dstDir = 'entry.move.dnf.dstDir';
-                var dstPath = joinURL(root.fullPath, dstDir);
-                // create a new file entry to kick off it
-                createFile(file1, function (entry) {
-                    // move file to directory that does not exist
-                    var directory = new DirectoryEntry(); // eslint-disable-line no-undef
-=======
             it("file.spec.79 moveTo: directory that does not exist", function (done) {
 
                 var file1 = "entry.move.dnf.file1",
@@ -3686,42 +2184,22 @@ exports.defineAutoTests = function () {
                 createFile(file1, function (entry) {
                     // move file to directory that does not exist
                     var directory = new DirectoryEntry();
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     directory.filesystem = root.filesystem;
                     directory.fullPath = dstPath;
                     entry.moveTo(directory, null, succeed.bind(null, done, 'entry.moveTo - Unexpected success callback, parent directory: ' + dstPath + ' should not exists'), function (error) {
                         expect(error).toBeDefined();
                         if (isChrome) {
-<<<<<<< HEAD
-                            /* INVALID_MODIFICATION_ERR (code: 9) is thrown instead of NOT_FOUND_ERR(code: 1)
-                            on trying to moveTo directory that does not exist. */
-                            expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR); // eslint-disable-line no-undef
-                        } else {
-                            expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-=======
                             /*INVALID_MODIFICATION_ERR (code: 9) is thrown instead of NOT_FOUND_ERR(code: 1)
                             on trying to moveTo directory that does not exist.*/
                             expect(error).toBeFileError(FileError.INVALID_MODIFICATION_ERR);
                         } else {
                             expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }
                         // cleanup
                         deleteEntry(file1, done);
                     });
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + file1));
             });
-<<<<<<< HEAD
-            it('file.spec.80 moveTo: invalid target name', function (done) {
-                if (isBrowser) {
-                    /* The plugin does not follow ["8.3 Naming restrictions"]
-                    (http://www.w3.org/TR/2011/WD-file-system-api-20110419/#naming-restrictions */
-                    pending();
-                }
-
-                var file1 = 'entry.move.itn.file1';
-                var file2 = 'bad:file:name';
-=======
             it("file.spec.80 moveTo: invalid target name", function (done) {
                 if (isBrowser) {
                     /*The plugin does not follow ["8.3 Naming restrictions"]
@@ -3731,34 +2209,22 @@ exports.defineAutoTests = function () {
 
                 var file1 = "entry.move.itn.file1",
                 file2 = "bad:file:name";
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new file entry to kick off it
                 createFile(file1, function (entry) {
                     // move file1 to file2
                     entry.moveTo(root, file2, succeed.bind(null, done, 'entry.moveTo - Unexpected success callback, : ' + file1 + ' to root as: ' + file2), function (error) {
                         expect(error).toBeDefined();
-<<<<<<< HEAD
-                        expect(error).toBeFileError(FileError.ENCODING_ERR); // eslint-disable-line no-undef
-=======
                         expect(error).toBeFileError(FileError.ENCODING_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         // cleanup
                         deleteEntry(file1, done);
                     });
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + file1));
             });
         });
-<<<<<<< HEAD
-        // Entry
-        describe('FileReader', function () {
-            it('file.spec.81 should have correct methods', function () {
-                var reader = new FileReader(); // eslint-disable-line no-undef
-=======
         //Entry
         describe('FileReader', function () {
             it("file.spec.81 should have correct methods", function () {
                 var reader = new FileReader();
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 expect(reader).toBeDefined();
                 expect(typeof reader.readAsBinaryString).toBe('function');
                 expect(typeof reader.readAsDataURL).toBe('function');
@@ -3768,28 +2234,6 @@ exports.defineAutoTests = function () {
                 expect(reader.result).toBe(null);
             });
         });
-<<<<<<< HEAD
-        // FileReader
-        describe('Read method', function () {
-            it('file.spec.82 should error out on non-existent file', function (done) {
-                var fileName = cordova.platformId === 'windowsphone' ? root.toURL() + '/' + 'somefile.txt' : 'somefile.txt'; // eslint-disable-line no-undef
-                var verifier = function (evt) {
-                    expect(evt).toBeDefined();
-                    if (isChrome) {
-                        expect(evt.target.error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                    } else {
-                        expect(evt.target.error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                    }
-                    done();
-                };
-                root.getFile(fileName, {
-                    create: true
-                }, function (entry) {
-                    entry.file(function (file) {
-                        deleteEntry(fileName, function () {
-                            // Create FileReader
-                            var reader = new FileReader(); // eslint-disable-line no-undef
-=======
         //FileReader
         describe('Read method', function () {
             it("file.spec.82 should error out on non-existent file", function (done) {
@@ -3806,7 +2250,6 @@ exports.defineAutoTests = function () {
                         deleteEntry(fileName, function () {
                             //Create FileReader
                             var reader = new FileReader();
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             reader.onerror = verifier;
                             reader.onload = succeed.bind(null, done, 'reader.onload - Unexpected success callback, file: ' + fileName + ' it should not exists');
                             reader.readAsText(file);
@@ -3814,15 +2257,9 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'entry.file - Error reading file: ' + fileName));
                 }, failed.bind(null, done, 'root.getFile - Error creating file: ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.83 should be able to read native blob objects', function (done) {
-                // Skip test if blobs are not supported (e.g.: Android 2.3).
-                if (typeof window.Blob === 'undefined' || typeof window.Uint8Array === 'undefined') {
-=======
             it("file.spec.83 should be able to read native blob objects", function (done) {
                 // Skip test if blobs are not supported (e.g.: Android 2.3).
                 if (typeof window.Blob == 'undefined' || typeof window.Uint8Array == 'undefined') {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(true).toFailWithMessage('Platform does not supported this feature');
                     done();
                 }
@@ -3837,19 +2274,11 @@ exports.defineAutoTests = function () {
                     var builder = new Builder();
                     builder.append(uint8Array.buffer);
                     builder.append(contents);
-<<<<<<< HEAD
-                    blob = builder.getBlob('text/plain');
-                } else {
-                    try {
-                        // iOS 6 does not support Views, so pass in the buffer.
-                        blob = new Blob([uint8Array.buffer, contents]); // eslint-disable-line no-undef
-=======
                     blob = builder.getBlob("text/plain");
                 } else {
                     try {
                         // iOS 6 does not support Views, so pass in the buffer.
                         blob = new Blob([uint8Array.buffer, contents]);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     } catch (e) {
                         // Skip the test if we can't create a blob (e.g.: iOS 5).
                         if (e instanceof TypeError) {
@@ -3864,22 +2293,6 @@ exports.defineAutoTests = function () {
                     expect(evt.target.result).toBe('asdfasdf');
                     done();
                 };
-<<<<<<< HEAD
-                var reader = new FileReader(); // eslint-disable-line no-undef
-                reader.onloadend = verifier;
-                reader.readAsText(blob);
-            });
-            function writeDummyFile (writeBinary, callback, done, fileContents) {
-                var fileName = 'dummy.txt';
-                var fileEntry = null;
-                // use default string if file data is not provided
-                var fileData = fileContents !== undefined ? fileContents :
-                    '\u20AC\xEB - There is an exception to every rule. Except this one.';
-                var fileDataAsBinaryString = fileContents !== undefined ? fileContents :
-                    '\xe2\x82\xac\xc3\xab - There is an exception to every rule. Except this one.';
-
-                function createWriter (fe) {
-=======
                 var reader = new FileReader();
                 reader.onloadend = verifier;
                 reader.readAsText(blob);
@@ -3894,17 +2307,12 @@ exports.defineAutoTests = function () {
                     '\xe2\x82\xac\xc3\xab - There is an exception to every rule. Except this one.';
 
                 function createWriter(fe) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     fileEntry = fe;
                     fileEntry.createWriter(writeFile, failed.bind(null, done, 'fileEntry.createWriter - Error reading file: ' + fileName));
                 }
 
                 // writes file and reads it back in
-<<<<<<< HEAD
-                function writeFile (writer) {
-=======
                 function writeFile(writer) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     writer.onwriteend = function () {
                         fileEntry.file(function (f) {
                             callback(fileEntry, f, fileData, fileDataAsBinaryString);
@@ -3918,21 +2326,13 @@ exports.defineAutoTests = function () {
                 // create a file, write to it, and read it in again
                 createFile(fileName, createWriter, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
             }
-<<<<<<< HEAD
-            function runReaderTest (funcName, writeBinary, done, progressFunc, verifierFunc, sliceStart, sliceEnd, fileContents) {
-=======
             function runReaderTest(funcName, writeBinary, done, progressFunc, verifierFunc, sliceStart, sliceEnd, fileContents) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 writeDummyFile(writeBinary, function (fileEntry, file, fileData, fileDataAsBinaryString) {
                     var verifier = function (evt) {
                         expect(evt).toBeDefined();
                         verifierFunc(evt, fileData, fileDataAsBinaryString);
                     };
-<<<<<<< HEAD
-                    var reader = new FileReader(); // eslint-disable-line no-undef
-=======
                     var reader = new FileReader();
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     reader.onprogress = progressFunc;
                     reader.onload = verifier;
                     reader.onerror = failed.bind(null, done, 'reader.onerror - Error reading file: ' + file + ' using function: ' + funcName);
@@ -3946,17 +2346,6 @@ exports.defineAutoTests = function () {
                     reader[funcName](file);
                 }, done, fileContents);
             }
-<<<<<<< HEAD
-            function arrayBufferEqualsString (ab, str) {
-                var buf = new Uint8Array(ab);
-                var match = buf.length === str.length;
-                for (var i = 0; match && i < buf.length; i++) {
-                    match = buf[i] === str.charCodeAt(i);
-                }
-                return match;
-            }
-            it('file.spec.84 should read file properly, readAsText', function (done) {
-=======
             function arrayBufferEqualsString(ab, str) {
                 var buf = new Uint8Array(ab);
                 var match = buf.length == str.length;
@@ -3966,29 +2355,19 @@ exports.defineAutoTests = function () {
                 return match;
             }
             it("file.spec.84 should read file properly, readAsText", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 runReaderTest('readAsText', false, done, null, function (evt, fileData, fileDataAsBinaryString) {
                     expect(evt.target.result).toBe(fileData);
                     done();
                 });
             });
-<<<<<<< HEAD
-            it('file.spec.84.1 should read JSON file properly, readAsText', function (done) {
-                var testObject = {key1: 'value1', key2: 2};
-=======
             it("file.spec.84.1 should read JSON file properly, readAsText", function (done) {
                 var testObject = {key1: "value1", key2: 2};
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 runReaderTest('readAsText', false, done, null, function (evt, fileData, fileDataAsBinaryString) {
                     expect(evt.target.result).toEqual(JSON.stringify(testObject));
                     done();
                 }, undefined, undefined, JSON.stringify(testObject));
             });
-<<<<<<< HEAD
-            it('file.spec.85 should read file properly, Data URI', function (done) {
-=======
             it("file.spec.85 should read file properly, Data URI", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 runReaderTest('readAsDataURL', true, done, null, function (evt, fileData, fileDataAsBinaryString) {
                     /* `readAsDataURL` function is supported, but the mediatype in Chrome depends on entry name extension,
                         mediatype in IE is always empty (which is the same as `text-plain` according the specification),
@@ -3997,34 +2376,19 @@ exports.defineAutoTests = function () {
                         IE returns `data:;base64,YWJjZGVmZw==`, Chrome returns `data:<mediatype depending on extension of entry name>;base64,YWJjZGVmZw==`. */
                     expect(evt.target.result).toBeDataUrl();
 
-<<<<<<< HEAD
-                    // The atob function it is completely ignored during mobilespec execution, besides the returned object: evt
-                    // it is encoded and the atob function is aimed to decode a string. Even with btoa (encode) the function it gets stucked
-                    // because of the Unicode characters that contains the fileData object.
-                    // Issue reported at JIRA with all the details: CB-7095
-
-                    // expect(evt.target.result.slice(23)).toBe(atob(fileData));
-=======
                     //The atob function it is completely ignored during mobilespec execution, besides the returned object: evt
                     //it is encoded and the atob function is aimed to decode a string. Even with btoa (encode) the function it gets stucked
                     //because of the Unicode characters that contains the fileData object.
                     //Issue reported at JIRA with all the details: CB-7095
 
                     //expect(evt.target.result.slice(23)).toBe(atob(fileData));
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
                     done();
                 });
             });
-<<<<<<< HEAD
-            it('file.spec.86 should read file properly, readAsBinaryString', function (done) {
-                if (isIE) {
-                    /* `readAsBinaryString` function is not supported by IE and has not the stub. */
-=======
             it("file.spec.86 should read file properly, readAsBinaryString", function (done) {
                 if (isIE) {
                     /*`readAsBinaryString` function is not supported by IE and has not the stub.*/
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     pending();
                 }
 
@@ -4033,15 +2397,9 @@ exports.defineAutoTests = function () {
                     done();
                 });
             });
-<<<<<<< HEAD
-            it('file.spec.87 should read file properly, readAsArrayBuffer', function (done) {
-                // Skip test if ArrayBuffers are not supported (e.g.: Android 2.3).
-                if (typeof window.ArrayBuffer === 'undefined') {
-=======
             it("file.spec.87 should read file properly, readAsArrayBuffer", function (done) {
                 // Skip test if ArrayBuffers are not supported (e.g.: Android 2.3).
                 if (typeof window.ArrayBuffer == 'undefined') {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(true).toFailWithMessage('Platform does not supported this feature');
                     done();
                 }
@@ -4050,51 +2408,31 @@ exports.defineAutoTests = function () {
                     done();
                 });
             });
-<<<<<<< HEAD
-            it('file.spec.88 should read sliced file: readAsText', function (done) {
-=======
             it("file.spec.88 should read sliced file: readAsText", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 runReaderTest('readAsText', false, done, null, function (evt, fileData, fileDataAsBinaryString) {
                     expect(evt.target.result).toBe(fileDataAsBinaryString.slice(10, 40));
                     done();
                 }, 10, 40);
             });
-<<<<<<< HEAD
-            it('file.spec.89 should read sliced file: slice past eof', function (done) {
-=======
             it("file.spec.89 should read sliced file: slice past eof", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 runReaderTest('readAsText', false, done, null, function (evt, fileData, fileDataAsBinaryString) {
                     expect(evt.target.result).toBe(fileData.slice(-5, 9999));
                     done();
                 }, -5, 9999);
             });
-<<<<<<< HEAD
-            it('file.spec.90 should read sliced file: slice to eof', function (done) {
-=======
             it("file.spec.90 should read sliced file: slice to eof", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 runReaderTest('readAsText', false, done, null, function (evt, fileData, fileDataAsBinaryString) {
                     expect(evt.target.result).toBe(fileData.slice(-5));
                     done();
                 }, -5);
             });
-<<<<<<< HEAD
-            it('file.spec.91 should read empty slice', function (done) {
-=======
             it("file.spec.91 should read empty slice", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 runReaderTest('readAsText', false, done, null, function (evt, fileData, fileDataAsBinaryString) {
                     expect(evt.target.result).toBe('');
                     done();
                 }, 0, 0);
             });
-<<<<<<< HEAD
-            it('file.spec.92 should read sliced file properly, readAsDataURL', function (done) {
-=======
             it("file.spec.92 should read sliced file properly, readAsDataURL", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 runReaderTest('readAsDataURL', true, done, null, function (evt, fileData, fileDataAsBinaryString) {
                     /* `readAsDataURL` function is supported, but the mediatype in Chrome depends on entry name extension,
                         mediatype in IE is always empty (which is the same as `text-plain` according the specification),
@@ -4103,34 +2441,19 @@ exports.defineAutoTests = function () {
                         IE returns `data:;base64,YWJjZGVmZw==`, Chrome returns `data:<mediatype depending on extension of entry name>;base64,YWJjZGVmZw==`. */
                     expect(evt.target.result).toBeDataUrl();
 
-<<<<<<< HEAD
-                    // The atob function it is completely ignored during mobilespec execution, besides the returned object: evt
-                    // it is encoded and the atob function is aimed to decode a string. Even with btoa (encode) the function it gets stucked
-                    // because of the Unicode characters that contains the fileData object.
-                    // Issue reported at JIRA with all the details: CB-7095
-
-                    // expect(evt.target.result.slice(23)).toBe(atob(fileDataAsBinaryString.slice(10, -3)));
-=======
                     //The atob function it is completely ignored during mobilespec execution, besides the returned object: evt
                     //it is encoded and the atob function is aimed to decode a string. Even with btoa (encode) the function it gets stucked
                     //because of the Unicode characters that contains the fileData object.
                     //Issue reported at JIRA with all the details: CB-7095
 
                     //expect(evt.target.result.slice(23)).toBe(atob(fileDataAsBinaryString.slice(10, -3)));
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
                     done();
                 }, 10, -3);
             });
-<<<<<<< HEAD
-            it('file.spec.93 should read sliced file properly, readAsBinaryString', function (done) {
-                if (isIE) {
-                    /* `readAsBinaryString` function is not supported by IE and has not the stub. */
-=======
             it("file.spec.93 should read sliced file properly, readAsBinaryString", function (done) {
                 if (isIE) {
                     /*`readAsBinaryString` function is not supported by IE and has not the stub.*/
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     pending();
                 }
 
@@ -4139,15 +2462,9 @@ exports.defineAutoTests = function () {
                     done();
                 }, -10, -5);
             });
-<<<<<<< HEAD
-            it('file.spec.94 should read sliced file properly, readAsArrayBuffer', function (done) {
-                // Skip test if ArrayBuffers are not supported (e.g.: Android 2.3).
-                if (typeof window.ArrayBuffer === 'undefined') {
-=======
             it("file.spec.94 should read sliced file properly, readAsArrayBuffer", function (done) {
                 // Skip test if ArrayBuffers are not supported (e.g.: Android 2.3).
                 if (typeof window.ArrayBuffer == 'undefined') {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(true).toFailWithMessage('Platform does not supported this feature');
                     done();
                 }
@@ -4156,28 +2473,13 @@ exports.defineAutoTests = function () {
                     done();
                 }, 0, -1);
             });
-<<<<<<< HEAD
-            it('file.spec.94.5 should read large file in multiple chunks, readAsArrayBuffer', function (done) {
-                // Skip test if ArrayBuffers are not supported (e.g.: Android 2.3).
-                if (typeof window.ArrayBuffer === 'undefined') {
-=======
             it("file.spec.94.5 should read large file in multiple chunks, readAsArrayBuffer", function (done) {
                 // Skip test if ArrayBuffers are not supported (e.g.: Android 2.3).
                 if (typeof window.ArrayBuffer == 'undefined') {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(true).toFailWithMessage('Platform does not supported this feature');
                     done();
                 }
 
-<<<<<<< HEAD
-                var largeText = '';
-                for (var i = 0; i < 1000; i++) {
-                    largeText += 'Test ' + i + '\n';
-                }
-
-                // Set the chunk size so that the read will take 5 chunks
-                FileReader.READ_CHUNK_SIZE = Math.floor(largeText.length / 4) + 1; // eslint-disable-line no-undef
-=======
                 var largeText = "";
                 for (var i = 0; i < 1000; i++) {
                     largeText += "Test " + i + "\n";
@@ -4185,7 +2487,6 @@ exports.defineAutoTests = function () {
 
                 // Set the chunk size so that the read will take 5 chunks
                 FileReader.READ_CHUNK_SIZE = Math.floor(largeText.length / 4) + 1;
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
                 var chunkCount = 0;
                 var lastProgressValue = -1;
@@ -4208,28 +2509,11 @@ exports.defineAutoTests = function () {
                         expect(arrayBufferEqualsString(evt.target.result, fileDataAsBinaryString.slice(0, -1))).toBe(true);
                         expect(lastProgressValue >= largeText.length).toBe(true);
                         expect(lastProgressValue <= largeText.length + 5).toBe(true);
-<<<<<<< HEAD
-                        if (!isChrome) {
-                            // chrome downloads it in one chunk -.-
-                            expect(chunkCount).toBe(5);
-                        }
-=======
                         expect(chunkCount).toBe(5);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         done();
                     },
                     0, -1, largeText);
             });
-<<<<<<< HEAD
-            it('file.spec.94.6 should read large file in multiple chunks, readAsDataURL', function (done) {
-                var largeText = '';
-                for (var i = 0; i < 10; i++) {
-                    largeText += 'Test ' + i + '\n';
-                }
-
-                // Set the chunk size so that the read will take 5 chunks
-                FileReader.READ_CHUNK_SIZE = Math.floor(largeText.length / 4) + 1; // eslint-disable-line no-undef
-=======
             it("file.spec.94.6 should read large file in multiple chunks, readAsDataURL", function (done) {
                 var largeText = "";
                 for (var i = 0; i < 10; i++) {
@@ -4238,7 +2522,6 @@ exports.defineAutoTests = function () {
 
                 // Set the chunk size so that the read will take 5 chunks
                 FileReader.READ_CHUNK_SIZE = Math.floor(largeText.length / 4) + 1;
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
                 var lastProgressValue = 0;
                 var progressFunc = function (evt) {
@@ -4266,16 +2549,6 @@ exports.defineAutoTests = function () {
                 undefined, undefined, largeText);
             });
         });
-<<<<<<< HEAD
-        // Read method
-        describe('FileWriter', function () {
-            it('file.spec.95 should have correct methods', function (done) {
-                // retrieve a FileWriter object
-                var fileName = 'writer.methods';
-                // FileWriter
-                root.getFile(fileName, {
-                    create: true
-=======
         //Read method
         describe('FileWriter', function () {
             it("file.spec.95 should have correct methods", function (done) {
@@ -4284,7 +2557,6 @@ exports.defineAutoTests = function () {
                 // FileWriter
                 root.getFile(fileName, {
                     create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 }, function (fileEntry) {
                     fileEntry.createWriter(function (writer) {
                         expect(writer).toBeDefined();
@@ -4297,30 +2569,17 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'fileEntry.createWriter - Error creating writer using fileEntry: ' + fileEntry.name));
                 }, failed.bind(null, done, 'root.getFile - Error creating file: ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.96 should be able to write and append to file, createWriter', function (done) {
-                var fileName = 'writer.append.createWriter'; // file content
-                var content = 'There is an exception to every rule.'; // for checkin file length
-                var exception = ' Except this one.';
-                var length = content.length;
-=======
             it("file.spec.96 should be able to write and append to file, createWriter", function (done) {
                 var fileName = "writer.append.createWriter", // file content
                 content = "There is an exception to every rule.", // for checkin file length
                 exception = " Except this one.",
                 length = content.length;
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create file, then write and append to it
                 createFile(fileName, function (fileEntry) {
                     // writes initial file content
                     fileEntry.createWriter(function (writer) {
-<<<<<<< HEAD
-                        // Verifiers declaration
-                        function verifier (evt) {
-=======
                         //Verifiers declaration
                         function verifier(evt) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             expect(writer.length).toBe(length);
                             expect(writer.position).toBe(length);
                             // Append some more data
@@ -4329,18 +2588,6 @@ exports.defineAutoTests = function () {
                             writer.seek(writer.length);
                             writer.write(exception);
                         }
-<<<<<<< HEAD
-                        function secondVerifier (evt) {
-                            expect(writer.length).toBe(length);
-                            expect(writer.position).toBe(length);
-                            var reader = new FileReader(); // eslint-disable-line no-undef
-                            reader.onloadend = thirdVerifier;
-                            reader.onerror = failed.bind(null, done, 'reader.onerror - Error reading file: ' + fileName);
-                            fileEntry.file(function (f) { reader.readAsText(f); });
-                        }
-                        function thirdVerifier (evt) {
-                            expect(evt.target.result).toBe(content + exception);
-=======
                         function secondVerifier(evt) {
                             expect(writer.length).toBe(length);
                             expect(writer.position).toBe(length);
@@ -4351,34 +2598,16 @@ exports.defineAutoTests = function () {
                         }
                         function thirdVerifier(evt) {
                             expect(evt.target.result).toBe(content+exception);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             // cleanup
                             deleteFile(fileName, done);
                         }
 
-<<<<<<< HEAD
-                        // Write process
-=======
                         //Write process
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         writer.onwriteend = verifier;
                         writer.write(content);
                     }, failed.bind(null, done, 'fileEntry.createWriter - Error creating writer using fileEntry: ' + fileEntry.name));
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.97 should be able to write and append to file, File object', function (done) {
-                var fileName = 'writer.append.File'; // file content
-                var content = 'There is an exception to every rule.'; // for checkin file length
-                var exception = ' Except this one.';
-                var length = content.length;
-                root.getFile(fileName, {
-                    create: true
-                }, function (fileEntry) {
-                    fileEntry.createWriter(function (writer) {
-                        // Verifiers declaration
-                        function verifier () {
-=======
             it("file.spec.97 should be able to write and append to file, File object", function (done) {
                 var fileName = "writer.append.File", // file content
                 content = "There is an exception to every rule.", // for checkin file length
@@ -4390,7 +2619,6 @@ exports.defineAutoTests = function () {
                     fileEntry.createWriter(function (writer) {
                         //Verifiers declaration
                         function verifier() {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             expect(writer.length).toBe(length);
                             expect(writer.position).toBe(length);
                             // Append some more data
@@ -4399,18 +2627,6 @@ exports.defineAutoTests = function () {
                             writer.seek(writer.length);
                             writer.write(exception);
                         }
-<<<<<<< HEAD
-                        function secondVerifier () {
-                            expect(writer.length).toBe(length);
-                            expect(writer.position).toBe(length);
-                            var reader = new FileReader(); // eslint-disable-line no-undef
-                            reader.onloadend = thirdVerifier;
-                            reader.onerror = failed.bind(null, done, 'reader.onerror - Error reading file: ' + fileName);
-                            fileEntry.file(function (f) { reader.readAsText(f); });
-                        }
-                        function thirdVerifier (evt) {
-                            expect(evt.target.result).toBe(content + exception);
-=======
                         function secondVerifier() {
                             expect(writer.length).toBe(length);
                             expect(writer.position).toBe(length);
@@ -4421,33 +2637,16 @@ exports.defineAutoTests = function () {
                         }
                         function thirdVerifier(evt) {
                             expect(evt.target.result).toBe(content+exception);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             // cleanup
                             deleteFile(fileName, done);
                         }
 
-<<<<<<< HEAD
-                        // Write process
-=======
                         //Write process
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         writer.onwriteend = verifier;
                         writer.write(content);
                     }, failed.bind(null, done, 'fileEntry.createWriter - Error creating writer using fileEntry: ' + fileEntry.name));
                 }, failed.bind(null, done, 'root.getFile - Error creating file: ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.98 should be able to seek to the middle of the file and write more data than file.length', function (done) {
-                var fileName = 'writer.seek.write'; // file content
-                var content = 'This is our sentence.'; // for checking file length
-                var exception = 'newer sentence.';
-                var length = content.length;
-                // create file, then write and append to it
-                createFile(fileName, function (fileEntry) {
-                    fileEntry.createWriter(function (writer) {
-                        // Verifiers declaration
-                        function verifier (evt) {
-=======
             it("file.spec.98 should be able to seek to the middle of the file and write more data than file.length", function (done) {
                 var fileName = "writer.seek.write", // file content
                 content = "This is our sentence.", // for checking file length
@@ -4458,7 +2657,6 @@ exports.defineAutoTests = function () {
                     fileEntry.createWriter(function (writer) {
                         //Verifiers declaration
                         function verifier(evt) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             expect(writer.length).toBe(length);
                             expect(writer.position).toBe(length);
                             // Append some more data
@@ -4467,18 +2665,6 @@ exports.defineAutoTests = function () {
                             writer.seek(12);
                             writer.write(exception);
                         }
-<<<<<<< HEAD
-                        function secondVerifier (evt) {
-                            expect(writer.length).toBe(length);
-                            expect(writer.position).toBe(length);
-                            var reader = new FileReader(); // eslint-disable-line no-undef
-                            reader.onloadend = thirdVerifier;
-                            reader.onerror = failed.bind(null, done, 'reader.onerror - Error reading file: ' + fileName);
-                            fileEntry.file(function (f) { reader.readAsText(f); });
-                        }
-                        function thirdVerifier (evt) {
-                            expect(evt.target.result).toBe(content.substr(0, 12) + exception);
-=======
                         function secondVerifier(evt) {
                             expect(writer.length).toBe(length);
                             expect(writer.position).toBe(length);
@@ -4489,54 +2675,32 @@ exports.defineAutoTests = function () {
                         }
                         function thirdVerifier(evt) {
                             expect(evt.target.result).toBe(content.substr(0,12)+exception);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             // cleanup
                             deleteFile(fileName, done);
                         }
 
-<<<<<<< HEAD
-                        // Write process
-=======
                         //Write process
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         writer.onwriteend = verifier;
                         writer.write(content);
                     }, failed.bind(null, done, 'fileEntry.createWriter - Error creating writer using fileEntry: ' + fileEntry.name));
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.99 should be able to seek to the middle of the file and write less data than file.length', function (done) {
-                if (isBrowser) {
-                    /* Browser (re)writes as follows: "This is our sentence." -> "This is new.sentence.",
-=======
             it("file.spec.99 should be able to seek to the middle of the file and write less data than file.length", function (done) {
                 if (isChrome) {
                     /* Chrome (re)writes as follows: "This is our sentence." -> "This is new.sentence.",
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                        i.e. the length is not being changed from content.length and writer length will be equal 21 */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var fileName = 'writer.seek.write2'; // file content
-                var content = 'This is our sentence.'; // for checking file length
-                var exception = 'new.';
-                var length = content.length;
-=======
                 var fileName = "writer.seek.write2", // file content
                 content = "This is our sentence.", // for checking file length
                 exception = "new.",
                 length = content.length;
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create file, then write and append to it
                 createFile(fileName, function (fileEntry) {
                     fileEntry.createWriter(function (writer) {
                         // Verifiers declaration
-<<<<<<< HEAD
-                        function verifier (evt) {
-=======
                         function verifier(evt) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             expect(writer.length).toBe(length);
                             expect(writer.position).toBe(length);
                             // Append some more data
@@ -4545,18 +2709,6 @@ exports.defineAutoTests = function () {
                             writer.seek(8);
                             writer.write(exception);
                         }
-<<<<<<< HEAD
-                        function secondVerifier (evt) {
-                            expect(writer.length).toBe(length);
-                            expect(writer.position).toBe(length);
-                            var reader = new FileReader(); // eslint-disable-line no-undef
-                            reader.onloadend = thirdVerifier;
-                            reader.onerror = failed.bind(null, done, 'reader.onerror - Error reading file: ' + fileName);
-                            fileEntry.file(function (f) { reader.readAsText(f); });
-                        }
-                        function thirdVerifier (evt) {
-                            expect(evt.target.result).toBe(content.substr(0, 8) + exception);
-=======
                         function secondVerifier(evt) {
                             expect(writer.length).toBe(length);
                             expect(writer.position).toBe(length);
@@ -4567,31 +2719,16 @@ exports.defineAutoTests = function () {
                         }
                         function thirdVerifier(evt) {
                             expect(evt.target.result).toBe(content.substr(0,8)+exception);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             // cleanup
                             deleteFile(fileName, done);
                         }
 
-<<<<<<< HEAD
-                        // Write process
-=======
                         //Write process
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         writer.onwriteend = verifier;
                         writer.write(content);
                     }, failed.bind(null, done, 'fileEntry.createWriter - Error creating writer using fileEntry: ' + fileEntry.name));
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.100 should be able to write XML data', function (done) {
-                var fileName = 'writer.xml'; // file content
-                var content = '<?xml version="1.0" encoding="UTF-8"?>\n<test prop="ack">\nData\n</test>\n'; // for testing file length
-                var length = content.length;
-                // creates file, then write XML data
-                createFile(fileName, function (fileEntry) {
-                    fileEntry.createWriter(function (writer) {
-                        // Verifier content
-=======
             it("file.spec.100 should be able to write XML data", function (done) {
                 var fileName = "writer.xml", // file content
                 content = '<?xml version="1.0" encoding="UTF-8"?>\n<test prop="ack">\nData\n</test>\n', // for testing file length
@@ -4600,33 +2737,18 @@ exports.defineAutoTests = function () {
                 createFile(fileName, function (fileEntry) {
                     fileEntry.createWriter(function (writer) {
                         //Verifier content
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         var verifier = function (evt) {
                             expect(writer.length).toBe(length);
                             expect(writer.position).toBe(length);
                             // cleanup
                             deleteFile(fileName, done);
                         };
-<<<<<<< HEAD
-                        // Write process
-=======
                         //Write process
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         writer.onwriteend = verifier;
                         writer.write(content);
                     }, failed.bind(null, done, 'fileEntry.createWriter - Error creating writer using fileEntry: ' + fileEntry.name));
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.101 should be able to write JSON data', function (done) {
-                var fileName = 'writer.json'; // file content
-                var content = '{ "name": "Guy Incognito", "email": "here@there.com" }'; // for testing file length
-                var length = content.length;
-                // creates file, then write JSON content
-                createFile(fileName, function (fileEntry) {
-                    fileEntry.createWriter(function (writer) {
-                        // Verifier declaration
-=======
             it("file.spec.101 should be able to write JSON data", function (done) {
                 var fileName = "writer.json", // file content
                 content = '{ "name": "Guy Incognito", "email": "here@there.com" }', // for testing file length
@@ -4635,43 +2757,27 @@ exports.defineAutoTests = function () {
                 createFile(fileName, function (fileEntry) {
                     fileEntry.createWriter(function (writer) {
                         //Verifier declaration
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         var verifier = function (evt) {
                             expect(writer.length).toBe(length);
                             expect(writer.position).toBe(length);
                             // cleanup
                             deleteFile(fileName, done);
                         };
-<<<<<<< HEAD
-                        // Write process
-=======
                         //Write process
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         writer.onwriteend = verifier;
                         writer.write(content);
                     }, failed.bind(null, done, 'fileEntry.createWriter - Error creating writer using fileEntry: ' + fileEntry.name));
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.102 should be able to seek', function (done) {
-                var fileName = 'writer.seek'; // file content
-                var content = 'There is an exception to every rule. Except this one.'; // for testing file length
-                var length = content.length;
-=======
             it("file.spec.102 should be able to seek", function (done) {
                 var fileName = "writer.seek", // file content
                 content = "There is an exception to every rule. Except this one.", // for testing file length
                 length = content.length;
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // creates file, then write JSON content
                 createFile(fileName, function (fileEntry) {
                     // writes file content and tests writer.seek
                     fileEntry.createWriter(function (writer) {
-<<<<<<< HEAD
-                        // Verifier declaration
-=======
                         //Verifier declaration
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         var verifier = function () {
                             expect(writer.position).toBe(length);
                             writer.seek(-5);
@@ -4683,11 +2789,7 @@ exports.defineAutoTests = function () {
                             // cleanup
                             deleteFile(fileName, done);
                         };
-<<<<<<< HEAD
-                        // Write process
-=======
                         //Write process
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         writer.onwriteend = verifier;
                         writer.seek(-100);
                         expect(writer.position).toBe(0);
@@ -4695,23 +2797,14 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'fileEntry.createWriter - Error creating writer using fileEntry: ' + fileEntry.name));
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.103 should be able to truncate', function (done) {
-=======
             it("file.spec.103 should be able to truncate", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isIndexedDBShim) {
                     /* `abort` and `truncate` functions are not supported (Firefox, IE) */
                     pending();
                 }
 
-<<<<<<< HEAD
-                var fileName = 'writer.truncate';
-                var content = 'There is an exception to every rule. Except this one.';
-=======
                 var fileName = "writer.truncate",
                 content = "There is an exception to every rule. Except this one.";
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // creates file, writes to it, then truncates it
                 createFile(fileName, function (fileEntry) {
                     fileEntry.createWriter(function (writer) {
@@ -4722,15 +2815,9 @@ exports.defineAutoTests = function () {
                             // cleanup
                             deleteFile(fileName, done);
                         };
-<<<<<<< HEAD
-                        // Write process
-                        writer.onwriteend = function () {
-                            // Truncate process after write
-=======
                         //Write process
                         writer.onwriteend = function () {
                             //Truncate process after write
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             writer.onwriteend = verifier;
                             writer.truncate(36);
                         };
@@ -4738,30 +2825,17 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'fileEntry.createWriter - Error creating writer using fileEntry: ' + fileEntry.name));
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.104 should be able to write binary data from an ArrayBuffer', function (done) {
-                // Skip test if ArrayBuffers are not supported (e.g.: Android 2.3).
-                if (typeof window.ArrayBuffer === 'undefined') {
-=======
             it("file.spec.104 should be able to write binary data from an ArrayBuffer", function (done) {
                 // Skip test if ArrayBuffers are not supported (e.g.: Android 2.3).
                 if (typeof window.ArrayBuffer == 'undefined') {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(true).toFailWithMessage('Platform does not supported this feature');
                     done();
                     return;
                 }
-<<<<<<< HEAD
-                var fileName = 'bufferwriter.bin'; // file content
-                var data = new ArrayBuffer(32);
-                var dataView = new Int8Array(data); // for verifying file length
-                var length = 32;
-=======
                 var fileName = "bufferwriter.bin", // file content
                 data = new ArrayBuffer(32),
                 dataView = new Int8Array(data), // for verifying file length
                 length = 32;
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 for (var i = 0; i < dataView.length; i++) {
                     dataView[i] = i;
                 }
@@ -4769,67 +2843,39 @@ exports.defineAutoTests = function () {
                 createFile(fileName, function (fileEntry) {
                     // writes file content
                     fileEntry.createWriter(function (writer) {
-<<<<<<< HEAD
-                        // Verifier declaration
-=======
                         //Verifier declaration
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         var verifier = function () {
                             expect(writer.length).toBe(length);
                             expect(writer.position).toBe(length);
                             // cleanup
                             deleteFile(fileName, done);
                         };
-<<<<<<< HEAD
-                        // Write process
-=======
                         //Write process
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         writer.onwriteend = verifier;
                         writer.write(data);
                     }, failed.bind(null, done, 'fileEntry.createWriter - Error creating writer using fileEntry: ' + fileEntry.name));
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.105 should be able to write binary data from a Blob', function (done) {
-                // Skip test if Blobs are not supported (e.g.: Android 2.3).
-                if ((typeof window.Blob === 'undefined' && typeof window.WebKitBlobBuilder === 'undefined') || typeof window.ArrayBuffer === 'undefined') {
-=======
             it("file.spec.105 should be able to write binary data from a Blob", function (done) {
                 // Skip test if Blobs are not supported (e.g.: Android 2.3).
                 if ((typeof window.Blob == 'undefined' && typeof window.WebKitBlobBuilder == 'undefined') || typeof window.ArrayBuffer == 'undefined') {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(true).toFailWithMessage('Platform does not supported this feature');
                     done();
                     return;
                 }
-<<<<<<< HEAD
-                var fileName = 'blobwriter.bin'; // file content
-                var data = new ArrayBuffer(32);
-                var dataView = new Int8Array(data);
-                var blob; // for verifying file length
-                var length = 32;
-=======
                 var fileName = "blobwriter.bin", // file content
                 data = new ArrayBuffer(32),
                 dataView = new Int8Array(data),
                 blob, // for verifying file length
                 length = 32;
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 for (var i = 0; i < dataView.length; i++) {
                     dataView[i] = i;
                 }
                 try {
                     // Mobile Safari: Use Blob constructor
-<<<<<<< HEAD
-                    blob = new Blob([data], { // eslint-disable-line no-undef
-                        'type': 'application/octet-stream'
-                    });
-=======
                     blob = new Blob([data], {
                             "type" : "application/octet-stream"
                         });
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 } catch (e) {
                     if (window.WebKitBlobBuilder) {
                         // Android Browser: Use deprecated BlobBuilder
@@ -4845,42 +2891,20 @@ exports.defineAutoTests = function () {
                     // creates file, then write content
                     createFile(fileName, function (fileEntry) {
                         fileEntry.createWriter(function (writer) {
-<<<<<<< HEAD
-                            // Verifier declaration
-=======
                             //Verifier declaration
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             var verifier = function () {
                                 expect(writer.length).toBe(length);
                                 expect(writer.position).toBe(length);
                                 // cleanup
                                 deleteFile(fileName, done);
                             };
-<<<<<<< HEAD
-                            // Write process
-=======
                             //Write process
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             writer.onwriteend = verifier;
                             writer.write(blob);
                         }, failed.bind(null, done, 'fileEntry.createWriter - Error creating writer using fileEntry: ' + fileEntry.name));
                     }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
                 }
             });
-<<<<<<< HEAD
-            it('file.spec.106 should be able to write a File to a FileWriter', function (done) {
-                var dummyFileName = 'dummy.txt';
-                var outputFileName = 'verify.txt';
-                var dummyFileText = 'This text should be written to two files';
-                var verifier = function (outputFileWriter) {
-                    expect(outputFileWriter.length).toBe(dummyFileText.length);
-                    expect(outputFileWriter.position).toBe(dummyFileText.length);
-                    deleteFile(outputFileName, done);
-                };
-                var writeFile = function (fileName, fileData, win) {
-                    var theWriter;
-                    var write_file = function (fileEntry) {
-=======
             it("file.spec.106 should be able to write a File to a FileWriter", function (done) {
                 var dummyFileName = 'dummy.txt',
                 outputFileName = 'verify.txt',
@@ -4893,16 +2917,11 @@ exports.defineAutoTests = function () {
                 writeFile = function (fileName, fileData, win) {
                     var theWriter,
                     write_file = function (fileEntry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         // writes file content to new file
                         fileEntry.createWriter(function (writer) {
                             theWriter = writer;
                             writer.onwriteend = function (ev) {
-<<<<<<< HEAD
-                                if (typeof fileData.length !== 'undefined') {
-=======
                                 if (typeof fileData.length !== "undefined") {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                     expect(theWriter.length).toBe(fileData.length);
                                     expect(theWriter.position).toBe(fileData.length);
                                 }
@@ -4913,17 +2932,10 @@ exports.defineAutoTests = function () {
                         }, failed.bind(null, done, 'fileEntry.createWriter - Error creating writer using fileEntry: ' + fileEntry.name));
                     };
                     createFile(fileName, write_file, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
-<<<<<<< HEAD
-                };
-                var openFile = function (fileName, callback) {
-                    root.getFile(fileName, {
-                        create: false
-=======
                 },
                 openFile = function (fileName, callback) {
                     root.getFile(fileName, {
                         create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }, function (fileEntry) {
                         fileEntry.file(callback, failed.bind(null, done, 'fileEntry.file - Error reading file using fileEntry: ' + fileEntry.name));
                     }, failed.bind(null, done, 'root.getFile - Error getting file: ' + fileName));
@@ -4934,20 +2946,6 @@ exports.defineAutoTests = function () {
                     });
                 });
             });
-<<<<<<< HEAD
-            it('file.spec.107 should be able to write a sliced File to a FileWriter', function (done) {
-                var dummyFileName = 'dummy2.txt';
-                var outputFileName = 'verify2.txt';
-                var dummyFileText = 'This text should be written to two files';
-                var verifier = function (outputFileWriter) {
-                    expect(outputFileWriter.length).toBe(10);
-                    expect(outputFileWriter.position).toBe(10);
-                    deleteFile(outputFileName, done);
-                };
-                var writeFile = function (fileName, fileData, win) {
-                    var theWriter;
-                    var write_file = function (fileEntry) {
-=======
             it("file.spec.107 should be able to write a sliced File to a FileWriter", function (done) {
                 var dummyFileName = 'dummy2.txt',
                 outputFileName = 'verify2.txt',
@@ -4960,16 +2958,11 @@ exports.defineAutoTests = function () {
                 writeFile = function (fileName, fileData, win) {
                     var theWriter,
                     write_file = function (fileEntry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         // writes file content to new file
                         fileEntry.createWriter(function (writer) {
                             theWriter = writer;
                             writer.onwriteend = function (ev) {
-<<<<<<< HEAD
-                                if (typeof fileData.length !== 'undefined') {
-=======
                                 if (typeof fileData.length !== "undefined") {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                     expect(theWriter.length).toBe(fileData.length);
                                     expect(theWriter.position).toBe(fileData.length);
                                 }
@@ -4980,17 +2973,10 @@ exports.defineAutoTests = function () {
                         }, failed.bind(null, done, 'fileEntry.createWriter - Error creating writer using fileEntry: ' + fileEntry.name));
                     };
                     createFile(fileName, write_file, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
-<<<<<<< HEAD
-                };
-                var openFile = function (fileName, callback) {
-                    root.getFile(fileName, {
-                        create: false
-=======
                 },
                 openFile = function (fileName, callback) {
                     root.getFile(fileName, {
                         create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }, function (fileEntry) {
                         fileEntry.file(callback, failed.bind(null, done, 'fileEntry.file - Error reading file using fileEntry: ' + fileEntry.name));
                     }, failed.bind(null, done, 'root.getFile - Error getting file: ' + fileName));
@@ -5001,21 +2987,6 @@ exports.defineAutoTests = function () {
                     });
                 });
             });
-<<<<<<< HEAD
-            it('file.spec.108 should be able to write binary data from a File', function (done) {
-                // Skip test if Blobs are not supported (e.g.: Android 2.3).
-                if (typeof window.Blob === 'undefined' && typeof window.WebKitBlobBuilder === 'undefined') {
-                    expect(true).toFailWithMessage('Platform does not supported this feature');
-                    done();
-                }
-                var dummyFileName = 'blobwriter.bin';
-                var outputFileName = 'verify.bin'; // file content
-                var data = new ArrayBuffer(32);
-                var dataView = new Int8Array(data);
-                var blob; // for verifying file length
-                var length = 32;
-                var verifier = function (outputFileWriter) {
-=======
             it("file.spec.108 should be able to write binary data from a File", function (done) {
                 // Skip test if Blobs are not supported (e.g.: Android 2.3).
                 if (typeof window.Blob == 'undefined' && typeof window.WebKitBlobBuilder == 'undefined') {
@@ -5029,32 +3000,20 @@ exports.defineAutoTests = function () {
                 blob, // for verifying file length
                 length = 32,
                 verifier = function (outputFileWriter) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(outputFileWriter.length).toBe(length);
                     expect(outputFileWriter.position).toBe(length);
                     // cleanup
                     deleteFile(outputFileName);
                     done();
-<<<<<<< HEAD
-                };
-                var writeFile = function (fileName, fileData, win) {
-                    var theWriter;
-                    var write_file = function (fileEntry) {
-=======
                 },
                 writeFile = function (fileName, fileData, win) {
                     var theWriter,
                     write_file = function (fileEntry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         // writes file content to new file
                         fileEntry.createWriter(function (writer) {
                             theWriter = writer;
                             writer.onwriteend = function (ev) {
-<<<<<<< HEAD
-                                if (typeof fileData.length !== 'undefined') {
-=======
                                 if (typeof fileData.length !== "undefined") {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                     expect(theWriter.length).toBe(fileData.length);
                                     expect(theWriter.position).toBe(fileData.length);
                                 }
@@ -5065,17 +3024,10 @@ exports.defineAutoTests = function () {
                         }, failed.bind(null, done, 'fileEntry.createWriter - Error creating writer using fileEntry: ' + fileEntry.name));
                     };
                     createFile(fileName, write_file, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
-<<<<<<< HEAD
-                };
-                var openFile = function (fileName, callback) {
-                    root.getFile(fileName, {
-                        create: false
-=======
                 },
                 openFile = function (fileName, callback) {
                     root.getFile(fileName, {
                         create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }, function (fileEntry) {
                         fileEntry.file(callback, failed.bind(null, done, 'fileEntry.file - Error reading file using fileEntry: ' + fileEntry.name));
                     }, failed.bind(null, done, 'root.getFile - Error getting file: ' + fileName));
@@ -5085,15 +3037,9 @@ exports.defineAutoTests = function () {
                 }
                 try {
                     // Mobile Safari: Use Blob constructor
-<<<<<<< HEAD
-                    blob = new Blob([data], { // eslint-disable-line no-undef
-                        'type': 'application/octet-stream'
-                    });
-=======
                     blob = new Blob([data], {
                             "type" : "application/octet-stream"
                         });
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 } catch (e) {
                     if (window.WebKitBlobBuilder) {
                         // Android Browser: Use deprecated BlobBuilder
@@ -5115,11 +3061,7 @@ exports.defineAutoTests = function () {
                 }
             });
         });
-<<<<<<< HEAD
-        // FileWritter
-=======
         //FileWritter
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         describe('Backwards compatibility', function () {
             /* These specs exist to test that the File plugin can still recognize file:///
              * URLs, and can resolve them to FileEntry and DirectoryEntry objects.
@@ -5127,19 +3069,11 @@ exports.defineAutoTests = function () {
              * paths, which are not used internally anymore.
              * If that interface is not present, then these tests will silently succeed.
              */
-<<<<<<< HEAD
-            it('file.spec.109 should be able to resolve a file:/// URL', function (done) {
-                var localFilename = 'file.txt';
-                var originalEntry;
-                root.getFile(localFilename, {
-                    create: true
-=======
             it("file.spec.109 should be able to resolve a file:/// URL", function (done) {
                 var localFilename = 'file.txt';
                 var originalEntry;
                 root.getFile(localFilename, {
                     create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 }, function (entry) {
                     originalEntry = entry;
                     /* This is an undocumented interface to File which exists only for testing
@@ -5147,13 +3081,8 @@ exports.defineAutoTests = function () {
                      * location, we can pass that to ft.download() to make sure that previously-stored
                      * paths are still valid.
                      */
-<<<<<<< HEAD
-                    cordova.exec(function (localPath) { // eslint-disable-line no-undef
-                        window.resolveLocalFileSystemURL('file://' + encodeURI(localPath), function (fileEntry) {
-=======
                     cordova.exec(function (localPath) {
                         window.resolveLocalFileSystemURL("file://" + encodeURI(localPath), function (fileEntry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             expect(fileEntry.toURL()).toEqual(originalEntry.toURL());
                             // cleanup
                             deleteFile(localFilename);
@@ -5163,25 +3092,11 @@ exports.defineAutoTests = function () {
                 }, failed.bind(null, done, 'root.getFile - Error creating file: ' + localFilename));
             });
         });
-<<<<<<< HEAD
-        // Backwards Compatibility
-=======
         //Backwards Compatibility
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         describe('Parent References', function () {
             /* These specs verify that paths with parent references i("..") in them
              * work correctly, and do not cause the application to crash.
              */
-<<<<<<< HEAD
-            it('file.spec.110 should not throw exception resolving parent refefences', function (done) {
-                /* This is a direct copy of file.spec.9, with the filename changed, * as reported in CB-5721.
-                 */
-                var fileName = 'resolve.file.uri';
-                var dirName = 'resolve.dir.uri';
-                // create a new file entry
-                createDirectory(dirName, function () {
-                    createFile(dirName + '/../' + fileName, function (entry) {
-=======
             it("file.spec.110 should not throw exception resolving parent refefences", function (done) {
                 /* This is a direct copy of file.spec.9, with the filename changed, * as reported in CB-5721.
                  */
@@ -5190,7 +3105,6 @@ exports.defineAutoTests = function () {
                 // create a new file entry
                 createDirectory(dirName, function () {
                     createFile(dirName+"/../" + fileName, function (entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         // lookup file system entry
                         window.resolveLocalFileSystemURL(entry.toURL(), function (fileEntry) {
                             expect(fileEntry).toBeDefined();
@@ -5201,55 +3115,32 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'createFile - Error creating file: ../' + fileName));
                 }, failed.bind(null, done, 'createDirectory - Error creating directory: ' + dirName));
             });
-<<<<<<< HEAD
-            it('file.spec.111 should not traverse above above the root directory', function (done) {
-                var fileName = 'traverse.file.uri';
-=======
             it("file.spec.111 should not traverse above above the root directory", function (done) {
                 var fileName = "traverse.file.uri";
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new file entry
                 createFile(fileName, function (entry) {
                     // lookup file system entry
                     root.getFile('../' + fileName, {
-<<<<<<< HEAD
-                        create: false
-=======
                         create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }, function (fileEntry) {
                         // Note: we expect this to still resolve, as the correct behaviour is to ignore the ../, not to fail out.
                         expect(fileEntry).toBeDefined();
                         expect(fileEntry.name).toBe(fileName);
-<<<<<<< HEAD
-                        expect(fileEntry.fullPath).toCanonicallyMatch(root.fullPath + '/' + fileName);
-=======
                         expect(fileEntry.fullPath).toCanonicallyMatch(root.fullPath +'/' + fileName);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         // cleanup
                         deleteEntry(fileName, done);
                     }, failed.bind(null, done, 'root.getFile - Error getting file: ../' + fileName));
                 }, failed.bind(null, done, 'createFile - Error creating file: ../' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.112 should traverse above above the current directory', function (done) {
-                var fileName = 'traverse2.file.uri';
-                var dirName = 'traverse2.subdir';
-=======
             it("file.spec.112 should traverse above above the current directory", function (done) {
                 var fileName = "traverse2.file.uri",
                 dirName = "traverse2.subdir";
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 // create a new directory and a file entry
                 createFile(fileName, function () {
                     createDirectory(dirName, function (entry) {
                         // lookup file system entry
                         entry.getFile('../' + fileName, {
-<<<<<<< HEAD
-                            create: false
-=======
                             create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }, function (fileEntry) {
                             expect(fileEntry).toBeDefined();
                             expect(fileEntry.name).toBe(fileName);
@@ -5262,20 +3153,6 @@ exports.defineAutoTests = function () {
                     }, failed.bind(null, done, 'createDirectory - Error creating directory: ' + dirName));
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.113 getFile: get Entry should error for missing file above root directory', function (done) {
-                var fileName = '../missing.file';
-                // create:false, exclusive:false, file does not exist
-                root.getFile(fileName, {
-                    create: false
-                }, succeed.bind(null, done, 'root.getFile - Unexpected success callback, it should not locate nonexistent file: ' + fileName), function (error) {
-                    expect(error).toBeDefined();
-                    if (isChrome) {
-                        expect(error).toBeFileError(FileError.SYNTAX_ERR); // eslint-disable-line no-undef
-                    } else {
-                        expect(error).toBeFileError(FileError.NOT_FOUND_ERR); // eslint-disable-line no-undef
-                    }
-=======
             it("file.spec.113 getFile: get Entry should error for missing file above root directory", function (done) {
                 var fileName = "../missing.file";
                 // create:false, exclusive:false, file does not exist
@@ -5284,31 +3161,15 @@ exports.defineAutoTests = function () {
                 }, succeed.bind(null, done, 'root.getFile - Unexpected success callback, it should not locate nonexistent file: ' + fileName), function (error) {
                     expect(error).toBeDefined();
                     expect(error).toBeFileError(FileError.NOT_FOUND_ERR);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     done();
                 });
             });
         });
-<<<<<<< HEAD
-        // Parent References
-=======
         //Parent References
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         describe('toNativeURL interface', function () {
             /* These specs verify that FileEntries have a toNativeURL method
              * which appears to be sane.
              */
-<<<<<<< HEAD
-            var pathExpect = cordova.platformId === 'windowsphone' ? '//nativ' : 'file://'; // eslint-disable-line no-undef
-            if (isChrome) {
-                pathExpect = 'filesystem:http://';
-            }
-            it('file.spec.114 fileEntry should have a toNativeURL method', function (done) {
-                var fileName = 'native.file.uri';
-                if (isWindows) {
-                    var rootPath = root.fullPath;
-                    pathExpect = rootPath.substr(0, rootPath.indexOf(':'));
-=======
             var pathExpect = cordova.platformId === 'windowsphone' ? "//nativ" : "file://";
             if (isChrome) {
                 pathExpect = 'filesystem:file://';
@@ -5318,7 +3179,6 @@ exports.defineAutoTests = function () {
                 if (isWindows) {
                     var rootPath = root.fullPath;
                     pathExpect = rootPath.substr(0, rootPath.indexOf(":"));
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 }
                 // create a new file entry
                 createFile(fileName, function (entry) {
@@ -5326,94 +3186,54 @@ exports.defineAutoTests = function () {
                     expect(entry.name).toCanonicallyMatch(fileName);
                     expect(typeof entry.toNativeURL).toBe('function');
                     var nativeURL = entry.toNativeURL();
-<<<<<<< HEAD
-                    expect(typeof nativeURL).toBe('string');
-=======
                     expect(typeof nativeURL).toBe("string");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(nativeURL.substring(0, pathExpect.length)).toEqual(pathExpect);
                     expect(nativeURL.substring(nativeURL.length - fileName.length)).toEqual(fileName);
                     // cleanup
                     deleteEntry(fileName, done);
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.115 DirectoryReader should return entries with toNativeURL method', function (done) {
-                var dirName = 'nativeEntries.dir';
-                var fileName = 'nativeEntries.file';
-                var directory;
-                var checkEntries = function (entries) {
-=======
             it("file.spec.115 DirectoryReader should return entries with toNativeURL method", function (done) {
                 var dirName = 'nativeEntries.dir',
                 fileName = 'nativeEntries.file',
                 directory,
                 checkEntries = function (entries) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(entries).toBeDefined();
                     expect(entries instanceof Array).toBe(true);
                     expect(entries.length).toBe(1);
                     expect(entries[0].toNativeURL).toBeDefined();
                     expect(typeof entries[0].toNativeURL).toBe('function');
                     var nativeURL = entries[0].toNativeURL();
-<<<<<<< HEAD
-                    expect(typeof nativeURL).toBe('string');
-                    expect(nativeURL.substring(0, pathExpect.length)).toEqual(pathExpect);
-                    expect(nativeURL.substring(nativeURL.length - fileName.length)).toEqual(fileName);
-                    // cleanup
-                    directory.removeRecursively(function () {}, null);
-=======
                     expect(typeof nativeURL).toBe("string");
                     expect(nativeURL.substring(0, pathExpect.length)).toEqual(pathExpect);
                     expect(nativeURL.substring(nativeURL.length - fileName.length)).toEqual(fileName);
                     // cleanup
                     directory.removeRecursively(null, null);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     done();
                 };
                 // create a new file entry
                 root.getDirectory(dirName, {
-<<<<<<< HEAD
-                    create: true
-                }, function (dir) {
-                    directory = dir;
-                    directory.getFile(fileName, {
-                        create: true
-=======
                     create : true
                 }, function (dir) {
                     directory = dir;
                     directory.getFile(fileName, {
                         create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }, function (fileEntry) {
                         var reader = directory.createReader();
                         reader.readEntries(checkEntries, failed.bind(null, done, 'reader.readEntries - Error reading entries from directory: ' + dirName));
                     }, failed.bind(null, done, 'directory.getFile - Error creating file: ' + fileName));
                 }, failed.bind(null, done, 'root.getDirectory - Error creating directory: ' + dirName));
             });
-<<<<<<< HEAD
-            it('file.spec.116 resolveLocalFileSystemURL should return entries with toNativeURL method', function (done) {
-                var fileName = 'native.resolve.uri';
-                // create a new file entry
-                createFile(fileName, function (entry) {
-                    resolveLocalFileSystemURL(entry.toURL(), function (entry) { // eslint-disable-line no-undef
-=======
             it("file.spec.116 resolveLocalFileSystemURL should return entries with toNativeURL method", function (done) {
                 var fileName = "native.resolve.uri";
                 // create a new file entry
                 createFile(fileName, function (entry) {
                     resolveLocalFileSystemURL(entry.toURL(), function (entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         expect(entry.toNativeURL).toBeDefined();
                         expect(entry.name).toCanonicallyMatch(fileName);
                         expect(typeof entry.toNativeURL).toBe('function');
                         var nativeURL = entry.toNativeURL();
-<<<<<<< HEAD
-                        expect(typeof nativeURL).toBe('string');
-=======
                         expect(typeof nativeURL).toBe("string");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         expect(nativeURL.substring(0, pathExpect.length)).toEqual(pathExpect);
                         expect(nativeURL.substring(nativeURL.length - fileName.length)).toEqual(fileName);
                         // cleanup
@@ -5422,15 +3242,6 @@ exports.defineAutoTests = function () {
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
             });
         });
-<<<<<<< HEAD
-        // toNativeURL interface
-        describe('resolveLocalFileSystemURL on file://', function () {
-            /* These specs verify that window.resolveLocalFileSystemURL works correctly on file:// URLs
-             */
-            it('file.spec.117 should not resolve native URLs outside of FS roots', function (done) {
-                // lookup file system entry
-                window.resolveLocalFileSystemURL('file:///this.is.an.invalid.url', succeed.bind(null, done, 'window.resolveLocalFileSystemURL - Unexpected success callback, it should not resolve invalid URL: file:///this.is.an.invalid.url'), function (error) {
-=======
         //toNativeURL interface
         describe('resolveLocalFileSystemURL on file://', function () {
             /* These specs verify that window.resolveLocalFileSystemURL works correctly on file:// URLs
@@ -5438,81 +3249,42 @@ exports.defineAutoTests = function () {
             it("file.spec.117 should not resolve native URLs outside of FS roots", function (done) {
                 // lookup file system entry
                 window.resolveLocalFileSystemURL("file:///this.is.an.invalid.url", succeed.bind(null, done, 'window.resolveLocalFileSystemURL - Unexpected success callback, it should not resolve invalid URL: file:///this.is.an.invalid.url'), function (error) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(error).toBeDefined();
                     done();
                 });
             });
-<<<<<<< HEAD
-            it('file.spec.118 should not resolve native URLs outside of FS roots', function (done) {
-                // lookup file system entry
-                window.resolveLocalFileSystemURL('file://localhost/this.is.an.invalid.url', succeed.bind(null, done, 'window.resolveLocalFileSystemURL - Unexpected success callback, it should not resolve invalid URL: file://localhost/this.is.an.invalid.url'), function (error) {
-=======
             it("file.spec.118 should not resolve native URLs outside of FS roots", function (done) {
                 // lookup file system entry
                 window.resolveLocalFileSystemURL("file://localhost/this.is.an.invalid.url", succeed.bind(null, done, 'window.resolveLocalFileSystemURL - Unexpected success callback, it should not resolve invalid URL: file://localhost/this.is.an.invalid.url'), function (error) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(error).toBeDefined();
                     done();
                 });
             });
-<<<<<<< HEAD
-            it('file.spec.119 should not resolve invalid native URLs', function (done) {
-                // lookup file system entry
-                window.resolveLocalFileSystemURL('file://localhost', succeed.bind(null, done, 'window.resolveLocalFileSystemURL - Unexpected success callback, it should not resolve invalid URL: file://localhost'), function (error) {
-=======
             it("file.spec.119 should not resolve invalid native URLs", function (done) {
                 // lookup file system entry
                 window.resolveLocalFileSystemURL("file://localhost", succeed.bind(null, done, 'window.resolveLocalFileSystemURL - Unexpected success callback, it should not resolve invalid URL: file://localhost'), function (error) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(error).toBeDefined();
                     done();
                 });
             });
-<<<<<<< HEAD
-            it('file.spec.120 should not resolve invalid native URLs with query strings', function (done) {
-                // lookup file system entry
-                window.resolveLocalFileSystemURL('file://localhost?test/test', succeed.bind(null, done, 'window.resolveLocalFileSystemURL - Unexpected success callback, it should not resolve invalid URL: file://localhost?test/test'), function (error) {
-=======
             it("file.spec.120 should not resolve invalid native URLs with query strings", function (done) {
                 // lookup file system entry
                 window.resolveLocalFileSystemURL("file://localhost?test/test", succeed.bind(null, done, 'window.resolveLocalFileSystemURL - Unexpected success callback, it should not resolve invalid URL: file://localhost?test/test'), function (error) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(error).toBeDefined();
                     done();
                 });
             });
-<<<<<<< HEAD
-            it('file.spec.121 should resolve native URLs returned by API', function (done) {
-                var fileName = 'native.resolve.uri1';
-                // create a new file entry
-                createFile(fileName, function (entry) {
-                    /* eslint-disable no-undef */
-                    resolveLocalFileSystemURL(entry.toNativeURL(), function (fileEntry) {
-                        expect(fileEntry.fullPath).toCanonicallyMatch(root.fullPath + '/' + fileName);
-=======
             it("file.spec.121 should resolve native URLs returned by API", function (done) {
                 var fileName = "native.resolve.uri1";
                 // create a new file entry
                 createFile(fileName, function (entry) {
                     resolveLocalFileSystemURL(entry.toNativeURL(), function (fileEntry) {
                         expect(fileEntry.fullPath).toCanonicallyMatch(root.fullPath + "/" + fileName);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         // cleanup
                         deleteEntry(fileName, done);
                     }, failed.bind(null, done, 'resolveLocalFileSystemURL - Error resolving file URL: ' + entry.toNativeURL()));
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.122 should resolve native URLs returned by API with localhost', function (done) {
-                var fileName = 'native.resolve.uri2';
-                // create a new file entry
-                createFile(fileName, function (entry) {
-                    var url = entry.toNativeURL();
-                    url = url.replace('///', '//localhost/');
-                    resolveLocalFileSystemURL(url, function (fileEntry) {
-                        expect(fileEntry.fullPath).toCanonicallyMatch(root.fullPath + '/' + fileName);
-=======
             it("file.spec.122 should resolve native URLs returned by API with localhost", function (done) {
                 var fileName = "native.resolve.uri2";
                 // create a new file entry
@@ -5521,22 +3293,11 @@ exports.defineAutoTests = function () {
                     url = url.replace("///", "//localhost/");
                     resolveLocalFileSystemURL(url, function (fileEntry) {
                         expect(fileEntry.fullPath).toCanonicallyMatch(root.fullPath + "/" + fileName);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         // cleanup
                         deleteEntry(fileName, done);
                     }, failed.bind(null, done, 'resolveLocalFileSystemURL - Error resolving file URL: ' + url));
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.123 should resolve native URLs returned by API with query string', function (done) {
-                var fileName = 'native.resolve.uri3';
-                // create a new file entry
-                createFile(fileName, function (entry) {
-                    var url = entry.toNativeURL();
-                    url = url + '?test/test';
-                    resolveLocalFileSystemURL(url, function (fileEntry) {
-                        expect(fileEntry.fullPath).toCanonicallyMatch(root.fullPath + '/' + fileName);
-=======
             it("file.spec.123 should resolve native URLs returned by API with query string", function (done) {
                 var fileName = "native.resolve.uri3";
                 // create a new file entry
@@ -5545,23 +3306,11 @@ exports.defineAutoTests = function () {
                     url = url + "?test/test";
                     resolveLocalFileSystemURL(url, function (fileEntry) {
                         expect(fileEntry.fullPath).toCanonicallyMatch(root.fullPath + "/" + fileName);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         // cleanup
                         deleteEntry(fileName, done);
                     }, failed.bind(null, done, 'resolveLocalFileSystemURL - Error resolving file URL: ' + url));
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
             });
-<<<<<<< HEAD
-            it('file.spec.124 should resolve native URLs returned by API with localhost and query string', function (done) {
-                var fileName = 'native.resolve.uri4';
-                // create a new file entry
-                createFile(fileName, function (entry) {
-                    var url = entry.toNativeURL();
-                    url = url.replace('///', '//localhost/') + '?test/test';
-                    resolveLocalFileSystemURL(url, function (fileEntry) {
-                        /* eslint-enable no-undef */
-                        expect(fileEntry.fullPath).toCanonicallyMatch(root.fullPath + '/' + fileName);
-=======
             it("file.spec.124 should resolve native URLs returned by API with localhost and query string", function (done) {
                 var fileName = "native.resolve.uri4";
                 // create a new file entry
@@ -5570,37 +3319,23 @@ exports.defineAutoTests = function () {
                     url = url.replace("///", "//localhost/") + "?test/test";
                     resolveLocalFileSystemURL(url, function (fileEntry) {
                         expect(fileEntry.fullPath).toCanonicallyMatch(root.fullPath + "/" + fileName);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         // cleanup
                         deleteEntry(fileName, done);
                     }, failed.bind(null, done, 'resolveLocalFileSystemURL - Error resolving file URL: ' + url));
                 }, failed.bind(null, done, 'createFile - Error creating file: ' + fileName));
             });
         });
-<<<<<<< HEAD
-        // resolveLocalFileSystemURL on file://
-=======
         //resolveLocalFileSystemURL on file://
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         describe('cross-file-system copy and move', function () {
             /* These specs verify that Entry.copyTo and Entry.moveTo work correctly
              * when crossing filesystem boundaries.
              */
-<<<<<<< HEAD
-            it('file.spec.125 copyTo: temporary -> persistent', function (done) {
-                var file1 = 'entry.copy.file1a';
-                var file2 = 'entry.copy.file2a';
-                var sourceEntry;
-                var fullPath = joinURL(root.fullPath, file2);
-                var validateFile = function (entry) {
-=======
             it("file.spec.125 copyTo: temporary -> persistent", function (done) {
                 var file1 = "entry.copy.file1a",
                 file2 = "entry.copy.file2a",
                 sourceEntry,
                 fullPath = joinURL(root.fullPath, file2),
                 validateFile = function (entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     // a bit redundant since copy returned this entry already
                     expect(entry).toBeDefined();
                     expect(entry.isFile).toBe(true);
@@ -5609,31 +3344,13 @@ exports.defineAutoTests = function () {
                     expect(entry.fullPath).toCanonicallyMatch(fullPath);
                     expect(entry.filesystem).toBeDefined();
                     if (isChrome) {
-<<<<<<< HEAD
-                        expect(entry.filesystem.name).toContain('Persistent');
-                    } else {
-                        expect(entry.filesystem.name).toEqual('persistent');
-=======
                         expect(entry.filesystem.name).toContain("Persistent");
                     } else {
                         expect(entry.filesystem.name).toEqual("persistent");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }
                     // cleanup
                     deleteEntry(entry.name);
                     deleteEntry(sourceEntry.name, done);
-<<<<<<< HEAD
-                };
-                var createSourceAndTransfer = function () {
-                    temp_root.getFile(file1, {
-                        create: true
-                    }, function (entry) {
-                        expect(entry.filesystem).toBeDefined();
-                        if (isChrome) {
-                            expect(entry.filesystem.name).toContain('Temporary');
-                        } else {
-                            expect(entry.filesystem.name).toEqual('temporary');
-=======
                 },
                 createSourceAndTransfer = function () {
                     temp_root.getFile(file1, {
@@ -5644,7 +3361,6 @@ exports.defineAutoTests = function () {
                             expect(entry.filesystem.name).toContain("Temporary");
                         } else {
                             expect(entry.filesystem.name).toEqual("temporary");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }
                         sourceEntry = entry;
                         // Save for later cleanup
@@ -5656,70 +3372,39 @@ exports.defineAutoTests = function () {
                     entry.remove(createSourceAndTransfer, failed.bind(null, done, 'entry.remove - Error removing file: ' + file2));
                 }, createSourceAndTransfer);
             });
-<<<<<<< HEAD
-            it('file.spec.126 copyTo: persistent -> temporary', function (done) {
-                var file1 = 'entry.copy.file1b';
-                var file2 = 'entry.copy.file2b';
-                var sourceEntry;
-                var fullPath = joinURL(temp_root.fullPath, file2);
-                var validateFile = function (entry) {
-=======
             it("file.spec.126 copyTo: persistent -> temporary", function (done) {
                 var file1 = "entry.copy.file1b",
                 file2 = "entry.copy.file2b",
                 sourceEntry,
                 fullPath = joinURL(temp_root.fullPath, file2),
                 validateFile = function (entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(entry).toBeDefined();
                     expect(entry.isFile).toBe(true);
                     expect(entry.isDirectory).toBe(false);
                     expect(entry.name).toCanonicallyMatch(file2);
                     expect(entry.fullPath).toCanonicallyMatch(fullPath);
                     if (isChrome) {
-<<<<<<< HEAD
-                        expect(entry.filesystem.name).toContain('Temporary');
-                    } else {
-                        expect(entry.filesystem.name).toEqual('temporary');
-=======
                         expect(entry.filesystem.name).toContain("Temporary");
                     } else {
                         expect(entry.filesystem.name).toEqual("temporary");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }
                     // cleanup
                     deleteEntry(entry.name);
                     deleteEntry(sourceEntry.name, done);
-<<<<<<< HEAD
-                };
-                var createSourceAndTransfer = function () {
-                    persistent_root.getFile(file1, {
-                        create: true
-=======
                 },
                 createSourceAndTransfer = function () {
                     persistent_root.getFile(file1, {
                         create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }, function (entry) {
                         expect(entry).toBeDefined();
                         expect(entry.filesystem).toBeDefined();
                         if (isChrome) {
-<<<<<<< HEAD
-                            expect(entry.filesystem.name).toContain('Persistent');
-                        } else {
-                            expect(entry.filesystem.name).toEqual('persistent');
-                        }
-                        sourceEntry = entry;
-                    // Save for later cleanup
-=======
                             expect(entry.filesystem.name).toContain("Persistent");
                         } else {
                             expect(entry.filesystem.name).toEqual("persistent");
                         }
                         sourceEntry = entry;
                         // Save for later cleanup
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         entry.copyTo(temp_root, file2, validateFile, failed.bind(null, done, 'entry.copyTo - Error copying file: ' + file1 + ' to TEMPORAL root as: ' + file2));
                     }, failed.bind(null, done, 'persistent_root.getFile - Error creating file: ' + file1 + 'at PERSISTENT root'));
                 };
@@ -5728,21 +3413,12 @@ exports.defineAutoTests = function () {
                     entry.remove(createSourceAndTransfer, failed.bind(null, done, 'entry.remove - Error removing file: ' + file2));
                 }, createSourceAndTransfer);
             });
-<<<<<<< HEAD
-            it('file.spec.127 moveTo: temporary -> persistent', function (done) {
-                var file1 = 'entry.copy.file1a';
-                var file2 = 'entry.copy.file2a';
-                var sourceEntry;
-                var fullPath = joinURL(root.fullPath, file2);
-                var validateFile = function (entry) {
-=======
             it("file.spec.127 moveTo: temporary -> persistent", function (done) {
                 var file1 = "entry.copy.file1a",
                 file2 = "entry.copy.file2a",
                 sourceEntry,
                 fullPath = joinURL(root.fullPath, file2),
                 validateFile = function (entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     // a bit redundant since copy returned this entry already
                     expect(entry).toBeDefined();
                     expect(entry.isFile).toBe(true);
@@ -5751,31 +3427,13 @@ exports.defineAutoTests = function () {
                     expect(entry.fullPath).toCanonicallyMatch(fullPath);
                     expect(entry.filesystem).toBeDefined();
                     if (isChrome) {
-<<<<<<< HEAD
-                        expect(entry.filesystem.name).toContain('Persistent');
-                    } else {
-                        expect(entry.filesystem.name).toEqual('persistent');
-=======
                         expect(entry.filesystem.name).toContain("Persistent");
                     } else {
                         expect(entry.filesystem.name).toEqual("persistent");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }
                     // cleanup
                     deleteEntry(entry.name);
                     deleteEntry(sourceEntry.name, done);
-<<<<<<< HEAD
-                };
-                var createSourceAndTransfer = function () {
-                    temp_root.getFile(file1, {
-                        create: true
-                    }, function (entry) {
-                        expect(entry.filesystem).toBeDefined();
-                        if (isChrome) {
-                            expect(entry.filesystem.name).toContain('Temporary');
-                        } else {
-                            expect(entry.filesystem.name).toEqual('temporary');
-=======
                 },
                 createSourceAndTransfer = function () {
                     temp_root.getFile(file1, {
@@ -5786,7 +3444,6 @@ exports.defineAutoTests = function () {
                             expect(entry.filesystem.name).toContain("Temporary");
                         } else {
                             expect(entry.filesystem.name).toEqual("temporary");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }
                         sourceEntry = entry;
                         // Save for later cleanup
@@ -5798,65 +3455,36 @@ exports.defineAutoTests = function () {
                     entry.remove(createSourceAndTransfer, failed.bind(null, done, 'entry.remove - Error removing file: ' + file2));
                 }, createSourceAndTransfer);
             });
-<<<<<<< HEAD
-            it('file.spec.128 moveTo: persistent -> temporary', function (done) {
-                var file1 = 'entry.copy.file1b';
-                var file2 = 'entry.copy.file2b';
-                var sourceEntry;
-                var fullPath = joinURL(temp_root.fullPath, file2);
-                var validateFile = function (entry) {
-=======
             it("file.spec.128 moveTo: persistent -> temporary", function (done) {
                 var file1 = "entry.copy.file1b",
                 file2 = "entry.copy.file2b",
                 sourceEntry,
                 fullPath = joinURL(temp_root.fullPath, file2),
                 validateFile = function (entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(entry).toBeDefined();
                     expect(entry.isFile).toBe(true);
                     expect(entry.isDirectory).toBe(false);
                     expect(entry.name).toCanonicallyMatch(file2);
                     expect(entry.fullPath).toCanonicallyMatch(fullPath);
-<<<<<<< HEAD
-                    if (isChrome) {
-                        expect(entry.filesystem.name).toContain('Temporary');
-                    } else {
-                        expect(entry.filesystem.name).toEqual('temporary');
-=======
                     if(isChrome) {
                         expect(entry.filesystem.name).toContain("Temporary");
                     } else {
                         expect(entry.filesystem.name).toEqual("temporary");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }
                     // cleanup
                     deleteEntry(entry.name);
                     deleteEntry(sourceEntry.name, done);
-<<<<<<< HEAD
-                };
-                var createSourceAndTransfer = function () {
-                    persistent_root.getFile(file1, {
-                        create: true
-=======
                 },
                 createSourceAndTransfer = function () {
                     persistent_root.getFile(file1, {
                         create : true
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }, function (entry) {
                         expect(entry).toBeDefined();
                         expect(entry.filesystem).toBeDefined();
                         if (isChrome) {
-<<<<<<< HEAD
-                            expect(entry.filesystem.name).toContain('Persistent');
-                        } else {
-                            expect(entry.filesystem.name).toEqual('persistent');
-=======
                             expect(entry.filesystem.name).toContain("Persistent");
                         } else {
                             expect(entry.filesystem.name).toEqual("persistent");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         }
                         sourceEntry = entry;
                         // Save for later cleanup
@@ -5868,34 +3496,19 @@ exports.defineAutoTests = function () {
                     entry.remove(createSourceAndTransfer, failed.bind(null, done, 'entry.remove - Error removing file: ' + file2));
                 }, createSourceAndTransfer);
             });
-<<<<<<< HEAD
-            it('file.spec.129 cordova.file.*Directory are set', function () {
-                var expectedPaths = ['applicationDirectory', 'applicationStorageDirectory', 'dataDirectory', 'cacheDirectory'];
-                /* eslint-disable no-undef */
-                if (cordova.platformId === 'android' || cordova.platformId === 'amazon-fireos') {
-=======
             it("file.spec.129 cordova.file.*Directory are set", function () {
                 var expectedPaths = ['applicationDirectory', 'applicationStorageDirectory', 'dataDirectory', 'cacheDirectory'];
                 if (cordova.platformId == 'android' || cordova.platformId == 'amazon-fireos') {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     if (cordova.file.externalApplicationStorageDirectory !== null) {
                         // https://issues.apache.org/jira/browse/CB-10411
                         // If external storage can't be mounted, the cordova.file.external* properties are null.
                         expectedPaths.push('externalApplicationStorageDirectory', 'externalRootDirectory', 'externalCacheDirectory', 'externalDataDirectory');
                     }
-<<<<<<< HEAD
-                } else if (cordova.platformId === 'blackberry10') {
-                    expectedPaths.push('externalRootDirectory', 'sharedDirectory');
-                } else if (cordova.platformId === 'ios') {
-                    expectedPaths.push('syncedDataDirectory', 'documentsDirectory', 'tempDirectory');
-                } else if (cordova.platformId === 'osx') {
-=======
                 } else if (cordova.platformId == 'blackberry10') {
                     expectedPaths.push('externalRootDirectory', 'sharedDirectory');
                 } else if (cordova.platformId == 'ios') {
                     expectedPaths.push('syncedDataDirectory', 'documentsDirectory', 'tempDirectory');
                 } else if (cordova.platformId == 'osx') {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expectedPaths.push('documentsDirectory', 'tempDirectory', 'rootDirectory');
                 } else {
                     console.log('Skipping test due on unsupported platform.');
@@ -5908,11 +3521,7 @@ exports.defineAutoTests = function () {
             });
         });
         describe('resolveLocalFileSystemURL on cdvfile://', function () {
-<<<<<<< HEAD
-            it('file.spec.147 should be able to resolve cdvfile applicationDirectory fs root', function (done) {
-=======
             it("file.spec.147 should be able to resolve cdvfile applicationDirectory fs root", function(done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 var cdvfileApplicationDirectoryFsRootName;
                 if (cordova.platformId === 'android') {
                     cdvfileApplicationDirectoryFsRootName = 'assets';
@@ -5922,11 +3531,7 @@ exports.defineAutoTests = function () {
                     pending();
                 }
 
-<<<<<<< HEAD
-                resolveLocalFileSystemURL('cdvfile://localhost/' + cdvfileApplicationDirectoryFsRootName + '/', function (applicationDirectoryRoot) {
-=======
                 resolveLocalFileSystemURL('cdvfile://localhost/' + cdvfileApplicationDirectoryFsRootName + '/', function(applicationDirectoryRoot) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(applicationDirectoryRoot.isFile).toBe(false);
                     expect(applicationDirectoryRoot.isDirectory).toBe(true);
                     expect(applicationDirectoryRoot.name).toCanonicallyMatch('');
@@ -5935,33 +3540,19 @@ exports.defineAutoTests = function () {
 
                     // Requires HelloCordova www assets, <allow-navigation href="cdvfile:*" /> in config.xml or
                     // cdvfile: in CSP and <access origin="cdvfile://*" /> in config.xml
-<<<<<<< HEAD
-                    resolveLocalFileSystemURL('cdvfile://localhost/' + cdvfileApplicationDirectoryFsRootName + '/www/img/logo.png', function (entry) {
-                        /* eslint-enable no-undef */
-=======
                     resolveLocalFileSystemURL('cdvfile://localhost/' + cdvfileApplicationDirectoryFsRootName + '/www/img/logo.png', function(entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         expect(entry.isFile).toBe(true);
                         expect(entry.isDirectory).toBe(false);
                         expect(entry.name).toCanonicallyMatch('logo.png');
                         expect(entry.fullPath).toCanonicallyMatch('/www/img/logo.png');
                         expect(entry.filesystem.name).toEqual(cdvfileApplicationDirectoryFsRootName);
 
-<<<<<<< HEAD
-                        var img = new Image(); // eslint-disable-line no-undef
-                        img.onerror = function (err) {
-                            expect(err).not.toBeDefined();
-                            done();
-                        };
-                        img.onload = function () {
-=======
                         var img = new Image();
                         img.onerror = function(err) {
                             expect(err).not.toBeDefined();
                             done();
                         };
                         img.onload = function() {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             done();
                         };
                         img.src = entry.toInternalURL();
@@ -5969,30 +3560,6 @@ exports.defineAutoTests = function () {
                 }, failed.bind(null, done, 'resolveLocalFileSystemURL failed for cdvfile applicationDirectory'));
             });
         });
-<<<<<<< HEAD
-        // cross-file-system copy and move
-        describe('IndexedDB-based impl', function () {
-            it('file.spec.131 Nested file or nested directory should be removed when removing a parent directory', function (done) {
-                var parentDirName = 'deletedDir131';
-                var nestedDirName = 'nestedDir131';
-                var nestedFileName = 'nestedFile131.txt';
-
-                createDirectory(parentDirName, function (parent) {
-                    parent.getDirectory(nestedDirName, { create: true }, function () {
-                        parent.getFile(nestedFileName, { create: true }, function () {
-                            parent.removeRecursively(function () {
-                                root.getDirectory(parentDirName, { create: false }, failed.bind(this, done, 'root.getDirectory - unexpected success callback : ' + parentDirName), function () {
-                                    parent.getFile(nestedFileName, { create: false }, failed.bind(this, done, 'getFile - unexpected success callback : ' + nestedFileName), function () {
-                                        parent.getDirectory(nestedDirName, { create: false }, failed.bind(this, done, 'getDirectory - unexpected success callback : ' + nestedDirName), done);
-                                    });
-                                });
-                            }, failed.bind(this, done, 'removeRecursively - Error removing directory : ' + parentDirName));
-                        }, failed.bind(this, done, 'getFile - Error creating file : ' + nestedFileName));
-                    }, failed.bind(this, done, 'getDirectory - Error creating directory : ' + nestedDirName));
-                }, failed.bind(this, done, 'root.getDirectory - Error creating directory : ' + parentDirName));
-            });
-            it('file.spec.132 Entry should be created succesfully when using relative paths if its parent directory exists', function (done) {
-=======
         //cross-file-system copy and move
         describe('IndexedDB-based impl', function () {
             it("file.spec.131 Nested file or nested directory should be removed when removing a parent directory", function (done) {
@@ -6015,7 +3582,6 @@ exports.defineAutoTests = function () {
                 }, failed.bind(this, done, 'root.getDirectory - Error creating directory : ' + parentDirName));
             });
             it("file.spec.132 Entry should be created succesfully when using relative paths if its parent directory exists", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 /* Directory entries have to be created successively.
                    For example, the call `fs.root.getDirectory('dir1/dir2', {create:true}, successCallback, errorCallback)`
                    will fail if dir1 did not exist. */
@@ -6023,11 +3589,7 @@ exports.defineAutoTests = function () {
                 var nestedName = 'nestedName132';
                 var path = parentName + '/' + nestedName;
 
-<<<<<<< HEAD
-                var win = function (directory) {
-=======
                 var win = function(directory){
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(directory).toBeDefined();
                     expect(directory.isFile).toBe(false);
                     expect(directory.isDirectory).toBe(true);
@@ -6037,20 +3599,6 @@ exports.defineAutoTests = function () {
                     deleteEntry(parentName, done);
                 };
 
-<<<<<<< HEAD
-                createDirectory(parentName, function () {
-                    root.getDirectory(parentName + '/' + nestedName, {create: true}, win,
-                        failed.bind(this, done, 'root.getDirectory - Error getting directory : ' + path));
-                }, failed.bind(this, done, 'root.getDirectory - Error getting directory : ' + parentName));
-            });
-            it('file.spec.133 A file being removed should not affect another file with name being a prefix of the removed file name.', function (done) {
-
-                // Names include special symbols so that we check the IndexedDB range used
-                var deletedFileName = 'deletedFile.0';
-                var secondFileName = 'deletedFile.0.1';
-
-                var win = function (fileEntry) {
-=======
                 createDirectory(parentName, function() {
                     root.getDirectory(parentName + '/' + nestedName, {create:true}, win,
                         failed.bind(this, done, 'root.getDirectory - Error getting directory : ' + path));
@@ -6063,7 +3611,6 @@ exports.defineAutoTests = function () {
                 secondFileName = 'deletedFile.0.1';
 
                 var win = function(fileEntry){
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(fileEntry).toBeDefined();
                     expect(fileEntry.isFile).toBe(true);
                     expect(fileEntry.isDirectory).toBe(false);
@@ -6073,28 +3620,14 @@ exports.defineAutoTests = function () {
 
                 createFile(deletedFileName, function (deletedFile) {
                     createFile(secondFileName, function () {
-<<<<<<< HEAD
-                        deletedFile.remove(function () {
-                            root.getFile(deletedFileName, {create: false}, failed.bind(this, done, 'getFile - unexpected success callback getting deleted file : ' + deletedFileName), function () {
-=======
                         deletedFile.remove(function() {
                             root.getFile(deletedFileName, {create: false}, failed.bind(this, done, 'getFile - unexpected success callback getting deleted file : ' + deletedFileName), function(){
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 root.getFile(secondFileName, {create: false}, win, failed.bind(this, done, 'getFile - Error getting file after deleting deletedFile : ' + secondFileName));
                             });
                         }, failed.bind(this, done, 'remove - Error removing file : ' + deletedFileName));
                     }, failed.bind(this, done, 'getFile - Error creating file : ' + secondFileName));
                 }, failed.bind(this, done, 'getFile - Error creating file : ' + deletedFileName));
             });
-<<<<<<< HEAD
-            it('file.spec.134 A directory being removed should not affect another directory with name being a prefix of the removed directory name.', function (done) {
-
-                // Names include special symbols so that we check the IndexedDB range used
-                var deletedDirName = 'deletedDir.0';
-                var secondDirName = 'deletedDir.0.1';
-
-                var win = function (directory) {
-=======
             it("file.spec.134 A directory being removed should not affect another directory with name being a prefix of the removed directory name.", function (done) {
 
                 // Names include special symbols so that we check the IndexedDB range used
@@ -6102,7 +3635,6 @@ exports.defineAutoTests = function () {
                 secondDirName = 'deletedDir.0.1';
 
                 var win = function(directory){
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(directory).toBeDefined();
                     expect(directory.isFile).toBe(false);
                     expect(directory.isDirectory).toBe(true);
@@ -6112,33 +3644,20 @@ exports.defineAutoTests = function () {
 
                 createDirectory(deletedDirName, function (deletedDir) {
                     createDirectory(secondDirName, function () {
-<<<<<<< HEAD
-                        deletedDir.remove(function () {
-                            root.getDirectory(deletedDirName, {create: false}, failed.bind(this, done, 'getDirectory - unexpected success callback getting deleted directory : ' + deletedDirName), function () {
-=======
                         deletedDir.remove(function() {
                             root.getDirectory(deletedDirName, {create: false}, failed.bind(this, done, 'getDirectory - unexpected success callback getting deleted directory : ' + deletedDirName), function() {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 root.getDirectory(secondDirName, {create: false}, win, failed.bind(this, done, 'getDirectory - Error getting directory after deleting deletedDirectory : ' + secondDirName));
                             });
                         }, failed.bind(this, done, 'remove - Error removing directory : ' + deletedDirName));
                     }, failed.bind(this, done, 'root.getDirectory - Error creating directory : ' + secondDirName));
                 }, failed.bind(this, done, 'root.getDirectory - Error creating directory : ' + deletedDirName));
             });
-<<<<<<< HEAD
-            it('file.spec.135 Deletion of a child directory should not affect the parent directory.', function (done) {
-=======
             it("file.spec.135 Deletion of a child directory should not affect the parent directory.", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
                 var parentName = 'parentName135';
                 var childName = 'childName135';
 
-<<<<<<< HEAD
-                var win = function (directory) {
-=======
                 var win = function(directory){
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(directory).toBeDefined();
                     expect(directory.isFile).toBe(false);
                     expect(directory.isDirectory).toBe(true);
@@ -6146,34 +3665,20 @@ exports.defineAutoTests = function () {
                     deleteEntry(directory.name, done);
                 };
 
-<<<<<<< HEAD
-                createDirectory(parentName, function (parent) {
-                    parent.getDirectory(childName, {create: true}, function (child) {
-                        child.removeRecursively(function () {
-=======
                 createDirectory(parentName, function(parent){
                     parent.getDirectory(childName, {create: true}, function(child){
                         child.removeRecursively(function(){
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             root.getDirectory(parentName, {create: false}, win, failed.bind(this, done, 'root.getDirectory - Error getting parent directory : ' + parentName));
                         },
                         failed.bind(this, done, 'getDirectory - Error removing directory : ' + childName));
                     }, failed.bind(this, done, 'getDirectory - Error creating directory : ' + childName));
                 }, failed.bind(this, done, 'root.getDirectory - Error creating directory : ' + parentName));
             });
-<<<<<<< HEAD
-            it('file.spec.136 Paths should support Unicode symbols.', function (done) {
-
-                var dirName = '文件插件';
-
-                var win = function (directory) {
-=======
             it("file.spec.136 Paths should support Unicode symbols.", function (done) {
 
                 var dirName = '文件插件';
 
                 var win = function(directory){
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     expect(directory).toBeDefined();
                     expect(directory.isFile).toBe(false);
                     expect(directory.isDirectory).toBe(true);
@@ -6181,26 +3686,13 @@ exports.defineAutoTests = function () {
                     deleteEntry(directory.name, done);
                 };
 
-<<<<<<< HEAD
-                createDirectory(dirName, function () {
-=======
                 createDirectory(dirName, function(){
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     root.getDirectory(dirName, {create: false}, win,
                         failed.bind(this, done, 'root.getDirectory - Error getting directory : ' + dirName));
                 }, failed.bind(this, done, 'root.getDirectory - Error creating directory : ' + dirName));
             });
         });
         // Content and Asset URLs
-<<<<<<< HEAD
-        if (cordova.platformId === 'android') { // eslint-disable-line no-undef
-            describe('content: URLs', function () {
-                // Warning: Default HelloWorld www directory structure is required for these tests (www/index.html at least)
-                function testContentCopy (src, done) {
-                    var file2 = 'entry.copy.file2b';
-                    var fullPath = joinURL(temp_root.fullPath, file2);
-                    var validateFile = function (entry) {
-=======
         if (cordova.platformId == 'android') {
             describe('content: URLs', function() {
                 // Warning: Default HelloWorld www directory structure is required for these tests (www/index.html at least)
@@ -6208,21 +3700,10 @@ exports.defineAutoTests = function () {
                     var file2 = "entry.copy.file2b",
                     fullPath = joinURL(temp_root.fullPath, file2),
                     validateFile = function (entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         expect(entry.isFile).toBe(true);
                         expect(entry.isDirectory).toBe(false);
                         expect(entry.name).toCanonicallyMatch(file2);
                         expect(entry.fullPath).toCanonicallyMatch(fullPath);
-<<<<<<< HEAD
-                        expect(entry.filesystem.name).toEqual('temporary');
-                        // cleanup
-                        deleteEntry(entry.name, done);
-                    };
-                    var transfer = function () {
-                        resolveLocalFileSystemURL(src, function (entry) { // eslint-disable-line no-undef
-                            expect(entry).toBeDefined();
-                            expect(entry.filesystem.name).toEqual('content');
-=======
                         expect(entry.filesystem.name).toEqual("temporary");
                         // cleanup
                         deleteEntry(entry.name, done);
@@ -6231,7 +3712,6 @@ exports.defineAutoTests = function () {
                         resolveLocalFileSystemURL(src, function(entry) {
                             expect(entry).toBeDefined();
                             expect(entry.filesystem.name).toEqual("content");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             entry.copyTo(temp_root, file2, validateFile, failed.bind(null, done, 'entry.copyTo - Error copying file: ' + entry.toURL() + ' to TEMPORAL root as: ' + file2));
                         }, failed.bind(null, done, 'resolveLocalFileSystemURL failed for content provider'));
                     };
@@ -6240,16 +3720,6 @@ exports.defineAutoTests = function () {
                         entry.remove(transfer, failed.bind(null, done, 'entry.remove - Error removing file: ' + file2));
                     }, transfer);
                 }
-<<<<<<< HEAD
-                it('file.spec.138 copyTo: content', function (done) {
-                    testContentCopy('content://org.apache.cordova.file.testprovider/www/index.html', done);
-                });
-                it('file.spec.139 copyTo: content /w space and query', function (done) {
-                    testContentCopy('content://org.apache.cordova.file.testprovider/?name=foo%20bar&realPath=%2Fwww%2Findex.html', done);
-                });
-                it('file.spec.140 delete: content should fail', function (done) {
-                    resolveLocalFileSystemURL('content://org.apache.cordova.file.testprovider/www/index.html', function (entry) { // eslint-disable-line no-undef
-=======
                 it("file.spec.138 copyTo: content", function(done) {
                     testContentCopy('content://org.apache.cordova.file.testprovider/www/index.html', done);
                 });
@@ -6258,7 +3728,6 @@ exports.defineAutoTests = function () {
                 });
                 it("file.spec.140 delete: content should fail", function(done) {
                     resolveLocalFileSystemURL('content://org.apache.cordova.file.testprovider/www/index.html', function(entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         entry.remove(failed.bind(null, done, 'expected delete to fail'), done);
                     }, failed.bind(null, done, 'resolveLocalFileSystemURL failed for content provider'));
                 });
@@ -6267,21 +3736,12 @@ exports.defineAutoTests = function () {
             // these tests ensure that you can read and copy from android_asset folder
             // for details see https://issues.apache.org/jira/browse/CB-6428
             // and https://mail-archives.apache.org/mod_mbox/cordova-dev/201508.mbox/%3C782154441.8406572.1440182722528.JavaMail.yahoo%40mail.yahoo.com%3E
-<<<<<<< HEAD
-            describe('asset: URLs', function () {
-                it('file.spec.141 filePaths.applicationStorage', function () {
-                    expect(cordova.file.applicationDirectory).toEqual('file:///android_asset/'); // eslint-disable-line no-undef
-                }, MEDIUM_TIMEOUT);
-                it('file.spec.142 assets should be enumerable', function (done) {
-                    resolveLocalFileSystemURL('file:///android_asset/www/fixtures/asset-test', function (entry) { // eslint-disable-line no-undef
-=======
             describe('asset: URLs', function() {
                 it("file.spec.141 filePaths.applicationStorage", function() {
                     expect(cordova.file.applicationDirectory).toEqual('file:///android_asset/');
                 }, MEDIUM_TIMEOUT);
                 it("file.spec.142 assets should be enumerable", function(done) {
                     resolveLocalFileSystemURL('file:///android_asset/www/fixtures/asset-test', function(entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         var reader = entry.createReader();
                         reader.readEntries(function (entries) {
                             expect(entries.length).not.toBe(0);
@@ -6289,13 +3749,8 @@ exports.defineAutoTests = function () {
                         }, failed.bind(null, done, 'reader.readEntries - Error during reading of entries from assets directory'));
                     }, failed.bind(null, done, 'resolveLocalFileSystemURL failed for assets'));
                 }, MEDIUM_TIMEOUT);
-<<<<<<< HEAD
-                it('file.spec.145 asset subdirectories should be obtainable', function (done) {
-                    resolveLocalFileSystemURL('file:///android_asset/www/fixtures', function (entry) { // eslint-disable-line no-undef
-=======
                 it("file.spec.145 asset subdirectories should be obtainable", function(done) {
                     resolveLocalFileSystemURL('file:///android_asset/www/fixtures', function(entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         entry.getDirectory('asset-test', { create: false }, function (subDir) {
                             expect(subDir).toBeDefined();
                             expect(subDir.isFile).toBe(false);
@@ -6305,21 +3760,12 @@ exports.defineAutoTests = function () {
                         }, failed.bind(null, done, 'entry.getDirectory - Error getting asset subdirectory'));
                     }, failed.bind(null, done, 'resolveLocalFileSystemURL failed for assets'));
                 }, MEDIUM_TIMEOUT);
-<<<<<<< HEAD
-                it('file.spec.146 asset files should be readable', function (done) {
-                    resolveLocalFileSystemURL('file:///android_asset/www/fixtures/asset-test/asset-test.txt', function (entry) { // eslint-disable-line no-undef
-                        expect(entry.isFile).toBe(true);
-                        entry.file(function (file) {
-                            expect(file).toBeDefined();
-                            var reader = new FileReader(); // eslint-disable-line no-undef
-=======
                 it("file.spec.146 asset files should be readable", function(done) {
                     resolveLocalFileSystemURL('file:///android_asset/www/fixtures/asset-test/asset-test.txt', function(entry) {
                         expect(entry.isFile).toBe(true);
                         entry.file(function (file) {
                             expect(file).toBeDefined();
                             var reader = new FileReader();
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             reader.onerror = failed.bind(null, done, 'reader.readAsText - Error reading asset text file');
                             reader.onloadend = function () {
                                 expect(this.result).toBeDefined();
@@ -6330,36 +3776,20 @@ exports.defineAutoTests = function () {
                         }, failed.bind(null, done, 'entry.file - Error reading asset file'));
                     }, failed.bind(null, done, 'resolveLocalFileSystemURL failed for assets'));
                 }, MEDIUM_TIMEOUT);
-<<<<<<< HEAD
-                it('file.spec.143 copyTo: asset -> temporary', function (done) {
-                    var file2 = 'entry.copy.file2b';
-                    var fullPath = joinURL(temp_root.fullPath, file2);
-                    var validateFile = function (entry) {
-=======
                 it("file.spec.143 copyTo: asset -> temporary", function(done) {
                     var file2 = "entry.copy.file2b",
                     fullPath = joinURL(temp_root.fullPath, file2),
                     validateFile = function (entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         expect(entry.isFile).toBe(true);
                         expect(entry.isDirectory).toBe(false);
                         expect(entry.name).toCanonicallyMatch(file2);
                         expect(entry.fullPath).toCanonicallyMatch(fullPath);
-<<<<<<< HEAD
-                        expect(entry.filesystem.name).toEqual('temporary');
-                        // cleanup
-                        deleteEntry(entry.name, done);
-                    };
-                    var transfer = function () {
-                        resolveLocalFileSystemURL('file:///android_asset/www/index.html', function (entry) { // eslint-disable-line no-undef
-=======
                         expect(entry.filesystem.name).toEqual("temporary");
                         // cleanup
                         deleteEntry(entry.name, done);
                     },
                     transfer = function () {
                         resolveLocalFileSystemURL('file:///android_asset/www/index.html', function(entry) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             expect(entry.filesystem.name).toEqual('assets');
                             entry.copyTo(temp_root, file2, validateFile, failed.bind(null, done, 'entry.copyTo - Error copying file: ' + entry.toURL() + ' to TEMPORAL root as: ' + file2));
                         }, failed.bind(null, done, 'resolveLocalFileSystemURL failed for assets'));
@@ -6370,15 +3800,6 @@ exports.defineAutoTests = function () {
                     }, transfer);
                 }, MEDIUM_TIMEOUT);
             });
-<<<<<<< HEAD
-            it('file.spec.144 copyTo: asset directory', function (done) {
-                var srcUrl = 'file:///android_asset/www/fixtures/asset-test';
-                var dstDir = 'entry.copy.dstDir';
-                var dstPath = joinURL(root.fullPath, dstDir);
-                // create a new directory entry to kick off it
-                deleteEntry(dstDir, function () {
-                    resolveLocalFileSystemURL(srcUrl, function (directory) { // eslint-disable-line no-undef
-=======
             it("file.spec.144 copyTo: asset directory", function (done) {
                 var srcUrl = 'file:///android_asset/www/fixtures/asset-test';
                 var dstDir = "entry.copy.dstDir";
@@ -6386,7 +3807,6 @@ exports.defineAutoTests = function () {
                 // create a new directory entry to kick off it
                 deleteEntry(dstDir, function () {
                     resolveLocalFileSystemURL(srcUrl, function(directory) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         directory.copyTo(root, dstDir, function (directory) {
                             expect(directory).toBeDefined();
                             expect(directory.isFile).toBe(false);
@@ -6394,11 +3814,7 @@ exports.defineAutoTests = function () {
                             expect(directory.fullPath).toCanonicallyMatch(dstPath);
                             expect(directory.name).toCanonicallyMatch(dstDir);
                             root.getDirectory(dstDir, {
-<<<<<<< HEAD
-                                create: false
-=======
                                 create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                             }, function (dirEntry) {
                                 expect(dirEntry).toBeDefined();
                                 expect(dirEntry.isFile).toBe(false);
@@ -6406,11 +3822,7 @@ exports.defineAutoTests = function () {
                                 expect(dirEntry.fullPath).toCanonicallyMatch(dstPath);
                                 expect(dirEntry.name).toCanonicallyMatch(dstDir);
                                 dirEntry.getFile('asset-test.txt', {
-<<<<<<< HEAD
-                                    create: false
-=======
                                     create : false
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                                 }, function (fileEntry) {
                                     expect(fileEntry).toBeDefined();
                                     expect(fileEntry.isFile).toBe(true);
@@ -6426,91 +3838,6 @@ exports.defineAutoTests = function () {
     });
 
 };
-<<<<<<< HEAD
-//* *****************************************************************************************
-//* **************************************Manual Tests***************************************
-//* *****************************************************************************************
-
-exports.defineManualTests = function (contentEl, createActionButton) {
-
-    function resolveFs (fsname) {
-        var fsURL = 'cdvfile://localhost/' + fsname + '/';
-        logMessage('Resolving URL: ' + fsURL);
-        /* eslint-disable no-undef */
-        resolveLocalFileSystemURL(fsURL, function (entry) {
-            logMessage('Success', 'green');
-            logMessage(entry.toURL(), 'blue');
-            logMessage(entry.toInternalURL(), 'blue');
-            logMessage('Resolving URL: ' + entry.toURL());
-            resolveLocalFileSystemURL(entry.toURL(), function (entry2) {
-                logMessage('Success', 'green');
-                logMessage(entry2.toURL(), 'blue');
-                logMessage(entry2.toInternalURL(), 'blue');
-            }, logError('resolveLocalFileSystemURL'));
-        }, logError('resolveLocalFileSystemURL'));
-    }
-
-    function testPrivateURL () {
-        requestFileSystem(LocalFileSystem.TEMPORARY, 0, function (fileSystem) {
-            logMessage('Temporary root is at ' + fileSystem.root.toNativeURL());
-            fileSystem.root.getFile('testfile', {
-                create: true
-            }, function (entry) {
-                logMessage('Temporary file is at ' + entry.toNativeURL());
-                if (entry.toNativeURL().substring(0, 12) === 'file:///var/') {
-                    logMessage('File starts with /var/, trying /private/var');
-                    var newURL = 'file://localhost/private/var/' + entry.toNativeURL().substring(12) + '?and=another_thing';
-                    // var newURL = entry.toNativeURL();
-                    logMessage(newURL, 'blue');
-                    resolveLocalFileSystemURL(newURL, function (newEntry) {
-                        logMessage('Successfully resolved.', 'green');
-                        logMessage(newEntry.toURL(), 'blue');
-                        logMessage(newEntry.toNativeURL(), 'blue');
-                    }, logError('resolveLocalFileSystemURL'));
-                }
-            }, logError('getFile'));
-        }, logError('requestFileSystem'));
-    }
-
-    function resolveFsContactImage () {
-        navigator.contacts.pickContact(function (contact) {
-            var logBox = document.getElementById('logContactBox');
-            logBox.innerHTML = '';
-            var resolveResult = document.createElement('p');
-            if (contact.photos) {
-                var photoURL = contact.photos[0].value;
-                resolveLocalFileSystemURL(photoURL, function (entry) {
-                    /* eslint-enable no-undef */
-                    var contactImage = document.createElement('img');
-                    var contactLabelImage = document.createElement('p');
-                    contactLabelImage.innerHTML = 'Result contact image';
-                    contactImage.setAttribute('src', entry.toURL());
-                    resolveResult.innerHTML = 'Success resolve\n' + entry.toURL();
-                    logBox.appendChild(contactLabelImage);
-                    logBox.appendChild(contactImage);
-                    logBox.appendChild(resolveResult);
-                },
-                function (err) {
-                    console.log('resolve error' + err);
-                });
-            } else {
-                resolveResult.innerHTML = 'Contact has no photos';
-                logBox.appendChild(resolveResult);
-            }
-        },
-        function (err) {
-            console.log('contact pick error' + err);
-        });
-    }
-
-    function clearLog () {
-        var log = document.getElementById('info');
-        log.innerHTML = '';
-    }
-
-    function logMessage (message, color) {
-        var log = document.getElementById('info');
-=======
 //******************************************************************************************
 //***************************************Manual Tests***************************************
 //******************************************************************************************
@@ -6593,7 +3920,6 @@ exports.defineManualTests = function (contentEl, createActionButton) {
 
     function logMessage(message, color) {
         var log = document.getElementById("info");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         var logLine = document.createElement('div');
         if (color) {
             logLine.style.color = color;
@@ -6602,32 +3928,13 @@ exports.defineManualTests = function (contentEl, createActionButton) {
         log.appendChild(logLine);
     }
 
-<<<<<<< HEAD
-    function logError (serviceName) {
-        return function (err) {
-            logMessage('ERROR: ' + serviceName + ' ' + JSON.stringify(err), 'red');
-=======
     function logError(serviceName) {
         return function (err) {
             logMessage("ERROR: " + serviceName + " " + JSON.stringify(err), "red");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         };
     }
 
     var fsRoots = {
-<<<<<<< HEAD
-        'ios': 'library,library-nosync,documents,documents-nosync,cache,bundle,root,private',
-        'osx': 'library,library-nosync,documents,documents-nosync,cache,bundle,root,private',
-        'android': 'files,files-external,documents,sdcard,cache,cache-external,assets,root',
-        'amazon-fireos': 'files,files-external,documents,sdcard,cache,cache-external,root',
-        'windows': 'temporary,persistent'
-    };
-
-    // Add title and align to content
-    var div = document.createElement('h2');
-    div.appendChild(document.createTextNode('File Systems'));
-    div.setAttribute('align', 'center');
-=======
         "ios" : "library,library-nosync,documents,documents-nosync,cache,bundle,root,private",
         "osx" : "library,library-nosync,documents,documents-nosync,cache,bundle,root,private",
         "android" : "files,files-external,documents,sdcard,cache,cache-external,assets,root",
@@ -6639,26 +3946,10 @@ exports.defineManualTests = function (contentEl, createActionButton) {
     var div = document.createElement('h2');
     div.appendChild(document.createTextNode('File Systems'));
     div.setAttribute("align", "center");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     contentEl.appendChild(div);
 
     div = document.createElement('h3');
     div.appendChild(document.createTextNode('Results are displayed in yellow status box below with expected results noted under that'));
-<<<<<<< HEAD
-    div.setAttribute('align', 'center');
-    contentEl.appendChild(div);
-
-    div = document.createElement('div');
-    div.setAttribute('id', 'button');
-    div.setAttribute('align', 'center');
-    contentEl.appendChild(div);
-    /* eslint-disable no-undef */
-    if (fsRoots.hasOwnProperty(cordova.platformId)) {
-        (fsRoots[cordova.platformId].split(',')).forEach(function (fs) {
-            if (cordova.platformId === 'ios' && fs === 'private') {
-                /* eslint-enable no-undef */
-                createActionButton('Test private URL (iOS)', function () {
-=======
     div.setAttribute("align", "center");
     contentEl.appendChild(div);
 
@@ -6670,7 +3961,6 @@ exports.defineManualTests = function (contentEl, createActionButton) {
         (fsRoots[cordova.platformId].split(',')).forEach(function (fs) {
             if (cordova.platformId === 'ios' && fs === 'private') {
                 createActionButton("Test private URL (iOS)", function () {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     clearLog();
                     testPrivateURL();
                 }, 'button');
@@ -6683,16 +3973,10 @@ exports.defineManualTests = function (contentEl, createActionButton) {
         });
     }
 
-<<<<<<< HEAD
-    div = document.createElement('div');
-    div.setAttribute('id', 'info');
-    div.setAttribute('align', 'center');
-=======
 
     div = document.createElement('div');
     div.setAttribute("id", "info");
     div.setAttribute("align", "center");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     contentEl.appendChild(div);
 
     div = document.createElement('h3');
@@ -6709,19 +3993,6 @@ exports.defineManualTests = function (contentEl, createActionButton) {
 
     div = document.createElement('h2');
     div.appendChild(document.createTextNode('Resolving content urls'));
-<<<<<<< HEAD
-    div.setAttribute('align', 'center');
-    contentEl.appendChild(div);
-
-    div = document.createElement('div');
-    div.setAttribute('id', 'contactButton');
-    div.setAttribute('align', 'center');
-    contentEl.appendChild(div);
-
-    div = document.createElement('div');
-    div.setAttribute('id', 'logContactBox');
-    div.setAttribute('align', 'center');
-=======
     div.setAttribute("align", "center");
     contentEl.appendChild(div);
 
@@ -6733,14 +4004,9 @@ exports.defineManualTests = function (contentEl, createActionButton) {
     div = document.createElement('div');
     div.setAttribute("id", "logContactBox");
     div.setAttribute("align", "center");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     contentEl.appendChild(div);
 
     createActionButton('show-contact-image', function () {
         resolveFsContactImage();
-<<<<<<< HEAD
-    }, 'contactButton');
-=======
     }, 'contactButton');    
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 };

@@ -178,11 +178,8 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db transaction result object lifetime', function(done) {
-<<<<<<< HEAD
           if (isWebSql && /Android 5.1/.test(navigator.userAgent)) pending('SKIP on (WebKit) Web SQL on Android 5.1'); // XXX TBD INCONSISTENT RESULT on (WebKit) Web SQL on Android 5.1(.1) x86 emulator vs Samsung test device
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           var db = openDatabase('db-tx-result-lifetime-test.db', '1.0', 'Test', DEFAULT_SIZE);
 
           expect(db).toBeDefined();
@@ -324,12 +321,8 @@ var mytests = function() {
                     // 1. [TBD] this is a native object that is NOT affected by the change
                     //    on Android pre-5.x & iOS pre-11.x
                     if ((!isAndroid && !(/OS 1[1-9]/.test(navigator.userAgent))) ||
-<<<<<<< HEAD
                         (/Android 4/.test(navigator.userAgent)) ||
                         (/Android 5.0/.test(navigator.userAgent)))
-=======
-                        (/Android [2-4]/.test(navigator.userAgent)))
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                       expect(temp1.data).toBe('test');
                     else
                       expect(temp1.data).toBe('another');
@@ -666,15 +659,10 @@ var mytests = function() {
 
             expect(error.code).toBe(5); // (SQLError.SYNTAX_ERR)
 
-<<<<<<< HEAD
             // WebKit Web SQL error message
             // (with SQLite error code on iOS & Android post-4.3)
             expect(error.message).toMatch(/not an error/);
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
-=======
-            // WebKit Web SQL error message (apparenly with SQLite error code)
-            if (isWebSql)
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
               expect(error.message).toMatch(/could not prepare statement.*1 not an error/);
 
             // Close (plugin only) & finish:
@@ -739,15 +727,10 @@ var mytests = function() {
 
               expect(error.code).toBe(5); // (SQLError.SYNTAX_ERR)
 
-<<<<<<< HEAD
               // WebKit Web SQL error message
               // (with SQLite error code on iOS & Android post-4.3)
               expect(error.message).toMatch(/not an error/);
               if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
-=======
-              // WebKit Web SQL error message (apparenly with SQLite error code)
-              if (isWebSql)
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 expect(error.message).toMatch(/could not prepare statement.*1 not an error/);
 
               // Close (plugin only), return false, and finish:
@@ -852,11 +835,7 @@ var mytests = function() {
           });
         }, MYTIMEOUT);
 
-<<<<<<< HEAD
         it(suiteName + 'INSERT with TRIGGER & check results [rowsAffected INCORRECT with Android 4.1-4.3 (WebKit) Web SQL & androidDatabaseImplementation: 2 (built-in android.database) setting]', function(done) {
-=======
-        it(suiteName + 'INSERT with TRIGGER & check results [rowsAffected INCORRECT with androidDatabaseImplementation: 2 (built-in android.database) setting]', function(done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           if (isWP8) pending('SKIP (NOT SUPPORTED) for WP8'); // NOT SUPPORTED for WP8
 
           var db = openDatabase('INSERT-with-TRIGGER-test.db', '1.0', 'Test', DEFAULT_SIZE);
@@ -883,17 +862,11 @@ var mytests = function() {
               expect(rs1.insertId).toBe(1);
               // [INCORRECT rowsAffected with androidDatabaseImplementation: 2 (built-in android.database) setting]
               if (!(isAndroid && isImpl2))
-<<<<<<< HEAD
               if (isWebSql && /Android 4.[1-3]/.test(navigator.userAgent) ||
                   (isAndroid && isImpl2))
                 expect(rs1.rowsAffected).toBe(1);
               else
                 expect(rs1.rowsAffected).toBe(2);
-=======
-                expect(rs1.rowsAffected).toBe(2);
-              else
-                expect(rs1.rowsAffected).toBe(1);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
               tx.executeSql('SELECT COUNT(*) AS count1 FROM tt1', [], function(ignored, rs2) {
                 // EXPECTED: CORRECT RESULT:

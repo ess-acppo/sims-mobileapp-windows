@@ -1,22 +1,12 @@
 {
   "name": "cordova-plugin-file",
-<<<<<<< HEAD
-  "version": "6.0.1",
-=======
   "version": "4.3.3",
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
   "description": "Cordova File Plugin",
   "types": "./types/index.d.ts",
   "cordova": {
     "id": "cordova-plugin-file",
     "platforms": [
       "android",
-<<<<<<< HEAD
-      "browser",
-      "ios",
-      "osx",
-      "windows"
-=======
       "amazon-fireos",
       "ubuntu",
       "ios",
@@ -27,34 +17,17 @@
       "windows8",
       "windows",
       "firefoxos"
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     ]
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/apache/cordova-plugin-file"
   },
-<<<<<<< HEAD
-  "bugs": {
-    "url": "https://issues.apache.org/jira/browse/CB"
-  },
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
   "keywords": [
     "cordova",
     "file",
     "ecosystem:cordova",
     "cordova-android",
-<<<<<<< HEAD
-    "cordova-browser",
-    "cordova-ios",
-    "cordova-osx",
-    "cordova-windows"
-  ],
-  "scripts": {
-    "test": "npm run eslint",
-    "eslint": "node node_modules/eslint/bin/eslint www && node node_modules/eslint/bin/eslint src && node node_modules/eslint/bin/eslint tests"
-=======
     "cordova-amazon-fireos",
     "cordova-ubuntu",
     "cordova-ios",
@@ -69,34 +42,17 @@
   "scripts": {
     "test": "npm run jshint",
     "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src && node node_modules/jshint/bin/jshint tests"
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
   },
   "author": "Apache Software Foundation",
   "license": "Apache-2.0",
   "engines": {
     "cordovaDependencies": {
       "5.0.0": {
-<<<<<<< HEAD
-        "cordova-android": ">=6.3.0"
-      },
-      "7.0.0": {
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         "cordova": ">100"
       }
     }
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "eslint": "^3.19.0",
-    "eslint-config-semistandard": "^11.0.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.3.0",
-    "eslint-plugin-node": "^5.0.0",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1"
-=======
     "jshint": "^2.6.0"
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
   }
 }

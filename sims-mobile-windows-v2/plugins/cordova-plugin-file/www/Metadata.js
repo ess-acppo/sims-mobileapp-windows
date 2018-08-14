@@ -24,19 +24,11 @@
  *
  * {Date} modificationTime (readonly)
  */
-<<<<<<< HEAD
-var Metadata = function (metadata) {
-    if (typeof metadata === 'object') {
-        this.modificationTime = new Date(metadata.modificationTime);
-        this.size = metadata.size || 0;
-    } else if (typeof metadata === 'undefined') {
-=======
 var Metadata = function(metadata) {
     if (typeof metadata == "object") {
         this.modificationTime = new Date(metadata.modificationTime);
         this.size = metadata.size || 0;
     } else if (typeof metadata == "undefined") {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         this.modificationTime = null;
         this.size = 0;
     } else {

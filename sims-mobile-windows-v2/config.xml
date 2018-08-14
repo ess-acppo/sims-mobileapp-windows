@@ -102,21 +102,19 @@
     <splash src="res/screens/windows/SplashScreen.scale-240.png" width="1152" height="1920" />
     <splash src="res/screens/windows/SplashScreenPhone.scale-240.png" width="1152" height="1920" />
   </platform>
-  <preference name="WindowsStoreDisplayName" value="SIMS Mobile" />
+  <preference name="WindowsStoreDisplayName" value="ESFA - Enterprise Surveillance Field App" />
   <vs:platformSpecificValues>
-    <vs:platformSpecificWidget platformName="windows" id="io.cordova.simsmobile" version="1.1408.2018.1" />
+    <vs:platformSpecificWidget platformName="windows" id="io.cordova.ESFA" version="1.1408.2018.1" />
   </vs:platformSpecificValues>
   <plugin name="cordova-plugin-file-opener2" spec="~2.0.19" />
   <plugin name="cordova-plugin-camera" spec="~4.0.3" />
   <plugin name="cordova-sqlite-storage" spec="~2.3.3" />
   <plugin name="cordova-plugin-device" spec="~2.0.2" />
-  <plugin name="cordova-plugin-file" spec="~6.0.1" />
   <plugin name="cordova-plugin-geolocation" spec="~4.0.1" />
   <plugin name="cordova-plugin-whitelist" spec="~1.3.3" />
   <plugin name="cordova-plugin-splashscreen" spec="~5.0.2" />
   <plugin name="cordova-plugin-network-information" spec="~2.0.1" />
   <plugin name="cordova-plugin-file-opener2" spec="~2.0.19" />
-  <plugin name="cordova-plugin-zeep" spec="~0.0.4" />
   <preference name="WindowsStoreDisplayName" value="SIMS Mobile (Windows)" />
   <vs:platformSpecificValues>
     <vs:platformSpecificWidget platformName="windows" id="SIMSMobileV0" />
@@ -126,8 +124,10 @@
   <plugin name="cordova-sqlite-storage" spec="~2.3.1" />
   <plugin name="cordova-plugin-camera" spec="~2.4.1" />
   <plugin name="cordova-plugin-device" spec="~2.0.2" />
-  <plugin name="cordova-plugin-file" spec="~4.3.3" />
   <plugin name="cordova-plugin-geolocation" spec="~2.4.3" />
   <plugin name="cordova-plugin-network-information" spec="~2.0.1" />
   <plugin name="cordova-plugin-splashscreen" spec="~5.0.2" />
+  <plugin name="cordova-plugin-file" spec="~6.0.1" />
+  <plugin name="cordova-plugin-zeep" spec="~0.0.4" />
+  <plugin name="cordova-plugin-file" spec="~6.0.1" />
 </widget>

@@ -22,21 +22,11 @@
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="cordova-plugin-geolocation-tests"
-<<<<<<< HEAD
-    version="4.0.1">
-=======
     version="2.4.3">
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     <name>Cordova Geolocation Plugin Tests</name>
     <license>Apache 2.0</license>
 
     <dependency id="cordova-plugin-device" url="https://github.com/apache/cordova-plugin-device" />
     <js-module src="tests.js" name="tests">
     </js-module>
-<<<<<<< HEAD
-    <edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
-      <string>need location access to pass tests</string>
-    </edit-config>
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 </plugin>

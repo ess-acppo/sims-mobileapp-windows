@@ -19,11 +19,7 @@
  *
 */
 
-<<<<<<< HEAD
-/* eslint-env jasmine */
-=======
 /* jshint jasmine: true */
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 /* global WinJS, device */
 
 exports.defineAutoTests = function () {
@@ -46,11 +42,7 @@ exports.defineAutoTests = function () {
             done();
         });
     };
-<<<<<<< HEAD
-
-=======
     
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     var succeed = function (done, context) {
         // prevents done() to be called several times
         if (context) {
@@ -68,11 +60,7 @@ exports.defineAutoTests = function () {
     };
 
     // On Windows, some tests prompt user for permission to use geolocation and interrupt autotests run
-<<<<<<< HEAD
-    var isWindowsStore = (cordova.platformId === 'windows8') || (cordova.platformId === 'windows' && !WinJS.Utilities.isPhone); // eslint-disable-line no-undef
-=======
     var isWindowsStore = (cordova.platformId == "windows8") || (cordova.platformId == "windows" && !WinJS.Utilities.isPhone);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     var majorDeviceVersion = null;
     var versionRegex = /(\d)\..+/.exec(device.version);
     if (versionRegex !== null) {
@@ -80,30 +68,6 @@ exports.defineAutoTests = function () {
     }
     // Starting from Android 6.0 there are confirmation dialog which prevents us from running auto tests in silent mode (user interaction needed)
     // Also, Android emulator doesn't provide geo fix without manual interactions or mocks
-<<<<<<< HEAD
-    var skipAndroid = cordova.platformId === 'android' && (device.isVirtual || majorDeviceVersion >= 6); // eslint-disable-line no-undef
-    var isIOSSim = false; // if iOS simulator does not have a location set, it will fail.
-
-    describe('Geolocation (navigator.geolocation)', function () {
-
-        it('geolocation.spec.1 should exist', function () {
-            expect(navigator.geolocation).toBeDefined();
-        });
-
-        it('geolocation.spec.2 should contain a getCurrentPosition function', function () {
-            expect(typeof navigator.geolocation.getCurrentPosition).toBeDefined();
-            expect(typeof navigator.geolocation.getCurrentPosition === 'function').toBe(true);
-        });
-
-        it('geolocation.spec.3 should contain a watchPosition function', function () {
-            expect(typeof navigator.geolocation.watchPosition).toBeDefined();
-            expect(typeof navigator.geolocation.watchPosition === 'function').toBe(true);
-        });
-
-        it('geolocation.spec.4 should contain a clearWatch function', function () {
-            expect(typeof navigator.geolocation.clearWatch).toBeDefined();
-            expect(typeof navigator.geolocation.clearWatch === 'function').toBe(true);
-=======
     var skipAndroid = cordova.platformId == "android" && (device.isVirtual || majorDeviceVersion >= 6);
     var isIOSSim = false; // if iOS simulator does not have a location set, it will fail.
 
@@ -127,7 +91,6 @@ exports.defineAutoTests = function () {
         it("geolocation.spec.4 should contain a clearWatch function", function () {
             expect(typeof navigator.geolocation.clearWatch).toBeDefined();
             expect(typeof navigator.geolocation.clearWatch == 'function').toBe(true);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         });
 
     });
@@ -136,11 +99,7 @@ exports.defineAutoTests = function () {
 
         describe('error callback', function () {
 
-<<<<<<< HEAD
-            it('geolocation.spec.5 should be called if we set timeout to 0 and maximumAge to a very small number', function (done) {
-=======
             it("geolocation.spec.5 should be called if we set timeout to 0 and maximumAge to a very small number", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isWindowsStore || skipAndroid) {
                     pending();
                 }
@@ -154,22 +113,14 @@ exports.defineAutoTests = function () {
                     });
             });
 
-<<<<<<< HEAD
-            it('geolocation.spec.9 on failure should return PositionError object with error code constants', function (done) {
-=======
             it("geolocation.spec.9 on failure should return PositionError object with error code constants", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isWindowsStore || skipAndroid) {
                     pending();
                 }
 
                 navigator.geolocation.getCurrentPosition(
                     fail.bind(this, done),
-<<<<<<< HEAD
-                    function (gpsError) {
-=======
                     function(gpsError) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         // W3C specs: http://dev.w3.org/geo/api/spec-source.html#position_error_interface
                         expect(gpsError.PERMISSION_DENIED).toBe(1);
                         expect(gpsError.POSITION_UNAVAILABLE).toBe(2);
@@ -186,11 +137,7 @@ exports.defineAutoTests = function () {
 
         describe('success callback', function () {
 
-<<<<<<< HEAD
-            it('geolocation.spec.6 should be called with a Position object', function (done) {
-=======
             it("geolocation.spec.6 should be called with a Position object", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isWindowsStore || skipAndroid) {
                     pending();
                 }
@@ -199,15 +146,6 @@ exports.defineAutoTests = function () {
                     expect(p.coords).toBeDefined();
                     expect(p.timestamp).toBeDefined();
                     done();
-<<<<<<< HEAD
-                }, function (err) {
-                    if (err.message && err.message.indexOf('kCLErrorDomain') > -1) {
-                        console.log('Error: Location not set in simulator, tests will fail.');
-                        expect(true).toBe(true);
-                        isIOSSim = true;
-                        done();
-                    } else {
-=======
                 }, function(err){
                     if(err.message && err.message.indexOf('kCLErrorDomain') > -1){
                         console.log("Error: Location not set in simulator, tests will fail.");
@@ -216,7 +154,6 @@ exports.defineAutoTests = function () {
                         done();
                     }
                     else {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         fail(done);
                     }
                 },
@@ -230,17 +167,10 @@ exports.defineAutoTests = function () {
 
     describe('watchPosition method', function () {
 
-<<<<<<< HEAD
-        beforeEach(function (done) {
-            // This timeout is set to lessen the load on platform's geolocation services
-            // which were causing occasional test failures
-            setTimeout(function () {
-=======
         beforeEach(function(done) {
             // This timeout is set to lessen the load on platform's geolocation services
             // which were causing occasional test failures
             setTimeout(function() {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 done();
             }, 100);
         });
@@ -252,11 +182,7 @@ exports.defineAutoTests = function () {
                 navigator.geolocation.clearWatch(errorWatch);
             });
 
-<<<<<<< HEAD
-            it('geolocation.spec.7 should be called if we set timeout to 0 and maximumAge to a very small number', function (done) {
-=======
             it("geolocation.spec.7 should be called if we set timeout to 0 and maximumAge to a very small number", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isWindowsStore || skipAndroid) {
                     pending();
                 }
@@ -271,11 +197,7 @@ exports.defineAutoTests = function () {
                     });
             });
 
-<<<<<<< HEAD
-            it('geolocation.spec.10 on failure should return PositionError object with error code constants', function (done) {
-=======
             it("geolocation.spec.10 on failure should return PositionError object with error code constants", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isWindowsStore || skipAndroid) {
                     pending();
                 }
@@ -283,11 +205,7 @@ exports.defineAutoTests = function () {
                 var context = this;
                 errorWatch = navigator.geolocation.watchPosition(
                     fail.bind(this, done, context, 'Unexpected win'),
-<<<<<<< HEAD
-                    function (gpsError) {
-=======
                     function(gpsError) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         if (context.done) return;
                         context.done = true;
 
@@ -313,11 +231,7 @@ exports.defineAutoTests = function () {
                 navigator.geolocation.clearWatch(successWatch);
             });
 
-<<<<<<< HEAD
-            it('geolocation.spec.8 should be called with a Position object', function (done) {
-=======
             it("geolocation.spec.8 should be called with a Position object", function (done) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 if (isWindowsStore || skipAndroid || isIOSSim) {
                     pending();
                 }
@@ -331,11 +245,7 @@ exports.defineAutoTests = function () {
 
                         expect(p.coords).toBeDefined();
                         expect(p.timestamp).toBeDefined();
-<<<<<<< HEAD
-                        // callback could be called sync so we invoke done async to make sure we know watcher id to .clear in afterEach
-=======
                         // callback could be called sync so we invoke done async to make sure we know watcher id to .clear in afterEach 
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         setTimeout(function () {
                             done();
                         });
@@ -363,17 +273,10 @@ exports.defineManualTests = function (contentEl, createActionButton) {
     /**
      * Set location status
      */
-<<<<<<< HEAD
-    function setLocationStatus (status) {
-        document.getElementById('location_status').innerHTML = status;
-    }
-    function setLocationDetails (p) {
-=======
     function setLocationStatus(status) {
         document.getElementById('location_status').innerHTML = status;
     }
     function setLocationDetails(p) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         var date = (new Date(p.timestamp));
         document.getElementById('latitude').innerHTML = p.coords.latitude;
         document.getElementById('longitude').innerHTML = p.coords.longitude;
@@ -382,25 +285,12 @@ exports.defineManualTests = function (contentEl, createActionButton) {
         document.getElementById('heading').innerHTML = p.coords.heading;
         document.getElementById('speed').innerHTML = p.coords.speed;
         document.getElementById('altitude_accuracy').innerHTML = p.coords.altitudeAccuracy;
-<<<<<<< HEAD
-        document.getElementById('timestamp').innerHTML = date.toDateString() + ' ' + date.toTimeString();
-=======
         document.getElementById('timestamp').innerHTML = date.toDateString() + " " + date.toTimeString();
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     }
 
     /**
      * Stop watching the location
      */
-<<<<<<< HEAD
-    function stopLocation () {
-        var geo = navigator.geolocation;
-        if (!geo) {
-            alert('navigator.geolocation object is missing.'); // eslint-disable-line no-undef
-            return;
-        }
-        setLocationStatus('Stopped');
-=======
     function stopLocation() {
         var geo = navigator.geolocation;
         if (!geo) {
@@ -408,7 +298,6 @@ exports.defineManualTests = function (contentEl, createActionButton) {
             return;
         }
         setLocationStatus("Stopped");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         if (watchLocationId) {
             geo.clearWatch(watchLocationId);
             watchLocationId = null;
@@ -421,11 +310,7 @@ exports.defineManualTests = function (contentEl, createActionButton) {
     var watchLocation = function () {
         var geo = navigator.geolocation;
         if (!geo) {
-<<<<<<< HEAD
-            alert('navigator.geolocation object is missing.'); // eslint-disable-line no-undef
-=======
             alert('navigator.geolocation object is missing.');
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             return;
         }
 
@@ -436,21 +321,13 @@ exports.defineManualTests = function (contentEl, createActionButton) {
 
         // Fail callback
         var fail = function (e) {
-<<<<<<< HEAD
-            console.log('watchLocation fail callback with error code ' + e);
-=======
             console.log("watchLocation fail callback with error code " + e);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             stopLocation(geo);
         };
 
         // Get location
         watchLocationId = geo.watchPosition(success, fail, { enableHighAccuracy: true });
-<<<<<<< HEAD
-        setLocationStatus('Running');
-=======
         setLocationStatus("Running");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     };
 
     /**
@@ -459,11 +336,7 @@ exports.defineManualTests = function (contentEl, createActionButton) {
     var getLocation = function (opts) {
         var geo = navigator.geolocation;
         if (!geo) {
-<<<<<<< HEAD
-            alert('navigator.geolocation object is missing.'); // eslint-disable-line no-undef
-=======
             alert('navigator.geolocation object is missing.');
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             return;
         }
 
@@ -473,28 +346,16 @@ exports.defineManualTests = function (contentEl, createActionButton) {
         // Success callback
         var success = function (p) {
             setLocationDetails(p);
-<<<<<<< HEAD
-            setLocationStatus('Done');
-=======
             setLocationStatus("Done");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         };
 
         // Fail callback
         var fail = function (e) {
-<<<<<<< HEAD
-            console.log('getLocation fail callback with error code ' + e.code);
-            setLocationStatus('Error: ' + e.code);
-        };
-
-        setLocationStatus('Retrieving location...');
-=======
             console.log("getLocation fail callback with error code " + e.code);
             setLocationStatus("Error: " + e.code);
         };
 
         setLocationStatus("Retrieving location...");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
         // Get location
         geo.getCurrentPosition(success, fail, opts || { enableHighAccuracy: true }); //, {timeout: 10000});
@@ -505,20 +366,6 @@ exports.defineManualTests = function (contentEl, createActionButton) {
 
     var location_div = '<div id="info">' +
             '<b>Status:</b> <span id="location_status">Stopped</span>' +
-<<<<<<< HEAD
-            '<table width="100%">';
-    var latitude = '<tr>' +
-            '<td><b>Latitude:</b></td>' +
-            '<td id="latitude">&nbsp;</td>' +
-            '<td>(decimal degrees) geographic coordinate [<a href="http://dev.w3.org/geo/api/spec-source.html#lat">#ref]</a></td>' +
-            '</tr>';
-    var longitude = '<tr>' +
-            '<td><b>Longitude:</b></td>' +
-            '<td id="longitude">&nbsp;</td>' +
-            '<td>(decimal degrees) geographic coordinate [<a href="http://dev.w3.org/geo/api/spec-source.html#lat">#ref]</a></td>' +
-            '</tr>';
-    var altitude = '<tr>' +
-=======
             '<table width="100%">',
         latitude = '<tr>' +
             '<td><b>Latitude:</b></td>' +
@@ -531,20 +378,10 @@ exports.defineManualTests = function (contentEl, createActionButton) {
             '<td>(decimal degrees) geographic coordinate [<a href="http://dev.w3.org/geo/api/spec-source.html#lat">#ref]</a></td>' +
             '</tr>',
         altitude = '<tr>' +
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             '<td><b>Altitude:</b></td>' +
             '<td id="altitude">&nbsp;</td>' +
             '<td>null if not supported;<br>' +
             '(meters) height above the [<a href="http://dev.w3.org/geo/api/spec-source.html#ref-wgs">WGS84</a>] ellipsoid. [<a href="http://dev.w3.org/geo/api/spec-source.html#altitude">#ref]</a></td>' +
-<<<<<<< HEAD
-            '</tr>';
-    var accuracy = '<tr>' +
-            '<td><b>Accuracy:</b></td>' +
-            '<td id="accuracy">&nbsp;</td>' +
-            '<td>(meters; non-negative; 95% confidence level) the accuracy level of the latitude and longitude coordinates. [<a href="http://dev.w3.org/geo/api/spec-source.html#accuracy">#ref]</a></td>' +
-            '</tr>';
-    var heading = '<tr>' +
-=======
             '</tr>',
         accuracy = '<tr>' +
             '<td><b>Accuracy:</b></td>' +
@@ -552,32 +389,17 @@ exports.defineManualTests = function (contentEl, createActionButton) {
             '<td>(meters; non-negative; 95% confidence level) the accuracy level of the latitude and longitude coordinates. [<a href="http://dev.w3.org/geo/api/spec-source.html#accuracy">#ref]</a></td>' +
             '</tr>',
         heading = '<tr>' +
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             '<td><b>Heading:</b></td>' +
             '<td id="heading">&nbsp;</td>' +
             '<td>null if not supported;<br>' +
             'NaN if speed == 0;<br>' +
             '(degrees; 0° ≤ heading < 360°) direction of travel of the hosting device- counting clockwise relative to the true north. [<a href="http://dev.w3.org/geo/api/spec-source.html#heading">#ref]</a></td>' +
-<<<<<<< HEAD
-            '</tr>';
-    var speed = '<tr>' +
-=======
             '</tr>',
         speed = '<tr>' +
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             '<td><b>Speed:</b></td>' +
             '<td id="speed">&nbsp;</td>' +
             '<td>null if not supported;<br>' +
             '(meters per second; non-negative) magnitude of the horizontal component of the hosting device current velocity. [<a href="http://dev.w3.org/geo/api/spec-source.html#speed">#ref]</a></td>' +
-<<<<<<< HEAD
-            '</tr>';
-    var altitude_accuracy = '<tr>' +
-            '<td><b>Altitude Accuracy:</b></td>' +
-            '<td id="altitude_accuracy">&nbsp;</td>' +
-            '<td>null if not supported;<br>(meters; non-negative; 95% confidence level) the accuracy level of the altitude. [<a href="http://dev.w3.org/geo/api/spec-source.html#altitude-accuracy">#ref]</a></td>' +
-            '</tr>';
-    var time = '<tr>' +
-=======
             '</tr>',
         altitude_accuracy = '<tr>' +
             '<td><b>Altitude Accuracy:</b></td>' +
@@ -585,19 +407,13 @@ exports.defineManualTests = function (contentEl, createActionButton) {
             '<td>null if not supported;<br>(meters; non-negative; 95% confidence level) the accuracy level of the altitude. [<a href="http://dev.w3.org/geo/api/spec-source.html#altitude-accuracy">#ref]</a></td>' +
             '</tr>',
         time = '<tr>' +
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             '<td><b>Time:</b></td>' +
             '<td id="timestamp">&nbsp;</td>' +
             '<td>(DOMTimeStamp) when the position was acquired [<a href="http://dev.w3.org/geo/api/spec-source.html#timestamp">#ref]</a></td>' +
             '</tr>' +
             '</table>' +
-<<<<<<< HEAD
-            '</div>';
-    var actions =
-=======
             '</div>',
         actions =
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             '<div id="cordova-getLocation"></div>' +
             'Expected result: Will update all applicable values in status box for current location. Status will read Retrieving Location (may not see this if location is retrieved immediately) then Done.' +
             '<p/> <div id="cordova-watchLocation"></div>' +
@@ -605,17 +421,10 @@ exports.defineManualTests = function (contentEl, createActionButton) {
             '<p/> <div id="cordova-stopLocation"></div>' +
             'Expected result: Will stop watching the location so values will not be updated. Status will read Stopped.' +
             '<p/> <div id="cordova-getOld"></div>' +
-<<<<<<< HEAD
-            'Expected result: Will update location values with a cached position that is up to 30 seconds old. Verify with time value. Status will read Done.';
-    var values_info =
-            '<h3>Details about each value are listed below in the status box</h3>';
-    var note =
-=======
             'Expected result: Will update location values with a cached position that is up to 30 seconds old. Verify with time value. Status will read Done.',
         values_info =
             '<h3>Details about each value are listed below in the status box</h3>',
         note = 
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             '<h3>Allow use of current location, if prompted</h3>';
 
     contentEl.innerHTML = values_info + location_div + latitude + longitude + altitude + accuracy + heading + speed +

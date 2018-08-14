@@ -26,7 +26,7 @@
     "cordova-plugin-file": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-file@6.0.1"
+            "id": "cordova-plugin-file@~6.0.1"
         },
         "is_top_level": true,
         "variables": {}
@@ -71,18 +71,18 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-zeep": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-zeep"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-whitelist": {
         "source": {
             "type": "registry",
             "id": "cordova-plugin-whitelist@1.2.2"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-zeep": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-zeep"
         },
         "is_top_level": true,
         "variables": {}

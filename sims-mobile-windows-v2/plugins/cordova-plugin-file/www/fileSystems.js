@@ -20,10 +20,6 @@
 */
 
 // Overridden by Android, BlackBerry 10 and iOS to populate fsMap.
-<<<<<<< HEAD
-module.exports.getFs = function (name, callback) {
-=======
 module.exports.getFs = function(name, callback) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     callback(null);
 };

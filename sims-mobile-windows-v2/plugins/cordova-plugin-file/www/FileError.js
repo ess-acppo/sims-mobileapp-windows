@@ -22,13 +22,8 @@
 /**
  * FileError
  */
-<<<<<<< HEAD
-function FileError (error) {
-    this.code = error || null;
-=======
 function FileError(error) {
   this.code = error || null;
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 }
 
 // File error codes

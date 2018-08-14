@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-### 6.0.1 (Dec 27, 2017)
-* [CB-13704](https://issues.apache.org/jira/browse/CB-13704) Fix to allow 6.0.0 version install
-
-=======
 <!--
 #
 # Licensed to the Apache Software Foundation (ASF) under one
@@ -458,4 +453,3 @@
 * [CB-4656](https://issues.apache.org/jira/browse/CB-4656) Don't add newlines in data urls within readAsDataUrl.
 * [CB-4514](https://issues.apache.org/jira/browse/CB-4514) Making DirectoryCopy Recursive
 * [iOS] Simplify the code in resolveLocalFileSystemURI
->>>>>>> 64eb6f1... Plant Health Screens Draft 1

@@ -79,11 +79,7 @@ var mytests = function() {
       // 2. Cordova-sqlcipher-adapter version of this plugin
       if (isAndroid)
         it(suiteName + 'Android ICU-UNICODE string manipulation test', function(done) {
-<<<<<<< HEAD
           if (isWebSql && /Android 4.[1-3]/.test(navigator.userAgent)) pending('SKIP for (WebKit) Web SQL on Android 4.1-4.3'); // XXX TBD
-=======
-          if (isWebSql && /Android [1-4]/.test(navigator.userAgent)) pending('SKIP for Android versions 1.x-4.x Web SQL');
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           if (!isWebSql) pending('SKIP for plugin');
 
           var db = openDatabase('ICU-UNICODE-string-manipulation-results-test.db', '1.0', 'Test', DEFAULT_SIZE);
@@ -1770,13 +1766,9 @@ var mytests = function() {
       describe(suiteName + 'Inline BLOB value SELECT result tests', function() {
 
         it(suiteName + "SELECT LOWER(X'40414243')", function(done) {
-<<<<<<< HEAD
           // XXX TODO UPDATE THIS TEST TO PASS on Android 4.1-4.3 & Windows with UTF-16le encoding:
           if (isWebSql && /Android 4.[1-3]/.test(navigator.userAgent)) pending('SKIP for (WebKit) Web SQL on Android 4.1-4.3 (TODO)'); // XXX (TODO)
           if (isWindows) pending('XXX SKIP on Windows DUE TO TEST FAILURE (TODO)'); // XXX (TODO)
-=======
-          if (isWindows) pending('SKIP: BROKEN for Windows');
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
           var db = openDatabase("Inline-BLOB-lower-result-test.db", "1.0", "Demo", DEFAULT_SIZE);
 
@@ -1802,10 +1794,7 @@ var mytests = function() {
 
         it(suiteName + "SELECT X'40414243' [TBD BROKEN androidDatabaseImplementation: 2 & Windows]", function(done) {
           if (isWP8) pending('SKIP for WP8'); // [BROKEN]
-<<<<<<< HEAD
           if (isWebSql && /Android 4.[1-3]/.test(navigator.userAgent)) pending('SKIP for (WebKit) Web SQL on Android 4.1-4.3'); // XXX TBD
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
           var db = openDatabase("Inline-BLOB-SELECT-result-40414243-test.db", "1.0", "Demo", DEFAULT_SIZE);
 

@@ -1,12 +1,5 @@
 # Changes
 
-<<<<<<< HEAD
-### cordova-sqlite-storage 2.3.3
-
-- Quick fix for some iOS/macOS internal plugin error log messagess
-- test updates
-- quick doc updates
-
 ### cordova-sqlite-storage 2.3.2
 
 - Mark some Android errors as internal plugin errors (quick fix)
@@ -14,8 +7,6 @@
 - test coverage updates
 - quick doc updates
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 ### cordova-sqlite-storage 2.3.1
 
 - Mark some iOS/macOS plugin error messages as internal plugin errors (quick fix)

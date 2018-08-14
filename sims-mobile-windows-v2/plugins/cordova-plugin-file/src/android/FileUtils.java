@@ -570,10 +570,6 @@ public class FileUtils extends CordovaPlugin {
     private boolean needPermission(String nativeURL, int permissionType) throws JSONException {
         JSONObject j = requestAllPaths();
         ArrayList<String> allowedStorageDirectories = new ArrayList<String>();
-<<<<<<< HEAD
-        allowedStorageDirectories.add(j.getString("applicationDirectory"));
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         allowedStorageDirectories.add(j.getString("applicationStorageDirectory"));
         if(j.has("externalApplicationStorageDirectory")) {
             allowedStorageDirectories.add(j.getString("externalApplicationStorageDirectory"));

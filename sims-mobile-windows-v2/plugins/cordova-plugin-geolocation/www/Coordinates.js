@@ -30,11 +30,7 @@
  * @param {Object} altacc
  * @constructor
  */
-<<<<<<< HEAD
-var Coordinates = function (lat, lng, alt, acc, head, vel, altacc) {
-=======
 var Coordinates = function(lat, lng, alt, acc, head, vel, altacc) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     /**
      * The latitude of the position.
      */

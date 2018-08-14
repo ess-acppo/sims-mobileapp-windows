@@ -21,11 +21,7 @@
 
 var Coordinates = require('./Coordinates');
 
-<<<<<<< HEAD
-var Position = function (coords, timestamp) {
-=======
 var Position = function(coords, timestamp) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     if (coords) {
         this.coords = new Coordinates(coords.latitude, coords.longitude, coords.altitude, coords.accuracy, coords.heading, coords.velocity, coords.altitudeAccuracy);
     } else {

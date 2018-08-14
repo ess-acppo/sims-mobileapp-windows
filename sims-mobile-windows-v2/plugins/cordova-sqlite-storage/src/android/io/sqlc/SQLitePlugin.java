@@ -124,11 +124,7 @@ public class SQLitePlugin extends CordovaPlugin {
                 JSONArray txargs = allargs.getJSONArray("executes");
 
                 if (txargs.isNull(0)) {
-<<<<<<< HEAD
                     cbc.error("INTERNAL PLUGIN ERROR: missing executes list");
-=======
-                    cbc.error("missing executes list");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 } else {
                     int len = txargs.length();
                     String[] queries = new String[len];
@@ -148,17 +144,10 @@ public class SQLitePlugin extends CordovaPlugin {
                             r.q.put(q);
                         } catch(Exception e) {
                             Log.e(SQLitePlugin.class.getSimpleName(), "couldn't add to queue", e);
-<<<<<<< HEAD
                             cbc.error("INTERNAL PLUGIN ERROR: couldn't add to queue");
                         }
                     } else {
                         cbc.error("INTERNAL PLUGIN ERROR: database not open");
-=======
-                            cbc.error("couldn't add to queue");
-                        }
-                    } else {
-                        cbc.error("database not open");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                     }
                 }
                 break;
@@ -382,11 +371,7 @@ public class SQLitePlugin extends CordovaPlugin {
                             Log.e(SQLitePlugin.class.getSimpleName(), "couldn't delete database", e);
                             dbq.cbc.error("couldn't delete database: " + e);
                         }
-<<<<<<< HEAD
                     }
-=======
-                    }                    
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 } catch (Exception e) {
                     Log.e(SQLitePlugin.class.getSimpleName(), "couldn't close database", e);
                     if (dbq.cbc != null) {

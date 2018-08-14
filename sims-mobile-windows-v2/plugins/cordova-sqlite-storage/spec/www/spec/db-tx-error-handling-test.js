@@ -625,11 +625,7 @@ var mytests = function() {
             expect(ex).toBeDefined();
 
             // TBD WebKit Web SQL vs plugin according to spec?
-<<<<<<< HEAD
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
-=======
-            if (isWebSql)
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
@@ -679,11 +675,7 @@ var mytests = function() {
             expect(ex).toBeDefined();
 
             // TBD WebKit Web SQL vs plugin according to spec?
-<<<<<<< HEAD
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
-=======
-            if (isWebSql)
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
@@ -733,11 +725,7 @@ var mytests = function() {
             expect(ex).toBeDefined();
 
             // TBD WebKit Web SQL vs plugin according to spec?
-<<<<<<< HEAD
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
-=======
-            if (isWebSql)
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
@@ -787,11 +775,7 @@ var mytests = function() {
             expect(ex).toBeDefined();
 
             // TBD WebKit Web SQL vs plugin according to spec?
-<<<<<<< HEAD
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
-=======
-            if (isWebSql)
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
@@ -841,11 +825,7 @@ var mytests = function() {
             expect(ex).toBeDefined();
 
             // TBD WebKit Web SQL vs plugin according to spec?
-<<<<<<< HEAD
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
-=======
-            if (isWebSql)
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
@@ -895,11 +875,7 @@ var mytests = function() {
             expect(ex).toBeDefined();
 
             // TBD WebKit Web SQL vs plugin according to spec?
-<<<<<<< HEAD
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
-=======
-            if (isWebSql)
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
@@ -949,11 +925,7 @@ var mytests = function() {
             expect(ex).toBeDefined();
 
             // TBD WebKit Web SQL vs plugin according to spec?
-<<<<<<< HEAD
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
-=======
-            if (isWebSql)
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
@@ -1003,11 +975,7 @@ var mytests = function() {
             expect(ex).toBeDefined();
 
             // TBD WebKit Web SQL vs plugin according to spec?
-<<<<<<< HEAD
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
-=======
-            if (isWebSql)
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
@@ -1057,11 +1025,7 @@ var mytests = function() {
             expect(ex).toBeDefined();
 
             // TBD WebKit Web SQL vs plugin according to spec?
-<<<<<<< HEAD
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
-=======
-            if (isWebSql)
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
@@ -1111,11 +1075,7 @@ var mytests = function() {
             expect(ex).toBeDefined();
 
             // TBD WebKit Web SQL vs plugin according to spec?
-<<<<<<< HEAD
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
-=======
-            if (isWebSql)
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
@@ -1165,11 +1125,7 @@ var mytests = function() {
             expect(ex).toBeDefined();
 
             // TBD WebKit Web SQL vs plugin according to spec?
-<<<<<<< HEAD
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
-=======
-            if (isWebSql)
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
@@ -1219,11 +1175,7 @@ var mytests = function() {
             expect(ex).toBeDefined();
 
             // TBD WebKit Web SQL vs plugin according to spec?
-<<<<<<< HEAD
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
-=======
-            if (isWebSql)
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
@@ -1275,15 +1227,11 @@ var mytests = function() {
             if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('');
             expect(ex).toBeDefined();
 
-<<<<<<< HEAD
             // TBD WebKit Web SQL vs plugin according to spec?
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
-=======
-            expect(ex.code).not.toBeDefined();
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             expect(ex.message).toBeDefined();
 
             if (isAndroid)
@@ -1328,11 +1276,7 @@ var mytests = function() {
             expect(ex).toBeDefined();
 
             // TBD WebKit Web SQL vs plugin according to spec?
-<<<<<<< HEAD
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
-=======
-            if (isWebSql)
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
@@ -1379,15 +1323,11 @@ var mytests = function() {
             if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('');
             expect(ex).toBeDefined();
 
-<<<<<<< HEAD
             // TBD WebKit Web SQL vs plugin according to spec?
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
-=======
-            expect(ex.code).not.toBeDefined();
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             expect(ex.message).toBeDefined();
 
             if (isAndroid)
@@ -1431,15 +1371,11 @@ var mytests = function() {
             if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('');
             expect(ex).toBeDefined();
 
-<<<<<<< HEAD
             // TBD WebKit Web SQL vs plugin according to spec?
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
-=======
-            expect(ex.code).not.toBeDefined();
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             expect(ex.message).toBeDefined();
 
             if (isAndroid)
@@ -1483,15 +1419,11 @@ var mytests = function() {
             if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('');
             expect(ex).toBeDefined();
 
-<<<<<<< HEAD
             // TBD WebKit Web SQL vs plugin according to spec?
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
-=======
-            expect(ex.code).not.toBeDefined();
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             expect(ex.message).toBeDefined();
 
             if (isAndroid)
@@ -1535,15 +1467,11 @@ var mytests = function() {
             if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('');
             expect(ex).toBeDefined();
 
-<<<<<<< HEAD
             // TBD WebKit Web SQL vs plugin according to spec?
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
-=======
-            expect(ex.code).not.toBeDefined();
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             expect(ex.message).toBeDefined();
 
             if (isAndroid)
@@ -1587,15 +1515,11 @@ var mytests = function() {
             if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('');
             expect(ex).toBeDefined();
 
-<<<<<<< HEAD
             // TBD WebKit Web SQL vs plugin according to spec?
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
-=======
-            expect(ex.code).not.toBeDefined();
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             expect(ex.message).toBeDefined();
 
             if (isAndroid)
@@ -1639,15 +1563,11 @@ var mytests = function() {
             if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('');
             expect(ex).toBeDefined();
 
-<<<<<<< HEAD
             // TBD WebKit Web SQL vs plugin according to spec?
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(ex.code).not.toBeDefined();
             else
               expect(ex.code).toBeDefined();
-=======
-            expect(ex.code).not.toBeDefined();
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             expect(ex.message).toBeDefined();
 
             if (isAndroid)
@@ -1845,15 +1765,10 @@ var mytests = function() {
               expect(error.message).toMatch(/a statement with no error handler failed: query not found/);
             else if (!isWebSql)
               expect(error.message).toMatch(/a statement with no error handler failed:.*not an error/);
-<<<<<<< HEAD
             else if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not execute statement \(0 not an error\)/);
             else
               expect(error.message).toMatch(/not an error/);
-=======
-            else
-              expect(error.message).toMatch(/could not execute statement \(0 not an error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
             // VERIFY we can still continue:
             var gotStringLength = false; // poor man's spy
@@ -1916,15 +1831,10 @@ var mytests = function() {
               expect(error.message).toMatch(/a statement with no error handler failed: query not found/);
             else if (!isWebSql)
               expect(error.message).toMatch(/a statement with no error handler failed:.*not an error/);
-<<<<<<< HEAD
             else if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not execute statement \(0 not an error\)/);
             else
               expect(error.message).toMatch(/not an error/);
-=======
-            else
-              expect(error.message).toMatch(/could not execute statement \(0 not an error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
             // VERIFY we can still continue:
             var gotStringLength = false; // poor man's spy
@@ -1987,15 +1897,10 @@ var mytests = function() {
               expect(error.message).toMatch(/a statement with no error handler failed: query not found/);
             else if (!isWebSql)
               expect(error.message).toMatch(/a statement with no error handler failed:.*not an error/);
-<<<<<<< HEAD
             else if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not execute statement \(0 not an error\)/);
             else
               expect(error.message).toMatch(/not an error/);
-=======
-            else
-              expect(error.message).toMatch(/could not execute statement \(0 not an error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
             // VERIFY we can still continue:
             var gotStringLength = false; // poor man's spy
@@ -2059,15 +1964,10 @@ var mytests = function() {
               expect(error.message).toMatch(/a statement with no error handler failed: query not found/);
             else if (!isWebSql)
               expect(error.message).toMatch(/a statement with no error handler failed:.*not an error/);
-<<<<<<< HEAD
             else if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not execute statement \(0 not an error\)/);
             else
               expect(error.message).toMatch(/not an error/);
-=======
-            else
-              expect(error.message).toMatch(/could not execute statement \(0 not an error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
             // VERIFY we can still continue:
             var gotStringLength = false; // poor man's spy
@@ -2129,15 +2029,10 @@ var mytests = function() {
               expect(error.message).toMatch(/a statement with no error handler failed: Error preparing an SQLite statement/);
             else if (!isWebSql)
               expect(error.message).toMatch(/a statement with no error handler failed:.*near \"\[object Object\]\": syntax error/);
-<<<<<<< HEAD
             else if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not prepare statement \(1 near \"\[object Object\]\": syntax error\)/);
             else
               expect(error.message).toMatch(/near \"\[object Object\]\": syntax error/);
-=======
-            else
-              expect(error.message).toMatch(/could not prepare statement \(1 near \"\[object Object\]\": syntax error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
             // VERIFY we can still continue:
             var gotStringLength = false; // poor man's spy
@@ -2202,15 +2097,10 @@ var mytests = function() {
               expect(error.message).toMatch(/a statement with no error handler failed: Error preparing an SQLite statement/);
             else if (!isWebSql)
               expect(error.message).toMatch(/a statement with no error handler failed:.*near \"\[object Object\]\": syntax error/);
-<<<<<<< HEAD
             else if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not prepare statement \(1 near \"\[object Object\]\": syntax error\)/);
             else
               expect(error.message).toMatch(/near \"\[object Object\]\": syntax error/);
-=======
-            else
-              expect(error.message).toMatch(/could not prepare statement \(1 near \"\[object Object\]\": syntax error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
             // VERIFY we can still continue:
             var gotStringLength = false; // poor man's spy
@@ -2275,15 +2165,10 @@ var mytests = function() {
               expect(error.message).toMatch(/a statement with no error handler failed: Error preparing an SQLite statement/);
             else if (!isWebSql)
               expect(error.message).toMatch(/a statement with no error handler failed:.*near \"first\": syntax error/);
-<<<<<<< HEAD
             else if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not prepare statement \(1 near \"first\": syntax error\)/);
             else
               expect(error.message).toMatch(/near \"first\": syntax error/);
-=======
-            else
-              expect(error.message).toMatch(/could not prepare statement \(1 near \"first\": syntax error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
             // VERIFY we can still continue:
             var gotStringLength = false; // poor man's spy
@@ -2344,15 +2229,10 @@ var mytests = function() {
               expect(error.message).toMatch(/a statement with no error handler failed: Error preparing an SQLite statement/);
             else if (!isWebSql)
               expect(error.message).toMatch(/a statement with no error handler failed:.*near \"101\": syntax error/);
-<<<<<<< HEAD
             else if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not prepare statement \(1 near \"101\": syntax error\)/);
             else
               expect(error.message).toMatch(/near \"101\": syntax error/);
-=======
-            else
-              expect(error.message).toMatch(/could not prepare statement \(1 near \"101\": syntax error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
             // VERIFY we can still continue:
             var gotStringLength = false; // poor man's spy
@@ -2414,15 +2294,10 @@ var mytests = function() {
               expect(error.message).toMatch(/a statement with no error handler failed: Error preparing an SQLite statement/);
             else if (!isWebSql)
               expect(error.message).toMatch(/a statement with no error handler failed:.*near \"0\": syntax error/);
-<<<<<<< HEAD
             else if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not prepare statement \(1 near \"0\": syntax error\)/);
             else
               expect(error.message).toMatch(/near \"0\": syntax error/);
-=======
-            else
-              expect(error.message).toMatch(/could not prepare statement \(1 near \"0\": syntax error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
             // VERIFY we can still continue:
             var gotStringLength = false; // poor man's spy
@@ -2479,15 +2354,10 @@ var mytests = function() {
             else
               expect(error.code).toBe(5);
 
-<<<<<<< HEAD
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not prepare statement \(1 near \"undefined\": syntax error\)/);
             else if (isWebSql)
               expect(error.message).toMatch(/near \"undefined\": syntax error/);
-=======
-            if (isWebSql)
-              expect(error.message).toMatch(/could not prepare statement \(1 near \"undefined\": syntax error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             else if (isWindows)
               expect(error.message).toMatch(/Unable to get property 'toString' of undefined or null reference/);
             else if (isAndroid)
@@ -2549,15 +2419,10 @@ var mytests = function() {
             else
               expect(error.code).toBe(5);
 
-<<<<<<< HEAD
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not prepare statement \(1 near \"null\": syntax error\)/);
             else if (isWebSql)
               expect(error.message).toMatch(/near \"null\": syntax error/);
-=======
-            if (isWebSql)
-              expect(error.message).toMatch(/could not prepare statement \(1 near \"null\": syntax error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             else if (isWindows)
               expect(error.message).toMatch(/Unable to get property 'toString' of undefined or null reference/);
             else if (isAndroid)
@@ -2624,15 +2489,10 @@ var mytests = function() {
               expect(error.message).toMatch(/a statement with no error handler failed: Error preparing an SQLite statement/);
             else if (!isWebSql)
               expect(error.message).toMatch(/a statement with no error handler failed:.*near \"true\": syntax error/);
-<<<<<<< HEAD
             else if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not prepare statement \(1 near \"true\": syntax error\)/);
             else
               expect(error.message).toMatch(/near \"true\": syntax error/);
-=======
-            else
-              expect(error.message).toMatch(/could not prepare statement \(1 near \"true\": syntax error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
             // Verify we can still continue:
             var gotStringLength = false; // poor man's spy
@@ -2693,15 +2553,10 @@ var mytests = function() {
               expect(error.message).toMatch(/a statement with no error handler failed: Error preparing an SQLite statement/);
             else if (!isWebSql)
               expect(error.message).toMatch(/a statement with no error handler failed:.*near \"false\": syntax error/);
-<<<<<<< HEAD
             else if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not prepare statement \(1 near \"false\": syntax error\)/);
             else
               expect(error.message).toMatch(/near \"false\": syntax error/);
-=======
-            else
-              expect(error.message).toMatch(/could not prepare statement \(1 near \"false\": syntax error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
             // Verify we can still continue:
             var gotStringLength = false; // poor man's spy
@@ -2762,15 +2617,10 @@ var mytests = function() {
               expect(error.message).toMatch(/a statement with no error handler failed: Error preparing an SQLite statement/);
             else if (!isWebSql)
               expect(error.message).toMatch(/a statement with no error handler failed:.*near \"Infinity\": syntax error/);
-<<<<<<< HEAD
             else if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not prepare statement \(1 near \"Infinity\": syntax error\)/);
             else
               expect(error.message).toMatch(/near \"Infinity\": syntax error/);
-=======
-            else
-              expect(error.message).toMatch(/could not prepare statement \(1 near \"Infinity\": syntax error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
             // Verify we can still continue:
             var gotStringLength = false; // poor man's spy
@@ -2830,15 +2680,10 @@ var mytests = function() {
               expect(error.message).toMatch(/a statement with no error handler failed: Error preparing an SQLite statement/);
             else if (!isWebSql)
               expect(error.message).toMatch(/a statement with no error handler failed:.*near \"-\": syntax error/);
-<<<<<<< HEAD
             else if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not prepare statement \(1 near \"-\": syntax error\)/);
             else
               expect(error.message).toMatch(/near \"-\": syntax error/);
-=======
-            else
-              expect(error.message).toMatch(/could not prepare statement \(1 near \"-\": syntax error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
             // Verify we can still continue:
             var gotStringLength = false; // poor man's spy
@@ -2898,15 +2743,10 @@ var mytests = function() {
               expect(error.message).toMatch(/a statement with no error handler failed: Error preparing an SQLite statement/);
             else if (!isWebSql)
               expect(error.message).toMatch(/a statement with no error handler failed:.*near \"NaN\": syntax error/);
-<<<<<<< HEAD
             else if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not prepare statement \(1 near \"NaN\": syntax error\)/);
             else
               expect(error.message).toMatch(/near \"NaN\": syntax error/);
-=======
-            else
-              expect(error.message).toMatch(/could not prepare statement \(1 near \"NaN\": syntax error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
             // Verify we can still continue:
             var gotStringLength = false; // poor man's spy
@@ -2966,15 +2806,10 @@ var mytests = function() {
               expect(error.message).toMatch(/a statement with no error handler failed: Error preparing an SQLite statement/);
             else if (!isWebSql)
               expect(error.message).toMatch(/a statement with no error handler failed:.*near \"NaN\": syntax error/);
-<<<<<<< HEAD
             else if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not prepare statement \(1 near \"NaN\": syntax error\)/);
             else
               expect(error.message).toMatch(/near \"NaN\": syntax error/);
-=======
-            else
-              expect(error.message).toMatch(/could not prepare statement \(1 near \"NaN\": syntax error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
             // Verify we can still continue:
             var gotStringLength = false; // poor man's spy
@@ -3029,15 +2864,10 @@ var mytests = function() {
             else
               expect(error.code).toBe(5);
 
-<<<<<<< HEAD
             if (isWebSql && !(/Android 4.[1-3]/.test(navigator.userAgent)))
               expect(error.message).toMatch(/could not prepare statement \(1 near \"undefined\": syntax error\)/);
             else if (isWebSql)
               expect(error.message).toMatch(/near \"undefined\": syntax error/);
-=======
-            if (isWebSql)
-              expect(error.message).toMatch(/could not prepare statement \(1 near \"undefined\": syntax error\)/);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             else if (isWindows)
               expect(error.message).toMatch(/Unable to get property 'toString' of undefined or null reference/);
             else if (isAndroid)
@@ -3075,11 +2905,8 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'transaction.executeSql with no SQL statement in a try-catch block (BOGUS)', function (done) {
-<<<<<<< HEAD
           if (isWebSql && /Android 5.1/.test(navigator.userAgent)) pending('SKIP on (WebKit) Web SQL on Android 5.1'); // XXX TBD INCONSISTENT RESULT on (WebKit) Web SQL on Android 5.1(.1) x86 emulator vs Samsung test device
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           var db = openDatabase("tx-with-missing-sql-statement-try-catch.db", "1.0", "Demo", DEFAULT_SIZE);
 
           db.transaction(function(transaction) {
@@ -3093,12 +2920,8 @@ var mytests = function() {
               expect(ex).toBeDefined();
 
               if (isWebSql &&
-<<<<<<< HEAD
                   ((isAndroid && (/Android 4/.test(navigator.userAgent))) ||
                    (isAndroid && (/Android 5.0/.test(navigator.userAgent))) ||
-=======
-                  ((isAndroid && (/Android [2-4]/.test(navigator.userAgent))) ||
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                    (!isAndroid && !(/OS 1[1-9]/.test(navigator.userAgent)))))
                 expect(ex.code).toBe(12);
               else
@@ -3167,11 +2990,8 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'readTransaction.executeSql with no SQL statement in a try-catch block (BOGUS)', function (done) {
-<<<<<<< HEAD
           if (isWebSql && /Android 5.1/.test(navigator.userAgent)) pending('SKIP on (WebKit) Web SQL on Android 5.1'); // XXX TBD INCONSISTENT RESULT on (WebKit) Web SQL on Android 5.1(.1) x86 emulator vs Samsung test device
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           var db = openDatabase("read-tx-with-missing-sql-statement-try-catch.db", "1.0", "Demo", DEFAULT_SIZE);
 
           db.readTransaction(function(readTransaction) {
@@ -3185,12 +3005,8 @@ var mytests = function() {
               expect(ex).toBeDefined();
 
               if (isWebSql &&
-<<<<<<< HEAD
                   ((isAndroid && (/Android 4/.test(navigator.userAgent))) ||
                    (isAndroid && (/Android 5.0/.test(navigator.userAgent))) ||
-=======
-                  ((isAndroid && (/Android [2-4]/.test(navigator.userAgent))) ||
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                    (!isAndroid && !(/OS 1[1-9]/.test(navigator.userAgent)))))
                 expect(ex.code).toBe(12);
               else
@@ -3259,11 +3075,8 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'Inline US-ASCII String manipulation test with arguments array="string-value" (BOGUS) in a try-catch block', function(done) {
-<<<<<<< HEAD
           if (isWebSql && /Android 5.1/.test(navigator.userAgent)) pending('SKIP on (WebKit) Web SQL on Android 5.1'); // XXX TBD INCONSISTENT RESULT on (WebKit) Web SQL on Android 5.1(.1) x86 emulator vs Samsung test device
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           var db = openDatabase("Inline-US-ASCII-string-test-with-arguments-array-equals-string-value.db", "1.0", "Demo", DEFAULT_SIZE);
 
           db.transaction(function(tx) {
@@ -3286,12 +3099,8 @@ var mytests = function() {
               if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('--');
               expect(ex).toBeDefined();
               if (isWebSql &&
-<<<<<<< HEAD
                   ((isAndroid && (/Android 4/.test(navigator.userAgent))) ||
                    (isAndroid && (/Android 5.0/.test(navigator.userAgent))) ||
-=======
-                  ((isAndroid && (/Android [2-4]/.test(navigator.userAgent))) ||
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                    (!isAndroid && !(/OS 1[1-9]/.test(navigator.userAgent)))))
                 expect(ex.code).toBe(17);
               else
@@ -3315,11 +3124,8 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'Inline US-ASCII String manipulation test with arguments array="string-value" (BOGUS) in a try-catch block read tx', function(done) {
-<<<<<<< HEAD
           if (isWebSql && /Android 5.1/.test(navigator.userAgent)) pending('SKIP on (WebKit) Web SQL on Android 5.1'); // XXX TBD INCONSISTENT RESULT on (WebKit) Web SQL on Android 5.1(.1) x86 emulator vs Samsung test device
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           var db = openDatabase("Inline-US-ASCII-string-test-with-arguments-array-equals-string-value-read-tx.db", "1.0", "Demo", DEFAULT_SIZE);
 
           db.readTransaction(function(tx) {
@@ -3342,12 +3148,8 @@ var mytests = function() {
               if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('--');
               expect(ex).toBeDefined();
               if (isWebSql &&
-<<<<<<< HEAD
                   ((isAndroid && (/Android 4/.test(navigator.userAgent))) ||
                    (isAndroid && (/Android 5.0/.test(navigator.userAgent))) ||
-=======
-                  ((isAndroid && (/Android [2-4]/.test(navigator.userAgent))) ||
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                    (!isAndroid && !(/OS 1[1-9]/.test(navigator.userAgent)))))
                 expect(ex.code).toBe(17);
               else
@@ -3371,11 +3173,8 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'Inline US-ASCII String manipulation test with arguments array=false (BOGUS) in a try-catch block', function(done) {
-<<<<<<< HEAD
           if (isWebSql && /Android 5.1/.test(navigator.userAgent)) pending('SKIP on (WebKit) Web SQL on Android 5.1'); // XXX TBD INCONSISTENT RESULT on (WebKit) Web SQL on Android 5.1(.1) x86 emulator vs Samsung test device
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           var db = openDatabase("Inline-US-ASCII-string-test-with-arguments-array-equals-false.db", "1.0", "Demo", DEFAULT_SIZE);
 
           db.transaction(function(tx) {
@@ -3398,12 +3197,8 @@ var mytests = function() {
               if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('--');
               expect(ex).toBeDefined();
               if (isWebSql &&
-<<<<<<< HEAD
                   ((isAndroid && (/Android 4/.test(navigator.userAgent))) ||
                    (isAndroid && (/Android 5.0/.test(navigator.userAgent))) ||
-=======
-                  ((isAndroid && (/Android [2-4]/.test(navigator.userAgent))) ||
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                    (!isAndroid && !(/OS 1[1-9]/.test(navigator.userAgent)))))
                 expect(ex.code).toBe(17);
               else
@@ -3427,11 +3222,8 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'Inline US-ASCII String manipulation test with arguments array=false (BOGUS) in a try-catch block read tx', function(done) {
-<<<<<<< HEAD
           if (isWebSql && /Android 5.1/.test(navigator.userAgent)) pending('SKIP on (WebKit) Web SQL on Android 5.1'); // XXX TBD INCONSISTENT RESULT on (WebKit) Web SQL on Android 5.1(.1) x86 emulator vs Samsung test device
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           var db = openDatabase("Inline-US-ASCII-string-test-with-arguments-array-equals-false-read-tx.db", "1.0", "Demo", DEFAULT_SIZE);
 
           db.readTransaction(function(tx) {
@@ -3454,12 +3246,8 @@ var mytests = function() {
               if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('--');
               expect(ex).toBeDefined();
               if (isWebSql &&
-<<<<<<< HEAD
                   ((isAndroid && (/Android 4/.test(navigator.userAgent))) ||
                    (isAndroid && (/Android 5.0/.test(navigator.userAgent))) ||
-=======
-                  ((isAndroid && (/Android [2-4]/.test(navigator.userAgent))) ||
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                    (!isAndroid && !(/OS 1[1-9]/.test(navigator.userAgent)))))
                 expect(ex.code).toBe(17);
               else
@@ -3517,11 +3305,7 @@ var mytests = function() {
             // EXPECTED RESULT for (WebKit) Web SQL ONLY:
             if (!isWebSql) expect('Plugin BEHAVIOR CHANGED, please update this test').toBe('--');
             //* XXX TBD ???:
-<<<<<<< HEAD
             //* if (isWebSql && isAndroid && !(/Android 4/.test(navigator.userAgent)))
-=======
-            //* if (isWebSql && isAndroid && !(/Android [1-4]/.test(navigator.userAgent)))
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             //*   expect(check1).toBe(true);
             expect(error).toBeDefined();
             expect(error.code).toBeDefined();
@@ -3576,11 +3360,7 @@ var mytests = function() {
             // EXPECTED RESULT for (WebKit) Web SQL ONLY:
             if (!isWebSql) expect('Plugin BEHAVIOR CHANGED, please update this test').toBe('--');
             //* XXX TBD ???:
-<<<<<<< HEAD
             //* if (isWebSql && isAndroid && !(/Android 4/.test(navigator.userAgent)))
-=======
-            //* if (isWebSql && isAndroid && !(/Android [1-4]/.test(navigator.userAgent)))
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             //*   expect(check1).toBe(true);
             expect(error).toBeDefined();
             expect(error.code).toBeDefined();
@@ -3635,11 +3415,7 @@ var mytests = function() {
             // EXPECTED RESULT for (WebKit) Web SQL ONLY:
             if (!isWebSql) expect('Plugin BEHAVIOR CHANGED, please update this test').toBe('--');
             //* XXX TBD ???:
-<<<<<<< HEAD
             //* if (isWebSql && isAndroid && !(/Android 4/.test(navigator.userAgent)))
-=======
-            //* if (isWebSql && isAndroid && !(/Android [1-4]/.test(navigator.userAgent)))
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             //*   expect(check1).toBe(true);
             expect(error).toBeDefined();
             expect(error.code).toBeDefined();
@@ -3694,11 +3470,7 @@ var mytests = function() {
             // EXPECTED RESULT for (WebKit) Web SQL ONLY:
             if (!isWebSql) expect('Plugin BEHAVIOR CHANGED, please update this test').toBe('--');
             //* XXX TBD ???:
-<<<<<<< HEAD
             //* if (isWebSql && isAndroid && !(/Android 4/.test(navigator.userAgent)))
-=======
-            //* if (isWebSql && isAndroid && !(/Android [1-4]/.test(navigator.userAgent)))
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             //*   expect(check1).toBe(true);
             expect(error).toBeDefined();
             expect(error.code).toBeDefined();
@@ -3719,11 +3491,8 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + "transaction.executeSql('SELECT 1') with string for success callback in a try-catch block (BOGUS)", function (done) {
-<<<<<<< HEAD
           if (isWebSql && /Android 5.1/.test(navigator.userAgent)) pending('SKIP on (WebKit) Web SQL on Android 5.1'); // XXX TBD INCONSISTENT RESULT on (WebKit) Web SQL on Android 5.1(.1) x86 emulator vs Samsung test device
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           var db = openDatabase("tx-sql-with-string-for-success-cb.db", "1.0", "Demo", DEFAULT_SIZE);
 
           db.transaction(function(transaction) {
@@ -3735,12 +3504,8 @@ var mytests = function() {
               if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('--');
               expect(ex).toBeDefined();
               if (isWebSql &&
-<<<<<<< HEAD
                   ((isAndroid && (/Android 4/.test(navigator.userAgent))) ||
                    (isAndroid && (/Android 5.0/.test(navigator.userAgent))) ||
-=======
-                  ((isAndroid && (/Android [2-4]/.test(navigator.userAgent))) ||
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                    (!isAndroid && !(/OS 1[1-9]/.test(navigator.userAgent)))))
                 expect(ex.code).toBe(17);
               else
@@ -3778,11 +3543,8 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + "readTransaction.executeSql('SELECT 1') with string for success callback in a try-catch block (BOGUS)", function (done) {
-<<<<<<< HEAD
           if (isWebSql && /Android 5.1/.test(navigator.userAgent)) pending('SKIP on (WebKit) Web SQL on Android 5.1'); // XXX TBD INCONSISTENT RESULT on (WebKit) Web SQL on Android 5.1(.1) x86 emulator vs Samsung test device
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           var db = openDatabase("read-tx-sql-with-string-for-success-cb.db", "1.0", "Demo", DEFAULT_SIZE);
 
           db.readTransaction(function(readTransaction) {
@@ -3794,12 +3556,8 @@ var mytests = function() {
               if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('--');
               expect(ex).toBeDefined();
               if (isWebSql &&
-<<<<<<< HEAD
                   ((isAndroid && (/Android 4/.test(navigator.userAgent))) ||
                    (isAndroid && (/Android 5.0/.test(navigator.userAgent))) ||
-=======
-                  ((isAndroid && (/Android [2-4]/.test(navigator.userAgent))) ||
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                    (!isAndroid && !(/OS 1[1-9]/.test(navigator.userAgent)))))
                 expect(ex.code).toBe(17);
               else
@@ -3837,11 +3595,8 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + "transaction.executeSql('SLCT 1') with string for success callback in a try-catch block (BOGUS)", function (done) {
-<<<<<<< HEAD
           if (isWebSql && /Android 5.1/.test(navigator.userAgent)) pending('SKIP on (WebKit) Web SQL on Android 5.1'); // XXX TBD INCONSISTENT RESULT on (WebKit) Web SQL on Android 5.1(.1) x86 emulator vs Samsung test device
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           var db = openDatabase("tx-sql-misspelling-with-string-for-success-cb.db", "1.0", "Demo", DEFAULT_SIZE);
 
           db.transaction(function(transaction) {
@@ -3853,12 +3608,8 @@ var mytests = function() {
               if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('--');
               expect(ex).toBeDefined();
               if (isWebSql &&
-<<<<<<< HEAD
                   ((isAndroid && (/Android 4/.test(navigator.userAgent))) ||
                    (isAndroid && (/Android 5.0/.test(navigator.userAgent))) ||
-=======
-                  ((isAndroid && (/Android [2-4]/.test(navigator.userAgent))) ||
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                    (!isAndroid && !(/OS 1[1-9]/.test(navigator.userAgent)))))
                 expect(ex.code).toBe(17);
               else
@@ -3901,11 +3652,8 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + "readTransaction.executeSql('SLCT 1') with string for success callback in a try-catch block (BOGUS)", function (done) {
-<<<<<<< HEAD
           if (isWebSql && /Android 5.1/.test(navigator.userAgent)) pending('SKIP on (WebKit) Web SQL on Android 5.1'); // XXX TBD INCONSISTENT RESULT on (WebKit) Web SQL on Android 5.1(.1) x86 emulator vs Samsung test device
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           var db = openDatabase("read-tx-sql-misspelling-with-string-for-success-cb.db", "1.0", "Demo", DEFAULT_SIZE);
 
           db.readTransaction(function(readTransaction) {
@@ -3917,12 +3665,8 @@ var mytests = function() {
               if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('--');
               expect(ex).toBeDefined();
               if (isWebSql &&
-<<<<<<< HEAD
                   ((isAndroid && (/Android 4/.test(navigator.userAgent))) ||
                    (isAndroid && (/Android 5.0/.test(navigator.userAgent))) ||
-=======
-                  ((isAndroid && (/Android [2-4]/.test(navigator.userAgent))) ||
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                    (!isAndroid && !(/OS 1[1-9]/.test(navigator.userAgent)))))
                 expect(ex.code).toBe(17);
               else
@@ -3965,11 +3709,8 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + "transaction.executeSql('SELECT 1') with string for error callback in a try-catch block (BOGUS)", function (done) {
-<<<<<<< HEAD
           if (isWebSql && /Android 5.1/.test(navigator.userAgent)) pending('SKIP on (WebKit) Web SQL on Android 5.1'); // XXX TBD INCONSISTENT RESULT on (WebKit) Web SQL on Android 5.1(.1) x86 emulator vs Samsung test device
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           var db = openDatabase("tx-sql-with-string-for-error-cb.db", "1.0", "Demo", DEFAULT_SIZE);
 
           var check1 = false;
@@ -3983,12 +3724,8 @@ var mytests = function() {
               if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('--');
               expect(ex).toBeDefined();
               if (isWebSql &&
-<<<<<<< HEAD
                   ((isAndroid && (/Android 4/.test(navigator.userAgent))) ||
                    (isAndroid && (/Android 5.0/.test(navigator.userAgent))) ||
-=======
-                  ((isAndroid && (/Android [2-4]/.test(navigator.userAgent))) ||
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                    (!isAndroid && !(/OS 1[1-9]/.test(navigator.userAgent)))))
                 expect(ex.code).toBe(17);
               else
@@ -4022,11 +3759,8 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + "readTransaction.executeSql('SELECT 1') with string for error callback in a try-catch block (BOGUS)", function (done) {
-<<<<<<< HEAD
           if (isWebSql && /Android 5.1/.test(navigator.userAgent)) pending('SKIP on (WebKit) Web SQL on Android 5.1'); // XXX TBD INCONSISTENT RESULT on (WebKit) Web SQL on Android 5.1(.1) x86 emulator vs Samsung test device
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           var db = openDatabase("read-tx-sql-with-string-for-error-cb.db", "1.0", "Demo", DEFAULT_SIZE);
 
           var check1 = false;
@@ -4040,12 +3774,8 @@ var mytests = function() {
               if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('--');
               expect(ex).toBeDefined();
               if (isWebSql &&
-<<<<<<< HEAD
                   ((isAndroid && (/Android 4/.test(navigator.userAgent))) ||
                    (isAndroid && (/Android 5.0/.test(navigator.userAgent))) ||
-=======
-                  ((isAndroid && (/Android [2-4]/.test(navigator.userAgent))) ||
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                    (!isAndroid && !(/OS 1[1-9]/.test(navigator.userAgent)))))
                 expect(ex.code).toBe(17);
               else
@@ -4079,11 +3809,8 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + "transaction.executeSql('SLCT 1') with string for error callback in a try-catch block (BOGUS)", function (done) {
-<<<<<<< HEAD
           if (isWebSql && /Android 5.1/.test(navigator.userAgent)) pending('SKIP on (WebKit) Web SQL on Android 5.1'); // XXX TBD INCONSISTENT RESULT on (WebKit) Web SQL on Android 5.1(.1) x86 emulator vs Samsung test device
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           var db = openDatabase("tx-sql-misspelling-with-string-for-error-cb.db", "1.0", "Demo", DEFAULT_SIZE);
 
           db.transaction(function(transaction) {
@@ -4095,12 +3822,8 @@ var mytests = function() {
               if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('--');
               expect(ex).toBeDefined();
               if (isWebSql &&
-<<<<<<< HEAD
                   ((isAndroid && (/Android 4/.test(navigator.userAgent))) ||
                    (isAndroid && (/Android 5.0/.test(navigator.userAgent))) ||
-=======
-                  ((isAndroid && (/Android [2-4]/.test(navigator.userAgent))) ||
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                    (!isAndroid && !(/OS 1[1-9]/.test(navigator.userAgent)))))
                 expect(ex.code).toBe(17);
               else
@@ -4137,11 +3860,8 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + "readTransaction.executeSql('SLCT 1') with string for error callback in a try-catch block (BOGUS)", function (done) {
-<<<<<<< HEAD
           if (isWebSql && /Android 5.1/.test(navigator.userAgent)) pending('SKIP on (WebKit) Web SQL on Android 5.1'); // XXX TBD INCONSISTENT RESULT on (WebKit) Web SQL on Android 5.1(.1) x86 emulator vs Samsung test device
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           var db = openDatabase("read-tx-sql-misspelling-with-string-for-error-cb.db", "1.0", "Demo", DEFAULT_SIZE);
 
           db.readTransaction(function(readTransaction) {
@@ -4153,12 +3873,8 @@ var mytests = function() {
               if (!isWebSql) expect('Plugin behavior changed please update this test').toBe('--');
               expect(ex).toBeDefined();
               if (isWebSql &&
-<<<<<<< HEAD
                   ((isAndroid && (/Android 4/.test(navigator.userAgent))) ||
                    (isAndroid && (/Android 5.0/.test(navigator.userAgent))) ||
-=======
-                  ((isAndroid && (/Android [2-4]/.test(navigator.userAgent))) ||
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                    (!isAndroid && !(/OS 1[1-9]/.test(navigator.userAgent)))))
                 expect(ex.code).toBe(17);
               else

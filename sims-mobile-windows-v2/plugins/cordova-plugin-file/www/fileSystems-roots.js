@@ -25,13 +25,8 @@ var FileSystem = require('./FileSystem');
 var exec = require('cordova/exec');
 
 // Overridden by Android, BlackBerry 10 and iOS to populate fsMap.
-<<<<<<< HEAD
-require('./fileSystems').getFs = function (name, callback) {
-    function success (response) {
-=======
 require('./fileSystems').getFs = function(name, callback) {
     function success(response) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         fsMap = {};
         for (var i = 0; i < response.length; ++i) {
             var fsRoot = response[i];
@@ -44,13 +39,7 @@ require('./fileSystems').getFs = function(name, callback) {
     if (fsMap) {
         callback(fsMap[name]);
     } else {
-<<<<<<< HEAD
-        exec(success, null, 'File', 'requestAllFileSystems', []);
-    }
-};
-=======
         exec(success, null, "File", "requestAllFileSystems", []);
     }
 };
 
->>>>>>> 64eb6f1... Plant Health Screens Draft 1

@@ -1,8 +1,5 @@
 /* 'use strict'; */
 
-<<<<<<< HEAD
-var MYTIMEOUT = 30000;
-=======
 var MYTIMEOUT = 12000;
 
 var DEFAULT_SIZE = 5000000; // max to avoid popup in safari/ios
@@ -31,7 +28,6 @@ function start(n) {
   else --wait;
   if (wait == 0) test_it_done();
 }
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
 var isWP8 = /IEMobile/.test(navigator.userAgent); // Matches WP(7/8/8.1)
 var isWindows = /Windows /.test(navigator.userAgent); // Windows
@@ -43,45 +39,6 @@ var isWKWebView = !isWindows && !isAndroid && !isWP8 && !isMac && !!window.webki
 // the default Android implementation and implementation #2,
 // this test script will also apply the androidLockWorkaround: 1 option
 // in case of implementation #2.
-<<<<<<< HEAD
-var pluginScenarioList = [
-  isAndroid ? 'Plugin-implementation-default' : 'Plugin',
-  'Plugin-implementation-2'
-];
-
-var pluginScenarioCount = isAndroid ? 2 : 1;
-
-var mytests = function() {
-
-  for (var i=0; i<pluginScenarioCount; ++i) {
-
-    describe(pluginScenarioList[i] + ': sql operations via plugin-specific db.executeSql test(s)', function() {
-      var scenarioName = pluginScenarioList[i];
-      var suiteName = scenarioName + ': ';
-      var isImpl2 = (i === 1);
-
-      // NOTE: MUST be defined in function scope, NOT outer scope:
-      var openDatabase = function(name, ignored1, ignored2, ignored3) {
-        if (isImpl2) {
-          return window.sqlitePlugin.openDatabase({
-            // prevent reuse of database from default db implementation:
-            name: 'i2-'+name,
-            // explicit database location:
-            location: 'default',
-            androidDatabaseImplementation: 2,
-            androidLockWorkaround: 1
-          });
-        } else {
-          // explicit database location:
-          return window.sqlitePlugin.openDatabase({name: name, location: 'default'});
-        }
-      }
-
-      describe(pluginScenarioList[i] + ': db.executeSql SELECT result test(s)', function() {
-
-        it(suiteName + 'db.executeSql string result test with null for parameter argument array', function(done) {
-          var db = openDatabase('DB-sql-String-result-test-with-null-parameter-arg-array.db');
-=======
 var scenarioList = [
   isAndroid ? 'Plugin-implementation-default' : 'Plugin',
   'HTML5',
@@ -92,7 +49,7 @@ var scenarioCount = (!!window.hasWebKitBrowser) ? (isAndroid ? 3 : 2) : 1;
 
 var mytests = function() {
 
-  describe('Plugin: plugin-specific sql operations test(s)', function() {
+  describe('Plugin: sql operations using db.executeSql (plugin-specific) test(s)', function() {
 
     var pluginScenarioList = [
       isAndroid ? 'Plugin-implementation-default' : 'Plugin',
@@ -142,7 +99,6 @@ var mytests = function() {
 
         it(suiteName + 'db.executeSql string result test with null for parameter argument array', function(done) {
           var db = openDatabase("DB-sql-String-result-test-with-null-parameter-arg-array.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql("SELECT UPPER('first') AS uppertext", null, function(rs) {
@@ -160,11 +116,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'Inline db.executeSql US-ASCII String manipulation test with empty ([]) parameter list', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('Inline-db-sql-US-ASCII-string-test-with-empty-parameter-list.db');
-=======
           var db = openDatabase("Inline-db-sql-US-ASCII-string-test-with-empty-parameter-list.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql("SELECT UPPER('Some US-ASCII text') AS uppertext", [], function(res) {
@@ -180,11 +132,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql string result test with undefined for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-String-result-test-with-undefined-for-parameter-arg-array.db');
-=======
           var db = openDatabase("DB-sql-String-result-test-with-undefined-for-parameter-arg-array.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql("SELECT UPPER('first') AS uppertext", undefined, function(rs) {
@@ -202,11 +150,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql check SELECT TYPEOF(?) with [101] for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-TYPEOF-101.db');
-=======
           var db = openDatabase("DB-sql-SELECT-TYPEOF-101.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT TYPEOF(?) AS myresult', [101], function(rs) {
@@ -229,11 +173,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql check SELECT ? with [101] for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-101.db');
-=======
           var db = openDatabase("DB-sql-SELECT-101.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT ? AS myresult', [101], function(rs) {
@@ -254,11 +194,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql check SELECT TYPEOF(?) with [-101] for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-TYPEOF-minus-101.db');
-=======
           var db = openDatabase("DB-sql-SELECT-TYPEOF-minus-101.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT TYPEOF(?) AS myresult', [-101], function(rs) {
@@ -281,11 +217,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql check SELECT ? with [-101] for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-minus-101.db');
-=======
           var db = openDatabase("DB-sql-SELECT-minus-101.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT ? AS myresult', [-101], function(rs) {
@@ -306,11 +238,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql check SELECT TYPEOF(?) with [123.456] for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-TYPEOF-123.456.db');
-=======
           var db = openDatabase("DB-sql-SELECT-TYPEOF-123.456.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT TYPEOF(?) AS myresult', [123.456], function(rs) {
@@ -331,11 +259,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql check SELECT ? with [123.456] for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-123.456.db');
-=======
           var db = openDatabase("DB-sql-SELECT-123.456.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT ? AS myresult', [123.456], function(rs) {
@@ -356,11 +280,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql check SELECT TYPEOF(?) with [-123.456] for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-TYPEOF-minus-123.456.db');
-=======
           var db = openDatabase("DB-sql-SELECT-TYPEOF-minus-123.456.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT TYPEOF(?) AS myresult', [-123.456], function(rs) {
@@ -381,11 +301,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql check SELECT ? with [-123.456] for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-minus-123.456.db');
-=======
           var db = openDatabase("DB-sql-SELECT-minus-123.456.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT ? AS myresult', [-123.456], function(rs) {
@@ -406,11 +322,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql check SELECT TYPEOF(?) with [0] for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-TYPEOF-0.db');
-=======
           var db = openDatabase("DB-sql-SELECT-TYPEOF-0.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT TYPEOF(?) AS myresult', [0], function(rs) {
@@ -433,11 +345,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql check SELECT ? with [0] for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-TYPEOF-0.db');
-=======
           var db = openDatabase("DB-sql-SELECT-TYPEOF-0.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT ? AS myresult', [0], function(rs) {
@@ -458,11 +366,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql check SELECT TYPEOF(?) with [null] for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-TYPEOF-null.db');
-=======
           var db = openDatabase("DB-sql-SELECT-TYPEOF-null.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT TYPEOF(?) AS myresult', [null], function(rs) {
@@ -483,11 +387,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql check SELECT TYPEOF(?) with [undefined] for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-TYPEOF-undefined.db');
-=======
           var db = openDatabase("DB-sql-SELECT-TYPEOF-undefined.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT TYPEOF(?) AS myresult', [undefined], function(rs) {
@@ -510,11 +410,7 @@ var mytests = function() {
         it(suiteName + 'db.executeSql check SELECT TYPEOF(?) with [Infinity] for parameter argument array [TBD Android/iOS/macOS plugin result]', function(done) {
           if (isWP8) pending('SKIP for WP8'); // SKIP for now
 
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-TYPEOF-infinity.db');
-=======
           var db = openDatabase("DB-sql-SELECT-TYPEOF-infinity.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT TYPEOF(?) AS myresult', [Infinity], function(rs) {
@@ -540,11 +436,7 @@ var mytests = function() {
           if (isWP8) pending('SKIP for WP8'); // SKIP for now
           if (isMac) pending('SKIP for macOS [CRASH]'); // FUTURE TBD
 
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-infinity.db');
-=======
           var db = openDatabase("DB-sql-SELECT-infinity.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT ? AS myresult', [Infinity], function(rs) {
@@ -569,11 +461,7 @@ var mytests = function() {
         it(suiteName + 'db.executeSql check SELECT TYPEOF(?) with [-Infinity] for parameter argument array [TBD Android/iOS/macOS plugin result]', function(done) {
           if (isWP8) pending('SKIP for WP8'); // SKIP for now
 
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-TYPEOF-minus-infinity.db');
-=======
           var db = openDatabase("DB-sql-SELECT-TYPEOF-minus-infinity.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT TYPEOF(?) AS myresult', [-Infinity], function(rs) {
@@ -599,11 +487,7 @@ var mytests = function() {
           if (isWP8) pending('SKIP for WP8'); // SKIP for now
           if (isMac) pending('SKIP for macOS [CRASH]'); // FUTURE TBD
 
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-minus-infinity.db');
-=======
           var db = openDatabase("DB-sql-SELECT-minus-infinity.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT ? AS myresult', [-Infinity], function(rs) {
@@ -626,11 +510,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql check SELECT TYPEOF(?) with [NaN] for parameter argument array [TBD Android/iOS/macOS plugin result]', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-SELECT-TYPEOF-nan.db');
-=======
           var db = openDatabase("DB-sql-SELECT-TYPEOF-nan.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SELECT TYPEOF(?) AS myresult', [NaN], function(rs) {
@@ -650,17 +530,8 @@ var mytests = function() {
           });
         }, MYTIMEOUT);
 
-<<<<<<< HEAD
-      });
-
-      describe(pluginScenarioList[i] + ': db.executeSql value storage test(s)', function() {
-
-        it(suiteName + 'db.executeSql store numeric values and check', function(done) {
-          var db = openDatabase('DB-sql-store-numeric-values-and-check.db');
-=======
         it(suiteName + 'db.executeSql store numeric values and check', function(done) {
           var db = openDatabase("DB-sql-store-numeric-values-and-check.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
           db.executeSql('DROP TABLE IF EXISTS MyTable');
           db.executeSql('CREATE TABLE MyTable (data)');
@@ -748,11 +619,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql store null/undefined values and check', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-store-null-undefined-values-and-check.db');
-=======
           var db = openDatabase("DB-sql-store-null-undefined-values-and-check.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('DROP TABLE IF EXISTS MyTable');
@@ -780,11 +647,7 @@ var mytests = function() {
           if (isWP8) pending('SKIP for WP8'); // SKIP for now
           if (isMac) pending('SKIP for macOS [CRASH]'); // FUTURE TBD
 
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-store-infinity-nan-values-and-check.db');
-=======
           var db = openDatabase("DB-sql-store-infinity-nan-values-and-check.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
           db.executeSql('DROP TABLE IF EXISTS MyTable');
           db.executeSql('CREATE TABLE MyTable (data)');
@@ -823,11 +686,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql store true/false values and check [stored as strings]', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-store-true-false-values-and-check.db');
-=======
           var db = openDatabase("DB-sql-store-true-false-values-and-check.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
           db.executeSql('DROP TABLE IF EXISTS MyTable');
           db.executeSql('CREATE TABLE MyTable (data)');
@@ -849,42 +708,8 @@ var mytests = function() {
           });
         }, MYTIMEOUT);
 
-<<<<<<< HEAD
-      });
-
-      describe(pluginScenarioList[i] + ': db.executeSql numbered parameters storage test(s)', function() {
-
-        it(suiteName + 'db.executeSql store numbered parameters (reversed) and check', function(done) {
-          var db = openDatabase('DB-executeSql-store-numbered-parameters-reversed-and-check.db');
-
-          db.executeSql('DROP TABLE IF EXISTS MyTable');
-          db.executeSql('CREATE TABLE MyTable (x,y)');
-          db.executeSql('INSERT INTO MyTable VALUES (?2,?1)', ['a',1]);
-
-          db.executeSql('SELECT * FROM MyTable', [], function (resultSet) {
-            // EXPECTED: CORRECT RESULT:
-            expect(resultSet).toBeDefined();
-            expect(resultSet.rows).toBeDefined();
-            expect(resultSet.rows.length).toBe(1);
-
-            var resultRow = resultSet.rows.item(0);
-            expect(resultRow).toBeDefined();
-            expect(resultRow.x).toBe(1);
-            expect(resultRow.y).toBe('a');
-            db.close(done, done);
-          });
-        }, MYTIMEOUT);
-
-      });
-
-      describe(pluginScenarioList[i] + ': more db.executeSql SELECT result test(s)', function() {
-
-        it(suiteName + 'db.executeSql string result test with new String for SQL', function(done) {
-          var db = openDatabase('DB-sql-new-String-test.db');
-=======
         it(suiteName + 'db.executeSql string result test with new String for SQL', function(done) {
           var db = openDatabase("DB-sql-new-String-test.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql(new String("SELECT UPPER('first') AS uppertext"), null, function(rs) {
@@ -984,11 +809,7 @@ var mytests = function() {
 
           // NOTE: this test checks that for db.executeSql(), the result callback is
           // called exactly once, with the proper result:
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-string-result-test-with-dynamic-object-for-sql.db');
-=======
           var db = openDatabase("DB-sql-string-result-test-with-dynamic-object-for-sql.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           myObject.name = 'Betty';
@@ -1021,11 +842,7 @@ var mytests = function() {
 
           // NOTE: this test checks that for db.executeSql(), the result callback is
           // called exactly once, with the proper result:
-<<<<<<< HEAD
-          var db = openDatabase('DB-sql-string-result-test-with-dynamic-object-for-parameter-arg.db');
-=======
           var db = openDatabase("DB-sql-string-result-test-with-dynamic-object-for-parameter-arg.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           myObject.name = 'Betty';
@@ -1089,51 +906,6 @@ var mytests = function() {
           });
         }, MYTIMEOUT);
 
-<<<<<<< HEAD
-        it(suiteName + 'Multiple db.executeSql string result test', function(done) {
-          // NOTE: this test checks that for db.executeSql(), the result callback is
-          // called exactly once, with the proper result:
-          var db = openDatabase('Multiple-DB-sql-String-result-test.db');
-
-          expect(db).toBeDefined();
-
-          var expectedText = [ 'FIRST', 'SECOND' ];
-          var i=0;
-
-          var okcb = function(resultSet) {
-            expect(resultSet).toBeDefined();
-
-            // ignore the rest of this callback (and do not count)
-            // in case resultSet data is not present:
-            if (!resultSet) return;
-
-            expect(resultSet.rows).toBeDefined();
-            expect(resultSet.rows.length).toBe(1);
-
-            var resultRow = resultSet.rows.item(0);
-            expect(resultRow).toBeDefined();
-
-            expect(i < 2).toBe(true);
-
-            expect(resultRow.upperText).toBe(expectedText[i]);
-
-            ++i;
-
-            // wait for second callback:
-            if (i === 2) db.close(done, done);
-          };
-
-          db.executeSql("SELECT UPPER('first') as upperText", [], okcb);
-          db.executeSql("SELECT UPPER('second') as upperText", [], okcb);
-        }, MYTIMEOUT);
-
-      });
-
-      describe(pluginScenarioList[i] + ': db.executeSql error test(s)', function() {
-
-        it(suiteName + 'db.executeSql() with no arguments and then inline string test', function(done) {
-          var db = openDatabase('DB-execute-sql-with-no-arguments.db');
-=======
         test_it(suiteName + "Multiple db.executeSql string result test", function() {
           // NOTE: this test checks that for db.executeSql(), the result callback is
           // called exactly once, with the proper result:
@@ -1223,7 +995,6 @@ var mytests = function() {
 
         it(suiteName + 'db.executeSql() with no arguments and then inline string test', function(done) {
           var db = openDatabase("DB-execute-sql-with-no-arguments.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           var check1 = true;
@@ -1255,11 +1026,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql error test with null for SQL statement', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-error-test-with-null-for-sql.db');
-=======
           var db = openDatabase("DB-execute-sql-error-test-with-null-for-sql.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           var check1 = false;
@@ -1302,11 +1069,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql error test with undefined for SQL statement', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-error-test-with-undefined-for-sql.db');
-=======
           var db = openDatabase("DB-execute-sql-error-test-with-undefined-for-sql.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           var check1 = false;
@@ -1349,11 +1112,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql error test with true for SQL statement', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-error-test-with-true-for-sql.db');
-=======
           var db = openDatabase("DB-execute-sql-error-test-with-true-for-sql.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql(true, null, function(ignored) {
@@ -1385,11 +1144,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql error test with false for SQL statement', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-error-test-with-false-for-sql.db');
-=======
           var db = openDatabase("DB-execute-sql-error-test-with-false-for-sql.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql(false, null, function(ignored) {
@@ -1421,11 +1176,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql error test with Infinity for SQL statement', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-error-test-with-infinity-for-sql.db');
-=======
           var db = openDatabase("DB-execute-sql-error-test-with-infinity-for-sql.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql(Infinity, null, function(ignored) {
@@ -1457,11 +1208,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql error test with -Infinity for SQL statement', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-error-test-with-infinity-for-sql.db');
-=======
           var db = openDatabase("DB-execute-sql-error-test-with-infinity-for-sql.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql(-Infinity, null, function(ignored) {
@@ -1493,11 +1240,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql error test with NaN for SQL statement', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-error-test-with-nan-for-sql.db');
-=======
           var db = openDatabase("DB-execute-sql-error-test-with-nan-for-sql.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql(NaN, null, function(ignored) {
@@ -1529,11 +1272,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql error test with null for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-error-test-with-null-for-parameter-arg-array.db');
-=======
           var db = openDatabase("DB-execute-sql-error-test-with-null-for-parameter-arg-array.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SLCT 1', null, function(ignored) {
@@ -1565,11 +1304,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql error test with undefined for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-error-test-with-undefined-for-parameter-arg-array.db');
-=======
           var db = openDatabase("DB-execute-sql-error-test-with-undefined-for-parameter-arg-array.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           db.executeSql('SLCT 1', undefined, function(ignored) {
@@ -1601,11 +1336,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql error test with "string-value" for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-error-test-with-string-value-for-parameter-arg-array.db');
-=======
           var db = openDatabase("DB-execute-sql-error-test-with-string-value-for-parameter-arg-array.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           try {
@@ -1627,11 +1358,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql error test with false for parameter argument array', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-error-test-with-false-for-parameter-arg-array.db');
-=======
           var db = openDatabase("DB-execute-sql-error-test-with-false-for-parameter-arg-array.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           try {
@@ -1653,11 +1380,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql() with valid SQL, null arguments, false for success cb then inline string test', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-with-false-for-success-cb.db');
-=======
           var db = openDatabase("DB-execute-sql-with-false-for-success-cb.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           var check1 = false;
@@ -1692,11 +1415,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql() with valid SQL, null arguments, "string-value" for success cb then inline string test', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-with-string-value-for-success-cb.db');
-=======
           var db = openDatabase("DB-execute-sql-with-string-value-for-success-cb.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           var check1 = false;
@@ -1731,11 +1450,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql() error test with false for success callback', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-error-with-false-for-success-cb.db');
-=======
           var db = openDatabase("DB-execute-sql-error-with-false-for-success-cb.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           try {
@@ -1754,11 +1469,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql() error test with "string-value" for success callback', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-error-with-string-value-for-success-cb.db');
-=======
           var db = openDatabase("DB-execute-sql-error-with-string-value-for-success-cb.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           var check1 = true;
@@ -1778,11 +1489,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql() error test with false for error callback and then inline string test', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-with-false-for-error-cb.db');
-=======
           var db = openDatabase("DB-execute-sql-with-false-for-error-cb.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           var check1 = true;
@@ -1814,11 +1521,7 @@ var mytests = function() {
         }, MYTIMEOUT);
 
         it(suiteName + 'db.executeSql() error test with "string-value" for error callback and then inline string test', function(done) {
-<<<<<<< HEAD
-          var db = openDatabase('DB-execute-sql-with-string-value-for-error-cb.db');
-=======
           var db = openDatabase("DB-execute-sql-with-string-value-for-error-cb.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
           expect(db).toBeDefined();
 
           var check1 = true;
@@ -1852,11 +1555,7 @@ var mytests = function() {
         it(suiteName + "Multiple db.executeSql error result test", function(done) {
           // NOTE: this test checks that for db.executeSql(), the error result
           // callback is called exactly once, with the proper result:
-<<<<<<< HEAD
-          var db = openDatabase('Multiple-DB-sql-error-result-test.db');
-=======
           var db = openDatabase("Multiple-DB-sql-error-result-test.db", "1.0", "Demo", DEFAULT_SIZE);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
           var error_result_count = 0;
 
@@ -1920,95 +1619,6 @@ var mytests = function() {
         });
 
       });
-<<<<<<< HEAD
-
-      describe(pluginScenarioList[i] + ': additional db.executeSql test(s)', function() {
-
-        it(suiteName + 'PRAGMA & multiple database transaction combination test', function(done) {
-          var db = openDatabase('DB1');
-
-          var db2 = openDatabase('DB2');
-
-          // Replacement for QUnit stop()/start() functions:
-          var checkCount = 0;
-          var expectedCheckCount = 2;
-
-          db.transaction(function(tx) {
-            tx.executeSql('DROP TABLE IF EXISTS test_table');
-            tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id INTEGER PRIMARY KEY, data TEXT, data_num INTEGER)');
-
-            ++expectedCheckCount;
-
-            db.executeSql('PRAGMA table_info (test_table);', [], function(resultSet) {
-              ++checkCount;
-
-              expect(resultSet).toBeDefined();
-              expect(resultSet.rows).toBeDefined();
-              expect(resultSet.rows.length).toBe(3);
-
-              var resultRow1 = resultSet.rows.item(0);
-              expect(resultRow1).toBeDefined();
-              expect(resultRow1.name).toBe('id');
-
-              var resultRow2 = resultSet.rows.item(1);
-              expect(resultRow2).toBeDefined();
-              expect(resultRow2.name).toBe('data');
-
-              var resultRow3 = resultSet.rows.item(2);
-              expect(resultRow3).toBeDefined();
-              expect(resultRow3.name).toBe('data_num');
-            });
-          });
-
-          db2.transaction(function(tx) {
-            tx.executeSql('DROP TABLE IF EXISTS tt2');
-            tx.executeSql('CREATE TABLE IF NOT EXISTS tt2 (id2 INTEGER PRIMARY KEY, data2 TEXT, data_num2 INTEGER)');
-
-            db.executeSql('PRAGMA table_info (test_table);', [], function(resultSet) {
-              ++checkCount;
-
-              expect(resultSet).toBeDefined();
-              expect(resultSet.rows).toBeDefined();
-
-              expect(resultSet.rows.length).toBe(3);
-
-              var resultRow1 = resultSet.rows.item(0);
-              expect(resultRow1).toBeDefined();
-              expect(resultRow1.name).toBe('id');
-
-              var resultRow2 = resultSet.rows.item(1);
-              expect(resultRow2).toBeDefined();
-              expect(resultRow2.name).toBe('data');
-
-              var resultRow3 = resultSet.rows.item(2);
-              expect(resultRow3).toBeDefined();
-              expect(resultRow3.name).toBe('data_num');
-
-              if (checkCount === expectedCheckCount) db.close(done, done);
-            });
-
-            db2.executeSql("PRAGMA table_info (tt2);", [], function(resultSet) {
-              ++checkCount;
-
-              expect(resultSet).toBeDefined();
-              expect(resultSet.rows).toBeDefined();
-
-              expect(resultSet.rows.length).toBe(3);
-
-              var resultRow1 = resultSet.rows.item(0);
-              expect(resultRow1).toBeDefined();
-              expect(resultRow1.name).toBe('id2');
-
-              var resultRow2 = resultSet.rows.item(1);
-              expect(resultRow2).toBeDefined();
-              expect(resultRow2.name).toBe('data2');
-
-              var resultRow3 = resultSet.rows.item(2);
-              expect(resultRow3).toBeDefined();
-              expect(resultRow3.name).toBe('data_num2');
-
-              if (checkCount === expectedCheckCount) db.close(done, done);
-=======
     }
 
   });
@@ -2104,22 +1714,14 @@ var mytests = function() {
               equal(res.rows.item(2).name, "data_num2", "DB2 table number field name");
 
               start();
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             });
           });
         });
 
       });
-<<<<<<< HEAD
-
-    });
-
-  }
-=======
     }
 
   });
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
 }
 

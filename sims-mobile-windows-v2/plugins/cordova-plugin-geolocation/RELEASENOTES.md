@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-### 4.0.1 (Dec 27, 2017)
-* [CB-13705](https://issues.apache.org/jira/browse/CB-13705) Fix to allow 4.0.0 version install
-
-=======
 <!--
 #
 # Licensed to the Apache Software Foundation (ASF) under one
@@ -189,4 +184,3 @@
 
 ### 0.3.0 (Sept 5, 2013)
 * Added support for windows 8 (Adds required permission)
->>>>>>> 64eb6f1... Plant Health Screens Draft 1

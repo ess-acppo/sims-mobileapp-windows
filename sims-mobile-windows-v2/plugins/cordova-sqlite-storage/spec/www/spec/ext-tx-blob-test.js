@@ -4,12 +4,6 @@ var MYTIMEOUT = 12000;
 
 var DEFAULT_SIZE = 5000000; // max to avoid popup in safari/ios
 
-<<<<<<< HEAD
-=======
-// FUTURE TODO replace in test(s):
-function ok(test, desc) { expect(test).toBe(true); }
-
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 var isWP8 = /IEMobile/.test(navigator.userAgent); // Matches WP(7/8/8.1)
 var isWindows = /Windows /.test(navigator.userAgent); // Windows 8.1/Windows Phone 8.1/Windows 10
 var isAndroid = !isWindows && /Android/.test(navigator.userAgent);
@@ -56,20 +50,13 @@ var mytests = function() {
         }
       }
 
-<<<<<<< HEAD
       describe(scenarioList[i] + ': Blob object test(s)', function() {
 
-=======
-      //describe(scenarioList[i] + ': tx blob test(s)', function() {
-
-        // XXX ENABLED for iOS ONLY (for now):
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         // This test shows that the plugin does not throw an error when trying to serialize
         // a non-standard parameter type. Blob becomes an empty dictionary on iOS, for example,
         // and so this verifies the type is converted to a string and continues. Web SQL does
         // the same but on the JavaScript side and converts to a string like `[object Blob]`.
         it(suiteName + "INSERT Blob from ArrayBuffer (non-standard parameter type)", function(done) {
-<<<<<<< HEAD
           if (isWP8) pending('BROKEN for WP(8)'); // (???)
           if (/Android 4.[1-3]/.test(navigator.userAgent)) pending('SKIP for Android 4.1-4.3');
 
@@ -85,24 +72,6 @@ var mytests = function() {
 
           db.transaction(function(tx) {
             expect(tx).toBeDefined();
-=======
-          if (isWindows) pending('BROKEN for Windows'); // XXX (??)
-          if (isWP8) pending('BROKEN for WP(8)'); // (???)
-          if (typeof Blob === "undefined") pending('Blob type does not exist');
-          if (/Android [1-4]/.test(navigator.userAgent)) pending('BROKEN for Android [version 1.x-4.x]');
-          if (isAndroid) pending('SKIP for Android'); // (for now)
-
-          // abort the test if ArrayBuffer is undefined
-          // TODO: consider trying this for multiple non-standard parameter types instead
-          if (typeof ArrayBuffer === "undefined") pending('ArrayBuffer type does not exist');
-
-
-          var db = openDatabase("Blob-test.db", "1.0", "Demo", DEFAULT_SIZE);
-          ok(!!db, "db object");
-
-          db.transaction(function(tx) {
-            ok(!!tx, "tx object");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
             var buffer = new ArrayBuffer(5);
             var view   = new Uint8Array(buffer);
@@ -115,7 +84,6 @@ var mytests = function() {
 
             tx.executeSql('DROP TABLE IF EXISTS test_table');
             tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (foo blob)');
-<<<<<<< HEAD
             tx.executeSql('INSERT INTO test_table VALUES (?)', [blob], function(txIgnored, rs) {
               // EXPECTED RESULT:
               expect(rs).toBeDefined();
@@ -130,27 +98,11 @@ var mytests = function() {
             // NOT EXPECTED:
             expect(false).toBe(true);
             expect(err.message).toBe('--');
-=======
-            tx.executeSql('INSERT INTO test_table VALUES (?)', [blob], function(tx, res) {
-              ok(true, "INSERT blob OK");
-              done();
-            }, function(tx, error) {
-              ok(false, "INSERT blob FAILED");
-              done();
-            });
-          }, function(err) { 
-            ok(false, "transaction failure with message: " + err.message);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             done();
           });
         });
 
-<<<<<<< HEAD
       });
-=======
-      //});
-
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
     });
   }

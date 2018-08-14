@@ -23,16 +23,8 @@
  * FileUploadResult
  * @constructor
  */
-<<<<<<< HEAD
-module.exports = function FileUploadResult (size, code, content) {
-    this.bytesSent = size;
-    this.responseCode = code;
-    this.response = content;
-};
-=======
 module.exports = function FileUploadResult(size, code, content) {
 	this.bytesSent = size;
 	this.responseCode = code;
 	this.response = content;
  };
->>>>>>> 64eb6f1... Plant Health Screens Draft 1

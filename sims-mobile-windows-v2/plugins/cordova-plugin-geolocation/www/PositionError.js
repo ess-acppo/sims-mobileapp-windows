@@ -26,11 +26,7 @@
  * @param code
  * @param message
  */
-<<<<<<< HEAD
-var PositionError = function (code, message) {
-=======
 var PositionError = function(code, message) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     this.code = code || null;
     this.message = message || '';
 };

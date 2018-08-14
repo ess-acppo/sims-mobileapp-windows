@@ -21,18 +21,11 @@ package org.apache.cordova.whitelist;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.ConfigXmlParser;
-<<<<<<< HEAD
-import org.apache.cordova.LOG;
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 import org.apache.cordova.Whitelist;
 import org.xmlpull.v1.XmlPullParser;
 
 import android.content.Context;
-<<<<<<< HEAD
-=======
 import android.util.Log;
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
 public class WhitelistPlugin extends CordovaPlugin {
     private static final String LOG_TAG = "WhitelistPlugin";
@@ -97,11 +90,7 @@ public class WhitelistPlugin extends CordovaPlugin {
                 boolean external = (xml.getAttributeValue(null, "launch-external") != null);
                 if (origin != null) {
                     if (external) {
-<<<<<<< HEAD
-                        LOG.w(LOG_TAG, "Found <access launch-external> within config.xml. Please use <allow-intent> instead.");
-=======
                         Log.w(LOG_TAG, "Found <access launch-external> within config.xml. Please use <allow-intent> instead.");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                         allowedIntents.addWhiteListEntry(origin, (subdomains != null) && (subdomains.compareToIgnoreCase("true") == 0));
                     } else {
                         if ("*".equals(origin)) {

@@ -229,10 +229,6 @@ var mytests = function() {
           db1.transaction(function (tx1) {
             tx1.executeSql('CREATE TABLE IF NOT EXISTS test1 (x int)');
           });
-<<<<<<< HEAD
-=======
-          
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
           var db2 = openDatabase("DB2", "1.0", "Demo", DEFAULT_SIZE);
           db2.transaction(function (tx2) {

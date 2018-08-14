@@ -18,17 +18,6 @@
  * under the License.
  *
 */
-<<<<<<< HEAD
-/* eslint no-undef : 0 */
-FILESYSTEM_PROTOCOL = 'cdvfile';
-
-module.exports = {
-    __format__: function (fullPath) {
-        var path = ('/' + this.name + (fullPath[0] === '/' ? '' : '/') + FileSystem.encodeURIPath(fullPath)).replace('//', '/');
-        return FILESYSTEM_PROTOCOL + '://localhost' + path;
-    }
-};
-=======
 
 FILESYSTEM_PROTOCOL = "cdvfile";
 
@@ -39,4 +28,3 @@ module.exports = {
     }
 };
 
->>>>>>> 64eb6f1... Plant Health Screens Draft 1

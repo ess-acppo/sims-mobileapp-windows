@@ -19,22 +19,13 @@
  *
 */
 
-<<<<<<< HEAD
-var exec = require('cordova/exec');
-var FileError = require('./FileError');
-=======
 var exec = require('cordova/exec'),
     FileError = require('./FileError') ;
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 
 /**
  * An interface that lists the files and directories in a directory.
  */
-<<<<<<< HEAD
-function DirectoryReader (localURL) {
-=======
 function DirectoryReader(localURL) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     this.localURL = localURL || null;
     this.hasReadEntries = false;
 }
@@ -45,26 +36,13 @@ function DirectoryReader(localURL) {
  * @param {Function} successCallback is called with a list of entries
  * @param {Function} errorCallback is called with a FileError
  */
-<<<<<<< HEAD
-DirectoryReader.prototype.readEntries = function (successCallback, errorCallback) {
-=======
 DirectoryReader.prototype.readEntries = function(successCallback, errorCallback) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
     // If we've already read and passed on this directory's entries, return an empty list.
     if (this.hasReadEntries) {
         successCallback([]);
         return;
     }
     var reader = this;
-<<<<<<< HEAD
-    var win = typeof successCallback !== 'function' ? null : function (result) {
-        var retVal = [];
-        for (var i = 0; i < result.length; i++) {
-            var entry = null;
-            if (result[i].isDirectory) {
-                entry = new (require('./DirectoryEntry'))();
-            } else if (result[i].isFile) {
-=======
     var win = typeof successCallback !== 'function' ? null : function(result) {
         var retVal = [];
         for (var i=0; i<result.length; i++) {
@@ -73,7 +51,6 @@ DirectoryReader.prototype.readEntries = function(successCallback, errorCallback)
                 entry = new (require('./DirectoryEntry'))();
             }
             else if (result[i].isFile) {
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
                 entry = new (require('./FileEntry'))();
             }
             entry.isDirectory = result[i].isDirectory;
@@ -87,17 +64,10 @@ DirectoryReader.prototype.readEntries = function(successCallback, errorCallback)
         reader.hasReadEntries = true;
         successCallback(retVal);
     };
-<<<<<<< HEAD
-    var fail = typeof errorCallback !== 'function' ? null : function (code) {
-        errorCallback(new FileError(code));
-    };
-    exec(win, fail, 'File', 'readEntries', [this.localURL]);
-=======
     var fail = typeof errorCallback !== 'function' ? null : function(code) {
         errorCallback(new FileError(code));
     };
     exec(win, fail, "File", "readEntries", [this.localURL]);
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
 };
 
 module.exports = DirectoryReader;

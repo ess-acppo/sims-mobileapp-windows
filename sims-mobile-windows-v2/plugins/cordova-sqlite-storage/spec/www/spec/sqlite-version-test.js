@@ -114,7 +114,6 @@ var mytests = function() {
 
       });
 
-<<<<<<< HEAD
       describe(suiteName + 'default page/cache size check(s)', function() {
 
         it(suiteName + 'Check default page size (plugin ONLY)', function(done) {
@@ -175,8 +174,6 @@ var mytests = function() {
 
       });
 
-=======
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
       describe(suiteName + 'additional sqlite check(s)', function() {
 
         it(suiteName + 'Check default PRAGMA journal_mode setting (plugin ONLY)', function(done) {
@@ -194,14 +191,9 @@ var mytests = function() {
             // DIFFERENT for builtin android.database implementation:
             if (!isWindows && isAndroid && isImpl2)
               expect(rs.rows.item(0).journal_mode).toBe(
-<<<<<<< HEAD
                 (/Android 8.1.99/.test(navigator.userAgent)) ? 'wal' :
                 (/Android 8/.test(navigator.userAgent)) ? 'truncate' :
                 'persist');
-=======
-                (/Android [2-7]/.test(navigator.userAgent)) ?
-                  'persist' : 'truncate');
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             else
               expect(rs.rows.item(0).journal_mode).toBe('delete');
 

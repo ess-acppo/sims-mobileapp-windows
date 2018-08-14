@@ -117,15 +117,9 @@
     NSString *dbname = [self getDBPath:dbfilename at:dblocation];
 
     if (dbname == NULL) {
-<<<<<<< HEAD
-        // XXX INTERNAL PLUGIN ERROR NOT expected
-        // XXX TODO: SIGNAL ERROR STATUS
-        NSLog(@"INTERNAL PLUGIN ERROR IGNORED (NOT EXPECTED): No db name specified for open");
-=======
         // XXX NOT EXPECTED (INTERNAL ERROR - XXX TODO SIGNAL ERROR STATUS):
         // NSLog(@"No db name specified for open");
         DLog(@"INTERNAL PLUGIN ERROR: No db name specified for open");
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"INTERNAL PLUGIN ERROR: You must specify database name"];
     }
     else {
@@ -134,13 +128,8 @@
         if (dbPointer != NULL) {
             // NO LONGER EXPECTED due to BUG 666 workaround solution:
             // DLog(@"Reusing existing database connection for db name %@", dbfilename);
-<<<<<<< HEAD
-            NSLog(@"INTERNAL PLUGIN ERROR: database already open for db name: %@ (db file name: %@)", dbname, dbfilename);
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString: @"INTERNAL PLUGIN ERROR: database already open"];
-=======
             NSLog(@"INTERNAL ERROR: database already open for db name: %@ (db file name: %@)", dbname, dbfilename);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString: @"INTERNAL ERROR: database already open"];
->>>>>>> 64eb6f1... Plant Health Screens Draft 1
             [self.commandDelegate sendPluginResult:pluginResult callbackId: command.callbackId];
             return;
         }
