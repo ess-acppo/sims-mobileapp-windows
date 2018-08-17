@@ -15,10 +15,10 @@ function initAuth() {
             text = document.querySelector('.auth-result .text');
             icon = document.querySelector('.auth-result .fa');
 
-            if (statusElem.innerHTML == 'online') {
+            if (statusElem.innerHTML === 'online') {
                 authenticate2(unameValue, pwdValue);
             }
-            if (statusElem.innerHTML == 'offline') {
+            if (statusElem.innerHTML === 'offline') {
                 authenticate3(unameValue, pwdValue);
             }
         });
@@ -82,15 +82,8 @@ function authenticate2(x, y) {
         text.innerHTML = 'Login success!';
         derive_key(x, y);
         authCode = "Basic " + btoa(x + ":" + y);
-
         initSettings();
-        /* Not required for Android and iOS platforms */
-        var myElement = document.getElementById('map');
-        var hammertime = new Hammer(myElement);
-        hammertime.get('pan').set({ direction: Hammer.DIRECTION_ALL });
-        /* Not required for Android and iOS platform */
-
-        $('#modalProgress').modal('hide');
+        //$('#modalProgress').modal('hide');
         $('#modalAuth').modal('hide');
     }).fail(function (response) {
         $('#mb6 .progText').text("");
@@ -99,6 +92,7 @@ function authenticate2(x, y) {
         icon.classList.add('fa-times');
         icon.classList.remove('fa-check');
         text.innerHTML = 'Login Failed!';
+        $.growl.error({ title: "", message: "Username or Password is incorrect.", location: "bc", size: "large" });
     });
 }
 function authenticate3(x, y) {
@@ -113,25 +107,37 @@ function authenticate3(x, y) {
     };
     var result_callback = function (key) {
         //console.log("The derived " + (bytes * 8) + "-bit key is: " + key);
-        if (!resSettings.settings.auth.hashedPassword) {
-            $.growl.error({ title: "", message: "You must be authenticated atleast once when you are online.", location: "bc", size: "large" });
+        if (!resSettings) {
+            $.growl.error({ title: "", message: "You must be authenticated atleast once in online mode.", location: "bc", size: "large" });
             $('#mb6 .progText').text("");
             $('#modalProgress').modal('hide');
             s.classList.add('hide');
             icon.classList.add('fa-times');
             icon.classList.remove('fa-check');
             text.innerHTML = 'Login Error!';
+            return;
         }
-        if (x != resSettings.settings.auth.lastLoggedInUser || key != resSettings.settings.auth.hashedPassword) {
-            $.growl.error({ title: "Authentication Error", message: "Username or Password is incorrect.", location: "bc", size: "large" });
+        if (!resSettings.settings.auth.hashedPassword) {
+            $.growl.error({ title: "", message: "You must be authenticated atleast once in online mode.", location: "bc", size: "large" });
+            $('#mb6 .progText').text("");
+            $('#modalProgress').modal('hide');
+            s.classList.add('hide');
+            icon.classList.add('fa-times');
+            icon.classList.remove('fa-check');
+            text.innerHTML = 'Login Error!';
+            return;
+        }
+        if (x !== resSettings.settings.auth.lastLoggedInUser || key !== resSettings.settings.auth.hashedPassword) {
+            $.growl.error({ title: "", message: "Username or Password is incorrect.", location: "bc", size: "large" });
             $('#mb6 .progText').text("");
             $('#modalProgress').modal('hide');
             s.classList.add('hide');
             icon.classList.add('fa-times');
             icon.classList.remove('fa-check');
             text.innerHTML = 'Login Failed!';
+            return;
         }
-        if (x == resSettings.settings.auth.lastLoggedInUser && key == resSettings.settings.auth.hashedPassword) {
+        if (x === resSettings.settings.auth.lastLoggedInUser && key === resSettings.settings.auth.hashedPassword) {
             resSettings.settings.auth.lastLoggedInDateTime = new Date().toUTCString;
             db.transaction(function (tx) {
                 tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
@@ -145,16 +151,10 @@ function authenticate3(x, y) {
             icon.classList.add('fa-check');
             icon.classList.remove('fa-times');
             text.innerHTML = 'Login success!';
-
             initSettings();
-            /* Not required for Android and iOS platforms */
-            var myElement = document.getElementById('map');
-            var hammertime = new Hammer(myElement);
-            hammertime.get('pan').set({ direction: Hammer.DIRECTION_ALL });
-            /* Not required for Android and iOS platform */
-
-            $('#modalProgress').modal('hide');
+            //$('#modalProgress').modal('hide');
             $('#modalAuth').modal('hide');
+            return;
         }
     };
     mypbkdf2.deriveKey(status_callback, result_callback);
@@ -190,7 +190,7 @@ function derive_key(u, p) {
         resSettings.settings.auth.authenticated = 1;
         resSettings.settings.auth.hashedPassword = key;
         resSettings.settings.auth.lastLoggedInUser = u;
-        resSettings.settings.auth.lastLoggedInDateTime = new Date().toUTCString;
+        resSettings.settings.auth.lastLoggedInDateTime = new Date().toString();
         db.transaction(function (tx) {
             tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
                 //alert("Row inserted.");

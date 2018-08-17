@@ -5,11 +5,11 @@
         <div class="form-group col-md-4 col-sm-4 col-xs-12">
             <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5" data-original-title="1">1</span>
             <label><span class="bold-red">*&nbsp;</span>Taxon ID</label>
-            <input type="number" class="form-control" placeholder="Taxon ID" name="PlantTaxonId_O_N" min="0" max="99999999" maxlength="8">
+            <input type="number" class="form-control taxonIDE" placeholder="Taxon ID" name="PlantTaxonId_O_N" readonly min="0" max="99999999" maxlength="8">
         </div>
         <div class="form-group col-md-7 col-sm-7 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Host Name</label>
-            <input type="text" class="form-control" placeholder="Host Name" name="PlantTaxonText_M_S" data-section="PlantObsTab">
+            <input type="text" class="form-control taxonTextE" placeholder="Host Name" name="PlantTaxonText_M_S" data-section="PlantObsTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12 pl-0 py-0">
@@ -52,11 +52,11 @@
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
             <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5 badge-target" data-original-title="1">1</span>
             <label>Target Taxon Id</label>
-            <input type="number" name="TargetTaxonId_O_N" class="input-sm form-control" placeholder="Target Taxon ID" min="0" max="99999999" maxlength="8" data-section="PlantObsTargetTab">
+            <input type="number" name="TargetTaxonId_O_N" class="input-sm form-control taxonIDET" placeholder="Target Taxon ID" readonly min="0" max="99999999" maxlength="8" data-section="PlantObsTargetTab">
         </div>
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Target Taxon Name</label>
-            <input type="text" name="TargetTaxonText_M_S" class="input-sm form-control" placeholder="Target Taxon Text" maxlength="50" data-section="PlantObsTargetTab">
+            <input type="text" name="TargetTaxonText_M_S" class="input-sm form-control taxonTextET" placeholder="Target Taxon Text" maxlength="50" data-section="PlantObsTargetTab">
         </div>
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
             <label>Target Count</label>

@@ -1,5 +1,8 @@
 ﻿var siteData;
 var staffData;
+var staffDataNPH;
+var staffDataBPH;
+var staffDataIPH;
 var staffDataS;
 var statType;
 var MoB;
@@ -24,139 +27,141 @@ var HostStatAreaFlag = 0;
 var PathTargetObservedCodeFlag = 0;
 var PHRefCodes;
 var ActivityData;
+var programId;
+var taxaData;
 var t0 = 0, t1 = 0, t3 = 0;
 
-function loadPHDefaults() {
-    // Loading Activity Defaults //
-    $.getJSON("data/activity.json", function (data) {
-        var option = $('<option />');
-        option.attr('value', data.activities.activity.metadata.id).text(data.activities.activity.metadata.name);
-        $("#form1").find('select[name="SurvActivityId_M_N"]').append(option);
-    });
-    // Loading sites //
-    $.getJSON("data/activity.json", function (data) {
-        siteData = data.activities.activity.metadata.sites;
-        $.each(data.activities.activity.metadata.sites, function (key, val) {
-            var option = $('<option />');
-            option.attr('value', val.id).text(val.name);
-            $("#form1").find('select[name="SiteId_O_N"]').append(option);
-        });
-    });
-    // Loading Team Defaults //
-    $.getJSON("data/staff_team.json", function (data) {
-        $.each(data.staffs.staff, function (key, val) {
-            var option = $('<option />');
-            option.attr('value', val.id).text(val.displayName);
-            $("#form1").find('select[name="ObservationStaffId_M_N"]').append(option);
-        });
-        staffData = '<option value="NONE">- select -</option>';
-        $.each(data.staffs.staff, function (key, val) {
-            var option1 = '<option';
-            option1 = option1 + ' value="' + val.id + '">';
-            option1 = option1 + val.displayName + "</option>";
-            staffData = staffData + option1;
-        });
-    });
-    // Loading Plant Statistic Type //
-    $.getJSON("data/PHDefaults.json", function (data) {
-        statType = '<option value="NONE">- select -</option>';
-        $.each(data.PlantHealthReferenceCodes.PlantStatisticType, function (key, val) {
-            var option1 = '<option';
-            option1 = option1 + ' value="' + val.code + '">';
-            option1 = option1 + val.desc + "</option>";
-            statType = statType + option1;
-        });
-    });
-    // Loading Plant Observation Method //
-    $.getJSON("data/PHDefaults.json", function (data) {
-        MoB = '<option value="NONE">- select -</option>';
-        $.each(data.PlantHealthReferenceCodes.PlantObservationMethod, function (key, val) {
-            var option1 = '<option';
-            option1 = option1 + ' value="' + val.code + '">';
-            option1 = option1 + val.desc + "</option>";
-            MoB = MoB + option1;
-        });
-    });
-    // Loading Life Stage //
-    $.getJSON("data/PHDefaults.json", function (data) {
-        elifeStage = '<option value="NONE">- select -</option>';
-        $.each(data.PlantHealthReferenceCodes.EntoLifeStage, function (key, val) {
-            var option1 = '<option';
-            option1 = option1 + ' value="' + val.code + '">';
-            option1 = option1 + val.desc + "</option>";
-            elifeStage = elifeStage + option1;
-        });
-    });
-    $.getJSON("data/PHDefaults.json", function (data) {
-        plifeStage = '<option value="NONE">- select -</option>';
-        $.each(data.PlantHealthReferenceCodes.PlantLifeStage, function (key, val) {
-            var option1 = '<option';
-            option1 = option1 + ' value="' + val.code + '">';
-            option1 = option1 + val.desc + "</option>";
-            plifeStage = plifeStage + option1;
-        });
-    });
-    // Loading Ento Collection Method //
-    $.getJSON("data/PHDefaults.json", function (data) {
-        eCollMethod = '<option value="NONE">- select -</option>';
-        $.each(data.PlantHealthReferenceCodes.EntoCollectionMethod, function (key, val) {
-            var option1 = '<option';
-            option1 = option1 + ' value="' + val.code + '">';
-            option1 = option1 + val.desc + "</option>";
-            eCollMethod = eCollMethod + option1;
-        });
-    });
-    // Loading Ento Percentage Infested //
-    $.getJSON("data/PHDefaults.json", function (data) {
-        percInfested = '<option value="NONE">- select -</option>';
-        $.each(data.PlantHealthReferenceCodes.EntoInfestedPct, function (key, val) {
-            var option1 = '<option';
-            option1 = option1 + ' value="' + val.code + '">';
-            option1 = option1 + val.desc + "</option>";
-            percInfested = percInfested + option1;
-        });
-    });
-    // Loading Ento Damage Level //
-    $.getJSON("data/PHDefaults.json", function (data) {
-        damageLevel = '<option value="NONE">- select -</option>';
-        $.each(data.PlantHealthReferenceCodes.EntoDamageLevel, function (key, val) {
-            var option1 = '<option';
-            option1 = option1 + ' value="' + val.code + '">';
-            option1 = option1 + val.desc + "</option>";
-            damageLevel = damageLevel + option1;
-        });
-    });
-    // Loading Ento Pest Level //
-    $.getJSON("data/PHDefaults.json", function (data) {
-        pestLevel = '<option value="NONE">- select -</option>';
-        $.each(data.PlantHealthReferenceCodes.EntoPestLevel, function (key, val) {
-            var option1 = '<option';
-            option1 = option1 + ' value="' + val.code + '">';
-            option1 = option1 + val.desc + "</option>";
-            pestLevel = pestLevel + option1;
-        });
-    });
-    // Loading Path Incidence //
-    $.getJSON("data/PHDefaults.json", function (data) {
-        incidence = '<option value="NONE">- select -</option>';
-        $.each(data.PlantHealthReferenceCodes.PathIncidence, function (key, val) {
-            var option1 = '<option';
-            option1 = option1 + ' value="' + val.code + '">';
-            option1 = option1 + val.desc + "</option>";
-            incidence = incidence + option1;
-        });
-    });
-    // Loading Path Severity //
-    $.getJSON("data/PHDefaults.json", function (data) {
-        severity = '<option value="NONE">- select -</option>';
-        $.each(data.PlantHealthReferenceCodes.PathSeverity, function (key, val) {
-            var option1 = '<option';
-            option1 = option1 + ' value="' + val.code + '">';
-            option1 = option1 + val.desc + "</option>";
-            severity = severity + option1;
-        });
-    });
-}
+//function loadPHDefaults() {
+//    // Loading Activity Defaults //
+//    $.getJSON("data/activity.json", function (data) {
+//        var option = $('<option />');
+//        option.attr('value', data.activities.activity.metadata.id).text(data.activities.activity.metadata.name);
+//        $("#form1").find('select[name="SurvActivityId_M_N"]').append(option);
+//    });
+//    // Loading sites //
+//    $.getJSON("data/activity.json", function (data) {
+//        siteData = data.activities.activity.metadata.sites;
+//        $.each(data.activities.activity.metadata.sites, function (key, val) {
+//            var option = $('<option />');
+//            option.attr('value', val.id).text(val.name);
+//            $("#form1").find('select[name="SiteId_O_N"]').append(option);
+//        });
+//    });
+//    // Loading Team Defaults //
+//    $.getJSON("data/staff_team.json", function (data) {
+//        $.each(data.staffs.staff, function (key, val) {
+//            var option = $('<option />');
+//            option.attr('value', val.id).text(val.displayName);
+//            $("#form1").find('select[name="ObservationStaffId_M_N"]').append(option);
+//        });
+//        staffData = '<option value="NONE">- select -</option>';
+//        $.each(data.staffs.staff, function (key, val) {
+//            var option1 = '<option';
+//            option1 = option1 + ' value="' + val.id + '">';
+//            option1 = option1 + val.displayName + "</option>";
+//            staffData = staffData + option1;
+//        });
+//    });
+//    // Loading Plant Statistic Type //
+//    $.getJSON("data/PHDefaults.json", function (data) {
+//        statType = '<option value="NONE">- select -</option>';
+//        $.each(data.PlantHealthReferenceCodes.PlantStatisticType, function (key, val) {
+//            var option1 = '<option';
+//            option1 = option1 + ' value="' + val.code + '">';
+//            option1 = option1 + val.desc + "</option>";
+//            statType = statType + option1;
+//        });
+//    });
+//    // Loading Plant Observation Method //
+//    $.getJSON("data/PHDefaults.json", function (data) {
+//        MoB = '<option value="NONE">- select -</option>';
+//        $.each(data.PlantHealthReferenceCodes.PlantObservationMethod, function (key, val) {
+//            var option1 = '<option';
+//            option1 = option1 + ' value="' + val.code + '">';
+//            option1 = option1 + val.desc + "</option>";
+//            MoB = MoB + option1;
+//        });
+//    });
+//    // Loading Life Stage //
+//    $.getJSON("data/PHDefaults.json", function (data) {
+//        elifeStage = '<option value="NONE">- select -</option>';
+//        $.each(data.PlantHealthReferenceCodes.EntoLifeStage, function (key, val) {
+//            var option1 = '<option';
+//            option1 = option1 + ' value="' + val.code + '">';
+//            option1 = option1 + val.desc + "</option>";
+//            elifeStage = elifeStage + option1;
+//        });
+//    });
+//    $.getJSON("data/PHDefaults.json", function (data) {
+//        plifeStage = '<option value="NONE">- select -</option>';
+//        $.each(data.PlantHealthReferenceCodes.PlantLifeStage, function (key, val) {
+//            var option1 = '<option';
+//            option1 = option1 + ' value="' + val.code + '">';
+//            option1 = option1 + val.desc + "</option>";
+//            plifeStage = plifeStage + option1;
+//        });
+//    });
+//    // Loading Ento Collection Method //
+//    $.getJSON("data/PHDefaults.json", function (data) {
+//        eCollMethod = '<option value="NONE">- select -</option>';
+//        $.each(data.PlantHealthReferenceCodes.EntoCollectionMethod, function (key, val) {
+//            var option1 = '<option';
+//            option1 = option1 + ' value="' + val.code + '">';
+//            option1 = option1 + val.desc + "</option>";
+//            eCollMethod = eCollMethod + option1;
+//        });
+//    });
+//    // Loading Ento Percentage Infested //
+//    $.getJSON("data/PHDefaults.json", function (data) {
+//        percInfested = '<option value="NONE">- select -</option>';
+//        $.each(data.PlantHealthReferenceCodes.EntoInfestedPct, function (key, val) {
+//            var option1 = '<option';
+//            option1 = option1 + ' value="' + val.code + '">';
+//            option1 = option1 + val.desc + "</option>";
+//            percInfested = percInfested + option1;
+//        });
+//    });
+//    // Loading Ento Damage Level //
+//    $.getJSON("data/PHDefaults.json", function (data) {
+//        damageLevel = '<option value="NONE">- select -</option>';
+//        $.each(data.PlantHealthReferenceCodes.EntoDamageLevel, function (key, val) {
+//            var option1 = '<option';
+//            option1 = option1 + ' value="' + val.code + '">';
+//            option1 = option1 + val.desc + "</option>";
+//            damageLevel = damageLevel + option1;
+//        });
+//    });
+//    // Loading Ento Pest Level //
+//    $.getJSON("data/PHDefaults.json", function (data) {
+//        pestLevel = '<option value="NONE">- select -</option>';
+//        $.each(data.PlantHealthReferenceCodes.EntoPestLevel, function (key, val) {
+//            var option1 = '<option';
+//            option1 = option1 + ' value="' + val.code + '">';
+//            option1 = option1 + val.desc + "</option>";
+//            pestLevel = pestLevel + option1;
+//        });
+//    });
+//    // Loading Path Incidence //
+//    $.getJSON("data/PHDefaults.json", function (data) {
+//        incidence = '<option value="NONE">- select -</option>';
+//        $.each(data.PlantHealthReferenceCodes.PathIncidence, function (key, val) {
+//            var option1 = '<option';
+//            option1 = option1 + ' value="' + val.code + '">';
+//            option1 = option1 + val.desc + "</option>";
+//            incidence = incidence + option1;
+//        });
+//    });
+//    // Loading Path Severity //
+//    $.getJSON("data/PHDefaults.json", function (data) {
+//        severity = '<option value="NONE">- select -</option>';
+//        $.each(data.PlantHealthReferenceCodes.PathSeverity, function (key, val) {
+//            var option1 = '<option';
+//            option1 = option1 + ' value="' + val.code + '">';
+//            option1 = option1 + val.desc + "</option>";
+//            severity = severity + option1;
+//        });
+//    });
+//}
 function syncPHRefCodes() {
     // Loading Activity Defaults //
     var settings = {
@@ -166,7 +171,6 @@ function syncPHRefCodes() {
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing Reference Codes ...");
-            $('#modalProgress').modal();
         },
         "headers": {
             "authorization": authCode,
@@ -285,7 +289,6 @@ function syncActivityData() {
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing Activity Data ...");
-            $('#modalProgress').modal();
         },
         "headers": {
             "authorization": authCode,
@@ -295,6 +298,7 @@ function syncActivityData() {
     $.ajax(settings).done(function (data) {
         ActivityData = data;
         siteData = data[0].sites;
+        programId = data[0].programId;
         db.transaction(function (tx) {
             tx.executeSql("DELETE FROM activitydata", [], function (tx, res) {
                 //alert("Rows deleted.");
@@ -317,7 +321,6 @@ function syncActivityData() {
         }, function (err) {
             $.growl.error({ title: "", message: "An error occured while updating ActivityData to DB. " + err.message, location: "bc", size: "large", fixed: "true" });
         });
-        $('#modalProgress').modal('hide');
     }).fail(function (response) {
         $('#mb6 .progText').text("");
         $('#modalProgress').modal('hide');
@@ -337,49 +340,192 @@ function loadActivityData() {
     });
 }
 function syncstaffData() {
-    var settings = {
+    var NPHsettings = {
         "async": false,
         "crossDomain": true,
-        "url": "http://dev-sims.oztaxa.com/BasicAuth/api/staff",
+        "url": "http://dev-sims.oztaxa.com/BasicAuth/api/staff/NPH",
         "method": "GET",
         "beforeSend": function () {
-            $('#mb6 .progText').text("Syncing Staff Data ...");
-            $('#modalProgress').modal();
+            $('#mb6 .progText').text("Syncing NPH Staff Data ...");
         },
         "headers": {
             "authorization": authCode,
             "cache-control": "no-cache"
         }
     }
-    $.ajax(settings).done(function (data) {
-        staffDataS = data;
+    $.ajax(NPHsettings).done(function (data) {
+        staffDataNPH = data;
         db.transaction(function (tx) {
-            tx.executeSql("DELETE FROM staffdata", [], function (tx, res) {
+            tx.executeSql("DELETE FROM staffdata WHERE id = ?", [1], function (tx, res) {
                 //alert("Rows deleted.");
             });
         }, function (err) {
-            $.growl.error({ title: "", message: "An error occured while deleting StaffData from DB. " + err.message, location: "bc", size: "large", fixed: "true" });
+            $.growl.error({ title: "", message: "An error occured while deleting NPH StaffData from database. " + err.message, location: "bc", size: "large", fixed: "true" });
         });
         db.transaction(function (tx) {
-            tx.executeSql("INSERT INTO staffdata (id, settingstext, settingsval) VALUES (?,?,?)", [1, 'staff', JSON.stringify(staffDataS)], function (tx, res) {
+            tx.executeSql("INSERT INTO staffdata (id, settingstext, settingsval) VALUES (?,?,?)", [1, 'NPHstaff', JSON.stringify(staffDataNPH)], function (tx, res) {
                 //alert("Row inserted.");
             });
         }, function (err) {
-            $.growl.error({ title: "", message: "An error occured while updating StaffData to DB. " + err.message, location: "bc", size: "large", fixed: "true" });
+            $.growl.error({ title: "", message: "An error occured while updating NPH StaffData to database. " + err.message, location: "bc", size: "large", fixed: "true" });
         });
         db.transaction(function (tx) {
-            tx.executeSql("UPDATE staffdata SET settingsval = ? WHERE id = ?", [JSON.stringify(staffDataS), 1], function (tx, res) {
+            tx.executeSql("UPDATE staffdata SET settingsval = ? WHERE id = ?", [JSON.stringify(staffDataNPH), 1], function (tx, res) {
                 //alert("Dataset updated.");
                 //$.growl({ title: "Changes Saved!", message: "Your changes have been saved!", location: "bc", size: "large", fixed: "true" });
             });
         }, function (err) {
-            $.growl.error({ title: "", message: "An error occured while updating StaffData to DB. " + err.message, location: "bc", size: "large", fixed: "true" });
+            $.growl.error({ title: "", message: "An error occured while updating NPH StaffData to database. " + err.message, location: "bc", size: "large", fixed: "true" });
         });
-        $('#modalProgress').modal('hide');
+        syncBPHstaffData();
     }).fail(function (response) {
         $('#mb6 .progText').text("");
         $('#modalProgress').modal('hide');
         $.growl.error({ title: "", message: "An error occurred while fetching StaffData. " + err.message, location: "bc", size: "large" });
+    });
+}
+function syncBPHstaffData() {
+    var BPHsettings = {
+        "async": false,
+        "crossDomain": true,
+        "url": "http://dev-sims.oztaxa.com/BasicAuth/api/staff/BPH",
+        "method": "GET",
+        "beforeSend": function () {
+            $('#mb6 .progText').text("Syncing BPH Staff Data ...");
+        },
+        "headers": {
+            "authorization": authCode,
+            "cache-control": "no-cache"
+        }
+    }
+    $.ajax(BPHsettings).done(function (data) {
+        staffDataBPH = data;
+        db.transaction(function (tx) {
+            tx.executeSql("DELETE FROM staffdata WHERE id = ?", [2], function (tx, res) {
+                //alert("Rows deleted.");
+            });
+        }, function (err) {
+            $.growl.error({ title: "", message: "An error occured while deleting BPH StaffData from database. " + err.message, location: "bc", size: "large", fixed: "true" });
+        });
+        db.transaction(function (tx) {
+            tx.executeSql("INSERT INTO staffdata (id, settingstext, settingsval) VALUES (?,?,?)", [2, 'BPHstaff', JSON.stringify(staffDataBPH)], function (tx, res) {
+                //alert("Row inserted.");
+            });
+        }, function (err) {
+            $.growl.error({ title: "", message: "An error occured while updating BPH StaffData to DB. " + err.message, location: "bc", size: "large", fixed: "true" });
+        });
+        db.transaction(function (tx) {
+            tx.executeSql("UPDATE staffdata SET settingsval = ? WHERE id = ?", [JSON.stringify(staffDataBPH), 2], function (tx, res) {
+                //alert("Dataset updated.");
+                //$.growl({ title: "Changes Saved!", message: "Your changes have been saved!", location: "bc", size: "large", fixed: "true" });
+            });
+        }, function (err) {
+            $.growl.error({ title: "", message: "An error occured while updating BPH StaffData to DB. " + err.message, location: "bc", size: "large", fixed: "true" });
+        });
+        syncIPHstaffData();
+    }).fail(function (response) {
+        $('#mb6 .progText').text("");
+        $('#modalProgress').modal('hide');
+        $.growl.error({ title: "", message: "An error occurred while fetching BPH StaffData. " + err.message, location: "bc", size: "large" });
+    });
+}
+function syncIPHstaffData() {
+    var IPHsettings = {
+        "async": false,
+        "crossDomain": true,
+        "url": "http://dev-sims.oztaxa.com/BasicAuth/api/staff/IPH",
+        "method": "GET",
+        "beforeSend": function () {
+            $('#mb6 .progText').text("Syncing IPH Staff Data ...");
+        },
+        "headers": {
+            "authorization": authCode,
+            "cache-control": "no-cache"
+        }
+    }
+    $.ajax(IPHsettings).done(function (data) {
+        staffDataIPH = data;
+        db.transaction(function (tx) {
+            tx.executeSql("DELETE FROM staffdata WHERE id = ?", [3], function (tx, res) {
+                //alert("Rows deleted.");
+            });
+        }, function (err) {
+            $.growl.error({ title: "", message: "An error occured while deleting IPH StaffData from database. " + err.message, location: "bc", size: "large", fixed: "true" });
+        });
+        db.transaction(function (tx) {
+            tx.executeSql("INSERT INTO staffdata (id, settingstext, settingsval) VALUES (?,?,?)", [3, 'IPHstaff', JSON.stringify(staffDataIPH)], function (tx, res) {
+                //alert("Row inserted.");
+            });
+        }, function (err) {
+            $.growl.error({ title: "", message: "An error occured while updating IPH StaffData to DB. " + err.message, location: "bc", size: "large", fixed: "true" });
+        });
+        db.transaction(function (tx) {
+            tx.executeSql("UPDATE staffdata SET settingsval = ? WHERE id = ?", [JSON.stringify(staffDataIPH), 3], function (tx, res) {
+                //alert("Dataset updated.");
+                //$.growl({ title: "Changes Saved!", message: "Your changes have been saved!", location: "bc", size: "large", fixed: "true" });
+            });
+        }, function (err) {
+            $.growl.error({ title: "", message: "An error occured while updating IPH StaffData to DB. " + err.message, location: "bc", size: "large", fixed: "true" });
+        });
+        switch (programId) {
+            case "NPH":
+                staffDataS = staffDataNPH;
+                break;
+            case "BPH":
+                staffDataS = staffDataBPH;
+                break;
+            case "IPH":
+                staffDataS = staffDataIPH;
+                break;
+        }
+    }).fail(function (response) {
+        $('#mb6 .progText').text("");
+        $('#modalProgress').modal('hide');
+        $.growl.error({ title: "", message: "An error occurred while fetching IPH StaffData. " + err.message, location: "bc", size: "large" });
+    });
+}
+function syncTaxaData() {
+    var Taxasettings = {
+        "async": false,
+        "crossDomain": true,
+        "url": "http://dev-sims.oztaxa.com/BasicAuth/api/taxa",
+        "method": "GET",
+        "beforeSend": function () {
+            $('#mb6 .progText').text("Syncing Taxa ...");
+        },
+        "headers": {
+            "authorization": authCode,
+            "cache-control": "no-cache"
+        }
+    }
+    $.ajax(Taxasettings).done(function (data) {
+        taxaData = data;
+        db.transaction(function (tx) {
+            tx.executeSql("DELETE FROM taxadata", [], function (tx, res) {
+                //alert("Rows deleted.");
+            });
+        }, function (err) {
+            $.growl.error({ title: "", message: "An error occured while deleting Taxa Data from database. " + err.message, location: "bc", size: "large", fixed: "true" });
+        });
+        db.transaction(function (tx) {
+            tx.executeSql("INSERT INTO taxadata (id, settingstext, settingsval) VALUES (?,?,?)", [1, 'taxa', JSON.stringify(taxaData)], function (tx, res) {
+                //alert("Row inserted.");
+            });
+        }, function (err) {
+            $.growl.error({ title: "", message: "An error occured while updating Taxa Data to database. " + err.message, location: "bc", size: "large", fixed: "true" });
+        });
+        db.transaction(function (tx) {
+            tx.executeSql("UPDATE taxadata SET settingsval = ? WHERE id = ?", [JSON.stringify(taxaData), 1], function (tx, res) {
+                //alert("Dataset updated.");
+                //$.growl({ title: "Changes Saved!", message: "Your changes have been saved!", location: "bc", size: "large", fixed: "true" });
+            });
+        }, function (err) {
+            $.growl.error({ title: "", message: "An error occured while updating Taxa Data to database. " + err.message, location: "bc", size: "large", fixed: "true" });
+        });
+    }).fail(function (response) {
+        $('#mb6 .progText').text("");
+        $('#modalProgress').modal('hide');
+        $.growl.error({ title: "", message: "An error occurred while fetching Taxa Data. " + err.message, location: "bc", size: "large" });
     });
 }
 function loadstaffData() {
@@ -451,6 +597,7 @@ function loadBotanySample() {
     that.find("input[type='radio'].minimal").iCheck('uncheck');
     $('#samples').append(that);
     $('#numSamples').text(bsamples);
+    BindAutoCompleteBS(that.find('.taxonTextBS'));
 }
 function loadEntoSample() {
     esamples = esamples + 1;
@@ -484,6 +631,7 @@ function loadEntoSample() {
     that.find("input[type='radio'].minimal").iCheck('uncheck');
     $('#samples').append(that);
     $('#numSamples').text(esamples);
+    BindAutoCompleteES(that.find('.taxonTextES'));
 }
 function loadPathSample() {
     psamples = psamples + 1;
@@ -515,10 +663,11 @@ function loadPathSample() {
     that.find("input[type='radio'].minimal").iCheck('uncheck');
     $('#samples').append(that);
     $('#numSamples').text(psamples);
+    BindAutoCompletePS(that.find('.taxonTextPS'));
 }
 function getNextID(e) {
     //Read from DB
-    var nextID = resSettings.settings.device.currentSampleNumber + 1;
+    var nextID = resSettings.settings.device.currentSampleNumber * 1 + 1;
     resSettings.settings.device.currentSampleNumber = nextID;
     db.transaction(function (tx) {
         tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
@@ -1295,6 +1444,142 @@ function guid() {
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
+function BindAutoCompleteB(e) {
+    var options = {
+        data: taxaData.taxaBotany,
+        getValue: "name",
+        list: {
+            match: {
+                enabled: true
+            },
+            onSelectItemEvent: function () {
+                var selectedItemValue = e.getSelectedItemData().id;
+                e.closest('.hostweed').find("input.taxonIDB").val(selectedItemValue);
+            }
+        },
+        adjustWidth: false
+    };
+    e.easyAutocomplete(options);
+}
+function BindAutoCompleteE(e) {
+    var options = {
+        data: taxaData.taxaEntomology,
+        getValue: "name",
+        list: {
+            match: {
+                enabled: true
+            },
+            onSelectItemEvent: function () {
+                var selectedItemValue = e.getSelectedItemData().id;
+                e.closest('.entobox').find("input.taxonIDE").val(selectedItemValue);
+            }
+        },
+        adjustWidth: false
+    };
+    e.easyAutocomplete(options);
+}
+function BindAutoCompleteP(e) {
+    var options = {
+        data: taxaData.taxaPathology,
+        getValue: "name",
+        list: {
+            match: {
+                enabled: true
+            },
+            onSelectItemEvent: function () {
+                var selectedItemValue = e.getSelectedItemData().id;
+                e.closest('.pathbox').find("input.taxonIDP").val(selectedItemValue);
+            }
+        },
+        adjustWidth: false
+    };
+    e.easyAutocomplete(options);
+}
+function BindAutoCompleteET(e) {
+    var options = {
+        data: taxaData.taxaEntomology,
+        getValue: "name",
+        list: {
+            match: {
+                enabled: true
+            },
+            onSelectItemEvent: function () {
+                var selectedItemValue = e.getSelectedItemData().id;
+                e.closest('.entotarget').find("input.taxonIDET").val(selectedItemValue);
+            }
+        },
+        adjustWidth: false
+    };
+    e.easyAutocomplete(options);
+}
+function BindAutoCompletePT(e) {
+    var options = {
+        data: taxaData.taxaPathology,
+        getValue: "name",
+        list: {
+            match: {
+                enabled: true
+            },
+            onSelectItemEvent: function () {
+                var selectedItemValue = e.getSelectedItemData().id;
+                e.closest('.pathtarget').find("input.taxonIDPT").val(selectedItemValue);
+            }
+        },
+        adjustWidth: false
+    };
+    e.easyAutocomplete(options);
+}
+function BindAutoCompleteBS(e) {
+    var options = {
+        data: taxaData.taxaBotany,
+        getValue: "name",
+        list: {
+            match: {
+                enabled: true
+            },
+            onSelectItemEvent: function () {
+                var selectedItemValue = e.getSelectedItemData().id;
+                e.closest('.sample').find("input.taxonIDBS").val(selectedItemValue);
+            }
+        },
+        adjustWidth: false
+    };
+    e.easyAutocomplete(options);
+}
+function BindAutoCompleteES(e) {
+    var options = {
+        data: taxaData.taxaEntomology,
+        getValue: "name",
+        list: {
+            match: {
+                enabled: true
+            },
+            onSelectItemEvent: function () {
+                var selectedItemValue = e.getSelectedItemData().id;
+                e.closest('.sample').find("input.taxonIDES").val(selectedItemValue);
+            }
+        },
+        adjustWidth: false
+    };
+    e.easyAutocomplete(options);
+}
+function BindAutoCompletePS(e) {
+    var options = {
+        data: taxaData.taxaPathology,
+        getValue: "name",
+        list: {
+            match: {
+                enabled: true
+            },
+            onSelectItemEvent: function () {
+                var selectedItemValue = e.getSelectedItemData().id;
+                e.closest('.sample').find("input.taxonIDPS").val(selectedItemValue);
+            }
+        },
+        adjustWidth: false
+    };
+    e.easyAutocomplete(options);
+}
 $(document).on('click', '.qtyplus', function (e) {
     e.preventDefault();
     pStatisticType = $(this).parent().parent().find('select[name^=PlantStatisticType]').val();
@@ -1354,6 +1639,7 @@ $(document).on('click', "#addPlant", function () {
     $('#hostweeds').append(that1);
     numPlants++;
     $('#numPlants').text(numPlants);
+    BindAutoCompleteB(that1.find('.taxonTextB'));
 })
 $(document).on('click', "#addEntoHost", function () {
     var Idx = numEntoHosts;
@@ -1396,6 +1682,8 @@ $(document).on('click', "#addEntoHost", function () {
     numEntoHosts++;
     numEntoTargets++;
     $('#numEntoHosts').text(numEntoHosts);
+    BindAutoCompleteE(that1.find('.taxonTextE'));
+    BindAutoCompleteET(that1.find('.taxonTextET'));
 })
 $(document).on('click', "[data-action=addEntoTarget]", function () {
     var Idx = numEntoTargets;
@@ -1461,6 +1749,8 @@ $(document).on('click', "#addPathHost", function () {
     numPathHosts++;
     numPathTargets++;
     $('#numPathHosts').text(numPathHosts);
+    BindAutoCompleteP(that1.find('.taxonTextP'));
+    BindAutoCompletePT(that1.find('.taxonTextPT'));
 })
 $(document).on('click', "[data-action=addPathTarget]", function () {
     var Idx = numPathTargets;
@@ -1604,7 +1894,7 @@ $(document).on('click', '#addBotanySample', function (e) {
         var samplePrelimID = $('div.sample').last().find('input[name^="PrelimTaxonText"]').val();
         var errString = "The following attributes cannot be NULL in the current Sample:<br/> Sample Latitude, Longitude, CollectedTime and PrelimTaxonText.";
         if (sampleLat == null || sampleLat == 0 || sampleLng == null || sampleLng == 0 || sampleTime == null || sampleTime == '' || samplePrelimID == null || samplePrelimID == '') {
-            $.growl.warning({ title: "", message: errString, location: "bc", size: "large" });
+            $.growl.warning({ title: "Error", message: errString, location: "bc", size: "large" });
             return;
         }
     }
@@ -1633,10 +1923,11 @@ $(document).on('click', '#addBotanySample', function (e) {
     })
     that.find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');
     that.find("input[type='radio'].minimal").iCheck('uncheck');
-    that.find("input.nextid").val(getNextID("SM"));
+    that.find("input.nextid").val(getNextID(resSettings.settings.device.samplePrefix));
     that.find('.badge').text(bsamples);
     $('#samples').append(that);
     $('#numSamples').text(bsamples);
+    BindAutoCompleteBS(that.find('.taxonTextBS'));
 })
 $(document).on('click', '.removeBotSample', function (e) {
     var x = $(this);
@@ -1662,7 +1953,7 @@ $(document).on('click', '#addEntoSample', function (e) {
         var samplePrelimID = $('div.sample').last().find('input[name^="PrelimTaxonText"]').val();
         var errString = "The following attributes cannot be NULL in the current Sample:<br/> Sample Latitude, Longitude, CollectedTime and PrelimTaxonText.";
         if (sampleLat == null || sampleLat == 0 || sampleLng == null || sampleLng == 0 || sampleTime == null || sampleTime == '' || samplePrelimID == null || samplePrelimID == '') {
-            $.growl.warning({ title: "", message: errString, location: "bc", size: "large" });
+            $.growl.warning({ title: "Error", message: errString, location: "bc", size: "large" });
             return;
         }
     }
@@ -1695,10 +1986,11 @@ $(document).on('click', '#addEntoSample', function (e) {
     })
     that.find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');
     that.find("input[type='radio'].minimal").iCheck('uncheck');
-    that.find("input.nextid").val(getNextID("SM"));
+    that.find("input.nextid").val(getNextID(resSettings.settings.device.samplePrefix));
     that.find('.badge').text(esamples);
     $('#samples').append(that);
     $('#numSamples').text(esamples);
+    BindAutoCompleteES(that.find('.taxonTextES'));
 })
 $(document).on('click', '.removeEntoSample', function (e) {
     var x = $(this);
@@ -1724,7 +2016,7 @@ $(document).on('click', '#addPathSample', function (e) {
         var samplePrelimID = $('div.sample').last().find('input[name^="PrelimTaxonText"]').val();
         var errString = "The following attributes cannot be NULL in the current Sample:<br/> Sample Latitude, Longitude, CollectedTime and PrelimTaxonText.";
         if (sampleLat == null || sampleLat == 0 || sampleLng == null || sampleLng == 0 || sampleTime == null || sampleTime == '' || samplePrelimID == null || samplePrelimID == '') {
-            $.growl.warning({ title: "", message: errString, location: "bc", size: "large" });
+            $.growl.warning({ title: "Error", message: errString, location: "bc", size: "large" });
             return;
         }
     }
@@ -1755,10 +2047,11 @@ $(document).on('click', '#addPathSample', function (e) {
     })
     //that.find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');
     that.find("input[type='radio'].minimal").iCheck('uncheck');
-    that.find("input.nextid").val(getNextID("SM"));
+    that.find("input.nextid").val(getNextID(resSettings.settings.device.samplePrefix));
     that.find('.badge').text(psamples);
     $('#samples').append(that);
     $('#numSamples').text(psamples);
+    BindAutoCompletePS(that.find('.taxonTextPS'));
 })
 $(document).on('click', '.removePathSample', function (e) {
     var x = $(this);
@@ -1967,7 +2260,7 @@ $(document).on('click', 'img.pp', function () {
     var ppname = that.attr("name");
     var inpname = that.attr("name").substr(1, that.attr("name").length - 1);
     if (!navigator.camera) {
-        $.growl.warning({ title: "", message: "Camera API not supported!", location: "bc", size: "large" });
+        $.growl.warning({ title: "Error", message: "Camera API not supported!", location: "bc", size: "large" });
         return;
     }
     var options = {
@@ -1986,7 +2279,7 @@ $(document).on('click', 'img.pp', function () {
             $("#form1").find('input:hidden[name=' + inpname + ']').val(imgURI);
         },
         function onFail(error) {
-            $.growl.warning({ title: "", message: error, location: "bc", size: "large" });
+            $.growl.warning({ title: "Error", message: error, location: "bc", size: "large" });
         },
         options);
 
@@ -2059,6 +2352,12 @@ $(document).on('click', '#SaveSettingsExit', function (e) {
     /* Set active Mapset */
     var activeMapset = $("input[name='optMaps']:checked").data('id');
     if (activeMapset) { resSettings.settings.mapSets[activeMapset].activeFlag = 1; }
+    /* Set Device Owner */
+    resSettings.settings.device.ownerId = $('#form3').find('select[id="deviceOwner"]').val();
+    resSettings.settings.device.ownerName = $('#form3').find('select[id="deviceOwner"]').text();
+    resSettings.settings.device.samplePrefix = $('#form3').find('input[name="samplePrefix"]').val();
+    resSettings.settings.device.sampleStartNumber = $('#form3').find('input[name="sampleStartNum"]').val();
+    resSettings.settings.device.currentSampleNumber = $('#form3').find('input[name="sampleCurrNum"]').val();
     /* Save to DB */
     db.transaction(function (tx) {
         tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
@@ -2080,6 +2379,7 @@ $(document).on('click', 'a.downloadMaps', function (e) {
     t0 = performance.now();
     $('#modalProgress').modal();
     $('#mb6 .progText').text("Download in progress ...");
+    $('#mb6 .progTime').text(new Date().toString());
     getFileandExtract(url, mapset, 1, numfiles);
 })
 $(document).on('change', 'select[name="SiteId_O_N"]', function () {
@@ -2124,7 +2424,7 @@ function getFileandExtract(url, mapset, i, n) {
         var xhr = new XMLHttpRequest();
         url2 = url + mapset + pad(i, 2) + ".zip";
         filename = mapset + pad(i, 2) + ".zip";
-        console.log(filename);
+        //console.log(filename);
         xhr.open('GET', url2, true);
         xhr.responseType = 'blob';
         t0 = performance.now();
@@ -2145,7 +2445,7 @@ function getFileandExtract(url, mapset, i, n) {
                     i++;
                     if (i > n) {
                         resSettings.settings.mapSets[ActiveMapSet].downloaded = 1;
-                        resSettings.settings.mapSets[ActiveMapSet].lastDownloadDate = new Date().toUTCString();
+                        resSettings.settings.mapSets[ActiveMapSet].lastDownloadDate = new Date().toString();
                         db.transaction(function (tx) {
                             tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
                                 //alert("Row inserted.");
@@ -2155,15 +2455,16 @@ function getFileandExtract(url, mapset, i, n) {
                             $.growl({ title: "", message: "An error occured while updating mapsets. " + err.message, location: "bc", size: "large" });
                         });
                         $('#modalProgress').modal('hide');
-                        $('#form3').find('label.mapNotes').eq(ActiveMapSet).text("Last downloaded on:" + new Date().toUTCString());
+                        $('#form3').find('label.mapNotes').eq(ActiveMapSet).text("Last downloaded on:" + new Date().toString());
                         initSettings();
+                        $('#mb6 .progTime').text("");
                         $.growl({ title: "", message: "Maps downloaded successfully.", location: "bc", size: "large" });
                         return false;
                     } else {
                         setTimeout(getFileandExtract(url, mapset, i, n), 10000);
                     }
                 }, function (e) {
-                    console.log("Failed file save: " + e.toString());
+                    $.growl({ title: "", message: "Failed file save: " + e.toString(), location: "bc", size: "large" });
                 });
             }
         };
@@ -2173,17 +2474,17 @@ function getFileandExtract(url, mapset, i, n) {
 function processZip2(zipSource, destination) {
     //var zip = cordova.file.cacheDirectory + zipSource;
     var filename = zipSource.substr(zipSource.lastIndexOf('/') + 1);
-    console.log(filename);
+    //console.log(filename);
     var extracted = cordova.file.dataDirectory + destination;
-    console.log('unzipping ...');
+    //console.log('unzipping ...');
     Zeep.unzip({
         from: zipSource,
         to: extracted
     }, function () {
-        console.log('unzip success!');
         setTimeout(removefile(filename), 10000);
+        //console.log('unzip success!');
     }, function (e) {
-        console.log('unzip error: ', e);
+        //console.log('unzip error: ', e);
         $('#modalProgress').modal('hide');
         $.growl.error({ title: "", message: "Failed extracting zip file.", location: "bc", size: "large" });
     });
@@ -2217,7 +2518,7 @@ function writeFile(fileEntry, filename, dataObj, i, n) {
             setTimeout(processZip2(fileEntry.toURL(), "maps/" + filename), 20000);
         };
         fileWriter.onerror = function (e) {
-            console.log("Failed file write: " + e.toString());
+            $.growl.error({ title: "", message: "Failed file write: " + e.toString(), location: "bc", size: "large" });
         };
         fileWriter.write(dataObj);
     });

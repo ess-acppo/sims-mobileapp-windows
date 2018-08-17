@@ -159,7 +159,7 @@ html, body {
 }
 
 .collapsed {
-    height: 80px;
+    height: 110px;
 }
 
 .modal-dialog {
@@ -213,10 +213,10 @@ html, body {
     display: -moz-box;
 }*/
 
-    .nav-tabs > li > a {
-        font-weight: 500;
-        font-size: 1.5rem;
-    }
+.nav-tabs > li > a {
+    font-weight: 500;
+    font-size: 1.5rem;
+}
 
 /*.nav-tabs > li {
         float: none;
@@ -872,11 +872,7 @@ hr {
 }
 
 .ui-autocomplete-loading {
-    background: white url("../../dist/img/loader.gif") right center no-repeat;
-}
-
-.ui-autocomplete-loading {
-    background: white url("dist/img/loader.gif") right center no-repeat;
+    background: white url("loader.gif") right center no-repeat;
 }
 
 .ui-menu .ui-menu-item {
@@ -1058,10 +1054,10 @@ div.dataTables_filter {
     padding-bottom: 10px;
 }
 
-.ui-autocomplete {
+/*.ui-autocomplete {
     position: absolute;
     z-index: 1051 !important;
-}
+}*/
 
 .overlay {
     margin-top: 30%;

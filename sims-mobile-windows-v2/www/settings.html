@@ -19,15 +19,15 @@
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <input type="radio" class="minimal" value="AU" name="optMaps" data-id="0" data-url="http://sprinq.com.au/files/win/" data-files="1">
                                 Queensland Maps
-                                <label class="mapNotes text-sm"></label>
+                                <br /><label class="mapNotes text-sm"></label>
                                 <a href="#" class="btn btn-sm btn-default downloadMaps pull-right">Download</a><br /><br />
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                <input type="radio" class="minimal" value="PNG" name="optMaps" data-id="1" data-url="http://sprinq.com.au/files/win/" data-files="53">
+                                <input type="radio" class="minimal" value="PNG" name="optMaps" data-id="1" data-url="http://sprinq.com.au/files/win/" data-files="22">
                                 Papua New Guinea Maps
-                                <label class="mapNotes text-sm"></label>
+                                <br/><label class="mapNotes text-sm"></label>
                                 <a href="#" class="btn btn-md btn-sm btn-default downloadMaps pull-right">Download</a><br /><br />
                             </div>
                         </div>
@@ -35,16 +35,18 @@
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <input type="radio" class="minimal" value="ET" name="optMaps" data-id="2" data-url="http://sprinq.com.au/files/win/" data-files="1">
                                 East Timor Maps
-                                <label class="mapNotes text-sm"></label>
+                                <br /><label class="mapNotes text-sm"></label>
                                 <a href="#" class="btn btn-md btn-sm btn-default downloadMaps pull-right">Download</a><br /><br />
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane" id="tab_AS">
                         <div class="row col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <h5>Application Mode</h5>
                                 <small>Set application modes for various streams: PH = Planth Health</small>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <select class="form-control pull-right" id="appMode">
                                     <option value=PH>Plant Health (PH)</option>
                                 </select>
@@ -54,24 +56,30 @@
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <h5>Data Backup</h5>
                                 <small>Backup your observations to a local folder.</small>
-                                <a href="#" class="btn btn-md btn-sm btn-default pull-right btnBackupData"><i class="fa fa-database"></i>&nbsp;Data Backup</a>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <a href="#" class="btn btn-md btn-sm btn-default btnBackupData"><i class="fa fa-database"></i>&nbsp;Data Backup</a>
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <h5>Data Restore</h5>
-                                <small>Backup your observations to a local folder.</small>
-                                <a href="#" class="btn btn-md btn-sm btn-default pull-right btnRestoreData"><i class="fa fa-rotate-left"></i>&nbsp;Data Restore</a>
+                                <small>Restore your observations to a local folder.</small>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <a href="#" class="btn btn-md btn-sm btn-default btnRestoreData"><i class="fa fa-rotate-left"></i>&nbsp;Data Restore</a>
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <h5>Data Reset</h5>
                                 <small>Clear all observations and start from scratch.</small>
-                                <a href="#" class="btn btn-md btn-sm btn-default pull-right btnResetData"><i class="fa fa-power-off"></i>&nbsp;Data Reset</a>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <a href="#" class="btn btn-md btn-sm btn-default btnResetData"><i class="fa fa-power-off"></i>&nbsp;Data Reset</a>
                             </div>
                         </div>
-                        <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <!--<div class="row col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <h5>Reset OTP</h5>
                                 <small>Reset your OTP (one-time-password). You will be prompted to verify your current OTP.</small>
@@ -84,35 +92,53 @@
                                 <small>Click this button to signout. You will be prompted to signin next time you launch the app.</small>
                                 <a href="#" class="btn btn-sm btn-default pull-right btnSignout"><i class="fa fa-sign-out"></i>&nbsp;SignOut</a>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="tab-pane" id="tab_DS">
                         <div class="row col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <h5>Device Owner</h5>
-                                <small>Select this device Owner from the picklist. All observations will be submitted as the device owner.</small>
+                                <small>Select this device's Owner from the picklist. All observations will be submitted as the device owner.</small>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <select class="form-control pull-right" id="deviceOwner"></select>
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <h5>Application Data Sync</h5>
+                                <small>Sync application defaults with the Server.</small>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <a href="#" class="btn btn-md btn-sm btn-default btnSync"><i class="fa fa-refresh"></i>&nbsp;Data Sync</a>&nbsp;
+                                <i class="fa fa-info-circle fa-2x text-info showPayloads"></i>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <h5>Sample Prefix</h5>
                                 <small>Set the 2-letter prefix for your samples. By default, this value is set to 'XX'.</small>
-                                <input type="text" class="form-control pull-right" name="samplePrefix" />
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <input type="text" class="form-control pull-right" name="samplePrefix" value="XX" />
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <h5>Sample Start Number</h5>
                                 <small>Set the start number for your samples sequence number. By default, this value is set to '0'.</small>
-                                <input type="text" class="form-control pull-right" readonly name="sampleStartNum" />
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <input type="text" class="form-control pull-right" name="sampleStartNum" readonly value="0" />
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <h5>Sample Current Number</h5>
                                 <small>Set the current number for your samples sequence number. By default, this value shown the current running number.</small>
-                                <input type="text" class="form-control pull-right" name="sampleCurrNum" />
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <input type="text" class="form-control pull-right" name="sampleCurrNum" value="0" />
                             </div>
                         </div>
                     </div>
