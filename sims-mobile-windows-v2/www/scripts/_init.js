@@ -1336,7 +1336,7 @@ $(document).on('click', '.sync', function (event) {
             $.ajax({
                 method: "POST",
                 async: false,
-                url: "http://dev-sims.oztaxa.com/BasicAuth/api/Observations",
+                url: "https://online-dev.agriculture.gov.au/psd.comr.svl.PlantHealthService/1.0/createPlantHealthObservation",
                 //data: JSON.stringify(payload),
                 data: vpayload.escapeSpecialChars(),
                 contentType: "application/json",

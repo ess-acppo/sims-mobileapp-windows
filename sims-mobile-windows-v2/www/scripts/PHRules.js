@@ -167,7 +167,7 @@ function syncPHRefCodes() {
     var settings = {
         "async": false,
         "crossDomain": true,
-        "url": "http://dev-sims.oztaxa.com/BasicAuth/api/referenceCodes",
+        "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/referenceCodes",
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing Reference Codes ...");
@@ -285,7 +285,7 @@ function syncActivityData() {
     var settings = {
         "async": false,
         "crossDomain": true,
-        "url": "http://dev-sims.oztaxa.com/BasicAuth/api/activity",
+        "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/activity",
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing Activity Data ...");
@@ -343,7 +343,7 @@ function syncstaffData() {
     var NPHsettings = {
         "async": false,
         "crossDomain": true,
-        "url": "http://dev-sims.oztaxa.com/BasicAuth/api/staff/NPH",
+        "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/common/program/NPH/team",
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing NPH Staff Data ...");
@@ -388,7 +388,7 @@ function syncBPHstaffData() {
     var BPHsettings = {
         "async": false,
         "crossDomain": true,
-        "url": "http://dev-sims.oztaxa.com/BasicAuth/api/staff/BPH",
+        "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/common/program/BPH/team",
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing BPH Staff Data ...");
@@ -433,7 +433,7 @@ function syncIPHstaffData() {
     var IPHsettings = {
         "async": false,
         "crossDomain": true,
-        "url": "http://dev-sims.oztaxa.com/BasicAuth/api/staff/IPH",
+        "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/common/program/IPH/team",
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing IPH Staff Data ...");
@@ -488,7 +488,7 @@ function syncTaxaData() {
     var Taxasettings = {
         "async": false,
         "crossDomain": true,
-        "url": "http://dev-sims.oztaxa.com/BasicAuth/api/taxa",
+        "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing Taxa ...");
@@ -2429,7 +2429,7 @@ function getFileandExtract(url, mapset, i, n) {
         xhr.responseType = 'blob';
         t0 = performance.now();
         xhr.onloadstart = function () {
-            $('#modalProgress').modal();
+            //$('#modalProgress').modal();
             t1 = performance.now();
             t3 = t3 + Math.round((t1 - t0));
             $('#mb6 .progText').text("File " + i + " out of " + n + ": Download in progress ...");
@@ -2443,6 +2443,11 @@ function getFileandExtract(url, mapset, i, n) {
                 fs.root.getFile(filename, { create: true, exclusive: false }, function (fileEntry) {
                     writeFile(fileEntry, mapset, blob, i, n);
                     i++;
+                    if (i == 10) {
+                        $('#modalProgress').modal('hide');
+                        initSettings();
+                        $.growl.notice({ title: "", message: "Maps downloaded in progress.", location: "bl", size: "medium", fixed: "true" });
+                    }
                     if (i > n) {
                         resSettings.settings.mapSets[ActiveMapSet].downloaded = 1;
                         resSettings.settings.mapSets[ActiveMapSet].lastDownloadDate = new Date().toString();
@@ -2495,7 +2500,7 @@ function removefile(filename) {
         fs.root.getFile(filename, { create: false }, function (fileEntry) {
             fileEntry.remove(function () {
                 // The file has been removed succesfully
-                $.growl({ title: "", message: "Zip file is removed successfully.", location: "bc", size: "large" });
+                //$.growl({ title: "", message: "Zip file is removed successfully.", location: "bc", size: "large" });
             }, function (error) {
                 // Error deleting the file
                 $.growl.error({ title: "", message: "Error removing zip file.", location: "bc", size: "large" });
