@@ -63,7 +63,7 @@ function authenticate2(x, y) {
     var settings = {
         "async": false,
         "crossDomain": true,
-        "url": "http://dev-sims.oztaxa.com/BasicAuth/api/Values",
+        "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Authenticating ...");

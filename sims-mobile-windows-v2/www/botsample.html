@@ -7,32 +7,6 @@
             <label><span class="bold-red">*&nbsp;</span>Sample Field ID </label>
             <input type="text" class="form-control nextid" placeholder="Sample Field ID" name="SampleFieldLabelText_M_S" data-section="PlantSampleTab">
         </div>
-        <div class="form-group col-md-7 col-sm-7 col-xs-12">
-            <input class="mxr-5 minimal" type="checkbox" name="AdditionalCollectorTab" data-section="PlantSampleTab">
-            <label>Additional Collectors</label>
-        </div>
-    </div>
-    <div class="row col-md-12 col-sm-12 col-xs-12 addlCollectors hide">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
-            <select class="form-control" name="AdditionalCollectorName1_O_S" data-section="PlantSampleTab"></select>
-        </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
-            <select class="form-control" name="AdditionalCollectorName2_O_S" data-section="PlantSampleTab"></select>
-        </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
-            <select class="form-control" name="AdditionalCollectorName3_O_S" data-section="PlantSampleTab"></select>
-        </div>
-    </div>
-    <div class="row col-md-12 col-sm-12 col-xs-12 addlCollectors hide">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
-            <select class="form-control" name="AdditionalCollectorName4_O_S" data-section="PlantSampleTab"></select>
-        </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
-            <select class="form-control" name="AdditionalCollectorName5_O_S" data-section="PlantSampleTab"></select>
-        </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
-            <select class="form-control" name="AdditionalCollectorName6_O_S" data-section="PlantSampleTab"></select>
-        </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-11 col-sm-11 col-xs-12">
@@ -65,10 +39,6 @@
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-11 hide">
-            <label><span class="bold-red">*&nbsp;</span>Point WKT</label>
-            <input type="text" class="form-control" readonly name="SamplePointWktClob_M_S" data-section="PlantSampleTab">
-        </div>
         <div class="form-group col-md-11 col-sm-11 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Datum</label>
             <select class="form-control sampledat" name="GpsDatumId_M_S" data-section="PlantSampleTab">
@@ -79,11 +49,15 @@
         <div class="form-group col-md-11 col-sm-11 col-xs-12">
             <button class="btn btn-md btn-default getSampleCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button>
         </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-11 hide">
+            <label><span class="bold-red">*&nbsp;</span>Point WKT</label>
+            <input type="text" class="form-control" readonly name="SamplePointWktClob_M_S" data-section="PlantSampleTab">
+        </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-11 col-sm-11 col-xs-12">
             <label>Time</label>
-            <input type="datetime-local" class="form-control" placeholder="Time" name="CollectedDatetime_M_D" maxlength="20" data-section="PlantSampleTab">
+            <input type="datetime-local" class="form-control" placeholder="Time" name="CollectedDatetime_M_D" step="1" data-section="PlantSampleTab">
         </div>
         <div class="form-group col-md-11 col-sm-11 col-xs-12">
             <label>Altitude (Meters)</label>
@@ -97,9 +71,31 @@
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-6">
+            <input class="mxr-5 minimal" type="checkbox" name="AdditionalCollectorTab" data-section="PlantSampleTab">
+            <label>Additional Collectors</label>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12 addlCollectors hide">
         <div class="form-group col-md-11 col-sm-11 col-xs-12">
-            <label>Identified By</label>
-            <select class="form-control" name="HostIdentifiedUserId_O_N" data-section="PlantSampleTab"></select>
+            <select class="form-control" name="AdditionalCollectorName1_O_S" data-section="PlantSampleTab"></select>
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <select class="form-control" name="AdditionalCollectorName2_O_S" data-section="PlantSampleTab"></select>
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <select class="form-control" name="AdditionalCollectorName3_O_S" data-section="PlantSampleTab"></select>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12 addlCollectors hide">
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <select class="form-control" name="AdditionalCollectorName4_O_S" data-section="PlantSampleTab"></select>
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <select class="form-control" name="AdditionalCollectorName5_O_S" data-section="PlantSampleTab"></select>
+        </div>
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <select class="form-control" name="AdditionalCollectorName6_O_S" data-section="PlantSampleTab"></select>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
@@ -131,6 +127,12 @@
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <input type="checkbox" name="ExternalPhotoExistFlag_O_S" class="minimal" maxlength="1" data-section="PlantSampleTab">&nbsp;&nbsp;
+            <label>Photo(s) taken using external camera</label>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-2 col-sm-2 col-xs-2">
             <label>Preservation Type</label>
         </div>
@@ -145,7 +147,7 @@
         <div class="form-group col-md-11 col-sm-11 col-xs-12">
             <input type="checkbox" name="PlantPreservationTab-O_O_S" class="minimal" data-attr="PlantPreservationTab" data-code="O" data-desc="Other" data-seq="3" maxlength="2" data-section="PlantSampleTab">&nbsp;
             <label>Other</label>&nbsp;
-            <input type="text" class="form-control hide" placeholder="Other Text" name="BotPlantPreserverOtherText_O_S" maxlength="50" data-section="PlantSampleTab">
+            <input type="text" class="form-control" placeholder="Other Text" name="PlantPreservOtherText_O_S" maxlength="50" data-section="PlantSampleTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
@@ -160,8 +162,7 @@
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-            <input type="checkbox" name="ExternalPhotoExistFlag_O_S" class="minimal" maxlength="1" data-section="PlantSampleTab">&nbsp;&nbsp;
-            <label>Photo(s) taken using external camera</label>
+            <input type="hidden" name="EndOfSample_O_S" class="minimal" maxlength="1" data-section="PlantSampleTab">&nbsp;&nbsp;
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">

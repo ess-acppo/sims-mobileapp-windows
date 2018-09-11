@@ -48,6 +48,12 @@
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12 pl-0 py-0">
+        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+            <label>Notes</label>
+            <textarea class="form-control" rows="6" name="CommentText_O_S" style="height:60px;" maxlength="400" data-section="PlantObsTab"></textarea>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12 pl-0 py-0">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Latitude</label>
             <input type="number" class="form-control hostweedlat" name="Latitude" placeholder="Latitude" data-section="PlantObsTab">
@@ -55,12 +61,6 @@
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Longitude</label>
             <input type="number" class="form-control hostweedlng" name="Longitude" placeholder="Longitude" data-section="PlantObsTab">
-        </div>
-    </div>
-    <div class="row col-md-12 col-sm-12 col-xs-12 hide">
-        <div class="form-group col-md-6 col-sm-6 col-xs-12">
-            <label><span class="bold-red">*&nbsp;</span>Point WKT</label>
-            <input type="text" class="form-control" readonly name="LocationPointWktClob_O_S" data-section="PlantObsTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12 pl-0 py-0">
@@ -75,10 +75,10 @@
             <button class="btn btn-md btn-default getPlantCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button>
         </div>
     </div>
-    <div class="row col-md-12 col-sm-12 col-xs-12 pl-0 py-0">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
-            <label>Notes</label>
-            <textarea class="form-control" rows="6" name="CommentText_O_S" style="height:60px;" maxlength="400" data-section="PlantObsTab"></textarea>
+    <div class="row col-md-12 col-sm-12 col-xs-12 hide">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Point WKT</label>
+            <input type="text" class="form-control" readonly name="LocationPointWktClob_O_S" data-section="PlantObsTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12 pl-0 py-0">

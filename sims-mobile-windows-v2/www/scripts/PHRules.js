@@ -176,7 +176,7 @@ function syncPHRefCodes() {
             "authorization": authCode,
             "cache-control": "no-cache"
         }
-    }
+    };
     $.ajax(settings).done(function (data) {
         //alert(JSON.stringify(response));
         PHRefCodes = data;
@@ -294,11 +294,11 @@ function syncActivityData() {
             "authorization": authCode,
             "cache-control": "no-cache"
         }
-    }
+    };
     $.ajax(settings).done(function (data) {
         ActivityData = data;
-        siteData = data[0].sites;
-        programId = data[0].programId;
+        siteData = data.activities[0].sites;
+        programId = data.activities[0].programId;
         db.transaction(function (tx) {
             tx.executeSql("DELETE FROM activitydata", [], function (tx, res) {
                 //alert("Rows deleted.");
@@ -328,7 +328,7 @@ function syncActivityData() {
     });
 }
 function loadActivityData() {
-    $.each(ActivityData, function (key, val) {
+    $.each(ActivityData.activities, function (key, val) {
         var option = $('<option />');
         option.attr('value', val.activityId).text(val.activityName);
         $("#form1").find('select[name="SurvActivityId_M_N"]').append(option);
@@ -352,9 +352,10 @@ function syncstaffData() {
             "authorization": authCode,
             "cache-control": "no-cache"
         }
-    }
+    };
     $.ajax(NPHsettings).done(function (data) {
-        staffDataNPH = data;
+        //alert(JSON.stringify(xmlToJson(data)));
+        staffDataNPH = xmlToJson(data);
         db.transaction(function (tx) {
             tx.executeSql("DELETE FROM staffdata WHERE id = ?", [1], function (tx, res) {
                 //alert("Rows deleted.");
@@ -397,9 +398,9 @@ function syncBPHstaffData() {
             "authorization": authCode,
             "cache-control": "no-cache"
         }
-    }
+    };
     $.ajax(BPHsettings).done(function (data) {
-        staffDataBPH = data;
+        staffDataBPH = xmlToJson(data);
         db.transaction(function (tx) {
             tx.executeSql("DELETE FROM staffdata WHERE id = ?", [2], function (tx, res) {
                 //alert("Rows deleted.");
@@ -442,9 +443,9 @@ function syncIPHstaffData() {
             "authorization": authCode,
             "cache-control": "no-cache"
         }
-    }
+    };
     $.ajax(IPHsettings).done(function (data) {
-        staffDataIPH = data;
+        staffDataIPH = xmlToJson(data);
         db.transaction(function (tx) {
             tx.executeSql("DELETE FROM staffdata WHERE id = ?", [3], function (tx, res) {
                 //alert("Rows deleted.");
@@ -497,7 +498,7 @@ function syncTaxaData() {
             "authorization": authCode,
             "cache-control": "no-cache"
         }
-    }
+    };
     $.ajax(Taxasettings).done(function (data) {
         taxaData = data;
         db.transaction(function (tx) {
@@ -580,7 +581,7 @@ function loadBotanySample() {
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue'
     });
-    that.find('select[name^="HostIdentifiedUserId"]').find('option').remove().end().append($(staffData));
+    //that.find('select[name^="HostIdentifiedUserId"]').find('option').remove().end().append($(staffData));
     that.find('input').each(function () {
         $(this).attr('name', $(this).attr('name') + '_' + bsamples + '_S');
     })
@@ -773,6 +774,7 @@ function loadModal(pagename) {
                                     }
                                     $('div.hostweed').eq(key1).find("input[type='text'][name^='" + key2 + "']").val(value2);
                                     $('div.hostweed').eq(key1).find("input[type='date'][name^='" + key2 + "']").val(value2);
+                                    $('div.hostweed').eq(key1).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
                                     $('div.hostweed').eq(key1).find("input[type='number'][name^='" + key2 + "']").val(value2);
                                     $('div.hostweed').eq(key1).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
                                     $('div.hostweed').eq(key1).find("input[type='checkbox'][name^='" + key2 + "'][value='Y']").iCheck('check');
@@ -831,6 +833,7 @@ function loadModal(pagename) {
                                     }
                                     $('div.entobox').eq(key1).find("input[type='text'][name^='" + key2 + "']").val(value2);
                                     $('div.entobox').eq(key1).find("input[type='date'][name^='" + key2 + "']").val(value2);
+                                    $('div.entobox').eq(key1).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
                                     $('div.entobox').eq(key1).find("input[type='number'][name^='" + key2 + "']").val(value2);
                                     $('div.entobox').eq(key1).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
                                     $('div.entobox').eq(key1).find("input[type='checkbox'][name^='" + key2 + "'][value='Y']").iCheck('check');
@@ -913,6 +916,7 @@ function loadModal(pagename) {
                                     }
                                     $('div.pathbox').eq(key1).find("input[type='text'][name^='" + key2 + "']").val(value2);
                                     $('div.pathbox').eq(key1).find("input[type='date'][name^='" + key2 + "']").val(value2);
+                                    $('div.pathbox').eq(key1).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
                                     $('div.pathbox').eq(key1).find("input[type='number'][name^='" + key2 + "']").val(value2);
                                     $('div.pathbox').eq(key1).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
                                     $('div.pathbox').eq(key1).find("input[type='checkbox'][name^='" + key2 + "'][value='Y']").iCheck('check');
@@ -977,12 +981,14 @@ function loadModal(pagename) {
                                         $('div.sample').eq(key1).find("input[type='number'][name^='Longitude']").val(wkt.toJson().coordinates[0]);
                                         $('div.sample').eq(key1).find("input[type='number'][name^='Latitude']").val(wkt.toJson().coordinates[1]);
                                     }
-                                    if (key2 == "AdditionalCollectorTab" && value2.length > 0) {
-                                        $('div.sample').eq(key1).find("input[type='checkbox'][name^='AdditionalCollectorTab']").iCheck('check');
+                                    if (key2 == "AdditionalCollectorTab") {
                                         $('div.sample').eq(key1).find('select[name^="AdditionalCollectorName"]').find('option').remove().end().append($(addlObservers)).val('NONE');
-                                        $.each(value2, function (key3, value3) {
-                                            $('div.sample').eq(key1).find("select[name^='AdditionalCollectorName']").eq(key3).val(value3);
-                                        });
+                                        if (value2.length > 0) {
+                                            $('div.sample').eq(key1).find("input[type='checkbox'][name^='AdditionalCollectorTab']").iCheck('check');
+                                            $.each(value2, function (key3, value3) {
+                                                $('div.sample').eq(key1).find("select[name^='AdditionalCollectorName']").eq(key3).val(value3);
+                                            });
+                                        }
                                     }
                                     if (key2 == "PlantPreservationTab" && value2.length > 0) {
                                         $.each(value2, function (key3, value3) {
@@ -996,6 +1002,7 @@ function loadModal(pagename) {
                                     }
                                     $('div.sample').eq(key1).find("input[type='text'][name^='" + key2 + "']").val(value2);
                                     $('div.sample').eq(key1).find("input[type='date'][name^='" + key2 + "']").val(value2);
+                                    $('div.sample').eq(key1).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
                                     $('div.sample').eq(key1).find("input[type='number'][name^='" + key2 + "']").val(value2);
                                     $('div.sample').eq(key1).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
                                     $('div.sample').eq(key1).find("input[type='checkbox'][name^='" + key2 + "'][value='on']").iCheck('check');
@@ -1036,12 +1043,14 @@ function loadModal(pagename) {
                                         $('div.sample').eq(key1).find("input[type='number'][name^='Longitude']").val(wkt.toJson().coordinates[0]);
                                         $('div.sample').eq(key1).find("input[type='number'][name^='Latitude']").val(wkt.toJson().coordinates[1]);
                                     }
-                                    if (key2 == "AdditionalCollectorTab" && value2.length > 0) {
-                                        $('div.sample').eq(key1).find("input[type='checkbox'][name^='AdditionalCollectorTab']").iCheck('check');
+                                    if (key2 == "AdditionalCollectorTab") {
                                         $('div.sample').eq(key1).find('select[name^="AdditionalCollectorName"]').find('option').remove().end().append($(addlObservers)).val('NONE');
-                                        $.each(value2, function (key3, value3) {
-                                            $('div.sample').eq(key1).find("select[name^='AdditionalCollectorName']").eq(key3).val(value3);
-                                        });
+                                        if (value2.length > 0) {
+                                            $('div.sample').eq(key1).find("input[type='checkbox'][name^='AdditionalCollectorTab']").iCheck('check');
+                                            $.each(value2, function (key3, value3) {
+                                                $('div.sample').eq(key1).find("select[name^='AdditionalCollectorName']").eq(key3).val(value3);
+                                            });
+                                        }
                                     }
                                     if (key2 == "PlantPreservationTab" && value2.length > 0) {
                                         $.each(value2, function (key3, value3) {
@@ -1060,6 +1069,7 @@ function loadModal(pagename) {
                                     }
                                     $('div.sample').eq(key1).find("input[type='text'][name^='" + key2 + "']").val(value2);
                                     $('div.sample').eq(key1).find("input[type='date'][name^='" + key2 + "']").val(value2);
+                                    $('div.sample').eq(key1).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
                                     $('div.sample').eq(key1).find("input[type='number'][name^='" + key2 + "']").val(value2);
                                     $('div.sample').eq(key1).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
                                     $('div.sample').eq(key1).find("input[type='checkbox'][name^='" + key2 + "'][value='on']").iCheck('check');
@@ -1100,12 +1110,14 @@ function loadModal(pagename) {
                                         $('div.sample').eq(key1).find("input[type='number'][name^='Longitude']").val(wkt.toJson().coordinates[0]);
                                         $('div.sample').eq(key1).find("input[type='number'][name^='Latitude']").val(wkt.toJson().coordinates[1]);
                                     }
-                                    if (key2 == "AdditionalCollectorTab" && value2.length > 0) {
-                                        $('div.sample').eq(key1).find("input[type='checkbox'][name^='AdditionalCollectorTab']").iCheck('check');
+                                    if (key2 == "AdditionalCollectorTab") {
                                         $('div.sample').eq(key1).find('select[name^="AdditionalCollectorName"]').find('option').remove().end().append($(addlObservers)).val('NONE');
-                                        $.each(value2, function (key3, value3) {
-                                            $('div.sample').eq(key1).find("select[name^='AdditionalCollectorName']").eq(key3).val(value3);
-                                        });
+                                        if (value2.length > 0) {
+                                            $('div.sample').eq(key1).find("input[type='checkbox'][name^='AdditionalCollectorTab']").iCheck('check');
+                                            $.each(value2, function (key3, value3) {
+                                                $('div.sample').eq(key1).find("select[name^='AdditionalCollectorName']").eq(key3).val(value3);
+                                            });
+                                        }
                                     }
                                     if (key2 == "PlantPreservationTab" && value2.length > 0) {
                                         $.each(value2, function (key3, value3) {
@@ -1119,6 +1131,7 @@ function loadModal(pagename) {
                                     }
                                     $('div.sample').eq(key1).find("input[type='text'][name^='" + key2 + "']").val(value2);
                                     $('div.sample').eq(key1).find("input[type='date'][name^='" + key2 + "']").val(value2);
+                                    $('div.sample').eq(key1).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
                                     $('div.sample').eq(key1).find("input[type='number'][name^='" + key2 + "']").val(value2);
                                     $('div.sample').eq(key1).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
                                     $('div.sample').eq(key1).find("input[type='checkbox'][name^='" + key2 + "'][value='on']").iCheck('check');
@@ -1145,6 +1158,7 @@ function loadModal(pagename) {
                     }
                     $('#form1').find("input[type='text'][name^='" + key + "']").val(value);
                     $('#form1').find("input[type='date'][name^='" + key + "']").val(value);
+                    $('#form1').find("input[type='datetime-local'][name^='" + key + "']").val(value);
                     $('#form1').find("input[type='number'][name^='" + key + "']").val(value);
                     $('#form1').find("input[type='checkbox'][name^='" + key + "']").val(value);
                     $('#form1').find("input[type='checkbox'][name^='" + key + "'][value='on']").iCheck('check');
@@ -1179,8 +1193,8 @@ function loadModal(pagename) {
                     $('#form1').find("input[type='text'][name^='ObservationWhereWktClob']").val(curWkt);
                     getAltitude();
                 }
-                $('#form1').find("input[type='date'][name^='ObservationDate']").val(today);
-                $('#form1').find("input[type='number'][name^='DurationMinsCount']").val("0");
+                $('#form1').find("input[type='date'][name^='ObservationDatetime']").val(today);
+                $('#form1').find("input[type='number'][name^='TimeHourCount']").val("0");
                 if (results.observations.length == 0) {
                     $('#form1').find("input[type='number'][name^='id']").val(1);
                 } else { $('#form1').find("input[type='number'][name^='id']").val(results.observations[results.observations.length - 1].id_M_N + 1); }
@@ -1202,12 +1216,7 @@ function objectifyPHFormforSave(formArray) {
     var addlObserver = 1;
     var obsAttachment = 1;
     var sampleAttachment = 1;
-    var observation = {
-        "AdditionalObserverTab": [],
-        "PlantObsTab": [],
-        "PlantSampleTab": [],
-        "ObsAttachmentTab": []
-    };
+    var observation = {};
     for (var i = 0; i < formArray.length; i++) {
         if (formArray[i]['name'].length > 0) {
             if (formArray[i]['name'].startsWith('AdditionalCollectorTab')) { continue; }
@@ -1216,6 +1225,12 @@ function objectifyPHFormforSave(formArray) {
             if (formArray[i]['name'].startsWith('Longitude')) { continue; }
             if (formArray[i]['name'].startsWith('AdditionalObserverTab')) { continue; }
             if (formArray[i]['name'].startsWith('AdditionalObserverName') && formArray[i]['value'] == "") {
+                continue;
+            }
+            if (formArray[i]['name'].startsWith('PlantObsAttachment') && formArray[i]['value'] == "") {
+                continue;
+            }
+            if (formArray[i]['name'].startsWith('PlantSampleAttachment') && formArray[i]['value'] == "") {
                 continue;
             }
             var fname = formArray[i]['name'].split("_")[0];
@@ -1240,10 +1255,7 @@ function objectifyPHFormforSave(formArray) {
 
             if (ftype == 'H' && fname != 'GpsDatumId') {
                 if (fname == 'PlantTaxonId') {
-                    var vPlantObsTab = {
-                        "PlantObsTargetTab": [],
-                        "PlantObsAttachmentTab": []
-                    };
+                    var vPlantObsTab = {};
                 }
                 if (fname.startsWith('PlantObsAttachment')) {
                     //var x = fname.substr(fname.length - 1);
@@ -1254,7 +1266,14 @@ function objectifyPHFormforSave(formArray) {
                     obsAttachment++;
                     continue;
                 }
-                vPlantObsTab[formArray[i]['name']] = formArray[i]['value'];
+                if (fNSD === 'N') {
+                    vPlantObsTab[formArray[i]['name']] = Number(formArray[i]['value']);
+                }
+                else { vPlantObsTab[formArray[i]['name']] = formArray[i]['value']; }
+                if (fname === 'LocationPointWktClob') {
+                    vPlantObsTab["PlantObsTargetTab"] = [];
+                    vPlantObsTab["PlantObsAttachmentTab"] = [];
+                }
                 continue;
             }
             if (ftype == 'T' && fname != 'CommentText') {
@@ -1274,21 +1293,15 @@ function objectifyPHFormforSave(formArray) {
                 observation.PlantObsTab.push(vPlantObsTab);
                 continue;
             }
-            if (ftype == 'S' && fname != 'ExternalPhotoExistFlag') {
+            if (ftype == 'S' && fname != 'EndOfSample') {
                 if (fname == 'SampleFieldLabelText') {
-                    var vPlantSampleTab = {
-                        "AdditionalCollectorTab": [],
-                        "PlantPreservationTab": [],
-                        "PlantPartTab": [],
-                        "EntoLifeStgTab": [],
-                        "SampleAttachmentTab": []
-                    };
+                    var vPlantSampleTab = {};
                 }
                 if (fname.startsWith('AdditionalCollectorName') && (formArray[i]['value'] == 'NONE' || formArray[i]['value'] == '')) {
                     continue;
                 }
                 if (fname.startsWith('AdditionalCollectorName') && (formArray[i]['value'] != 'NONE' || formArray[i]['value'] != '')) {
-                    vPlantSampleTab.AdditionalCollectorTab.push(formArray[i]['value']);
+                    vPlantSampleTab.AdditionalCollectorTab.push(Number(formArray[i]['value']));
                     continue;
                 }
                 if (fname.startsWith('PlantPartTab') && formArray[i]['value'] != 'Y') {
@@ -1326,20 +1339,37 @@ function objectifyPHFormforSave(formArray) {
                     vPlantSampleTab.SampleAttachmentTab.push(attachment);
                     sampleAttachment++;
                     continue;
+                }         
+                if (fNSD === 'N') {
+                    vPlantSampleTab[formArray[i]['name']] = Number(formArray[i]['value']);
                 }
-                vPlantSampleTab[formArray[i]['name']] = formArray[i]['value'];
+                else { vPlantSampleTab[formArray[i]['name']] = formArray[i]['value']; }
+                if (fname === 'ExternalPhotoExistFlag') {
+                    vPlantSampleTab["PlantPreservationTab"] = [];
+                    vPlantSampleTab["PlantPartTab"] = [];
+                    vPlantSampleTab["EntoLifeStgTab"] = [];
+                    vPlantSampleTab["SampleAttachmentTab"] = [];
+                }
+                if (fname === 'CommentText') {
+                    vPlantSampleTab["AdditionalCollectorTab"] = [];
+                }
                 continue;
             }
-            if (ftype == 'S' && fname == 'ExternalPhotoExistFlag') {
-                vPlantSampleTab[formArray[i]['name']] = formArray[i]['value'];
+            if (ftype == 'S' && fname == 'EndOfSample') {
+                //vPlantSampleTab[formArray[i]['name']] = formArray[i]['value'];
                 observation.PlantSampleTab.push(vPlantSampleTab);
                 continue;
             }
             //alert(formArray[i]['name'] + ':' + formArray[i]['value']);
-            if (fNSD == 'N') {
+            if (fNSD === 'N') {
                 observation[formArray[i]['name']] = Number(formArray[i]['value']);
             }
             else { observation[formArray[i]['name']] = formArray[i]['value']; }
+            if (fname === 'AltitudeNo' && addlObserver === 1) {
+                observation["AdditionalObserverTab"] = [];
+                observation["PlantObsTab"] = [];
+                observation["PlantSampleTab"] = [];
+            }
         }
     }
     return observation;
@@ -1351,7 +1381,36 @@ function objectifyPHFormforSubmit(data) {//serialize data function
     jsonStr = jsonStr.replace(/_M_S_\d_S/g, '').replace(/_O_N_\d_S/g, '').replace(/_M_S_\d_S/g, '').replace(/_M_D_\d_S/g, '').replace(/_O_S_\d_S/g, '');
     jsonStr = jsonStr.replace(/_M_N/g, '').replace(/_O_N/g, '').replace(/_M_D/g, '').replace(/_M_S/g, '');
     var jsonData = JSON.parse(jsonStr);
-    delete jsonData.status_M_N;
+    if (jsonData.AdditionalObserverTab.length === 0) { delete jsonData.AdditionalObserverTab };
+    //if (jsonData.ObsAttachmentTab.length === 0) { delete jsonData.ObsAttachmentTab };
+    $.each(jsonData.PlantObsTab, function (i, item) {
+        delete item.CountList;
+        if (item.HostStatAreaNo === 0) { delete item.HostStatAreaNo };
+        if (item.HostStatCount === 0) { delete item.HostStatCount };
+        if (item.PlantObsTargetTab.length === 0) { delete item.PlantObsTargetTab };
+        if (item.PlantObsAttachmentTab.length === 0) { delete item.PlantObsAttachmentTab };
+        if (item.PlantTaxonText !== "") {
+            delete item.PlantTaxonId;
+        }
+    });
+    $.each(jsonData.PlantSampleTab, function (i, item) {
+        if (item.AdditionalCollectorTab.length === 0) { delete item.AdditionalCollectorTab };
+        if (item.EntoLifeStgTab.length === 0) { delete item.EntoLifeStgTab };
+        if (item.PlantPartTab.length === 0) { delete item.PlantPartTab };
+        if (item.PlantPreservationTab.length === 0) { delete item.PlantPreservationTab };
+        if (item.SampleAttachmentTab.length === 0) { delete item.SampleAttachmentTab };
+        if (item.PrelimTaxonText !== "") {
+            delete item.PrelimTaxonId;
+        }
+        if (item.PlantPreservOtherText === "") {
+            delete item.PlantPreservOtherText;
+        }
+        if (item.HostIdentifiedUserId === 0) {
+            delete item.HostIdentifiedUserId;
+        }
+    });
+    delete jsonData.status;
+    delete jsonData.id;
     return jsonData;
 }
 function Iterate(data) {
@@ -1404,6 +1463,13 @@ function Iterate(data) {
                     vFailed = true;
                     return false;
                 }
+                if (fMOC == 'M' && fNSD == 'D' && value == '') {
+                    //console.log(index + ' field cannot be NULL');
+                    vError = 1;
+                    vErrDescription.push(fname + ' field cannot be NULL');
+                    vFailed = true;
+                    return false;
+                }
                 if (fMOC == 'M' && fNSD == 'N' && value == 0) {
                     if (fname == 'HostStatCount') return true;
                     if (fname == 'HostStatAreaNo') return true;
@@ -1421,19 +1487,19 @@ function Iterate(data) {
     } else { return { "vError": 0, "vErrDescription": "" }; }
 };
 function SubmitRecord(formArray) {//serialize data function
-    var guid1 = guid();
+    var guid1 = guid().toUpperCase();
     var obsWrapper = {
         "header": {
             "ebmCID": guid1,
             "ebmMID": guid1,
-            "ebmSID": "ESFA - Enterprise Surveillance Field App",
+            "ebmSID": "ESFA",
             "ebmTimestamp": new Date().toISOString()
         },
         "body": {
-            "plantHealth": ""
+            "plantHealthObservation": ""
         }
     };
-    obsWrapper.body.plantHealth = formArray;
+    obsWrapper.body.plantHealthObservation = formArray;
     return obsWrapper;
 }
 function guid() {
@@ -1908,7 +1974,8 @@ $(document).on('click', '#addBotanySample', function (e) {
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue'
     });
-    that.find('select[name^="HostIdentifiedUserId"]').find('option').remove().end().append($(staffData));
+    that.find('select[name^="AdditionalCollectorName"]').find('option').remove().end().append($(addlObservers)).val('NONE');
+    //that.find('select[name^="HostIdentifiedUserId"]').find('option').remove().end().append($(staffData));
     that.find('input').each(function () {
         $(this).attr('name', $(this).attr('name') + '_' + bsamples + '_S');
     })
@@ -1967,6 +2034,7 @@ $(document).on('click', '#addEntoSample', function (e) {
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue'
     });
+    that.find('select[name^="AdditionalCollectorName"]').find('option').remove().end().append($(addlObservers)).val('NONE');
     that.find('select[name^="HostIdentifiedUserId"]').find('option').remove().end().append($(staffData));
     that.find('select[name^="EntoCollMethodCode"]').find('option').remove().end().append($(eCollMethod));
     that.find('select[name^="EntoInfestedPctCode"]').find('option').remove().end().append($(percInfested));
@@ -2030,6 +2098,7 @@ $(document).on('click', '#addPathSample', function (e) {
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue'
     });
+    that.find('select[name^="AdditionalCollectorName"]').find('option').remove().end().append($(addlObservers)).val('NONE');
     that.find('select[name^="HostIdentifiedUserId"]').find('option').remove().end().append($(staffData));
     that.find('select[name^="PathIncidCode"]').find('option').remove().end().append($(incidence));
     that.find('select[name^="PathSevCode"]').find('option').remove().end().append($(severity));
@@ -2284,7 +2353,7 @@ $(document).on('click', 'img.pp', function () {
         options);
 
     return false;
-})
+});
 $(document).on('ifClicked', 'input[type="radio"].minimal', function (event) {
     //alert(event.type + ' callback');
     event.preventDefault();
@@ -2393,14 +2462,14 @@ $(document).on('change', 'select[name="SiteId_O_N"]', function () {
     })
         .complete(function (e) {
             var str = that.val();
-            if (str == 99999) {
+            if (str === 99999) {
                 //alert('NewSite selected');
                 var xlat = $('#form1').find('input.obslat');
                 var xlng = $('#form1').find('input.obslng');
                 var xwkt = $('#form1').find('input[name^="ObservationWhereWktClob"]');
-                if (xlat.val() != "") { cLatitude = xlat.val(); }
-                if (xlng.val() != "") { cLongitude = xlng.val(); }
-                if (xwkt.val() != "") { cWkt = xwkt.val(); }
+                if (xlat.val() !== "") { cLatitude = xlat.val(); }
+                if (xlng.val() !== "") { cLongitude = xlng.val(); }
+                if (xwkt.val() !== "") { cWkt = xwkt.val(); }
                 xlat.val("");
                 xlng.val("");
                 xwkt.val("");
@@ -2410,9 +2479,9 @@ $(document).on('change', 'select[name="SiteId_O_N"]', function () {
                 var xlat = $('#form1').find('input.obslat');
                 var xlng = $('#form1').find('input.obslng');
                 var xwkt = $('#form1').find('input[name^="ObservationWhereWktClob"]');
-                if (cLatitude != "") { xlat.val(cLatitude); }
-                if (cLongitude != "") { xlng.val(cLongitude); }
-                if (cWkt != "") { xwkt.val(cWkt); }
+                if (cLatitude !== "") { xlat.val(cLatitude); }
+                if (cLongitude !== "") { xlng.val(cLongitude); }
+                if (cWkt !== "") { xwkt.val(cWkt); }
             }
         }).done(function () {
             $('#modalProgress').modal('hide');
@@ -2435,7 +2504,7 @@ function getFileandExtract(url, mapset, i, n) {
             $('#mb6 .progText').text("File " + i + " out of " + n + ": Download in progress ...");
         }
         xhr.onloadend = function () {
-            if (this.status == 200) {
+            if (this.status === 200) {
                 t1 = performance.now();
                 t3 = t3 + Math.round((t1 - t0));
                 $('#mb6 .progText').text("File " + i + " out of " + n + ": Download in progress ...");
@@ -2443,11 +2512,11 @@ function getFileandExtract(url, mapset, i, n) {
                 fs.root.getFile(filename, { create: true, exclusive: false }, function (fileEntry) {
                     writeFile(fileEntry, mapset, blob, i, n);
                     i++;
-                    if (i == 10) {
-                        $('#modalProgress').modal('hide');
-                        initSettings();
-                        $.growl.notice({ title: "", message: "Maps downloaded in progress.", location: "bl", size: "medium", fixed: "true" });
-                    }
+                    //if (i == 10) {
+                    //    $('#modalProgress').modal('hide');
+                    //    initSettings();
+                    //    $.growl.notice({ title: "", message: "Maps downloaded in progress.", location: "bl", size: "medium", fixed: "true" });
+                    //}
                     if (i > n) {
                         resSettings.settings.mapSets[ActiveMapSet].downloaded = 1;
                         resSettings.settings.mapSets[ActiveMapSet].lastDownloadDate = new Date().toString();
@@ -2528,3 +2597,67 @@ function writeFile(fileEntry, filename, dataObj, i, n) {
         fileWriter.write(dataObj);
     });
 }
+$(document).on('blur', 'input.samplelat', function (e) {
+    if ($(this).val() !== "") {
+        var xlat = $(this).closest('.sample').find('input.samplelat');
+        var xlng = $(this).closest('.sample').find('input.samplelng');
+        var xwkt = $(this).closest('.sample').find('input[name^="SamplePointWktClob"]');
+        xwkt.val("POINT (" + xlng.val() + " " + xlat.val() + ")");
+    }
+});
+$(document).on('blur', 'input.samplelng', function (e) {
+    if ($(this).val() !== "") {
+        var xlat = $(this).closest('.sample').find('input.samplelat');
+        var xlng = $(this).closest('.sample').find('input.samplelng');
+        var xwkt = $(this).closest('.sample').find('input[name^="SamplePointWktClob"]');
+        xwkt.val("POINT (" + xlng.val() + " " + xlat.val() + ")");
+    }
+});
+$(document).on('blur', 'input.entolat', function (e) {
+    if ($(this).val() !== "") {
+        var xlat = $(this).closest('.entobox').find('input.entolat');
+        var xlng = $(this).closest('.entobox').find('input.entolng');
+        var xwkt = $(this).closest('.entobox').find('input[name^="LocationPointWktClob"]');
+        xwkt.val("POINT (" + xlng.val() + " " + xlat.val() + ")");
+    }
+});
+$(document).on('blur', 'input.entolng', function (e) {
+    if ($(this).val() !== "") {
+        var xlat = $(this).closest('.entobox').find('input.entolat');
+        var xlng = $(this).closest('.entobox').find('input.entolng');
+        var xwkt = $(this).closest('.entobox').find('input[name^="LocationPointWktClob"]');
+        xwkt.val("POINT (" + xlng.val() + " " + xlat.val() + ")");
+    }
+});
+$(document).on('blur', 'input.pathlat', function (e) {
+    if ($(this).val() !== "") {
+        var xlat = $(this).closest('.pathbox').find('input.pathlat');
+        var xlng = $(this).closest('.pathbox').find('input.pathlng');
+        var xwkt = $(this).closest('.pathbox').find('input[name^="LocationPointWktClob"]');
+        xwkt.val("POINT (" + xlng.val() + " " + xlat.val() + ")");
+    }
+});
+$(document).on('blur', 'input.pathlng', function (e) {
+    if ($(this).val() !== "") {
+        var xlat = $(this).closest('.pathbox').find('input.pathlat');
+        var xlng = $(this).closest('.pathbox').find('input.pathlng');
+        var xwkt = $(this).closest('.pathbox').find('input[name^="LocationPointWktClob"]');
+        xwkt.val("POINT (" + xlng.val() + " " + xlat.val() + ")");
+    }
+});
+$(document).on('blur', 'input.hostweedlat', function (e) {
+    if ($(this).val() !== "") {
+        var xlat = $(this).closest('.hostweed').find('input.hostweedlat');
+        var xlng = $(this).closest('.hostweed').find('input.hostweedlng');
+        var xwkt = $(this).closest('.hostweed').find('input[name^="LocationPointWktClob"]');
+        xwkt.val("POINT (" + xlng.val() + " " + xlat.val() + ")");
+    }
+});
+$(document).on('blur', 'input.hostweedlng', function (e) {
+    if ($(this).val() !== "") {
+        var xlat = $(this).closest('.hostweed').find('input.hostweedlat');
+        var xlng = $(this).closest('.hostweed').find('input.hostweedlng');
+        var xwkt = $(this).closest('.hostweed').find('input[name^="LocationPointWktClob"]');
+        xwkt.val("POINT (" + xlng.val() + " " + xlat.val() + ")");
+    }
+});

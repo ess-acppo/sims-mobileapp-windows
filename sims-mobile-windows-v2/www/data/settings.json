@@ -3,15 +3,15 @@
     "mapSets": [
       {
         "mapsetID": 1,
-        "mapSetName": "Australia Street Maps",
+        "mapSetName": "Queensland Street Maps",
         "downloadPath": "http://sprinq.com.au/files/AU.zip",
         "mapPath": "ms-appdata:///local/maps/AU/",
-        "emptyTilePath": "maps/empty.png",
-        "startZoom": 7,
-        "endZoom": 15,
+        "emptyTilePath": "maps/empty.jpg",
+        "startZoom": 9,
+        "endZoom": 14,
         "activeFlag": 0,
         "downloaded": 0,
-        "lastDownloadDate":  "",
+        "lastDownloadDate": "",
         "mapCenter": {
           "lat": "-35.30873",
           "lng": "149.124412"
@@ -28,10 +28,10 @@
         "mapSetName": "Papua New Guinea Street Maps",
         "downloadPath": "http://sprinq.com.au/files/PNG.zip",
         "mapPath": "ms-appdata:///local/maps/PNG/",
-        "emptyTilePath": "maps/empty.png",
-        "startZoom": 7,
-        "endZoom": 15,
-        "activeFlag": 1,
+        "emptyTilePath": "maps/empty.jpg",
+        "startZoom": 9,
+        "endZoom": 14,
+        "activeFlag": 0,
         "downloaded": 0,
         "lastDownloadDate": "09/09/1900",
         "mapCenter": {
@@ -50,12 +50,12 @@
         "mapSetName": "East Timor Street Maps",
         "downloadPath": "http://sprinq.com.au/files/ET.zip",
         "mapPath": "ms-appdata:///local/maps/ET/",
-        "emptyTilePath": "maps/empty.png",
-        "startZoom": 7,
-        "endZoom": 15,
+        "emptyTilePath": "maps/empty.jpg",
+        "startZoom": 9,
+        "endZoom": 14,
         "activeFlag": 0,
         "downloaded": 0,
-        "lastDownloadDate": "",
+        "lastDownloadDate": "09/09/1900",
         "mapCenter": {
           "lat": "-8.79854",
           "lng": "125.83805"
@@ -65,6 +65,28 @@
           "leftLng": "124.84378",
           "bottomLat": "-9.57940",
           "rightLng": "128.22757"
+        }
+      },
+      {
+        "mapsetID": 4,
+        "mapSetName": "ACT Hybrid Maps",
+        "downloadPath": "http://sprinq.com.au/files/ACT.zip",
+        "mapPath": "ms-appdata:///local/maps/ACT/",
+        "emptyTilePath": "maps/empty.jpg",
+        "startZoom": 9,
+        "endZoom": 16,
+        "activeFlag": 1,
+        "downloaded": 0,
+        "lastDownloadDate": "09/09/1900",
+        "mapCenter": {
+          "lat": "-35.267905",
+          "lng": "149.130706"
+        },
+        "mapBounds": {
+          "topLat": "-35.116794",
+          "leftLng": "148.738798",
+          "bottomLat": "-35.920108",
+          "rightLng": "149.428397"
         }
       }
     ],
