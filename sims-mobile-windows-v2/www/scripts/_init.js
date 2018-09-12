@@ -1415,7 +1415,7 @@ $(document).on('click', '.sync', function (event) {
                     //$.growl({ title: "", message: "Success! Observations synced to cloud.", location: "bc", size: "large" });  
                     if (XmlHttpRequest.status === 200) {
                         $.growl({ message: "200 OK!" });
-                    } else { $.growl({ message: XmlHttpRequest.status }); }
+                    } else { $.growl({ message: XmlHttpRequest.status, location: "bc" }); }
                     rowsSuccess.push(index);
                 },
                 complete: function () {
@@ -1424,7 +1424,7 @@ $(document).on('click', '.sync', function (event) {
                     //results.observations.splice(index, 1);
                 },
                 error: function (xhr, textStatus, errorThrown ) {
-                    $.growl.error({ message: xhr.status + ': ' + textStatus + ', ' + errorThrown});   
+                    $.growl.error({ title: "", message: xhr.status + ': ' + textStatus + ', ' + errorThrown, location: "bc"});   
                 }
             });
         }
@@ -1458,7 +1458,7 @@ $(document).on('click', '.sync', function (event) {
     syncstaffData();
     table.destroy();
     loadData();
-    $.growl({ title: "", message: "Sync Complete!.", location: "bc", size: "large" });
+    //$.growl({ title: "", message: "Sync Complete!.", location: "bc", size: "large" });
 });
 $(document).on('shown.bs.modal', '#modalPHGrid', function () {
     loadPHRefCodes();

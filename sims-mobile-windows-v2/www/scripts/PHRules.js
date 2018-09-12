@@ -1349,12 +1349,21 @@ function objectifyPHFormforSave(formArray) {
                 else { vPlantSampleTab[formArray[i]['name']] = formArray[i]['value']; }
                 if (fname === 'ExternalPhotoExistFlag') {
                     vPlantSampleTab["PlantPreservationTab"] = [];
+                }
+                if (fname === 'CommentText') {
+                    vPlantSampleTab["AdditionalCollectorTab"] = [];
+                }
+                if (fname === 'EntoCollMethodCode') {
                     vPlantSampleTab["PlantPartTab"] = [];
                     vPlantSampleTab["EntoLifeStgTab"] = [];
                     vPlantSampleTab["SampleAttachmentTab"] = [];
                 }
-                if (fname === 'CommentText') {
-                    vPlantSampleTab["AdditionalCollectorTab"] = [];
+                if (fname === 'EntoPestLevelCode') {
+                    vPlantSampleTab["EntoLifeStgTab"] = [];
+                    vPlantSampleTab["SampleAttachmentTab"] = [];
+                }
+                if (fname === 'PathSevCode') {
+                    vPlantSampleTab["SampleAttachmentTab"] = [];
                 }
                 continue;
             }
@@ -1394,6 +1403,14 @@ function objectifyPHFormforSubmit(data) {//serialize data function
         if (item.PlantObsAttachmentTab.length === 0) { delete item.PlantObsAttachmentTab };
         if (item.PlantTaxonText !== "") {
             delete item.PlantTaxonId;
+        }
+        if (item.PlantTaxonText !== "") {
+            delete item.PlantTaxonId;
+        }
+    });
+    $.each(jsonData.PlantObsTab.PlantObsTargetTab, function (i, item) {
+        if (item.TargetTaxonText !== "") {
+            delete item.TargetTaxonId;
         }
     });
     $.each(jsonData.PlantSampleTab, function (i, item) {
