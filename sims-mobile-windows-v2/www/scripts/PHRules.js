@@ -568,6 +568,9 @@ function loadSitePolygons() {
         });
         //mapc.fitBounds(trackCoords);
         tP.setMap(map);
+        google.maps.event.addListener(tP, 'click', function (event) {
+            placeMarker(event.latLng);
+        });
     });
 }
 function loadBotanySample() {
