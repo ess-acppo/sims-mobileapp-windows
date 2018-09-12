@@ -1414,7 +1414,7 @@ $(document).on('click', '.sync', function (event) {
                 success: function (data, textStatus, XmlHttpRequest) {
                     //$.growl({ title: "", message: "Success! Observations synced to cloud.", location: "bc", size: "large" });  
                     if (XmlHttpRequest.status === 200) {
-                        $.growl({ message: "200 OK!" });
+                        $.growl({ title: "", message: "200 OK!", location: "bc" });
                     } else { $.growl({ message: XmlHttpRequest.status, location: "bc" }); }
                     rowsSuccess.push(index);
                 },

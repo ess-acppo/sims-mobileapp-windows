@@ -1216,6 +1216,7 @@ function loadModal(pagename) {
     });
 };
 function objectifyPHFormforSave(formArray) {
+    var plantDisciplineCode;
     var addlObserver = 1;
     var obsAttachment = 1;
     var sampleAttachment = 1;
@@ -1242,9 +1243,7 @@ function objectifyPHFormforSave(formArray) {
             var fnum = formArray[i]['name'].split("_")[3];
             var ftype = formArray[i]['name'].split("_")[4];
 
-            //if (fMOC = 'M' && formArray[i]['value'] == null) {
-            //    return false;
-            //}
+            if (fname == 'PlantDisciplineCode') { plantDisciplineCode = formArray[i]['value']; }
 
             if (formArray[i]['name'].startsWith('AdditionalObserverName') && formArray[i]['value'] != "") {
                 //var x = formArray[i]['name'].substr(formArray[i]['name'].length - 1);
@@ -1355,8 +1354,9 @@ function objectifyPHFormforSave(formArray) {
                 }
                 if (fname === 'EntoCollMethodCode') {
                     vPlantSampleTab["PlantPartTab"] = [];
-                    vPlantSampleTab["EntoLifeStgTab"] = [];
-                    vPlantSampleTab["SampleAttachmentTab"] = [];
+                }
+                if (fname === 'HostIdentifiedUserId' && plantDisciplineCode == 'P') {
+                    vPlantSampleTab["PlantPartTab"] = [];
                 }
                 if (fname === 'EntoPestLevelCode') {
                     vPlantSampleTab["EntoLifeStgTab"] = [];
@@ -1399,26 +1399,26 @@ function objectifyPHFormforSubmit(data) {//serialize data function
         delete item.CountList;
         if (item.HostStatAreaNo === 0) { delete item.HostStatAreaNo };
         if (item.HostStatCount === 0) { delete item.HostStatCount };
-        if (item.PlantObsTargetTab.length === 0) { delete item.PlantObsTargetTab };
-        if (item.PlantObsAttachmentTab.length === 0) { delete item.PlantObsAttachmentTab };
+        if (item.PlantObsTargetTab && item.PlantObsTargetTab.length === 0) { delete item.PlantObsTargetTab };
+        if (item.PlantObsAttachmentTab && item.PlantObsAttachmentTab.length === 0) { delete item.PlantObsAttachmentTab };
         if (item.PlantTaxonText !== "") {
             delete item.PlantTaxonId;
         }
         if (item.PlantTaxonText !== "") {
             delete item.PlantTaxonId;
         }
-    });
-    $.each(jsonData.PlantObsTab.PlantObsTargetTab, function (i, item) {
-        if (item.TargetTaxonText !== "") {
-            delete item.TargetTaxonId;
-        }
+        $.each(item.PlantObsTargetTab, function (i, item1) {
+            if (item1.TargetTaxonText !== "") {
+                delete item1.TargetTaxonId;
+            }
+        });
     });
     $.each(jsonData.PlantSampleTab, function (i, item) {
         if (item.AdditionalCollectorTab.length === 0) { delete item.AdditionalCollectorTab };
-        if (item.EntoLifeStgTab.length === 0) { delete item.EntoLifeStgTab };
-        if (item.PlantPartTab.length === 0) { delete item.PlantPartTab };
-        if (item.PlantPreservationTab.length === 0) { delete item.PlantPreservationTab };
-        if (item.SampleAttachmentTab.length === 0) { delete item.SampleAttachmentTab };
+        if (item.EntoLifeStgTab && item.EntoLifeStgTab.length === 0) { delete item.EntoLifeStgTab };
+        if (item.PlantPartTab && item.PlantPartTab.length === 0) { delete item.PlantPartTab };
+        if (item.PlantPreservationTab && item.PlantPreservationTab.length === 0) { delete item.PlantPreservationTab };
+        if (item.SampleAttachmentTab && item.SampleAttachmentTab.length === 0) { delete item.SampleAttachmentTab };
         if (item.PrelimTaxonText !== "") {
             delete item.PrelimTaxonId;
         }
@@ -1427,6 +1427,9 @@ function objectifyPHFormforSubmit(data) {//serialize data function
         }
         if (item.HostIdentifiedUserId === 0) {
             delete item.HostIdentifiedUserId;
+        }
+        if (item.HostTaxonText !== "") {
+            delete item.HostTaxonId;
         }
     });
     delete jsonData.status;
