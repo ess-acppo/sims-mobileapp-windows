@@ -18,8 +18,11 @@
                             <span data-toggle="tooltip" class="badge bg-gray-blue" data-original-title="0" id="numSamples"></span>
                         </a>
                     </li>
-                    <li class="hide">
-                        <a href="#tab_3" data-toggle="tab"><i class="fa fa-paperclip mxr-5"></i>Attachments</a>
+                    <li>
+                        <a href="#tab_3" data-toggle="tab">
+                            <i class="fa fa-paperclip mxr-5"></i>Attachments
+                            <span data-toggle="tooltip" class="badge bg-gray-blue" data-original-title="0" id="numAttachments"></span>
+                        </a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -193,8 +196,10 @@
                             <div class="form-group col-md-12 col-sm-12 col-xs-12 text-center">
                                 <button type="button" class="btn btn-md btn-info" id="addAttachment"><i class="fa fa-plus"></i>&nbsp;Add Attachment</button>
                             </div>
+                            <div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="attachments">
+                            </div>
                         </div>
-                        <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="row col-md-12 col-sm-12 col-xs-12 hide">
                             <div class="form-group col-md-3 col-sm-3 col-xs-3">
                                 <label>ID</label>
                                 <input type="number" class="form-control" readonly name="id_M_N" data-section="Observation" />
