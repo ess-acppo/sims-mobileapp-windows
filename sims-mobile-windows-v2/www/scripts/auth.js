@@ -202,3 +202,21 @@ function derive_key(u, p) {
     };
     mypbkdf2.deriveKey(status_callback, result_callback);
 }
+$('#modalAuth').keypress(function (e) {
+    if (e.which == 13) {
+        var unameValue = document.querySelector('.auth-username').value;
+        var pwdValue = document.querySelector('.auth-password').value;
+
+        s = document.querySelector('.auth-send .fa-spin');
+        s.classList.remove('hide');
+        text = document.querySelector('.auth-result .text');
+        icon = document.querySelector('.auth-result .fa');
+
+        if (statusElem.innerHTML === 'online') {
+            authenticate2(unameValue, pwdValue);
+        }
+        if (statusElem.innerHTML === 'offline') {
+            authenticate3(unameValue, pwdValue);
+        }
+    }
+});

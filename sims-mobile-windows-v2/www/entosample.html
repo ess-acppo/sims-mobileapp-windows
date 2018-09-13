@@ -1,53 +1,59 @@
 ﻿<div class="row col-md-12 col-sm-12 col-xs-12 sample collapsed">
     <i class="fa fa-arrow-circle-up fa-3x text-arrows collapse hide" data-action="collapse"></i>
     <i class="fa fa-arrow-circle-down fa-3x expand text-arrows" data-action="expand"></i>
-    <div class="row col-md-12 col-sm-12 col-xs-12 pl-0 py-0">
-        <div class="form-group col-md-4 col-sm-4 col-xs-12">
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5" data-original-title="1">1</span>
             <label><span class="bold-red">*&nbsp;</span>Sample Field ID </label>
-            <input type="text" class="form-control nextid" placeholder="Sample Field ID" name="SampleFieldLabelText_M_S" data-section="PlantSampleTab">
+            <input type="text" class="form-control nextid" placeholder="Sample Field ID" readonly name="SampleFieldLabelText_M_S" data-section="PlantSampleTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Number Collected </label>
             <input type="text" class="form-control" placeholder="Number Collected" name="CollectedSampleCount_O_N" min="0" max="99999999" maxlength="8" data-section="PlantSampleTab">
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Linked Sample #</label>
             <input type="text" class="form-control" placeholder="Linked Sample #" name="LinkedSampleFieldLabelText_O_S" maxlength="50" data-section="PlantSampleTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Preliminary Taxon ID </label>
-            <input type="number" class="form-control taxonIDS" placeholder="Preliminary ID" name="PrelimTaxonId_O_N" min="0" max="99999999" maxlength="8" data-section="PlantSampleTab">
-        </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
-            <label><span class="bold-red">*&nbsp;</span>Preliminary Taxon Text </label>
-            <input type="text" class="form-control taxonTextES" placeholder="Preliminary ID" name="PrelimTaxonText_M_S" maxlength="50" data-section="PlantSampleTab">
+            <input type="number" class="form-control taxonIDES" placeholder="Preliminary ID" name="PrelimTaxonId_O_N" readonly min="0" max="99999999" maxlength="8" data-section="PlantSampleTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Preliminary Taxon Text </label>
+            <input type="text" class="form-control taxonTextES" placeholder="Preliminary Taxon Text" name="PrelimTaxonText_M_S" maxlength="50" data-section="PlantSampleTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Latitude </label>
             <input type="number" class="form-control samplelat" placeholder="Latitude" name="Latitude" data-section="PlantSampleTab">
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Longitude </label>
             <input type="number" class="form-control samplelng" placeholder="Longitude" name="Longitude" data-section="PlantSampleTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-3 col-sm-3 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Datum</label>
             <select class="form-control sampledat" name="GpsDatumId_M_S" data-section="PlantSampleTab">
                 <option>WGS84</option>
                 <option>GDA94</option>
             </select>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
-            <button class="btn btn-md btn-default getSampleCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button>
+        <div class="form-group col-md-3 col-sm-3 col-xs-12">
+            <button class="btn btn-md btn-info getSampleCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button>
         </div>
         <div class="form-group col-md-11 col-sm-11 col-xs-11 hide">
             <label><span class="bold-red">*&nbsp;</span>Point WKT</label>
@@ -55,46 +61,48 @@
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
-            <label><span class="bold-red">*&nbsp;</span>Time</label>
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Collected DateTime</label>
             <input type="datetime-local" class="form-control" placeholder="Time" name="CollectedDatetime_M_D" step="1" data-section="PlantSampleTab">
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Altitude (Meters)</label>
             <input type="text" class="form-control samplealt" placeholder="Altitude" name="CollectedAltitudeNo_O_N" min="0" max="9999" maxlength="4" data-section="PlantSampleTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Additional Comments</label>
             <textarea class="form-control" rows="6" name="CommentText_O_S" style="height:60px;" maxlength="400" data-section="PlantSampleTab"></textarea>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-6">
-            <input class="mxr-5 minimal" type="checkbox" name="AdditionalCollectorTab" data-section="PlantSampleTab">
+            <input class="mxr-5 minimal" type="checkbox" name="AdditionalCollectorTab" data-section="PlantSampleTab">&nbsp;
             <label>Additional Collectors</label>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12 addlCollectors hide">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <select class="form-control" name="AdditionalCollectorName1_O_S" data-section="PlantSampleTab"></select>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <select class="form-control" name="AdditionalCollectorName2_O_S" data-section="PlantSampleTab"></select>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <select class="form-control" name="AdditionalCollectorName3_O_S" data-section="PlantSampleTab"></select>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12 addlCollectors hide">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <select class="form-control" name="AdditionalCollectorName4_O_S" data-section="PlantSampleTab"></select>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <select class="form-control" name="AdditionalCollectorName5_O_S" data-section="PlantSampleTab"></select>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <select class="form-control" name="AdditionalCollectorName6_O_S" data-section="PlantSampleTab"></select>
         </div>
     </div>
@@ -105,38 +113,38 @@
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Preservation Type</label>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="PlantPreservationTab-W7_O_S" class="minimal" value="W7" maxlength="2" data-section="PlantSampleTab">&nbsp;
             <label>Wet (Ethanol 70-80%)</label>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="PlantPreservationTab-W8_O_S" class="minimal" value="W8" maxlength="2" data-section="PlantSampleTab">&nbsp;
             <label>Wet (Ethanol>80%)</label>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="PlantPreservationTab-RE_O_S" class="minimal" value="RE" maxlength="2" data-section="PlantSampleTab">&nbsp;
             <label>Rearing</label>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="PlantPreservationTab-DR_O_S" class="minimal" value="DR" maxlength="2" data-section="PlantSampleTab">&nbsp;
             <label>Dry</label>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="PlantPreservationTab-FT_O_S" class="minimal" value="FT" maxlength="2" data-section="PlantSampleTab">&nbsp;
             <label>FTA Card</label>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="PlantPreservationTab-O_O_S" class="minimal" value="O" maxlength="2" data-section="PlantSampleTab">&nbsp;
             <label>Other</label>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="text" class="form-control" placeholder="Other Preservation Type" name="PlantPreservOtherText_O_S" maxlength="50" data-section="PlantSampleTab">
         </div>
     </div>
@@ -146,113 +154,121 @@
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-3 col-sm-3 col-xs-12">
             <input type="radio" name="HostFlag_M_S" class="minimal" value="Y" maxlength="1" data-section="PlantSampleTab">&nbsp;
             <label>Host</label>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-3 col-sm-3 col-xs-12">
             <input type="radio" name="HostFlag_M_S" class="minimal" value="N" maxlength="1" data-section="PlantSampleTab">&nbsp;
             <label>Other</label>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Host/Other Taxon Id</label>
-            <input type="number" class="form-control" placeholder="Other Name" name="HostTaxonId_O_N" min="0" max="99999999" maxlength="8" data-section="PlantSampleTab">
-        </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
-            <label>Host/Other Taxon Text</label>
-            <input type="text" class="form-control" placeholder="Other Name" name="HostTaxonText_M_S" maxlength="50" data-section="PlantSampleTab">
+            <input type="number" class="form-control taxonHES" placeholder="Other Name" name="HostTaxonId_O_N" min="0" max="99999999" maxlength="8" data-section="PlantSampleTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label>Host/Other Taxon Text</label>
+            <input type="text" class="form-control taxonTextHES" placeholder="Other Name" name="HostTaxonText_M_S" maxlength="50" data-section="PlantSampleTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Identified By</label>
             <select class="form-control" name="HostIdentifiedUserId_O_N" data-section="PlantSampleTab"></select>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Collection Method</label>
             <select class="form-control" name="EntoCollMethodCode_M_S" data-section="PlantSampleTab"></select>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Plant Part</label>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="PlantPartTab-LE_O_S" class="minimal" value="LE" maxlength="2" data-section="PlantSampleTab">&nbsp;
             <label>Leaves</label>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="PlantPartTab-FL_O_S" class="minimal" value="FL" maxlength="2" data-section="PlantSampleTab">&nbsp;
             <label>Flower</label>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="PlantPartTab-FR_O_S" class="minimal" value="FR" maxlength="2" data-section="PlantSampleTab">&nbsp;
             <label>Fruit</label>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="PlantPartTab-SE_O_S" class="minimal" value="SE" maxlength="2" data-section="PlantSampleTab">&nbsp;
             <label>Seeds</label>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="PlantPartTab-ST_O_S" class="minimal" value="ST" maxlength="2" data-section="PlantSampleTab">&nbsp;
             <label>Stem</label>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="PlantPartTab-SH_O_S" class="minimal" value="SH" maxlength="2" data-section="PlantSampleTab">&nbsp;
             <label>Shoot</label>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="PlantPartTab-RO_O_S" class="minimal" value="RO" maxlength="2" data-section="PlantSampleTab">&nbsp;
             <label>Root</label>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="PlantPartTab-BR_O_S" class="minimal" value="BR" maxlength="2" data-section="PlantSampleTab">&nbsp;
             <label>Branch</label>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="PlantPartTab-TR_O_S" class="minimal" value="TR" maxlength="2" data-section="PlantSampleTab">&nbsp;
             <label>Trunk</label>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>%Infested </label>
             <select class="form-control" name="EntoInfestedPctCode_O_S" data-section="PlantSampleTab"></select>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Damage Level </label>
             <select class="form-control" name="EntoDamageLevelCode_O_S" data-section="PlantSampleTab"></select>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Pest Level </label>
             <select class="form-control" name="EntoPestLevelCode_O_S" data-section="PlantSampleTab"></select>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Life Stage</label>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="EntoLifeStgTab-A_O_S" class="minimal" value="A" maxlength="1" data-section="PlantSampleTab">&nbsp;
             <label>Adult</label>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="EntoLifeStgTab-E_O_S" class="minimal" value="E" maxlength="1" data-section="PlantSampleTab">&nbsp;
             <label>Egg</label>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="EntoLifeStgTab-I_O_S" class="minimal" value="I" maxlength="1" data-section="PlantSampleTab">&nbsp;
             <label>Immature</label>
         </div>
-        <div class="form-group col-md-11 col-sm-11 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="EntoLifeStgTab-P_O_S" class="minimal" value="P" maxlength="1" data-section="PlantSampleTab">&nbsp;
             <label>Pupae</label>
         </div>

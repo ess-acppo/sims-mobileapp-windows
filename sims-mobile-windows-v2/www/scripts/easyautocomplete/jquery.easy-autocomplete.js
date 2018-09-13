@@ -59,8 +59,8 @@ var EasyAutocomplete = (function(scope){
 				match: {
 					enabled: false,
 					caseSensitive: false,
-					method: function(element, phrase) {
-
+                    method: function (element, phrase) {
+                        phrase = phrase.replace('(', '');
 						if (element.search(phrase) > -1) {
 							return true;
 						} else {

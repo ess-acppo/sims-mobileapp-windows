@@ -1652,6 +1652,23 @@ function BindAutoCompleteES(e) {
     };
     e.easyAutocomplete(options);
 }
+function BindAutoCompleteHES(e) {
+    var options = {
+        data: taxaData.taxaEntomology,
+        getValue: "name",
+        list: {
+            match: {
+                enabled: true
+            },
+            onSelectItemEvent: function () {
+                var selectedItemValue = e.getSelectedItemData().id;
+                e.closest('.sample').find("input.taxonHES").val(selectedItemValue);
+            }
+        },
+        adjustWidth: false
+    };
+    e.easyAutocomplete(options);
+}
 function BindAutoCompletePS(e) {
     var options = {
         data: taxaData.taxaPathology,
@@ -1663,6 +1680,23 @@ function BindAutoCompletePS(e) {
             onSelectItemEvent: function () {
                 var selectedItemValue = e.getSelectedItemData().id;
                 e.closest('.sample').find("input.taxonIDPS").val(selectedItemValue);
+            }
+        },
+        adjustWidth: false
+    };
+    e.easyAutocomplete(options);
+}
+function BindAutoCompleteHPS(e) {
+    var options = {
+        data: taxaData.taxaPathology,
+        getValue: "name",
+        list: {
+            match: {
+                enabled: true
+            },
+            onSelectItemEvent: function () {
+                var selectedItemValue = e.getSelectedItemData().id;
+                e.closest('.sample').find("input.taxonHPS").val(selectedItemValue);
             }
         },
         adjustWidth: false
@@ -1987,6 +2021,18 @@ $(document).on('click', '#addBotanySample', function (e) {
             return;
         }
     }
+    if (!addlObservers) {
+        addlObservers = '<option value="NONE">- select -</option>';
+        for (i = 1; i < 6; i++) {
+            var x = $('#form1').find("input[type='text'][name^='AdditionalObserverName" + i + "']").val();
+            if (x !== "") {
+                var option1 = '<option';
+                option1 = option1 + ' value="' + i + '">';
+                option1 = option1 + x + "</option>";
+                addlObservers = addlObservers + option1;
+            }
+        }
+    }
     bsamples = bsamples + 1;
     var that = $(botSample);
     that.find("input[type='checkbox']").iCheck({
@@ -2047,6 +2093,18 @@ $(document).on('click', '#addEntoSample', function (e) {
             return;
         }
     }
+    if (!addlObservers) {
+        addlObservers = '<option value="NONE">- select -</option>';
+        for (i = 1; i < 6; i++) {
+            var x = $('#form1').find("input[type='text'][name^='AdditionalObserverName" + i + "']").val();
+            if (x !== "") {
+                var option1 = '<option';
+                option1 = option1 + ' value="' + i + '">';
+                option1 = option1 + x + "</option>";
+                addlObservers = addlObservers + option1;
+            }
+        }
+    }
     esamples = esamples + 1;
     var that = $(entosample);
     that.find("input[type='checkbox']").iCheck({
@@ -2082,6 +2140,7 @@ $(document).on('click', '#addEntoSample', function (e) {
     $('#samples').append(that);
     $('#numSamples').text(esamples);
     BindAutoCompleteES(that.find('.taxonTextES'));
+    BindAutoCompleteHES(that.find('.taxonTextHES'));
 })
 $(document).on('click', '.removeEntoSample', function (e) {
     var x = $(this);
@@ -2109,6 +2168,18 @@ $(document).on('click', '#addPathSample', function (e) {
         if (sampleLat == null || sampleLat == 0 || sampleLng == null || sampleLng == 0 || sampleTime == null || sampleTime == '' || samplePrelimID == null || samplePrelimID == '') {
             $.growl.warning({ title: "Error", message: errString, location: "bc", size: "large" });
             return;
+        }
+    }
+    if (!addlObservers) {
+        addlObservers = '<option value="NONE">- select -</option>';
+        for (i = 1; i < 6; i++) {
+            var x = $('#form1').find("input[type='text'][name^='AdditionalObserverName" + i + "']").val();
+            if (x !== "") {
+                var option1 = '<option';
+                option1 = option1 + ' value="' + i + '">';
+                option1 = option1 + x + "</option>";
+                addlObservers = addlObservers + option1;
+            }
         }
     }
     psamples = psamples + 1;
@@ -2144,6 +2215,7 @@ $(document).on('click', '#addPathSample', function (e) {
     $('#samples').append(that);
     $('#numSamples').text(psamples);
     BindAutoCompletePS(that.find('.taxonTextPS'));
+    BindAutoCompleteHPS(that.find('.taxonTextHPS'));
 })
 $(document).on('click', '.removePathSample', function (e) {
     var x = $(this);
