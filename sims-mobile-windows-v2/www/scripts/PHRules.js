@@ -22,6 +22,7 @@ var cWkt;
 var vError = 0;
 var vErrDescription = [];
 var vFailed = false;
+var CountListFlag = 0;
 var HostStatCountFlag = 0;
 var HostStatAreaFlag = 0;
 var PathTargetObservedCodeFlag = 0;
@@ -1224,7 +1225,7 @@ function loadModal(pagename) {
                     //console.timeEnd('load Modal 6');
                 });
                 $('#form1').find("input[type='text'][name^='id']").val(curIdx);
-                $('#form1').find("input[type='text'][name='TimeHourCount_M_N']").inputmask("99:99");
+                $('#form1').find("input[type='text'][name='TimeHourCount_M_S']").inputmask("99:99");
                 //$('#form1').find("input[type='text'][name='track_id']").val(curIdx);
                 //$('#form1').find("input[type='text'][name='age']").inputmask("99:99");
                 $('.nextid').text('');
@@ -1257,8 +1258,8 @@ function loadModal(pagename) {
                 //$('#form1').find("input[type='text'][name^='track_id']").val(results.observations.length + 1);
                 $('#form1').find("input[type='number'][name^='status']").val("0");
                 $('#form1').find("input[type='text'][name^='PlantDisciplineCode']").val(curDiscipline);
-                $('#form1').find("input[type='number'][name^='SubmittedByStaffId']").val(resSettings.device.ownerId);
-                $('#form1').find("input[type='text'][name='TimeHourCount_M_N']").inputmask("99:99");
+                $('#form1').find("input[type='number'][name^='SubmittedByStaffId']").val(resSettings.settings.device.ownerId);
+                $('#form1').find("input[type='text'][name='TimeHourCount_M_S']").inputmask("99:99");
                 //$('#form1').find("input[type='text'][name='age']").inputmask("99:99");
                 $('.nextid').text('');
             }
@@ -1276,6 +1277,8 @@ function objectifyPHFormforSave(formArray) {
     var obsAttachment = 1;
     var sampleAttachment = 1;
     var observation = {};
+    var timehourcountS = $('#form1').find('input[name="TimeHourCount_M_S"]').val();
+    if (timehourcountS !== '') { $('#form1').find('input[name="TimeHourCount_M_N"]').val(getTimefromString(timehourcountS)); }
     for (var i = 0; i < formArray.length; i++) {
         if (formArray[i]['name'].length > 0) {
             if (formArray[i]['name'].startsWith('AdditionalCollectorTab')) { continue; }
@@ -1489,6 +1492,7 @@ function objectifyPHFormforSave(formArray) {
 }
 function objectifyPHFormforSubmit(data) {//serialize data function
     var modData = JSON.parse(JSON.stringify(data));
+    delete modData.TimeHourCount_M_S;
     var jsonStr = JSON.stringify(modData);
     jsonStr = jsonStr.replace(/_O_N_\d_T/g, '').replace(/_M_S_\d_T/g, '').replace(/_O_S_\d_T/g, '').replace(/_M_N_\d_H/g, '').replace(/_M_S_\d_H/g, '').replace(/_O_S_\d_H/g, '').replace(/_O_N_\d_H/g, '');
     jsonStr = jsonStr.replace(/_M_S_\d_S/g, '').replace(/_O_N_\d_S/g, '').replace(/_M_S_\d_S/g, '').replace(/_M_D_\d_S/g, '').replace(/_O_S_\d_S/g, '');
@@ -1539,7 +1543,7 @@ function objectifyPHFormforSubmit(data) {//serialize data function
 }
 function Iterate(data) {
     var modData = JSON.parse(JSON.stringify(data));
-    delete modData.status_M_N;
+    //if (modData && modData.status_M_N) { delete modData.status_M_N; }
     $.each(modData, function (index, value) {
         if (typeof value == 'object') {
             if (index == 'PlantObsTab' && value.length == 0) {
@@ -1564,9 +1568,10 @@ function Iterate(data) {
                 var fNSD = index.split("_")[2];
                 var fnum = index.split("_")[3];
                 var ftype = index.split("_")[4];
+                if (fname == 'CountList') { CountListFlag = value; }
                 if (fname == 'HostStatCount' && value == 0) { HostStatCountFlag = 1; }
                 if (fname == 'TargetObservedCode' && value == 'N') { PathTargetObservedCodeFlag = 1; }
-                if (fname == 'HostStatAreaNo' && value == 0 && HostStatCountFlag == 1) {
+                if (fname == 'HostStatAreaNo' && value == 0 && HostStatCountFlag == 1 && CountListFlag == 'Count') {
                     //console.log('HostStatCount and Area fields - both cannot be NULL');
                     vError = 1;
                     vErrDescription.push('HostStatCount and Area fields - both cannot be NULL');
@@ -1595,6 +1600,7 @@ function Iterate(data) {
                     return false;
                 }
                 if (fMOC == 'M' && fNSD == 'N' && value == 0) {
+                    if (fname == 'status') return true;
                     if (fname == 'HostStatCount') return true;
                     if (fname == 'HostStatAreaNo') return true;
                     //console.log(index + ' field cannot be NULL');
@@ -1873,7 +1879,7 @@ $(document).on('click', "#addEntoHost", function () {
         radioClass: 'iradio_square-blue'
     });
     that1.find('select[name^="PlantStatisticType"]').find('option').remove().end().append($(statType));
-    that1.find('select[name^="PlantLifeStgCode"]').find('option').remove().end().append($(plifeStage));
+    that1.find('select[name^="EntoLifeStgCode"]').find('option').remove().end().append($(elifeStage));
     that1.find('select[name^="PlantObsMethodCode"]').find('option').remove().end().append($(MoB));
     that1.find('input').each(function () {
         $(this).attr('name', $(this).attr('name') + '_' + Idx + '_H');
@@ -1931,6 +1937,7 @@ $(document).on('click', "[data-action=addEntoTarget]", function () {
     that1.find('.badge-target').text(Idx * 1);
     that1.insertAfter(that);
     numEntoTargets++;
+    BindAutoCompleteET(that1.find('.taxonTextET'));
 })
 $(document).on('click', "#addPathHost", function () {
     var Idx = numPathHosts;
@@ -1998,6 +2005,7 @@ $(document).on('click', "[data-action=addPathTarget]", function () {
     that1.find('.badge-target').text(Idx * 1);
     that1.insertAfter(that);
     numPathTargets++;
+    BindAutoCompletePT(that1.find('.taxonTextPT'));
 })
 $(document).on('click', "[data-action=removePlant]", function () {
     var x = $(this);
@@ -2978,3 +2986,9 @@ $(document).on('click', ".removePlantAttachment", function () {
         });
     }
 });
+function getTimefromString(strTime) {
+    var hh = strTime.substr(0, 2);
+    var mm = Number(strTime.substr(3, 2));
+    var res = (hh * 1) + (mm / 60);
+    return res.toFixed(2);
+}
