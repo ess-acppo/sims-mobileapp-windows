@@ -42,7 +42,7 @@ function authenticate(x, y) {
             "username": x,
             "password": y
         }
-    }
+    };
 
     $.ajax(settings).done(function (response) {
         //alert(JSON.stringify(response));
@@ -73,7 +73,7 @@ function authenticate2(x, y) {
             "authorization": "Basic " + btoa(x + ":" + y),
             "cache-control": "no-cache"
         }
-    }
+    };
     $.ajax(settings).done(function (response) {
         //alert(JSON.stringify(response));
         s.classList.add('hide');

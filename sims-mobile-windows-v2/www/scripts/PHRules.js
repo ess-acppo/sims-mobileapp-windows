@@ -1224,6 +1224,7 @@ function loadModal(pagename) {
                     //console.timeEnd('load Modal 6');
                 });
                 $('#form1').find("input[type='text'][name^='id']").val(curIdx);
+                $('#form1').find("input[type='text'][name='TimeHourCount_M_N']").inputmask("99:99");
                 //$('#form1').find("input[type='text'][name='track_id']").val(curIdx);
                 //$('#form1').find("input[type='text'][name='age']").inputmask("99:99");
                 $('.nextid').text('');
@@ -1249,14 +1250,15 @@ function loadModal(pagename) {
                     getAltitude();
                 }
                 $('#form1').find("input[type='date'][name^='ObservationDatetime']").val(today);
-                $('#form1').find("input[type='number'][name^='TimeHourCount']").val("0");
+                //$('#form1').find("input[type='number'][name^='TimeHourCount']").val("0");
                 if (results.observations.length == 0) {
                     $('#form1').find("input[type='number'][name^='id']").val(1);
                 } else { $('#form1').find("input[type='number'][name^='id']").val(results.observations[results.observations.length - 1].id_M_N + 1); }
                 //$('#form1').find("input[type='text'][name^='track_id']").val(results.observations.length + 1);
                 $('#form1').find("input[type='number'][name^='status']").val("0");
                 $('#form1').find("input[type='text'][name^='PlantDisciplineCode']").val(curDiscipline);
-                $('#form1').find("input[type='number'][name^='SubmittedByStaffId']").val("2");
+                $('#form1').find("input[type='number'][name^='SubmittedByStaffId']").val(resSettings.device.ownerId);
+                $('#form1').find("input[type='text'][name='TimeHourCount_M_N']").inputmask("99:99");
                 //$('#form1').find("input[type='text'][name='age']").inputmask("99:99");
                 $('.nextid').text('');
             }
