@@ -12,6 +12,8 @@
         "activeFlag": 0,
         "downloaded": 0,
         "lastDownloadDate": "",
+        "numfiles": 0,
+        "format": "jpg",
         "mapCenter": {
           "lat": "-35.30873",
           "lng": "149.124412"
@@ -34,6 +36,8 @@
         "activeFlag": 0,
         "downloaded": 0,
         "lastDownloadDate": "09/09/1900",
+        "numfiles": 22,
+        "format": "png",
         "mapCenter": {
           "lat": "-5.95452",
           "lng": "144.60374"
@@ -56,6 +60,8 @@
         "activeFlag": 0,
         "downloaded": 0,
         "lastDownloadDate": "09/09/1900",
+        "numfiles": 0,
+        "format": "jpg",
         "mapCenter": {
           "lat": "-8.79854",
           "lng": "125.83805"
@@ -78,6 +84,8 @@
         "activeFlag": 1,
         "downloaded": 0,
         "lastDownloadDate": "09/09/1900",
+        "numfiles": 31,
+        "format": "jpg",
         "mapCenter": {
           "lat": "-35.267905",
           "lng": "149.130706"

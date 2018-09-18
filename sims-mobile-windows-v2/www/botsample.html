@@ -1,6 +1,7 @@
 ﻿<div class="row col-md-12 col-sm-12 col-xs-12 sample collapsed">
-    <i class="fa fa-arrow-circle-up fa-3x text-arrows collapse hide" data-action="collapse"></i>
-    <i class="fa fa-arrow-circle-down fa-3x expand text-arrows" data-action="expand"></i>
+    <a href="#" class="btn btn-md btn-default text-arrows collapse hide" data-action="collapse"><i class="fa fa-arrow-up"></i></a>
+    <a href="#" class="btn btn-md btn-default text-arrows expand" data-action="expand"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" class="btn btn-md btn-danger text-arrows-2 removeBotSample"><i class="fa fa-remove"></i></a>
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5" data-original-title="1">1</span>
@@ -11,7 +12,7 @@
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Number Collected </label>
-            <input type="number" class="form-control" placeholder="Number Collected" name="CollectedSampleCount_O_N" min="0" max="99999999" maxlength="8" data-section="PlantSampleTab">
+            <input type="number" class="form-control" placeholder="Number Collected" name="CollectedSampleCount_O_N" min="1" max="99999999" maxlength="8" data-section="PlantSampleTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
@@ -23,7 +24,7 @@
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Preliminary Taxon ID </label>
-            <input type="number" class="form-control taxonIDBS" placeholder="Preliminary ID" name="PrelimTaxonId_O_N" readonly min="0" max="99999999" maxlength="8" data-section="PlantSampleTab">
+            <input type="number" class="form-control taxonIDBS" placeholder="Preliminary ID" name="PrelimTaxonId_O_N" readonly min="1" max="99999999" maxlength="8" data-section="PlantSampleTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
@@ -69,7 +70,7 @@
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Altitude (Meters)</label>
-            <input type="number" class="form-control samplealt" placeholder="Altitude" name="CollectedAltitudeNo_O_N" min="0" max="9999" maxlength="4" data-section="PlantSampleTab">
+            <input type="number" class="form-control samplealt" placeholder="Altitude" name="CollectedAltitudeNo_O_N" min="1" max="9999" maxlength="4" data-section="PlantSampleTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
@@ -187,11 +188,6 @@
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
             <input type="hidden" name="EndOfSample_O_S" class="minimal" maxlength="1" data-section="PlantSampleTab">&nbsp;&nbsp;
-        </div>
-    </div>
-    <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-            <a href="#" class="text-danger removeBotSample">Delete</a>
         </div>
     </div>
 </div>

@@ -1,11 +1,12 @@
 ﻿<div class="row col-md-12 col-sm-12 col-xs-12 entobox collapsed">
-    <i class="fa fa-arrow-circle-up fa-3x text-arrows collapse hide" data-action="collapse"></i>
-    <i class="fa fa-arrow-circle-down fa-3x expand text-arrows" data-action="expand"></i>
-    <div class="row col-md-12 col-sm-12 col-xs-12">
+    <a href="#" class="btn btn-md btn-default text-arrows collapse hide" data-action="collapse"><i class="fa fa-arrow-up"></i></a>
+    <a href="#" class="btn btn-md btn-default text-arrows expand" data-action="expand"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" class="btn btn-md btn-danger text-arrows-2 removeEntoHost"><i class="fa fa-remove"></i></a>
+    <div class="row col-md-11 col-sm-11 col-xs-11">
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
             <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5" data-original-title="1">1</span>
             <label><span class="bold-red">*&nbsp;</span>Taxon ID</label>
-            <input type="number" class="form-control taxonIDE" placeholder="Taxon ID" name="PlantTaxonId_O_N" readonly min="0" max="99999999" maxlength="8">
+            <input type="number" class="form-control taxonIDE" placeholder="Taxon ID" name="PlantTaxonId_O_N" readonly min="1" max="99999999" maxlength="8">
         </div>
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Host Name</label>
@@ -113,7 +114,7 @@
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
             <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5 badge-target" data-original-title="1">1</span>
             <label>Target Taxon Id</label>
-            <input type="number" name="TargetTaxonId_O_N" class="input-sm form-control taxonIDET" placeholder="Target Taxon ID" readonly min="0" max="99999999" maxlength="8" data-section="PlantObsTargetTab">
+            <input type="number" name="TargetTaxonId_O_N" class="input-sm form-control taxonIDET" placeholder="Target Taxon ID" readonly min="1" max="99999999" maxlength="8" data-section="PlantObsTargetTab">
         </div>
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Target Taxon Name</label>
@@ -121,22 +122,22 @@
         </div>
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
             <label>Target Count</label>
-            <input type="text" name="TargetCount_O_N" class="input-sm form-control" placeholder="Target Count" min="0" max="99999999" maxlength="8" data-section="PlantObsTargetTab">
+            <input type="text" name="TargetCount_O_N" class="input-sm form-control" placeholder="Target Count" min="1" max="99999999" maxlength="8" data-section="PlantObsTargetTab">
         </div>
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
-            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optA" value="A" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
+            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optA" value="A" data-validate="Y" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
             <label>Not Observed</label>
         </div>
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
-            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optP" value="P" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
+            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optP" value="P" data-validate="Y" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
             <label>Present</label>
         </div>
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
-            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optS" value="S" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
+            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optS" value="S" data-validate="Y" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
             <label>Suspected</label>
         </div>
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
-            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optND" value="N" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
+            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optND" value="N" data-validate="Y" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
             <label>Not Done</label>
         </div>
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
@@ -145,7 +146,7 @@
         </div>
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
             <button class="btn btn-md btn-default pull-right" data-action="addEntoTarget"><i class="fa fa-plus text-info"></i>&nbsp;Add Target</button>
-            <a href="#" class="text-danger" data-action="removeEntoTarget">Delete</a>
+            <a href="#" class="btn btn-sm btn-danger" data-action="removeEntoTarget">Delete</a>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
@@ -158,11 +159,6 @@
             </div>
         </div>
         <div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="PlantObsAttachments">
-        </div>
-    </div>
-    <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-            <a href="#" class="text-danger removeEntoHost" data-action="removeEntoHost">Delete</a>
         </div>
     </div>
 </div>

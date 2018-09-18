@@ -1149,9 +1149,15 @@ div.dataTables_filter {
 }
 
 .text-arrows {
-    color: #ddd;
     position: absolute;
     right: 5px;
+    top: 5px;
+    cursor: pointer;
+}
+
+.text-arrows-2 {
+    position: absolute;
+    right: 50px;
     top: 5px;
     cursor: pointer;
 }

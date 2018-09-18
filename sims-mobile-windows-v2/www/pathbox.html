@@ -1,11 +1,12 @@
 ﻿<div class="row col-md-12 col-sm-12 col-xs-12 pathbox collapsed">
-    <i class="fa fa-arrow-circle-up fa-3x text-arrows collapse hide" data-action="collapse"></i>
-    <i class="fa fa-arrow-circle-down fa-3x expand text-arrows" data-action="expand"></i>
-    <div class="row col-md-12 col-sm-12 col-xs-12">
+    <a href="#" class="btn btn-md btn-default text-arrows collapse hide" data-action="collapse"><i class="fa fa-arrow-up"></i></a>
+    <a href="#" class="btn btn-md btn-default text-arrows expand" data-action="expand"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" class="btn btn-md btn-danger text-arrows-2 removePathHost"><i class="fa fa-remove"></i></a>
+    <div class="row col-md-11 col-sm-11 col-xs-11">
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
             <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5" data-original-title="1">1</span>
             <label><span class="bold-red">*&nbsp;</span>Taxon ID</label>
-            <input type="number" class="form-control taxonIDP" placeholder="Taxon ID" readonly name="PlantTaxonId_O_N" min="0" max="99999999" maxlength="8">
+            <input type="number" class="form-control taxonIDP" placeholder="Taxon ID" readonly name="PlantTaxonId_O_N" min="1" max="99999999" maxlength="8">
         </div>
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Host Name</label>
@@ -88,7 +89,7 @@
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
             <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5 badge-target" data-original-title="1">1</span>
             <label>Target Taxon ID</label>
-            <input type="number" name="TargetTaxonId_O_N" class="input-sm form-control taxonIDPT" placeholder="Target Taxon ID" readonly min="0" max="99999999" maxlength="8" data-section="PlantObsTargetTab">
+            <input type="number" name="TargetTaxonId_O_N" class="input-sm form-control taxonIDPT" placeholder="Target Taxon ID" readonly min="1" max="99999999" maxlength="8" data-section="PlantObsTargetTab">
         </div>
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Target Taxon Name</label>
@@ -96,22 +97,22 @@
         </div>
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
             <label>Target Count</label>
-            <input type="text" name="TargetCount_O_N" class="input-sm form-control" placeholder="Target Count" min="0" max="99999999" maxlength="8" data-section="PlantObsTargetTab">
+            <input type="text" name="TargetCount_O_N" class="input-sm form-control" placeholder="Target Count" min="1" max="99999999" maxlength="8" data-section="PlantObsTargetTab">
         </div>
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
-            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optA" value="A" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
+            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optA" value="A" data-validate="Y" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
             <label>Not Observed</label>
         </div>
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
-            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optP" value="P" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
+            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optP" value="P" data-validate="Y" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
             <label>Present</label>
         </div>
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
-            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optS" value="S" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
+            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optS" value="S" data-validate="Y" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
             <label>Suspected</label>
         </div>
         <div class="form-group col-md-3 col-sm-3 col-xs-3">
-            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optND" value="N" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
+            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optND" value="N" data-validate="Y" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
             <label>Not Done</label>
         </div>
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
@@ -120,7 +121,7 @@
         </div>
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
             <button class="btn btn-md btn-default pull-right" data-action="addPathTarget"><i class="fa fa-plus text-info"></i>&nbsp;Add Target</button>
-            <a href="#" class="text-danger" data-action="removePathTarget">Delete</a>
+            <a href="#" class="btn btn-sm btn-danger" data-action="removePathTarget">Delete</a>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
@@ -135,9 +136,142 @@
         <div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="PlantObsAttachments">
         </div>
     </div>
-    <div class="row col-md-12 col-sm-12 col-xs-12 ">
+</div><div class="row col-md-12 col-sm-12 col-xs-12 pathbox collapsed">
+    <a href="#" class="btn btn-md btn-default text-arrows collapse hide" data-action="collapse"><i class="fa fa-arrow-up"></i></a>
+    <a href="#" class="btn btn-md btn-default text-arrows expand" data-action="expand"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" class="btn btn-md btn-danger text-arrows-2 removePathHost"><i class="fa fa-remove"></i></a>
+    <div class="row col-md-11 col-sm-11 col-xs-11">
+        <div class="form-group col-md-3 col-sm-3 col-xs-12">
+            <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5" data-original-title="1">1</span>
+            <label><span class="bold-red">*&nbsp;</span>Taxon ID</label>
+            <input type="number" class="form-control taxonIDP" placeholder="Taxon ID" readonly name="PlantTaxonId_O_N" min="1" max="99999999" maxlength="8">
+        </div>
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Host Name</label>
+            <input type="text" class="form-control taxonTextP" placeholder="Host Name" name="PlantTaxonText_M_S" data-section="PlantObsTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Statistic Type</label>
+            <select class="form-control select2" name="PlantStatisticType" data-section="PlantObsTab"></select>
+        </div>
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Count/Area</label>&nbsp;<span data-toggle="tooltip" title="2" class="badge bg-grey" data-original-title="2">1</span>
+            <br />
+            <button type="button" class="btn btn-md btn-default qtyminus"><i class="fa fa-minus"></i></button>
+            <input type="number" class="qty count" name="HostStatCount_M_N" min="0" max="99999999" maxlength="8" value="0" data-section="PlantObsTab">
+            <input type="number" class="qty area hide" name="HostStatAreaNo_M_N" min="0" max="99999999" maxlength="8" value="0" data-section="PlantObsTab">
+            <button type="button" class="btn btn-md btn-default qtyplus"><i class="fa fa-plus"></i></button>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <input type="checkbox" name="CheckFutureSurveyFlag_O_S" maxlength="1" class="minimal" data-section="PlantObsTab">&nbsp;
+            <label>Flag</label>
+        </div>
+    </div>
+    <div class="row col-md-6 col-sm-6 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <input type="checkbox" name="ExternalPhotoExistFlag_O_S" maxlength="1" class="minimal" data-section="PlantObsTab">&nbsp;
+            <label>External Photo</label>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label><span class="bold-red">*&nbsp;</span>Method of Observation</label>
+            <select class="form-control" name="PlantObsMethodCode_M_S" data-section="PlantObsTab"></select>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label>Notes</label>
+            <textarea class="form-control" rows="6" name="CommentText_O_S" style="height:60px;" maxlength="400" data-section="PlantObsTab"></textarea>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label>Life Stage</label>
+            <select class="form-control select2" name="PlantLifeStgCode_O_S" style="width: 100%;" data-section="PlantObsTab"></select>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label>Latitude</label>
+            <input type="number" class="form-control pathlat" name="Latitude" placeholder="Latitude" data-section="PlantObsTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label>Longitude</label>
+            <input type="number" class="form-control pathlng" name="Longitude" placeholder="Longitude" data-section="PlantObsTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-3 col-sm-3 col-xs-12">
+            <label>Datum</label>
+            <select class="form-control pathdat" name="GpsDatumId_O_S" data-section="PlantObsTab">
+                <option>WGS84</option>
+                <option>GDA94</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3 col-sm-3 col-xs-12">
+            <button class="btn btn-md btn-info getPathHostCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button>
+        </div>
+        <div class="form-group col-md-6 col-sm-6 col-xs-12 hide">
+            <label><span class="bold-red">*&nbsp;</span>Point WKT</label>
+            <input type="text" class="form-control" readonly name="LocationPointWktClob_O_S" data-section="PlantObsTab">
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12 bg-target pathtarget">
+        <div class="form-group col-md-3 col-sm-3 col-xs-12">
+            <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5 badge-target" data-original-title="1">1</span>
+            <label>Target Taxon ID</label>
+            <input type="number" name="TargetTaxonId_O_N" class="input-sm form-control taxonIDPT" placeholder="Target Taxon ID" readonly min="1" max="99999999" maxlength="8" data-section="PlantObsTargetTab">
+        </div>
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label>Target Taxon Name</label>
+            <input type="text" name="TargetTaxonText_M_S" class="input-sm form-control taxonTextPT" placeholder="Target Taxon Text" maxlength="50" data-section="PlantObsTargetTab">
+        </div>
+        <div class="form-group col-md-3 col-sm-3 col-xs-12">
+            <label>Target Count</label>
+            <input type="text" name="TargetCount_O_N" class="input-sm form-control" placeholder="Target Count" min="1" max="99999999" maxlength="8" data-section="PlantObsTargetTab">
+        </div>
+        <div class="form-group col-md-3 col-sm-3 col-xs-12">
+            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optA" value="A" data-validate="Y" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
+            <label>Not Observed</label>
+        </div>
+        <div class="form-group col-md-3 col-sm-3 col-xs-12">
+            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optP" value="P" data-validate="Y" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
+            <label>Present</label>
+        </div>
+        <div class="form-group col-md-3 col-sm-3 col-xs-12">
+            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optS" value="S" data-validate="Y" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
+            <label>Suspected</label>
+        </div>
+        <div class="form-group col-md-3 col-sm-3 col-xs-3">
+            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optND" value="N" data-validate="Y" maxlength="1" data-section="PlantObsTargetTab">&nbsp;
+            <label>Not Done</label>
+        </div>
+        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label>Comments</label>
+            <input type="text" name="CommentText_O_S" class="input-sm form-control" placeholder="Comments" maxlength="400" data-section="PlantObsTargetTab">
+        </div>
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
-            <a href="#" class="text-danger removePathHost" data-action="removePathHost">Delete</a>
+            <button class="btn btn-md btn-default pull-right" data-action="addPathTarget"><i class="fa fa-plus text-info"></i>&nbsp;Add Target</button>
+            <a href="#" class="btn btn-sm btn-danger" data-action="removePathTarget">Delete</a>
+        </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="row col-md-12 col-sm-12 col-xs-12 pr-0">
+            <hr />
+        </div>
+        <div class="row col-md-12 col-sm-12 col-xs-12 pr-0">
+            <div class="form-group col-md-12 col-sm-12 col-xs-12 text-center">
+                <button type="button" class="btn btn-md btn-info" id="addPlantObsAttachment"><i class="fa fa-plus"></i>&nbsp;Add Attachment</button>
+            </div>
+        </div>
+        <div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="PlantObsAttachments">
         </div>
     </div>
 </div>
