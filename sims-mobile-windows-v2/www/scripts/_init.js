@@ -14,6 +14,7 @@ var db = null;
 var markers = [];
 var markerCluster;
 var table;
+var curPos;
 var curIdx;
 var curLat;
 var curLng;
@@ -636,6 +637,10 @@ function downloadCSV() {
 function launchModal(e, f) {
     curIdx = e;
     curDiscipline = f;
+    var arr = results.observations.filter(function (index, el) {
+        if (el.id_M_N === e) { curPos = index; }
+        return (el.id_M_N === e);
+    });
     switch (f) {
         case 0:
             loadModal('mo_sngObservation');
@@ -1248,7 +1253,7 @@ $(document).on('click', '#Delete', function (e) {
         content: 'Do you want to delete this observation?',
         buttons: {
             Ok: function () {
-                results.observations.splice(curIdx - 1, 1);
+                results.observations.splice(curPos, 1);
                 db.transaction(function (tx) {
                     tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
                         //alert("Dataset updated.");
@@ -1282,6 +1287,7 @@ $(document).on('click', '#srchPHTable tbody tr', function () {
     var d = table.row(this).data();
     curIdx = d.id_M_N;
     curDiscipline = d.PlantDisciplineCode_M_S;
+    curPos = table.row(this).index();
     $.ajax({
         url: "",
         beforeSend: function (xhr) {
@@ -1654,7 +1660,7 @@ $(document).on('click', '.obsForm', function (e) {
     $(this).addClass('bg-Obs');
     curDiscipline = $(this).find('input[type=radio][name="optObs"]').attr('data-discipline');
     $(this).find('input[type="radio"].minimal').iCheck('check');
-})
+});
 $(document).on('click', '#showFormPH', function (e) {
     var zi;
     var formName = $("input[name='optObs']:checked").val();
@@ -1665,20 +1671,20 @@ $(document).on('click', '#showFormPH', function (e) {
         $('#modalForm').modal();
         $('#modalPHMenu').modal('hide');
     }
-})
+});
 $(document).on('hidden.bs.modal', '#modalForm', function () {
     if (newMarker && (curIdx === -1 || curIdx === -2)) {
         newMarker.setMap(null);
     }
-})
+});
 $(document).on('hidden.bs.modal', '#modalPHMenu', function () {
     if (newMarker && (curIdx === -1 || curIdx === -2)) {
         newMarker.setMap(null);
     }
-})
+});
 $(document).on('click', '#btnData', function () {
     $('#postedData').toggleClass('hide');
-})
+});
 $(document).on('change', 'input:checkbox', function (e) {
     e.preventDefault();
     if ($(this).is(":checked")) {
@@ -1686,7 +1692,7 @@ $(document).on('change', 'input:checkbox', function (e) {
     } else {
         $(this).val('N');
     }
-})
+});
 $(document).on('click', '#newObservation', function () {
     curIdx = -2;
     switch (AppMode) {
@@ -1702,14 +1708,14 @@ $(document).on('click', '#newObservation', function () {
             $('#modalPHMenu').modal();
             $('#modalPHGrid').modal('hide');
             break;
-    };
-})
+    }
+});
 $(document).on('click', 'a.btnBackupData', function (e) {
     backupDatabase();
-})
+});
 $(document).on('click', 'a.btnRestoreData', function (e) {
     restoreDatabase();
-})
+});
 function xmlToJson(xml) {
     // Create the return object
     var obj = {};
@@ -1764,4 +1770,4 @@ function sortObject(o) {
 }
 String.prototype.escapeSpecialChars = function () {
     return this.replace(/\\"/g, '\\"').replace('image\/jpeg', 'image/jpeg');
-}
+};

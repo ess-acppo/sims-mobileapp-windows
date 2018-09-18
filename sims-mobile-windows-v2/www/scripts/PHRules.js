@@ -604,7 +604,7 @@ function loadModal(pagename) {
                         $('#form1').find("input[type='number'][name='Longitude']").val(wkt.toJson().coordinates[0]);
                         $('#form1').find("input[type='number'][name='Latitude']").val(wkt.toJson().coordinates[1]);
                     }
-                    if (key == "AdditionalObserverTab" && value.length > 0) {
+                    if (key === "AdditionalObserverTab" && value.length > 0) {
                         $('#form1').find("input[type='checkbox'][name='AdditionalObserverTab']").iCheck('check');
                         addlObservers = '<option value="NONE">- select -</option>';
                         $.each(value, function (key1, value1) {
@@ -616,7 +616,7 @@ function loadModal(pagename) {
                             addlObservers = addlObservers + option1;
                         });
                     }
-                    if (key == "PlantObsTab" && curDiscipline == "B" && value.length > 0) {
+                    if (key === "PlantObsTab" && curDiscipline == "B" && value.length > 0) {
                         $.each(value, function (key1, value1) {
                             $.ajax({
                                 url: "",
@@ -1361,8 +1361,8 @@ function objectifyPHFormforSubmit(data) {//serialize data function
     var jsonData = JSON.parse(jsonStr);
     if (jsonData.WaypointNumber === 0) { delete jsonData.WaypointNumber; }
     if (jsonData.AltitudeNo === 0) { delete jsonData.AltitudeNo; }
-    if (jsonData.AdditionalObserverTab.length === 0) { delete jsonData.AdditionalObserverTab };
-    if (jsonData.attachments.attachment.length === 0) { delete jsonData.attachments };
+    if (jsonData.AdditionalObserverTab.length === 0) { delete jsonData.AdditionalObserverTab; }
+    if (jsonData.attachments.attachment.length === 0) { delete jsonData.attachments; }
     if (jsonData.PlantSampleTab.length === 0) { delete jsonData.PlantSampleTab; }
     else {
             $.each(jsonData.PlantSampleTab, function (i, item) {
@@ -3215,21 +3215,22 @@ function loadSiteData(str) {
         });
 }
 function getTaxonText(id) {
+    var arr;
     switch (curDiscipline) {
         case 'B':
-            var arr = taxaData.taxaBotany.filter(function (el) {
+            arr = taxaData.taxaBotany.filter(function (el) {
                 return (el.id === id);
             });
             if (arr.length > 0) { return arr[0].name; }
             break;
         case 'E':
-            var arr = taxaData.taxaEntomology.filter(function (el) {
+            arr = taxaData.taxaEntomology.filter(function (el) {
                 return (el.id === id);
             });
             if (arr.length > 0) { return arr[0].name; } 
             break;
         case 'P':
-            var arr = taxaData.taxaPathology.filter(function (el) {
+            arr = taxaData.taxaPathology.filter(function (el) {
                 return (el.id === id);
             });
             if (arr.length > 0) { return arr[0].name; }
