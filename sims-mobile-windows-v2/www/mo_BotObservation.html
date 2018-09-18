@@ -35,7 +35,7 @@
                         <div class="row col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group col-md-3 col-sm-3 col-xs-3 hide">
                                 <label>Submitting Staff ID</label>
-                                <input type="number" class="form-control" value="200201" readonly name="SubmittedByStaffId_M_N" data-section="Observation" />
+                                <input type="number" class="form-control" readonly name="SubmittedByStaffId_M_N" data-section="Observation" />
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                 <label><span class="bold-red">*&nbsp;</span>Activity</label>
@@ -68,7 +68,7 @@
                         <div class="row col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                 <label>Waypoint</label>
-                                <input type="number" class="form-control" placeholder="Waypoint" name="WaypointNumber_O_N" min="1" max="9999" maxlength="5" data-section="Observation">
+                                <input type="number" class="form-control" placeholder="Waypoint" name="WaypointNumber_O_N" min="1" max="99999" maxlength="5" data-section="Observation">
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12">
@@ -219,32 +219,8 @@
 <script type="text/javascript" id="pageScript">
     $('#mt').text('Botany Observation');
     $('#mt2').text('Botany Observation');
-    $('.timer').countimer({
-        autoStart: false
-    });
-    $(document).on('click', '#timerstart', function () {
-        $('.timer').countimer('start');
-    })
-    $(document).on('click', '#timerstop', function () {
-        $('.timer').countimer('stop');
-    })
-    $(document).on('click', '#timerrestart', function () {
-        $('.timer').countimer('restart');
-    })
     $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue'
-    });
-    $('.datetimepicker').datetimepicker({
-        locale: "en-au",
-        format: "llll Z",
-        defaultDate: "1/1/2018",
-        sideBySide: true,
-        icons: {
-            time: "fa fa-clock-o",
-            date: "fa fa-calendar",
-            up: "fa fa-arrow-up",
-            down: "fa fa-arrow-down"
-        }
     });
 </script>

@@ -1555,13 +1555,13 @@ function Iterate(data) {
                     vFailed = true;
                     return false;
                 }
-                if (fMOC == 'O' && fNSD == 'N' && value == 0) {
-                    //console.log(index + ' field cannot be NULL');
-                    vError = 1;
-                    vErrDescription.push(fname + ' field cannot be ZERO');
-                    vFailed = true;
-                    return false;
-                }
+                //if (fMOC == 'O' && fNSD == 'N' && value == 0) {
+                //    //console.log(index + ' field cannot be NULL');
+                //    vError = 1;
+                //    vErrDescription.push(fname + ' field cannot be ZERO');
+                //    vFailed = true;
+                //    return false;
+                //}
             }
         }
     });
