@@ -2345,18 +2345,18 @@ $(document).on('click', '.getCoords', function (e) {
     var xlng = $('#form1').find('input.obslng');
     var xdat = $('#form1').find('input.obsdat');
     var xwkt = $('#form1').find('input[name^="ObservationWhereWktClob"]');
-    var siteID = $('#form1').find('select[name="SiteId_O_N"] option:selected').val();
+    var siteID = Number($('#form1').find('select[name="SiteId_O_N"] option:selected').val());
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-            if (siteID < 99999 && checkMapBoundsBySite(position, siteID)) {
-                xlat.val(position.coords.latitude);
-                xlng.val(position.coords.longitude);
+            if (siteID > 0 && siteID < 99999 && checkMapBoundsBySite(position, siteID)) {
+                xlat.val(position.coords.latitude.toFixed(5));
+                xlng.val(position.coords.longitude.toFixed(5));
                 xwkt.val("POINT (" + position.coords.longitude.toFixed(5) + " " + position.coords.latitude.toFixed(5) + ")");
                 xdat.val("WGS84");
             }
-            if (siteID == 99999 && checkMapBoundsByPos(position)) {
-                xlat.val(position.coords.latitude);
-                xlng.val(position.coords.longitude);
+            if ((siteID === 0 || siteID === 99999) && checkMapBoundsByPos(position)) {
+                xlat.val(position.coords.latitude.toFixed(5));
+                xlng.val(position.coords.longitude.toFixed(5));
                 xwkt.val("POINT (" + position.coords.longitude.toFixed(5) + " " + position.coords.latitude.toFixed(5) + ")");
                 xdat.val("WGS84");
             }
@@ -2374,18 +2374,18 @@ $(document).on('click', '.getPlantCoords', function (e) {
     var xlng = $(this).closest('.hostweed').find('input.hostweedlng');
     var xdat = $(this).closest('.hostweed').find('input.hostweeddat');
     var xwkt = $(this).closest('.hostweed').find('input[name^="LocationPointWktClob"]');
-    var siteID = $('#form1').find('select[name="SiteId_O_N"] option:selected').val();
+    var siteID = Number($('#form1').find('select[name="SiteId_O_N"] option:selected').val());
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-            if (siteID < 99999 && checkMapBoundsBySite(position, siteID)) {
-                xlat.val(position.coords.latitude);
-                xlng.val(position.coords.longitude);
+            if (siteID > 0 && siteID < 99999 && checkMapBoundsBySite(position, siteID)) {
+                xlat.val(position.coords.latitude.toFixed(5));
+                xlng.val(position.coords.longitude.toFixed(5));
                 xwkt.val("POINT (" + position.coords.longitude.toFixed(5) + " " + position.coords.latitude.toFixed(5) + ")");
                 xdat.val("WGS84");
             }
-            if (siteID == 99999 && checkMapBoundsByPos(position)) {
-                xlat.val(position.coords.latitude);
-                xlng.val(position.coords.longitude);
+            if ((siteID === 0 || siteID === 99999) && checkMapBoundsByPos(position)) {
+                xlat.val(position.coords.latitude.toFixed(5));
+                xlng.val(position.coords.longitude.toFixed(5));
                 xwkt.val("POINT (" + position.coords.longitude.toFixed(5) + " " + position.coords.latitude.toFixed(5) + ")");
                 xdat.val("WGS84");
             }
@@ -2403,18 +2403,18 @@ $(document).on('click', '.getEntoHostCoords', function (e) {
     var xlng = $(this).closest('.entobox').find('input.entolng');
     var xdat = $(this).closest('.entobox').find('input.entodat');
     var xwkt = $(this).closest('.entobox').find('input[name^="LocationPointWktClob"]');
-    var siteID = $('#form1').find('select[name="SiteId_O_N"] option:selected').val();
+    var siteID = Number($('#form1').find('select[name="SiteId_O_N"] option:selected').val());
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-            if (siteID < 99999 && checkMapBoundsBySite(position, siteID)) {
-                xlat.val(position.coords.latitude);
-                xlng.val(position.coords.longitude);
+            if (siteID > 0 && siteID < 99999 && checkMapBoundsBySite(position, siteID)) {
+                xlat.val(position.coords.latitude.toFixed(5));
+                xlng.val(position.coords.longitude.toFixed(5));
                 xwkt.val("POINT (" + position.coords.longitude.toFixed(5) + " " + position.coords.latitude.toFixed(5) + ")");
                 xdat.val("WGS84");
             }
-            if (siteID == 99999 && checkMapBoundsByPos(position)) {
-                xlat.val(position.coords.latitude);
-                xlng.val(position.coords.longitude);
+            if ((siteID === 0 || siteID === 99999) && checkMapBoundsByPos(position)) {
+                xlat.val(position.coords.latitude.toFixed(5));
+                xlng.val(position.coords.longitude.toFixed(5));
                 xwkt.val("POINT (" + position.coords.longitude.toFixed(5) + " " + position.coords.latitude.toFixed(5) + ")");
                 xdat.val("WGS84");
             }
@@ -2432,18 +2432,18 @@ $(document).on('click', '.getPathHostCoords', function (e) {
     var xlng = $(this).closest('.pathbox').find('input.pathlng');
     var xdat = $(this).closest('.sample').find('input.pathdat');
     var xwkt = $(this).closest('.pathbox').find('input[name^="LocationPointWktClob"]');
-    var siteID = $('#form1').find('select[name="SiteId_O_N"] option:selected').val();
+    var siteID = Number($('#form1').find('select[name="SiteId_O_N"] option:selected').val());
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-            if (siteID < 99999 && checkMapBoundsBySite(position, siteID)) {
-                xlat.val(position.coords.latitude);
-                xlng.val(position.coords.longitude);
+            if (siteID > 0 && siteID < 99999 && checkMapBoundsBySite(position, siteID)) {
+                xlat.val(position.coords.latitude.toFixed(5));
+                xlng.val(position.coords.longitude.toFixed(5));
                 xwkt.val("POINT (" + position.coords.longitude.toFixed(5) + " " + position.coords.latitude.toFixed(5) + ")");
                 xdat.val("WGS84");
             }
-            if (siteID == 99999 && checkMapBoundsByPos(position)) {
-                xlat.val(position.coords.latitude);
-                xlng.val(position.coords.longitude);
+            if ((siteID === 0 || siteID === 99999) && checkMapBoundsByPos(position)) {
+                xlat.val(position.coords.latitude.toFixed(5));
+                xlng.val(position.coords.longitude.toFixed(5));
                 xwkt.val("POINT (" + position.coords.longitude.toFixed(5) + " " + position.coords.latitude.toFixed(5) + ")");
                 xdat.val("WGS84");
             }
@@ -2462,20 +2462,20 @@ $(document).on('click', '.getSampleCoords', function (e) {
     var xalt = $(this).closest('.sample').find('input.samplealt');
     var xdat = $(this).closest('.sample').find('input.sampledat');
     var xwkt = $(this).closest('.sample').find('input[name^="SamplePointWktClob"]');
-    var siteID = $('#form1').find('select[name="SiteId_O_N"] option:selected').val();
+    var siteID = Number($('#form1').find('select[name="SiteId_O_N"] option:selected').val());
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-            if (siteID < 99999 && checkMapBoundsBySite(position, siteID)) {
-                xlat.val(position.coords.latitude);
-                xlng.val(position.coords.longitude);
-                xalt.val(position.coords.altitude);
+            if (siteID > 0 && siteID < 99999 && checkMapBoundsBySite(position, siteID)) {
+                xlat.val(position.coords.latitude.toFixed(5));
+                xlng.val(position.coords.longitude.toFixed(5));
+                xalt.val(position.coords.altitude.toFixed(5));
                 xwkt.val("POINT (" + position.coords.longitude.toFixed(5) + " " + position.coords.latitude.toFixed(5) + ")");
                 xdat.val("WGS84");
             }
-            if (siteID == 99999 && checkMapBoundsByPos(position)) {
-                xlat.val(position.coords.latitude);
-                xlng.val(position.coords.longitude);
-                xalt.val(position.coords.altitude);
+            if ((siteID === 0 || siteID === 99999) && checkMapBoundsByPos(position)) {
+                xlat.val(position.coords.latitude.toFixed(5));
+                xlng.val(position.coords.longitude.toFixed(5));
+                xalt.val(position.coords.altitude.toFixed(5));
                 xwkt.val("POINT (" + position.coords.longitude.toFixed(5) + " " + position.coords.latitude.toFixed(5) + ")");
                 xdat.val("WGS84");
             }
