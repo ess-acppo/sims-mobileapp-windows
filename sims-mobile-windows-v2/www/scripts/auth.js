@@ -9,12 +9,10 @@ function initAuth() {
         .addEventListener('click', function () {
             var unameValue = document.querySelector('.auth-username').value;
             var pwdValue = document.querySelector('.auth-password').value;
-
             s = document.querySelector('.auth-send .fa-spin');
             s.classList.remove('hide');
             text = document.querySelector('.auth-result .text');
             icon = document.querySelector('.auth-result .fa');
-
             if (statusElem.innerHTML === 'online') {
                 authenticate2(unameValue, pwdValue);
             }
@@ -24,7 +22,6 @@ function initAuth() {
         });
 };
 function authenticate(x, y) {
-
     var settings = {
         "async": false,
         "crossDomain": true,
@@ -43,7 +40,6 @@ function authenticate(x, y) {
             "password": y
         }
     };
-
     $.ajax(settings).done(function (response) {
         //alert(JSON.stringify(response));
         s.classList.add('hide');

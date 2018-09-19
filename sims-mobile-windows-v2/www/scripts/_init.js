@@ -1171,7 +1171,7 @@ $(document).on('click', '#Submit2', function (e) {
         //console.log(JSON.stringify(SubmitRecord(objectifyPHFormforSubmit(obj))));
         obj.status_M_N = 1;
         $.confirm({
-            title: 'Payload Submitted!',
+            title: 'Payload marked for Submit!',
             content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
             columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
             buttons: {
@@ -1369,7 +1369,7 @@ $(document).on('click', '.sync', function (event) {
             $.ajax({
                 method: "POST",
                 async: false,
-                url: "https://online-dev.agriculture.gov.au/psd.comr.svl.PlantHealthService/1.0/createPlantHealthObservation",
+                url: "https://online-dev.agriculture.gov.au/psd.comr.svl/PlantHealthService/1.0/createPlantHealthObservation",
                 //data: JSON.stringify(payload),
                 data: vpayload.escapeSpecialChars(),
                 contentType: "application/json",

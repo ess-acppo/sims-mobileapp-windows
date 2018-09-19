@@ -575,9 +575,9 @@ function loadModal(pagename) {
             psamples = 0;
             numPlants = 0;
             numEntoHosts = 0;
-            numEntoTargets = 1;
+            numEntoTargets = 0;
             numPathHosts = 0;
-            numPathTargets = 1;
+            numPathTargets = 0;
             numAttachments = 0;
         }
     }).complete(function (e) {
@@ -1168,6 +1168,10 @@ function objectifyPHFormforSave(formArray) {
             if (formArray[i]['name'].startsWith('PlantSampleAttachment') && formArray[i]['value'] == "") {
                 continue;
             }
+            if (formArray[i]['name'].startsWith('TargetObservedCode')) {
+                //console.log($("input[name='" + formArray[i]['name'] + "']:checked").length);
+                if ($("input[name='" + formArray[i]['name'] + "']:checked").length === 0) { formArray[i]['value'] = ""; }
+            }
             var fname = formArray[i]['name'].split("_")[0];
             var fMOC = formArray[i]['name'].split("_")[1];
             var fNSD = formArray[i]['name'].split("_")[2];
@@ -1238,7 +1242,7 @@ function objectifyPHFormforSave(formArray) {
                 }
                 vPlantObsTargetTab[formArray[i]['name']] = formArray[i]['value'];
                 continue;
-            }
+            }           
             if (ftype == 'T' && fname == 'CommentText') {
                 vPlantObsTargetTab[formArray[i]['name']] = formArray[i]['value'];
                 vPlantObsTab.PlantObsTargetTab.push(vPlantObsTargetTab);
@@ -1885,9 +1889,9 @@ $(document).on('click', "[data-action=addEntoTarget]", function () {
     that1.find('textarea').each(function () {
         $(this).attr('name', $(this).attr('name') + '_' + Idx + '_T');
     })
-    that1.find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');;
+    that1.find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');
     that1.find("input[type='radio'].minimal").iCheck('uncheck');
-    that1.find('.badge-target').text(Idx * 1);
+    that1.find('.badge-target').text(Idx * 1 + 1);
     that1.insertAfter(that);
     BindAutoCompleteET(that1.find('.taxonTextET'));
     numEntoTargets++;
@@ -1955,7 +1959,7 @@ $(document).on('click', "[data-action=addPathTarget]", function () {
     })
     that1.find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');
     that1.find("input[type='radio'].minimal").iCheck('uncheck');
-    that1.find('.badge-target').text(Idx * 1);
+    that1.find('.badge-target').text(Idx * 1 + 1);
     that1.insertAfter(that);
     BindAutoCompletePT(that1.find('.taxonTextPT'));
     numPathTargets++;
@@ -2654,9 +2658,9 @@ $(document).on('change', 'select[name="SiteId_O_N"]', function () {
                         psamples = 0;
                         numPlants = 0;
                         numEntoHosts = 0;
-                        numEntoTargets = 1;
+                        numEntoTargets = 0;
                         numPathHosts = 0;
-                        numPathTargets = 1;
+                        numPathTargets = 0;
                         $('#hostweeds').empty();
                         $('#samples').empty();
                         loadSiteData(str);

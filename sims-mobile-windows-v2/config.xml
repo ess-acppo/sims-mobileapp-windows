@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.cordova.ESFA" version="1.1709.2018" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" windows-packageVersion="1.1709.2018.2">
+<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.cordova.ESFA" version="1.1909.2018" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" windows-packageVersion="1.1909.2018.0">
   <name>ESFA - Enterprise Surveillance Field App</name>
   <description>A Mobile Application project that uses Apache Cordova to help you build an app that targets multiple mobile platforms: Android, iOS, and the Windows Universal Platform.</description>
   <author href="http://cordova.io" email="dev@cordova.apache.org">Raj Jonnalagedda</author>
@@ -104,7 +104,7 @@
   </platform>
   <preference name="WindowsStoreDisplayName" value="ESFA - Enterprise Surveillance Field App" />
   <vs:platformSpecificValues>
-    <vs:platformSpecificWidget platformName="windows" id="io.cordova.ESFA" version="1.1709.2018.0" />
+    <vs:platformSpecificWidget platformName="windows" id="io.cordova.ESFA" version="1.1909.2018.0" />
   </vs:platformSpecificValues>
   <plugin name="cordova-plugin-file-opener2" spec="~2.0.19" />
   <plugin name="cordova-plugin-camera" spec="~4.0.3" />
