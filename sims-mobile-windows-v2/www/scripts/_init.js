@@ -540,11 +540,13 @@ function checkMapBoundsBySite(position, siteId) {
         }
         else {
             $.growl.warning({ title: "", message: "Location is outside site bounds!", location: "bc", size: "large" });
+            return true;
             //return false;
         }
     }
     else {
         $.growl.warning({ title: "", message: "Location is outside site bounds!", location: "bc", size: "large" });
+        return true;
         //return false;
     }
 }

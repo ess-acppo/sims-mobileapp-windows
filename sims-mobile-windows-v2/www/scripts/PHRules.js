@@ -78,7 +78,7 @@ function syncPHRefCodes() {
     }).fail(function (response) {
         $('#mb6 .progText').text("");
         $('#modalProgress').modal('hide');
-        $.growl.error({ title: "", message: "An error occurred while fetching reference codes. " + err.message, location: "bc", size: "large" });
+        $.growl.error({ title: "", message: "An error occurred while fetching reference codes.", location: "bc", size: "large" });
     });
 }
 function loadPHRefCodes() {
@@ -1139,7 +1139,7 @@ function loadModal(pagename) {
         t1 = performance.now();
         $('#perfTime').html("<i class='fa fa-clock-o text-info'></i>&nbsp;" + Math.round((t1 - t0)) + " ms");
     });
-};
+}
 function objectifyPHFormforSave(formArray) {
     var plantDisciplineCode;
     var addlObserver = 1;
@@ -1168,9 +1168,10 @@ function objectifyPHFormforSave(formArray) {
             if (formArray[i]['name'].startsWith('PlantSampleAttachment') && formArray[i]['value'] == "") {
                 continue;
             }
-            //if (formArray[i]['name'].startsWith('TargetObservedCode')) {
-            //    if ($("input[name='" + formArray[i]['name'] + "']:checked").length === 0) { formArray[i]['value'] = ""; }
-            //}
+            if (formArray[i]['name'].startsWith('TargetObservedCode')) {
+                if ($("input[name='" + formArray[i]['name'] + "']:checked").length === 0) { formArray[i]['value'] = ""; }
+                else { formArray[i]['value'] = $("input[name='" + formArray[i]['name'] + "']:checked").val(); }
+            }
             var fname = formArray[i]['name'].split("_")[0];
             var fMOC = formArray[i]['name'].split("_")[1];
             var fNSD = formArray[i]['name'].split("_")[2];
@@ -1466,7 +1467,7 @@ function Iterate(data) {
                 if (fname == 'CountList') { CountListFlag = value; }
                 if (fname == 'HostStatCount' && value == 0) { HostStatCountFlag = 1; }
                 if (fname == 'TargetObservedCode' && $("input[name='" + index + "']:checked").val() == 'N') { PathTargetObservedCodeFlag = 1; }
-                if (fname == 'TargetObservedCode' && $("input[name='" + index + "']:checked").length === 0) { PathTargetObservedCodeFlag = 1; }
+                //if (fname == 'TargetObservedCode' && $("input[name='" + index + "']:checked").length === 0) { PathTargetObservedCodeFlag = 1; }
                 if (fname.startsWith('PlantPreservationTab') && value == 'Y') {
                     var vPlantPreservation = fname.split("-")[1];
                     if (vPlantPreservation === 'O') { PlantPreservationOtherFlag = 1; }
@@ -1534,6 +1535,7 @@ function Iterate(data) {
                     vError = 1;
                     vErrDescription.push('Comments Text for TargetObserved field cannot be NULL');
                     vFailed = true;
+                    PathTargetObservedCodeFlag == 0;
                     return false;
                 }
                 if (fMOC == 'M' && fNSD == 'S' && (value == '' || value == 'NONE')) {
@@ -1573,7 +1575,7 @@ function Iterate(data) {
     if (vFailed == true) {
         return { "vError": vError, "vErrDescription": vErrDescription.join('<br/>') };
     } else { return { "vError": 0, "vErrDescription": "" }; }
-};
+}
 function SubmitRecord(formArray) {//serialize data function
     var guid1 = guid().toUpperCase();
     var obsWrapper = {
@@ -1872,7 +1874,7 @@ $(document).on('click', "#addEntoHost", function () {
     numEntoHosts++;
     numEntoTargets++;
     $('#numEntoHosts').text(numEntoHosts);
-})
+});
 $(document).on('click', "[data-action=addEntoTarget]", function () {
     var Idx = numEntoTargets;
     var that = $(this).closest('.entotarget');
@@ -1896,7 +1898,7 @@ $(document).on('click', "[data-action=addEntoTarget]", function () {
     that1.insertAfter(that);
     BindAutoCompleteET(that1.find('.taxonTextET'));
     numEntoTargets++;
-})
+});
 $(document).on('click', "#addPathHost", function () {
     var Idx = numPathHosts;
     var that1 = $(pathbox);
@@ -1940,7 +1942,7 @@ $(document).on('click', "#addPathHost", function () {
     $('#numPathHosts').text(numPathHosts);
     BindAutoCompleteP(that1.find('.taxonTextP'));
     BindAutoCompletePT(that1.find('.taxonTextPT'));
-})
+});
 $(document).on('click', "[data-action=addPathTarget]", function () {
     var Idx = numPathTargets;
     var that = $(this).closest('.pathtarget');
@@ -1964,7 +1966,7 @@ $(document).on('click', "[data-action=addPathTarget]", function () {
     that1.insertAfter(that);
     BindAutoCompletePT(that1.find('.taxonTextPT'));
     numPathTargets++;
-})
+});
 $(document).on('click', ".removePlant", function () {
     var x = $(this);
     if (numPlants > 0) {
@@ -2021,7 +2023,7 @@ $(document).on('click', "[data-action=removeEntoTarget]", function () {
             }
         });
     }
-})
+});
 $(document).on('click', ".removePathHost", function () {
     var x = $(this);
     if (numPathHosts > 0) {
@@ -2040,7 +2042,7 @@ $(document).on('click', ".removePathHost", function () {
             }
         });
     }
-})
+});
 $(document).on('click', "[data-action=removePathTarget]", function () {
     var x = $(this);
     if (numPathTargets > 1) {
@@ -2059,7 +2061,7 @@ $(document).on('click', "[data-action=removePathTarget]", function () {
             }
         });
     }
-})
+});
 $(document).on('click', "[data-action=expand]", function () {
     var x = $(this).closest('.collapsed');
     x.removeClass('collapsed');
@@ -2068,7 +2070,7 @@ $(document).on('click', "[data-action=expand]", function () {
     x.find('.collapse').css("display", "block");
     x.find('.expand').addClass('hide');
     x.css("background-color", "#fffcec");
-})
+});
 $(document).on('click', "[data-action=collapse]", function () {
     var x = $(this).closest('.expanded');
     x.addClass('collapsed');
@@ -2077,7 +2079,7 @@ $(document).on('click', "[data-action=collapse]", function () {
     x.find('.expand').removeClass('hide');
     x.find('.expand').css("display", "block");
     x.css("background-color", "#fff");
-})
+});
 $(document).on('click', '#addBotanySample', function (e) {
     if (bsamples > 0) {
         var sampleLat = $('div.sample').last().find('input[name^="Latitude"]').val();
@@ -2133,7 +2135,7 @@ $(document).on('click', '#addBotanySample', function (e) {
     $('#samples').append(that);
     $('#numSamples').text(bsamples);
     BindAutoCompleteBS(that.find('.taxonTextBS'));
-})
+});
 $(document).on('click', '.removeBotSample', function (e) {
     var x = $(this);
     $.confirm({
@@ -2149,7 +2151,7 @@ $(document).on('click', '.removeBotSample', function (e) {
             }
         }
     });
-})
+});
 $(document).on('click', '#addEntoSample', function (e) {
     if (esamples > 0) {
         var sampleLat = $('div.sample').last().find('input[name^="Latitude"]').val();
@@ -2210,7 +2212,7 @@ $(document).on('click', '#addEntoSample', function (e) {
     $('#numSamples').text(esamples);
     BindAutoCompleteES(that.find('.taxonTextES'));
     BindAutoCompleteHES(that.find('.taxonTextHES'));
-})
+});
 $(document).on('click', '.removeEntoSample', function (e) {
     var x = $(this);
     $.confirm({
@@ -2226,7 +2228,7 @@ $(document).on('click', '.removeEntoSample', function (e) {
             }
         }
     });
-})
+});
 $(document).on('click', '#addPathSample', function (e) {
     if (psamples > 0) {
         var sampleLat = $('div.sample').last().find('input[name^="Latitude"]').val();
@@ -2285,7 +2287,7 @@ $(document).on('click', '#addPathSample', function (e) {
     $('#numSamples').text(psamples);
     BindAutoCompletePS(that.find('.taxonTextPS'));
     BindAutoCompleteHPS(that.find('.taxonTextHPS'));
-})
+});
 $(document).on('click', '.removePathSample', function (e) {
     var x = $(this);
     $.confirm({
@@ -2301,7 +2303,7 @@ $(document).on('click', '.removePathSample', function (e) {
             }
         }
     });
-})
+});
 var btns = $(document).on('click', 'div.btn-group.glossary > .btn', function (e) {
     e.preventDefault();
     if (this.id === 'all') {
@@ -2314,12 +2316,12 @@ var btns = $(document).on('click', 'div.btn-group.glossary > .btn', function (e)
     }
     $(this).parent().find('.active').removeClass('active');
     $(this).addClass('active');
-})
+});
 $('input[type="checkbox"].minimal').on('ifClicked', function (event) {
     //alert(event.type + ' callback');
     event.preventDefault();
     $(this).val('Y');
-})
+});
 $(document).on('ifChecked', 'input[type="checkbox"].minimal', function (event) {
     //alert(event.type + ' callback');
     if ($(this).attr('name') === 'AdditionalObserverTab') {
@@ -2329,7 +2331,7 @@ $(document).on('ifChecked', 'input[type="checkbox"].minimal', function (event) {
         $('.addlCollectors').removeClass('hide');
     };
     $(this).val('Y');
-})
+});
 $(document).on('ifUnchecked', 'input[type="checkbox"].minimal', function (event) {
     //alert(event.type + ' callback');
     if ($(this).attr('name') === 'AdditionalObserverTab') {
@@ -2339,7 +2341,7 @@ $(document).on('ifUnchecked', 'input[type="checkbox"].minimal', function (event)
         $('.addlCollectors').addClass('hide');
     };
     $(this).val('N');
-})
+});
 $(document).on('click', '.getCoords', function (e) {
     var xlat = $('#form1').find('input.obslat');
     var xlng = $('#form1').find('input.obslng');
@@ -2368,7 +2370,7 @@ $(document).on('click', '.getCoords', function (e) {
         $.growl.error({ title: "", message: "Geolocation Failed!", location: "bc", size: "large" });
     };
     e.preventDefault();
-})
+});
 $(document).on('click', '.getPlantCoords', function (e) {
     var xlat = $(this).closest('.hostweed').find('input.hostweedlat');
     var xlng = $(this).closest('.hostweed').find('input.hostweedlng');
@@ -2397,7 +2399,7 @@ $(document).on('click', '.getPlantCoords', function (e) {
         $.growl.error({ title: "", message: "Geolocation Failed!", location: "bc", size: "large" });
     };
     e.preventDefault();
-})
+});
 $(document).on('click', '.getEntoHostCoords', function (e) {
     var xlat = $(this).closest('.entobox').find('input.entolat');
     var xlng = $(this).closest('.entobox').find('input.entolng');
@@ -2426,7 +2428,7 @@ $(document).on('click', '.getEntoHostCoords', function (e) {
         $.growl.error({ title: "", message: "Geolocation Failed!", location: "bc", size: "large" });
     };
     e.preventDefault();
-})
+});
 $(document).on('click', '.getPathHostCoords', function (e) {
     var xlat = $(this).closest('.pathbox').find('input.pathlat');
     var xlng = $(this).closest('.pathbox').find('input.pathlng');
@@ -2455,7 +2457,7 @@ $(document).on('click', '.getPathHostCoords', function (e) {
         $.growl.error({ title: "", message: "Geolocation Failed!", location: "bc", size: "large" });
     };
     e.preventDefault();
-})
+});
 $(document).on('click', '.getSampleCoords', function (e) {
     var xlat = $(this).closest('.sample').find('input.samplelat');
     var xlng = $(this).closest('.sample').find('input.samplelng');
@@ -2487,7 +2489,7 @@ $(document).on('click', '.getSampleCoords', function (e) {
         $.growl.error({ title: "", message: "Geolocation Failed!", location: "bc", size: "large" });
     };
     e.preventDefault();
-})
+});
 $(document).on('click', 'img.pp', function () {
     var that = $(this);
     var ppname = that.attr("name");
@@ -2519,20 +2521,20 @@ $(document).on('click', 'img.pp', function () {
 
     return false;
 });
-$(document).on('ifClicked', 'input[type="radio"].minimal', function (event) {
-    //alert(event.type + ' callback');
-    event.preventDefault();
-    if ($(this).data('validate') != 'N') {
-        console.log($(this).val());
-        $('#form1').find("input[name^='" + $(this).attr('name') + "']").val($(this).val());
-    }
-});
-$(document).on('change', 'input:radio', function (e) {
-    e.preventDefault();
-    if ($(this).is(":checked") && $(this).data('validate') != 'N') {
-        $('#form1').find("input[type='radio'][name^='" + $(this).attr('name') + "']").val($(this).val());
-    }
-});
+//$(document).on('ifClicked', 'input[type="radio"].minimal', function (event) {
+//    //alert(event.type + ' callback');
+//    event.preventDefault();
+//    if ($(this).data('validate') != 'N') {
+//        console.log($(this).val());
+//        $('#form1').find("input[name^='" + $(this).attr('name') + "']").val($(this).val());
+//    }
+//});
+//$(document).on('change', 'input:radio', function (e) {
+//    e.preventDefault();
+//    if ($(this).is(":checked") && $(this).data('validate') != 'N') {
+//        $('#form1').find("input[type='radio'][name^='" + $(this).attr('name') + "']").val($(this).val());
+//    }
+//});
 $(document).on('ifChecked', 'input[type="radio"].minimal', function (event) {
     //alert(event.type + ' callback');
     if ($(this).attr('name') == 'addlCollectors') {
@@ -2560,7 +2562,7 @@ $(document).on('ifChecked', 'input[type="radio"].minimal', function (event) {
         that.find("input[type='number'][name^='HostStatCount']").val("0");
         that.addClass('hide');
     };
-})
+});
 $(document).on('change', 'select[name^="PlantStatisticType"]', function () {
     var str = $(this).val();
     if (str == 'C') {
@@ -2571,7 +2573,7 @@ $(document).on('change', 'select[name^="PlantStatisticType"]', function () {
         $(this).parent().parent().find("input[type='number'][name^='HostStatAreaNo']").removeClass('hide');
         $(this).parent().parent().find("input[type='number'][name^='HostStatCount']").addClass('hide');
     }
-})
+});
 $(document).on('click', '#SaveSettingsExit', function (e) {
     var v_appMode = $('#form3').find('#appMode').val();
     if (!v_appMode) {
@@ -2604,7 +2606,7 @@ $(document).on('click', '#SaveSettingsExit', function (e) {
     }, function (err) {
         $.growl.error({ title: "", message: "An error occured while updating settings. " + err.message, location: "bc", size: "large" });
     });
-})
+});
 $(document).on('click', 'a.downloadMaps', function (e) {
     var url = $('#form3').find("input[name='optMaps']:checked").data("url");
     var numfiles = $('#form3').find("input[name='optMaps']:checked").data("files");
@@ -2616,7 +2618,7 @@ $(document).on('click', 'a.downloadMaps', function (e) {
     $('#mb6 .progText').text("Download in progress ...");
     $('#mb6 .progTime').text(new Date().toString());
     getFileandExtract(url, mapset, 1, numfiles);
-})
+});
 $(document).on('change', 'select[name="SiteId_O_N"]', function () {
     var that = $(this);
     if (that.val() === "0") return;
@@ -2634,27 +2636,27 @@ $(document).on('change', 'select[name="SiteId_O_N"]', function () {
                 buttons: {
                     Ok: function () {
                         var str = that.val();
-                        if (str === 99999) {
-                            //alert('NewSite selected');
-                            var xlat = $('#form1').find('input.obslat');
-                            var xlng = $('#form1').find('input.obslng');
-                            var xwkt = $('#form1').find('input[name^="ObservationWhereWktClob"]');
-                            if (xlat.val() !== "") { cLatitude = xlat.val(); }
-                            if (xlng.val() !== "") { cLongitude = xlng.val(); }
-                            if (xwkt.val() !== "") { cWkt = xwkt.val(); }
-                            xlat.val("");
-                            xlng.val("");
-                            xwkt.val("");
-                        }
-                        else {
-                            //alert('Existing site selected');
-                            var xlat = $('#form1').find('input.obslat');
-                            var xlng = $('#form1').find('input.obslng');
-                            var xwkt = $('#form1').find('input[name^="ObservationWhereWktClob"]');
-                            if (cLatitude !== "") { xlat.val(cLatitude); }
-                            if (cLongitude !== "") { xlng.val(cLongitude); }
-                            if (cWkt !== "") { xwkt.val(cWkt); }
-                        }
+                        //if (str === 99999) {
+                        //    //alert('NewSite selected');
+                        //    var xlat = $('#form1').find('input.obslat');
+                        //    var xlng = $('#form1').find('input.obslng');
+                        //    var xwkt = $('#form1').find('input[name^="ObservationWhereWktClob"]');
+                        //    if (xlat.val() !== "") { cLatitude = xlat.val(); }
+                        //    if (xlng.val() !== "") { cLongitude = xlng.val(); }
+                        //    if (xwkt.val() !== "") { cWkt = xwkt.val(); }
+                        //    xlat.val("");
+                        //    xlng.val("");
+                        //    xwkt.val("");
+                        //}
+                        //else {
+                        //    //alert('Existing site selected');
+                        //    var xlat = $('#form1').find('input.obslat');
+                        //    var xlng = $('#form1').find('input.obslng');
+                        //    var xwkt = $('#form1').find('input[name^="ObservationWhereWktClob"]');
+                        //    if (cLatitude !== "") { xlat.val(cLatitude); }
+                        //    if (cLongitude !== "") { xlng.val(cLongitude); }
+                        //    if (cWkt !== "") { xwkt.val(cWkt); }
+                        //}
                         bsamples = 0;
                         esamples = 0;
                         psamples = 0;
@@ -2681,7 +2683,7 @@ $(document).on('change', 'select[name="SiteId_O_N"]', function () {
             $('#modalProgress').modal('hide');
             $('#mb6 .progText').text("");
         });
-})
+});
 function getFileandExtract(url, mapset, i, n) {
     window.requestFileSystem(window.PERSISTENT, 5 * 1024 * 1024, function (fs) {
         var xhr = new XMLHttpRequest();
