@@ -81,24 +81,24 @@
                         <div class="row col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                 <label><span class="bold-red">*&nbsp;</span>Latitude</label>
-                                <input type="number" class="form-control obslat" placeholder="Latitude" name="Latitude" data-section="Observation">
+                                <input type="number" class="form-control obslat" placeholder="Latitude" name="Latitude">
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                 <label><span class="bold-red">*&nbsp;</span>Longitude</label>
-                                <input type="number" class="form-control obslng" placeholder="Longitude" name="Longitude" data-section="Observation">
+                                <input type="number" class="form-control obslng" placeholder="Longitude" name="Longitude">
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                            <div class="form-group col-md-3 col-sm-3 col-xs-12">
                                 <label><span class="bold-red">*&nbsp;</span>Datum</label>
                                 <select class="form-control" name="ObservWhereGpsDatumId_M_S" data-section="Observation">
                                     <option>WGS84</option>
                                     <option>GDA94</option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                            <div class="form-group col-md-3 col-sm-3 col-xs-3">
                                 <button class="btn btn-md btn-info getCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button>
                             </div>
                         </div>
@@ -180,11 +180,11 @@
                                 <button type="button" class="btn btn-md btn-info" id="addPathHost"><i class="fa fa-plus"></i>&nbsp;Add Host</button>
                             </div>
                         </div>
-                        <div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="hostweeds">
+                        <div class="row col-md-12 col-sm-12 col-xs-12" id="hostweeds">
                         </div>
                     </div>
                     <div class="tab-pane" id="tab_2">
-                        <div class="row col-md-12 col-sm-12 col-xs-12 pr-0">
+                        <div class="row col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group col-md-12 col-sm-12 col-xs-12 text-center">
                                 <button type="button" class="btn btn-md btn-info" id="addPathSample"><i class="fa fa-plus"></i>&nbsp;Add Sample</button>
                             </div>
@@ -217,8 +217,8 @@
     </div>
 </form>
 <script type="text/javascript" id="pageScript">
-    $('#mt').text('Pathology Observation');
-    $('#mt2').text('Pathology Observation');
+    $('#mt').text('Entomology Observation');
+    $('#mt2').text('Entomology Observation');
     $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue'

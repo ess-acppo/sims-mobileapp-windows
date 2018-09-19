@@ -205,7 +205,7 @@ function loadActivityData() {
         option.attr('value', val.activityId).text(val.activityName);
         $("#form1").find('select[name="SurvActivityId_M_N"]').append(option);
     });
-    //$("#form1").find('select[name="SiteId_O_N"]').find('option').remove().end().append($('<option value="NONE">- select -</option>'));
+    $("#form1").find('select[name="SiteId_O_N"]').find('option').remove().end().append($('<option value="0">- select -</option>'));
     $.each(siteData, function (key, val) {
         var option = $('<option />');
         option.attr('value', val.id).text(val.name);
@@ -601,8 +601,8 @@ function loadModal(pagename) {
                         var wkt = new Wkt.Wkt();
                         wkt.read(value);
                         wkt.toObject();
-                        $('#form1').find("input[type='number'][name='Longitude']").val(wkt.toJson().coordinates[0]);
-                        $('#form1').find("input[type='number'][name='Latitude']").val(wkt.toJson().coordinates[1]);
+                        $('#form1').find("input[name='Longitude']").val(wkt.toJson().coordinates[0]);
+                        $('#form1').find("input[name='Latitude']").val(wkt.toJson().coordinates[1]);
                     }
                     if (key === "AdditionalObserverTab" && value.length > 0) {
                         $('#form1').find("input[type='checkbox'][name='AdditionalObserverTab']").iCheck('check');
@@ -1117,10 +1117,10 @@ function loadModal(pagename) {
                 today = yyyy.toString() + '-' + mm.toString() + '-' + dd.toString();
                 $('#form1').find('select[id="ObservationStaffId"]').find('option').remove().end().append($(staffData));
                 if (curIdx == -1) {
-                    $('#form1').find("input[type='number'][name^='Latitude']").val(curLat.toFixed(5));
-                    $('#form1').find("input[type='number'][name^='Longitude']").val(curLng.toFixed(5));
+                    $('#form1').find("input[name^='Latitude']").val(curLat.toFixed(5));
+                    $('#form1').find("input[name^='Longitude']").val(curLng.toFixed(5));
                     $('#form1').find("input[type='text'][name^='ObservationWhereWktClob']").val(curWkt);
-                    getAltitude();
+                    //getAltitude();
                 }
                 $('#form1').find("input[type='date'][name^='ObservationDatetime']").val(today);
                 if (results.observations.length == 0) {
@@ -1131,7 +1131,7 @@ function loadModal(pagename) {
                 $('#form1').find("input[type='number'][name^='SubmittedByStaffId']").val(resSettings.settings.device.ownerId);
                 $('#form1').find("input[type='text'][name='TimeHourCount_M_S']").inputmask("99:99");
                 $('.nextid').text('');
-                loadSiteData($('#form1').find("select[name='SiteId_O_N']").val());
+                //loadSiteData($('#form1').find("select[name='SiteId_O_N']").val());
             }
         });
     }).done(function () {
@@ -1168,10 +1168,9 @@ function objectifyPHFormforSave(formArray) {
             if (formArray[i]['name'].startsWith('PlantSampleAttachment') && formArray[i]['value'] == "") {
                 continue;
             }
-            if (formArray[i]['name'].startsWith('TargetObservedCode')) {
-                //console.log($("input[name='" + formArray[i]['name'] + "']:checked").length);
-                if ($("input[name='" + formArray[i]['name'] + "']:checked").length === 0) { formArray[i]['value'] = ""; }
-            }
+            //if (formArray[i]['name'].startsWith('TargetObservedCode')) {
+            //    if ($("input[name='" + formArray[i]['name'] + "']:checked").length === 0) { formArray[i]['value'] = ""; }
+            //}
             var fname = formArray[i]['name'].split("_")[0];
             var fMOC = formArray[i]['name'].split("_")[1];
             var fNSD = formArray[i]['name'].split("_")[2];
@@ -1363,6 +1362,7 @@ function objectifyPHFormforSubmit(data) {//serialize data function
     jsonStr = jsonStr.replace(/_M_S_\d_S/g, '').replace(/_O_N_\d_S/g, '').replace(/_M_S_\d_S/g, '').replace(/_M_D_\d_S/g, '').replace(/_O_S_\d_S/g, '');
     jsonStr = jsonStr.replace(/_M_N/g, '').replace(/_O_N/g, '').replace(/_M_D/g, '').replace(/_M_S/g, '');
     var jsonData = JSON.parse(jsonStr);
+    if (jsonData.SiteId === 0) { delete jsonData.SiteId; }
     if (jsonData.WaypointNumber === 0) { delete jsonData.WaypointNumber; }
     if (jsonData.AltitudeNo === 0) { delete jsonData.AltitudeNo; }
     if (jsonData.AdditionalObserverTab.length === 0) { delete jsonData.AdditionalObserverTab; }
@@ -1465,7 +1465,8 @@ function Iterate(data) {
                 var ftype = index.split("_")[4];
                 if (fname == 'CountList') { CountListFlag = value; }
                 if (fname == 'HostStatCount' && value == 0) { HostStatCountFlag = 1; }
-                if (fname == 'TargetObservedCode' && $("input[name='"+ index + "']:checked").val() == 'N') { PathTargetObservedCodeFlag = 1; }
+                if (fname == 'TargetObservedCode' && $("input[name='" + index + "']:checked").val() == 'N') { PathTargetObservedCodeFlag = 1; }
+                if (fname == 'TargetObservedCode' && $("input[name='" + index + "']:checked").length === 0) { PathTargetObservedCodeFlag = 1; }
                 if (fname.startsWith('PlantPreservationTab') && value == 'Y') {
                     var vPlantPreservation = fname.split("-")[1];
                     if (vPlantPreservation === 'O') { PlantPreservationOtherFlag = 1; }
@@ -2618,6 +2619,7 @@ $(document).on('click', 'a.downloadMaps', function (e) {
 })
 $(document).on('change', 'select[name="SiteId_O_N"]', function () {
     var that = $(this);
+    if (that.val() === "0") return;
     $.ajax({
         url: "",
         beforeSend: function (xhr) {
@@ -2627,7 +2629,7 @@ $(document).on('change', 'select[name="SiteId_O_N"]', function () {
     })
         .complete(function (e) {
             $.confirm({
-                title: 'Confirm Delete!',
+                title: 'Confirm Remove!',
                 content: 'Your observations for the currently selected Site will be erased. Do you want to continue?',
                 buttons: {
                     Ok: function () {
@@ -2663,6 +2665,11 @@ $(document).on('change', 'select[name="SiteId_O_N"]', function () {
                         numPathTargets = 0;
                         $('#hostweeds').empty();
                         $('#samples').empty();
+                        $('#numEntoHosts').text("");
+                        $('#numPathHosts').text("");
+                        $('#numPlants').text("");
+                        $('#numSamples').text("");
+                        $('#numAttachments').text("");
                         loadSiteData(str);
                     },
                     cancel: function () {
@@ -3011,212 +3018,157 @@ function getTimefromString(strTime) {
     return res.toFixed(2);
 }
 function loadSiteData(str) {
-    $.ajax({
-        url: "",
-        beforeSend: function (xhr) {
-            $('#modalProgress').modal();
-            $('#mb6 .progText').text("Loading Site defaults ...");
-        }
-    })
-        .complete(function (e) {
-            if (str === 99999) {
-                var arr = ActivityData.activities[0].ActivityNewSitePlant.filter(function (el) {
-                    return (el.PlantDisciplineCode === curDiscipline);
-                });
-            }
-            else {
-                var arr2 = siteData.filter(function (el) {
-                    return (el.id === Number(str));
-                });
-                if (arr2) {
-                    var arr = arr2[0].ActivitySitePlant.filter(function (el) {
-                        return (el.PlantDisciplineCode === curDiscipline);
-                    });
-                }
-            }
-            if (arr) {
-                curSiteData = arr;
-                if (curDiscipline == "B") {
-                    $.each(curSiteData, function (key1, value1) {
-                        $.ajax({
-                            url: "",
-                            beforeSend: function (xhr) {
-                                $("#addPlant").trigger("click");
-                            }
-                        }).complete(function (e) {
-                            $.each(value1, function (key2, value2) {
-                                if (key2.startsWith("PlantStatisticTypeCode") && value2 === "C") {
-                                    $('div.hostweed').eq(key1).find("select[name^='PlantStatisticType']").val('C');
-                                    $('div.hostweed').eq(key1).find("input[type='number'][name^='HostStatAreaNo']").addClass('hide');
-                                    $('div.hostweed').eq(key1).find("input[type='number'][name^='HostStatCount']").removeClass('hide');
-                                    $('div.hostweed').eq(key1).find("div.countArea").removeClass('hide');
-                                    $('div.hostweed').eq(key1).find("input[type='radio'][name^='CountList'][value='Count']").iCheck('check');
-                                }
-                                else {
-                                    $('div.hostweed').eq(key1).find("select[name^='PlantStatisticType']").val('A');
-                                    $('div.hostweed').eq(key1).find("input[type='number'][name^='HostStatCount']").addClass('hide');
-                                    $('div.hostweed').eq(key1).find("input[type='number'][name^='HostStatAreaNo']").removeClass('hide');
-                                    $('div.hostweed').eq(key1).find("div.countArea").removeClass('hide');
-                                    $('div.hostweed').eq(key1).find("input[type='radio'][name^='CountList'][value='Count']").iCheck('check');
-                                }
-                                $('div.hostweed').eq(key1).find("input[type='text'][name^='" + key2 + "']").val(value2);
-                                $('div.hostweed').eq(key1).find("input[type='date'][name^='" + key2 + "']").val(value2);
-                                $('div.hostweed').eq(key1).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
-                                $('div.hostweed').eq(key1).find("input[type='number'][name^='" + key2 + "']").val(value2);
-                                $('div.hostweed').eq(key1).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
-                                $('div.hostweed').eq(key1).find("input[type='checkbox'][name^='" + key2 + "'][value='Y']").iCheck('check');
-                                $('div.hostweed').eq(key1).find("input[type='radio'][name^='" + key2 + "'][value='" + value2 + "']").iCheck('check');
-                                $('div.hostweed').eq(key1).find("input:not([name^='CountList'])[type='radio'][name^='" + key2 + "']").val(value2);
-                                $('div.hostweed').eq(key1).find("select[name^='" + key2 + "']").val(value2);
-                                $('div.hostweed').eq(key1).find("textarea[name^='" + key2 + "']").val(value2);
-                                if (key2 === "PlantTaxonId") {
-                                    $('div.hostweed').eq(key1).find("input[type='text'][name^='PlantTaxonText']").val(getTaxonText(value2));
-                                }
-                            });
-                        });
-                    });
-                }
-                if (curDiscipline == "E") {
-                    $.each(curSiteData, function (key1, value1) {
-                        $.ajax({
-                            url: "",
-                            beforeSend: function (xhr) {
-                                $("#addEntoHost").trigger("click");
-                            }
-                        }).complete(function (e) {
-                            $.each(value1, function (key2, value2) {
-                                if (key2.startsWith("PlantStatisticTypeCode") && value2 === "C") {
-                                    $('div.entobox').eq(key1).find("select[name^='PlantStatisticType']").val('C');
-                                    $('div.entobox').eq(key1).find("input[type='number'][name^='HostStatAreaNo']").addClass('hide');
-                                    $('div.entobox').eq(key1).find("input[type='number'][name^='HostStatCount']").removeClass('hide');
-                                    $('div.entobox').eq(key1).find("div.countArea").removeClass('hide');
-                                    $('div.entobox').eq(key1).find("input[type='radio'][name^='CountList'][value='Count']").iCheck('check');
-                                }
-                                else {
-                                    $('div.entobox').eq(key1).find("select[name^='PlantStatisticType']").val('A');
-                                    $('div.entobox').eq(key1).find("input[type='number'][name^='HostStatCount']").addClass('hide');
-                                    $('div.entobox').eq(key1).find("input[type='number'][name^='HostStatAreaNo']").removeClass('hide');
-                                }
-                                if (key2.startsWith("PlantObservationMethodCode") && value2 !== "") {
-                                    $('div.entobox').eq(key1).find("select[name^='PlantObsMethodCode']").val(value2);
-                                }
-                                if (key2 === "PlantTaxonId") {
-                                    $('div.entobox').eq(key1).find("input[type='text'][name^='PlantTaxonText']").val(getTaxonText(value2));
-                                }
-                                $('div.entobox').eq(key1).find("input[type='text'][name^='" + key2 + "']").val(value2);
-                                $('div.entobox').eq(key1).find("input[type='date'][name^='" + key2 + "']").val(value2);
-                                $('div.entobox').eq(key1).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
-                                $('div.entobox').eq(key1).find("input[type='number'][name^='" + key2 + "']").val(value2);
-                                $('div.entobox').eq(key1).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
-                                $('div.entobox').eq(key1).find("input[type='checkbox'][name^='" + key2 + "'][value='Y']").iCheck('check');
-                                $('div.entobox').eq(key1).find("input[type='radio'][name^='" + key2 + "'][value='" + value2 + "']").iCheck('check');
-                                $('div.entobox').eq(key1).find("input:not([name^='CountList'])[type='radio'][name^='" + key2 + "']").val(value2);
-                                $('div.entobox').eq(key1).find("select[name^='" + key2 + "']").val(value2);
-                                $('div.entobox').eq(key1).find("textarea[name^='" + key2 + "']").val(value2);
-                                if (key2 == "ActivitySitePlantTarget") {
-                                    $.each(value2, function (key3, value3) {
-                                        $.ajax({
-                                            url: "",
-                                            beforeSend: function (xhr) {
-                                                if (key3 > 0) {
-                                                    $('div.entobox').eq(key1).find('div.entotarget').eq(key3 - 1).find("[data-action=addEntoTarget]").trigger("click");
-                                                }
-                                            }
-                                        }).complete(function (e) {
-                                            $.each(value3, function (key4, value4) {
-                                                $('div.entobox').eq(key1).find('div.entotarget').eq(key3).find("input[type='text'][name^='" + key4 + "']").val(value4);
-                                                $('div.entobox').eq(key1).find('div.entotarget').eq(key3).find("input[type='date'][name^='" + key4 + "']").val(value4);
-                                                $('div.entobox').eq(key1).find('div.entotarget').eq(key3).find("input[type='number'][name^='" + key4 + "']").val(value4);
-                                                $('div.entobox').eq(key1).find('div.entotarget').eq(key3).find("input[type='checkbox'][name^='" + key4 + "']").val(value4);
-                                                $('div.entobox').eq(key1).find('div.entotarget').eq(key3).find("input[type='checkbox'][name^='" + key4 + "'][value='on']").iCheck('check');
-                                                $('div.entobox').eq(key1).find('div.entotarget').eq(key3).find("input[type='radio'][name^='" + key4 + "'][value='" + value4 + "']").iCheck('check');
-                                                //$('div.entobox').eq(key1).find('div.entotarget').eq(key3).find("input[type='radio'][name^='" + key4 + "']").val(value4);
-                                                $('div.entobox').eq(key1).find('div.entotarget').eq(key3).find("select[name^='" + key4 + "']").val(value4);
-                                                $('div.entobox').eq(key1).find('div.entotarget').eq(key3).find("textarea[name^='" + key4 + "']").val(value4);
-                                                if (key4 === "TargetTaxonId") {
-                                                    $('div.entobox').eq(key1).find('div.entotarget').eq(key3).find("input[type='text'][name^='TargetTaxonText']").val(getTaxonText(value4));
-                                                }
-                                            });
-                                        });
-                                    });
-                                }
-                            });
-                        });
-                    });
-                }
-                if (curDiscipline == "P") {
-                    $.each(curSiteData, function (key1, value1) {
-                        $.ajax({
-                            url: "",
-                            beforeSend: function (xhr) {
-                                $("#addPathHost").trigger("click");
-                            }
-                        }).complete(function (e) {
-                            $.each(value1, function (key2, value2) {
-                                if (key2.startsWith("PlantStatisticTypeCode") && value2 === "C") {
-                                    $('div.pathbox').eq(key1).find("select[name^='PlantStatisticType']").val('C');
-                                    $('div.pathbox').eq(key1).find("input[type='number'][name^='HostStatAreaNo']").addClass('hide');
-                                    $('div.pathbox').eq(key1).find("input[type='number'][name^='HostStatCount']").removeClass('hide');
-                                    $('div.pathbox').eq(key1).find("div.countArea").removeClass('hide');
-                                    $('div.pathbox').eq(key1).find("input[type='radio'][name^='CountList'][value='Count']").iCheck('check');
-                                }
-                                else {
-                                    $('div.pathbox').eq(key1).find("select[name^='PlantStatisticType']").val('A');
-                                    $('div.pathbox').eq(key1).find("input[type='number'][name^='HostStatCount']").addClass('hide');
-                                    $('div.pathbox').eq(key1).find("input[type='number'][name^='HostStatAreaNo']").removeClass('hide');
-                                }
-                                if (key2.startsWith("PlantObservationMethodCode") && value2 !== "") {
-                                    $('div.pathbox').eq(key1).find("select[name^='PlantObsMethodCode']").val(value2);
-                                }
-                                if (key2 === "PlantTaxonId") {
-                                    $('div.pathbox').eq(key1).find("input[type='text'][name^='PlantTaxonText']").val(getTaxonText(value2));
-                                }
-                                $('div.pathbox').eq(key1).find("input[type='text'][name^='" + key2 + "']").val(value2);
-                                $('div.pathbox').eq(key1).find("input[type='date'][name^='" + key2 + "']").val(value2);
-                                $('div.pathbox').eq(key1).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
-                                $('div.pathbox').eq(key1).find("input[type='number'][name^='" + key2 + "']").val(value2);
-                                $('div.pathbox').eq(key1).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
-                                $('div.pathbox').eq(key1).find("input[type='checkbox'][name^='" + key2 + "'][value='Y']").iCheck('check');
-                                $('div.pathbox').eq(key1).find("input[type='radio'][name^='" + key2 + "'][value='" + value2 + "']").iCheck('check');
-                                $('div.pathbox').eq(key1).find("input:not([name^='CountList'])[type='radio'][name^='" + key2 + "']").val(value2);
-                                $('div.pathbox').eq(key1).find("select[name^='" + key2 + "']").val(value2);
-                                $('div.pathbox').eq(key1).find("textarea[name^='" + key2 + "']").val(value2);
-                                if (key2 == "ActivitySitePlantTarget") {
-                                    $.each(value2, function (key3, value3) {
-                                        $.ajax({
-                                            url: "",
-                                            beforeSend: function (xhr) {
-                                                if (key3 > 0) {
-                                                    $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3 - 1).find("[data-action=addPathTarget]").trigger("click");
-                                                }
-                                            }
-                                        }).complete(function (e) {
-                                            $.each(value3, function (key4, value4) {
-                                                $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3).find("input[type='text'][name^='" + key4 + "']").val(value4);
-                                                $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3).find("input[type='date'][name^='" + key4 + "']").val(value4);
-                                                $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3).find("input[type='number'][name^='" + key4 + "']").val(value4);
-                                                $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3).find("input[type='checkbox'][name^='" + key4 + "']").val(value4);
-                                                $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3).find("input[type='checkbox'][name^='" + key4 + "'][value='on']").iCheck('check');
-                                                $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3).find("input[type='radio'][name^='" + key4 + "'][value='" + value4 + "']").iCheck('check');
-                                                //$('div.pathbox').eq(key1).find('div.pathtarget').eq(key3).find("input[type='radio'][name^='" + key4 + "']").val(value4);
-                                                $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3).find("select[name^='" + key4 + "']").val(value4);
-                                                $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3).find("textarea[name^='" + key4 + "']").val(value4);
-                                                if (key4 === "TargetTaxonId") {
-                                                    $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3).find("input[type='text'][name^='TargetTaxonText']").val(getTaxonText(value4));
-                                                }
-                                            });
-                                        });
-                                    });
-                                }
-                            });
-                        });
-                    });
-                }
-            };
-        }).done(function () {
-            $('#modalProgress').modal('hide');
-            $('#mb6 .progText').text("");
+    if (Number(str) === 99999) {
+        var arr = ActivityData.activities[0].ActivityNewSitePlant.filter(function (el) {
+            return (el.PlantDisciplineCode === curDiscipline);
         });
+    }
+    else {
+        var arr2 = siteData.filter(function (el) {
+            return (el.id === Number(str));
+        });
+        if (arr2) {
+            var arr = arr2[0].ActivitySitePlant.filter(function (el) {
+                return (el.PlantDisciplineCode === curDiscipline);
+            });
+        }
+    }
+    if (arr) {
+        curSiteData = arr;
+        if (curDiscipline == "B") {
+            $.each(curSiteData, function (key1, value1) {
+                $.ajax({
+                    url: "",
+                    beforeSend: function (xhr) {
+                        $("#addPlant").trigger("click");
+                    }
+                }).complete(function (e) {
+                    $.each(value1, function (key2, value2) {
+                        if (key2.startsWith("PlantStatisticTypeCode") && value2 === "C") {
+                            $('div.hostweed').eq(key1).find("select[name^='PlantStatisticType']").val('C');
+                            $('div.hostweed').eq(key1).find("input[type='number'][name^='HostStatAreaNo']").addClass('hide');
+                            $('div.hostweed').eq(key1).find("input[type='number'][name^='HostStatCount']").removeClass('hide');
+                            $('div.hostweed').eq(key1).find("div.countArea").removeClass('hide');
+                            $('div.hostweed').eq(key1).find("input[type='radio'][name^='CountList'][value='Count']").iCheck('check');
+                        }
+                        else {
+                            $('div.hostweed').eq(key1).find("select[name^='PlantStatisticType']").val('A');
+                            $('div.hostweed').eq(key1).find("input[type='number'][name^='HostStatCount']").addClass('hide');
+                            $('div.hostweed').eq(key1).find("input[type='number'][name^='HostStatAreaNo']").removeClass('hide');
+                            $('div.hostweed').eq(key1).find("div.countArea").removeClass('hide');
+                            $('div.hostweed').eq(key1).find("input[type='radio'][name^='CountList'][value='Count']").iCheck('check');
+                        }
+                        $('div.hostweed').eq(key1).find("input[name^='" + key2 + "']").val(value2);
+                        if (key2 === "PlantTaxonId") {
+                            $('div.hostweed').eq(key1).find("input[type='text'][name^='PlantTaxonText']").val(getTaxonText(value2));
+                        }
+                    });
+                });
+            });
+        }
+        if (curDiscipline == "E") {
+            $.each(curSiteData, function (key1, value1) {
+                $.ajax({
+                    url: "",
+                    beforeSend: function (xhr) {
+                        $("#addEntoHost").trigger("click");
+                    }
+                }).complete(function (e) {
+                    $.each(value1, function (key2, value2) {
+                        if (key2.startsWith("PlantStatisticTypeCode") && value2 === "C") {
+                            $('div.entobox').eq(key1).find("select[name^='PlantStatisticType']").val('C');
+                            $('div.entobox').eq(key1).find("input[type='number'][name^='HostStatAreaNo']").addClass('hide');
+                            $('div.entobox').eq(key1).find("input[type='number'][name^='HostStatCount']").removeClass('hide');
+                            $('div.entobox').eq(key1).find("div.countArea").removeClass('hide');
+                            $('div.entobox').eq(key1).find("input[type='radio'][name^='CountList'][value='Count']").iCheck('check');
+                        }
+                        else {
+                            $('div.entobox').eq(key1).find("select[name^='PlantStatisticType']").val('A');
+                            $('div.entobox').eq(key1).find("input[type='number'][name^='HostStatCount']").addClass('hide');
+                            $('div.entobox').eq(key1).find("input[type='number'][name^='HostStatAreaNo']").removeClass('hide');
+                        }
+                        if (key2.startsWith("PlantObservationMethodCode") && value2 !== "") {
+                            $('div.entobox').eq(key1).find("select[name^='PlantObsMethodCode']").val(value2);
+                        }
+                        if (key2 === "PlantTaxonId") {
+                            $('div.entobox').eq(key1).find("input[type='text'][name^='PlantTaxonText']").val(getTaxonText(value2));
+                        }
+                        $('div.entobox').eq(key1).find("input[name^='" + key2 + "']").val(value2);
+                        if (key2 == "ActivitySitePlantTarget") {
+                            $.each(value2, function (key3, value3) {
+                                $.ajax({
+                                    url: "",
+                                    beforeSend: function (xhr) {
+                                        if (key3 > 0) {
+                                            $('div.entobox').eq(key1).find('div.entotarget').eq(key3*1-1).find("[data-action=addEntoTarget]").trigger("click");
+                                        }
+                                    }
+                                }).complete(function (e) {
+                                    $.each(value3, function (key4, value4) {
+                                        $('div.entobox').eq(key1).find('div.entotarget').eq(key3).find("input[name^='" + key4 + "']").val(value4);
+                                        if (key4 === "TargetTaxonId") {
+                                            $('div.entobox').eq(key1).find('div.entotarget').eq(key3).find("input[type='text'][name^='TargetTaxonText']").val(getTaxonText(value4));
+                                        }
+                                    });
+                                });
+                            });
+                        }
+                    });
+                });
+            });
+        }
+        if (curDiscipline == "P") {
+            $.each(curSiteData, function (key1, value1) {
+                $.ajax({
+                    url: "",
+                    beforeSend: function (xhr) {
+                        $("#addPathHost").trigger("click");
+                    }
+                }).complete(function (e) {
+                    $.each(value1, function (key2, value2) {
+                        if (key2.startsWith("PlantStatisticTypeCode") && value2 === "C") {
+                            $('div.pathbox').eq(key1).find("select[name^='PlantStatisticType']").val('C');
+                            $('div.pathbox').eq(key1).find("input[type='number'][name^='HostStatAreaNo']").addClass('hide');
+                            $('div.pathbox').eq(key1).find("input[type='number'][name^='HostStatCount']").removeClass('hide');
+                            $('div.pathbox').eq(key1).find("div.countArea").removeClass('hide');
+                            $('div.pathbox').eq(key1).find("input[type='radio'][name^='CountList'][value='Count']").iCheck('check');
+                        }
+                        else {
+                            $('div.pathbox').eq(key1).find("select[name^='PlantStatisticType']").val('A');
+                            $('div.pathbox').eq(key1).find("input[type='number'][name^='HostStatCount']").addClass('hide');
+                            $('div.pathbox').eq(key1).find("input[type='number'][name^='HostStatAreaNo']").removeClass('hide');
+                        }
+                        if (key2 == "PlantObservationMethodCode" && value2 !== "") {
+                            $('div.pathbox').eq(key1).find("select[name^='PlantObsMethodCode']").val(value2);
+                        }
+                        if (key2 === "PlantTaxonId") {
+                            $('div.pathbox').eq(key1).find("input[name^='" + key2 + "']").val(value2);
+                            $('div.pathbox').eq(key1).find("input[type='text'][name^='PlantTaxonText']").val(getTaxonText(value2));
+                        }
+                        if (key2 === "ActivitySitePlantTarget") {
+                            $.each(value2, function (key3, value3) {
+                                $.ajax({
+                                    url: "",
+                                    beforeSend: function (xhr) {
+                                        if (key3 > 0) {
+                                            $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3*1-1).find("[data-action=addPathTarget]").trigger("click");
+                                        }
+                                    }
+                                }).complete(function (e) {
+                                    $.each(value3, function (key4, value4) {
+                                        $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3).find("input[name^='" + key4 + "']").val(value4);
+                                        if (key4 === "TargetTaxonId") {
+                                            $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3).find("input[type='text'][name^='TargetTaxonText']").val(getTaxonText(value4));
+                                        }
+                                    });
+                                });
+                            });
+                        }
+                    });
+                });
+            });
+        }
+    };
 }
 function getTaxonText(id) {
     var arr;
