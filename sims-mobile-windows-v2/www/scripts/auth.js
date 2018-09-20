@@ -60,6 +60,7 @@ function authenticate2(x, y) {
         "async": false,
         "crossDomain": true,
         "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
+        //"url": "http://dev-sims.oztaxa.com/BasicAuth/api/Values",
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Authenticating ...");
@@ -81,14 +82,15 @@ function authenticate2(x, y) {
         initSettings();
         //$('#modalProgress').modal('hide');
         $('#modalAuth').modal('hide');
-    }).fail(function (response) {
+    }).fail(function (xhr, textStatus, errorThrown) {
         $('#mb6 .progText').text("");
         $('#modalProgress').modal('hide');
         s.classList.add('hide');
         icon.classList.add('fa-times');
         icon.classList.remove('fa-check');
         text.innerHTML = 'Login Failed!';
-        $.growl.error({ title: "", message: "Username or Password is incorrect.", location: "bc", size: "large" });
+        //$.growl.error({ title: "", message: "Username or Password is incorrect.", location: "bc", size: "large" });
+        $.growl.error({ title: "", message: xhr.status + ': ' + textStatus + ', ' + errorThrown + ', ' + xhr.responseText, location: "bc" });   
     });
 }
 function authenticate3(x, y) {

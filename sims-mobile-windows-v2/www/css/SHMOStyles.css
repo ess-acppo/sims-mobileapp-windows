@@ -1215,3 +1215,9 @@ label.mapNotes {
     font-weight: 400;
     font-size: 1.3rem;
 }
+
+.btnError {
+    margin-left: 8px;
+    margin-bottom: 8px;
+    float:right;
+}
