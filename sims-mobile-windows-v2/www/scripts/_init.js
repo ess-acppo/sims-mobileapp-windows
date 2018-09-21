@@ -1097,7 +1097,7 @@ $(document).on('click', '#Save', function (e) {
         }
     });
     if (curIdx > 0) {
-        results.observations[curIdx - 1] = obj;
+        results.observations[curPos] = obj;
     }
     else {
         //console.log(JSON.stringify(obj));
@@ -1141,7 +1141,7 @@ $(document).on('click', '#SaveExit', function (e) {
         }
     });
     if (curIdx > 0) {
-        results.observations[curIdx - 1] = obj;
+        results.observations[curPos] = obj;
     }
     else {
         //console.log(JSON.stringify(obj));
@@ -1192,7 +1192,7 @@ $(document).on('click', '#Submit2', function (e) {
             }
         });
         if (curIdx > 0) {
-            results.observations[curIdx - 1] = obj;
+            results.observations[curPos] = obj;
         }
         else {
             results.observations.push(obj);
@@ -1435,7 +1435,6 @@ $(document).on('click', '.sync', function (event) {
     if (infoWindow) {
         infoWindow.close();
     }
-    //$.growl({ title: "", message: "Sync Complete!.", location: "bc", size: "large" });
 });
 $(document).on('shown.bs.modal', '#modalPHGrid', function () {
     loadPHRefCodes();
@@ -1788,6 +1787,20 @@ String.prototype.escapeSpecialChars = function () {
 };
 $(document).on('click', 'a.btnError', function (e) {
     e.preventDefault();
-    var x = $(this).data("jump");
+    var x = $(this).data("j");
+    var y = $(this).data("k");
+    var z = $(this).data("l");
+    switch (y) {
+        case 'H':
+            $('.nav-tabs a[href="#tab1"]').tab('show');
+            break;
+        case 'T':
+            $('.nav-tabs a[href="#tab1"]').tab('show');
+            break;
+        case 'S':
+            $('.nav-tabs a[href="#tab2"]').tab('show');
+            break;
+    }
     $("#form1").find("input[name='" + x + "']").focus();
+    $('div.growl-close').triggerHandler('click');
 });

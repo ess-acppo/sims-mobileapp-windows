@@ -7,7 +7,7 @@
                         <a href="#tab_0" data-toggle="tab"><i class="fa fa-search mxr-5"></i>Site Visit Details</a>
                     </li>
                     <li>
-                        <a href="#tab_1" data-toggle="tab">
+                        <a href="#tab_1" id="tab1" data-toggle="tab">
                             <i class="fa fa-leaf mxr-5"></i>Observations
                             <span data-toggle="tooltip" class="badge bg-gray-blue" data-original-title="3" id="numPathHosts"></span>
                         </a>
@@ -68,7 +68,7 @@
                         <div class="row col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                 <label>Waypoint</label>
-                                <input type="number" class="form-control" placeholder="Waypoint" name="WaypointNumber_O_N" maxlength="5" data-section="Observation">
+                                <input type="number" class="form-control" placeholder="Waypoint" name="WaypointNumber_O_N" min="1" max="99999" step="1" maxlength="5" data-section="Observation">
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12">
