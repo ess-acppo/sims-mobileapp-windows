@@ -23,6 +23,7 @@ var cWkt;
 var vError = 0;
 var vErrDescription = [];
 var vFailed = false;
+var attachmentFlag = 0;
 var CountListFlag = 0;
 var HostStatCountFlag = 0;
 var HostStatAreaFlag = 0;
@@ -44,6 +45,8 @@ function syncPHRefCodes() {
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing Reference Codes ...");
+            $('#mb6 .progress').addClass('hide');
+            $('#mb6 .fa-clock-o').addClass('hide');
         },
         "headers": {
             "authorization": authCode,
@@ -162,6 +165,8 @@ function syncActivityData() {
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing Activity Data ...");
+            $('#mb6 .progress').addClass('hide');
+            $('#mb6 .fa-clock-o').addClass('hide');
         },
         "headers": {
             "authorization": authCode,
@@ -222,6 +227,8 @@ function syncstaffData() {
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing NPH Staff Data ...");
+            $('#mb6 .progress').addClass('hide');
+            $('#mb6 .fa-clock-o').addClass('hide');
         },
         "headers": {
             "authorization": authCode,
@@ -268,6 +275,8 @@ function syncBPHstaffData() {
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing BPH Staff Data ...");
+            $('#mb6 .progress').addClass('hide');
+            $('#mb6 .fa-clock-o').addClass('hide');
         },
         "headers": {
             "authorization": authCode,
@@ -313,6 +322,8 @@ function syncIPHstaffData() {
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing IPH Staff Data ...");
+            $('#mb6 .progress').addClass('hide');
+            $('#mb6 .fa-clock-o').addClass('hide');
         },
         "headers": {
             "authorization": authCode,
@@ -368,6 +379,8 @@ function syncTaxaData() {
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing Taxa ...");
+            $('#mb6 .progress').addClass('hide');
+            $('#mb6 .fa-clock-o').addClass('hide');
         },
         "headers": {
             "authorization": authCode,
@@ -512,6 +525,7 @@ function loadEntoSample() {
     $('#samples').append(that);
     $('#numSamples').text(esamples);
     BindAutoCompleteES(that.find('.taxonTextES'));
+    BindAutoCompleteHES(that.find('.taxonTextHES'));
 }
 function loadPathSample() {
     psamples = psamples + 1;
@@ -544,6 +558,7 @@ function loadPathSample() {
     $('#samples').append(that);
     $('#numSamples').text(psamples);
     BindAutoCompletePS(that.find('.taxonTextPS'));
+    BindAutoCompleteHPS(that.find('.taxonTextHPS'));
 }
 function getNextID(e) {
     //Read from DB
@@ -566,6 +581,8 @@ function loadModal(pagename) {
         beforeSend: function (xhr) {
             $('#modalProgress').modal();
             $('#mb6 .progText').text("Loading ...");
+            $('#mb6 .progress').addClass('hide');
+            $('#mb6 .fa-clock-o').addClass('hide');
             $('#mb').empty();
             $('#mt').empty();
             $('#mt2').empty();
@@ -1403,6 +1420,15 @@ function objectifyPHFormforSubmit(data) {//serialize data function
                 if (item.PathSevCode === "NONE") {
                     delete item.PathSevCode;
                 }
+                if (item.EntoInfestedPctCode === "NONE") {
+                    delete item.EntoInfestedPctCode;
+                }
+                if (item.EntoDamageLevelCode === "NONE") {
+                    delete item.EntoDamageLevelCode;
+                }
+                if (item.EntoPestLevelCode === "NONE") {
+                    delete item.EntoPestLevelCode;
+                }
             });
     };
     $.each(jsonData.PlantObsTab, function (i, item) {
@@ -1466,6 +1492,9 @@ function Iterate(data) {
                 //var vPlantPreservation = fname.split("-")[1];
                 //if (vPlantPreservation === 'O') { PlantPreservationOtherFlag = 1; }
             }
+            if (index === 'attachment') {
+                attachmentFlag = 1;             
+            } 
             //if (index == 'PlantSampleTab' && value.length == 0) {
             //    vError = 1;
             //    vErrDescription.push('Minimum one Sample expected.You can Save & Exit instead.');
@@ -1477,6 +1506,13 @@ function Iterate(data) {
         else {
             //console.log(index + ":" + value);
             if (isNaN(index)) {
+                if (index === 'name' && attachmentFlag === 1 && $.trim(value) === ".jpg") {
+                    vError = 1;
+                    vErrDescription.push("Please fill Attachment Name.");
+                    vFailed = true;
+                    return false;
+                }
+
                 var fname = index.split("_")[0];
                 var fMOC = index.split("_")[1];
                 var fNSD = index.split("_")[2];
@@ -1592,7 +1628,8 @@ function Iterate(data) {
                     if (fname == 'PlantTaxonId') return true;
                     if (fname == 'TargetTaxonId') return true;
                     if (fname == 'PrelimTaxonId') return true;
-                    if (fname == 'HostTaxonId') return true;
+                    if (fname == 'HostTaxonId') return true; 
+                    if (fname == 'CollectedAltitudeNo') return true;
                     if (fname == 'WaypointNumber' && $('input[name="'+ index +'"]').val() === "") return true;
                     if (fname == 'WaypointNumber' && ($('input[name="' + index + '"]').val() !== "") && (value < 1 || value > 99999)) {
                         vError = 1;
@@ -1608,7 +1645,7 @@ function Iterate(data) {
             }
         }
     });
-    if (vFailed == true) {
+    if (vFailed === true) {
         return { "vError": vError, "vErrDescription": vErrDescription.join('<br/>') };
     } else { return { "vError": 0, "vErrDescription": "" }; }
 }
@@ -1630,6 +1667,9 @@ function Iterate2(data) {
                 //var vPlantPreservation = fname.split("-")[1];
                 //if (vPlantPreservation === 'O') { PlantPreservationOtherFlag = 1; }
             }
+            if (index === 'attachment') {
+                attachmentFlag = 1;
+            } 
             //if (index == 'PlantSampleTab' && value.length == 0) {
             //    vError = 1;
             //    vErrDescription.push('Minimum one Sample expected.You can Save & Exit instead.');
@@ -1641,6 +1681,14 @@ function Iterate2(data) {
         else {
             //console.log(index + ":" + value);
             if (isNaN(index)) {
+
+                if (index === 'name' && attachmentFlag === 1 && $.trim(value) === ".jpg") {
+                    vError = 1;
+                    vErrDescription.push("Please fill Attachment Name.");
+                    vFailed = true;
+                    return false;
+                }
+
                 var fname = index.split("_")[0];
                 var fMOC = index.split("_")[1];
                 var fNSD = index.split("_")[2];
@@ -1762,21 +1810,17 @@ function Iterate2(data) {
                     if (fname == 'TargetTaxonId') return true;
                     if (fname == 'PrelimTaxonId') return true;
                     if (fname == 'HostTaxonId') return true;
-                    if (fname == 'WaypointNumber' && (value < 1 || value > 99999)) {
-                        vError = 1;
-                        vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Invalid Waypoint Number [1-99999].");
-                        vFailed = true;
-                        return false;
-                    }
+                    if (fname == 'CollectedAltitudeNo') return true;
+                    if (fname == 'WaypointNumber') return true;
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + fname + " field cannot be ZERO");
+                    vErrDescription.push(fname + " field cannot be ZERO");
                     vFailed = true;
                     return false;
                 }
             }
         }
     });
-    if (vFailed == true) {
+    if (vFailed === true) {
         return { "vError": vError, "vErrDescription": vErrDescription.join('<br/>') };
     } else { return { "vError": 0, "vErrDescription": "" }; }
 }
@@ -2823,6 +2867,8 @@ $(document).on('click', 'a.downloadMaps', function (e) {
     t0 = performance.now();
     $('#modalProgress').modal();
     $('#mb6 .progText').text("Download in progress ...");
+    $('#mb6 .progress').removeClass('hide');
+    $('#mb6 .fa-clock-o').removeClass('hide');
     $('#mb6 .progTime').text(new Date().toString());
     getFileandExtract(url, mapset, 1, numfiles);
 });
@@ -2898,12 +2944,16 @@ function getFileandExtract(url, mapset, i, n) {
             t1 = performance.now();
             t3 = t3 + Math.round((t1 - t0));
             $('#mb6 .progText').text("File " + i + " out of " + n + ": Download in progress ...");
+            $('#mb6 .progress').removeClass('hide');
+            $('#mb6 .fa-clock-o').removeClass('hide');
         }
         xhr.onloadend = function () {
             if (this.status === 200) {
                 t1 = performance.now();
                 t3 = t3 + Math.round((t1 - t0));
                 $('#mb6 .progText').text("File " + i + " out of " + n + ": Download in progress ...");
+                $('#mb6 .progress').removeClass('hide');
+                $('#mb6 .fa-clock-o').removeClass('hide');
                 var blob = new Blob([this.response], { type: "octet/stream" });
                 fs.root.getFile(filename, { create: true, exclusive: false }, function (fileEntry) {
                     writeFile(fileEntry, mapset, blob, i, n);
@@ -2984,6 +3034,8 @@ function writeFile(fileEntry, filename, dataObj, i, n) {
             t1 = performance.now();
             t3 = t3 + Math.round((t1 - t0));
             $('#mb6 .progText').text("Extracting Zip file " + i + " out of " + n + ". This might take a while ...");
+            $('#mb6 .progress').removeClass('hide');
+            $('#mb6 .fa-clock-o').removeClass('hide');
             $('.progress-bar').css('width', Math.round(i / n * 100) + '%').attr('aria-valuenow', Math.round(i / n * 100)).text(Math.round(i / n * 100) + '%');
             setTimeout(processZip2(fileEntry.toURL(), "maps/" + filename), 20000);
         };

@@ -99,7 +99,7 @@
       }
     ],
     "device": {
-      "ownerId": "1",
+      "ownerId": "NONE",
       "ownerName": "Raj Jonnalagedda",
       "ownerRole": "Botanist",
       "samplePrefix": "RJ",
