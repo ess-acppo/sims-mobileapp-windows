@@ -1792,13 +1792,39 @@ $(document).on('click', 'a.btnError', function (e) {
     var z = $(this).data("l");
     switch (y) {
         case 'H':
-            $('.nav-tabs a[href="#tab1"]').tab('show');
+            $('#tab1').trigger('click');
+            switch (curDiscipline) {
+                case 'B':
+                    $('.hostweed').eq(z).find("[data-action=expand]").trigger("click");;
+                    break;
+                case 'E':
+                    $('.entobox').eq(z).find("[data-action=expand]").trigger("click");;
+                    break;
+                case 'P':
+                    $('.pathbox').eq(z).find("[data-action=expand]").trigger("click");;
+                    break;
+            }
             break;
         case 'T':
-            $('.nav-tabs a[href="#tab1"]').tab('show');
+            $('#tab1').trigger('click');
+            switch (curDiscipline) {
+                case 'B':
+                    $('.hostweed').eq(z).find("[data-action=expand]").trigger("click");;
+                    break;
+                case 'E':
+                    $('.entobox').eq(z).find("[data-action=expand]").trigger("click");;
+                    break;
+                case 'P':
+                    $('.pathbox').eq(z).find("[data-action=expand]").trigger("click");;
+                    break;
+            }
             break;
         case 'S':
-            $('.nav-tabs a[href="#tab2"]').tab('show');
+            $('#tab2').trigger('click');
+            $('.sample').eq(z*1-1).find("[data-action=expand]").trigger("click");
+            break;
+        default:
+            $('#tab0').trigger('click');
             break;
     }
     $("#form1").find("input[name='" + x + "']").focus();
