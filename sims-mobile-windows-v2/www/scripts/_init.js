@@ -108,7 +108,7 @@ function initSettings() {
         tx.executeSql("CREATE TABLE IF NOT EXISTS staffdata (id integer primary key, settingstext text, settingsval text default '{}')");
         tx.executeSql("CREATE TABLE IF NOT EXISTS taxadata (id integer primary key, settingstext text, settingsval text default '{}')");
     }, function (err) {
-        $.growl.error({ title: "", message: "An error occurred while initializing the DB. " + err.message, location: "bc", size: "large" });
+        $.growl.error({ title: "", message: "An error occurred while initializing the DB. " + err.message, location: "tc", size: "large" });
     });
     //Loading PH reference codes
     db.transaction(function (tx) {
@@ -125,7 +125,7 @@ function initSettings() {
             };
         });
     }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while loading PH RefenceCodes. ", location: "bc", size: "large", fixed: "true" });
+        $.growl.error({ title: "", message: "An error occured while loading PH RefenceCodes. ", location: "tc", size: "large", fixed: "true" });
     });
     //Loading taxa data
     db.transaction(function (tx) {
@@ -140,7 +140,7 @@ function initSettings() {
             };
         });
     }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while loading Taxa Data. ", location: "bc", size: "large", fixed: "true" });
+        $.growl.error({ title: "", message: "An error occured while loading Taxa Data. ", location: "tc", size: "large", fixed: "true" });
     });
     //Loading Activity Data
     db.transaction(function (tx) {
@@ -166,7 +166,7 @@ function initSettings() {
                         }
                     });
                 }, function (err) {
-                    $.growl.error({ title: "", message: "An error occured while loading staff Data. " + err.message, location: "bc", size: "large", fixed: "true" });
+                    $.growl.error({ title: "", message: "An error occured while loading staff Data. " + err.message, location: "tc", size: "large", fixed: "true" });
                 });
             }
             else {
@@ -188,12 +188,12 @@ function initSettings() {
                         }
                     });
                 }, function (err) {
-                    $.growl.error({ title: "", message: "An error occured while loading staff Data. " + err.message, location: "bc", size: "large", fixed: "true" });
+                    $.growl.error({ title: "", message: "An error occured while loading staff Data. " + err.message, location: "tc", size: "large", fixed: "true" });
                 });
             };
         });
     }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while loading Activity Data. " + err.message, location: "bc", size: "large", fixed: "true" });
+        $.growl.error({ title: "", message: "An error occured while loading Activity Data. " + err.message, location: "tc", size: "large", fixed: "true" });
     });
     //Loading maps and Markers
     db.transaction(function (tx) {
@@ -249,22 +249,22 @@ function initSettings() {
                                 //alert("Rows deleted.");
                             });
                         }, function (err) {
-                            $.growl.error({ title: "", message: "An error occured while deleting settings from DB. " + err.message, location: "bc", size: "large", fixed: "true" });
+                            $.growl.error({ title: "", message: "An error occured while deleting settings from DB. " + err.message, location: "tc", size: "large", fixed: "true" });
                         });
                         db.transaction(function (tx) {
                             tx.executeSql("INSERT INTO settings (id, settingstext, settingsval) VALUES (?,?,?)", [1, 'appSettings', JSON.stringify(resSettings)], function (tx, res) {
                                 //alert("Row inserted.");
                             });
                         }, function (err) {
-                            $.growl.error({ title: "", message: "An error occured while updating settings to DB. " + err.message, location: "bc", size: "large", fixed: "true" });
+                            $.growl.error({ title: "", message: "An error occured while updating settings to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
                         });
                         db.transaction(function (tx) {
                             tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
                                 //alert("Dataset updated.");
-                                //$.growl({ title: "", message: "Your changes have been saved!", location: "bc", size: "large", fixed: "true" });
+                                //$.growl({ title: "", message: "Your changes have been saved!", location: "tc", size: "large", fixed: "true" });
                             });
                         }, function (err) {
-                            $.growl.error({ title: "", message: "An error occured while updating settings to DB. " + err.message, location: "bc", size: "large", fixed: "true" });
+                            $.growl.error({ title: "", message: "An error occured while updating settings to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
                         });
                         var arr = resSettings.settings.mapSets.filter(function (el) {
                             return (el.activeFlag === 1);
@@ -316,14 +316,14 @@ function initSettings() {
                                         //alert("Rows deleted.");
                                     });
                                 }, function (err) {
-                                    $.growl.error({ title: "", message: "An error occured while deleting row from DB. " + err.message, location: "bc", size: "large", fixed: "true" });
+                                    $.growl.error({ title: "", message: "An error occured while deleting row from DB. " + err.message, location: "tc", size: "large", fixed: "true" });
                                 });
                                 db.transaction(function (tx) {
                                     tx.executeSql("INSERT INTO observations (id, filedt, data) VALUES (?,?,?)", [1, today, JSON.stringify(data)], function (tx, res) {
                                         //alert("Row inserted.");
                                     });
                                 }, function (err) {
-                                    $.growl.error({ title: "", message: "An error occured while inserting row to DB. " + err.message, location: "bc", size: "large", fixed: "true" });
+                                    $.growl.error({ title: "", message: "An error occured while inserting row to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
                                 });
                                 clearMarkers();
                                 results = JSON.parse(data);
@@ -365,15 +365,15 @@ function initSettings() {
                                 db.transaction(function (tx) {
                                     tx.executeSql("UPDATE observations SET data = ?,filedt = ? WHERE id = ?", [JSON.stringify(results), today, 1], function (tx, res) {
                                         //alert("Dataset updated.");
-                                        //$.growl({ title: "", message: "Your changes have been saved!", location: "bc", size: "large", fixed: "true" });
+                                        //$.growl({ title: "", message: "Your changes have been saved!", location: "tc", size: "large", fixed: "true" });
                                     });
                                 }, function (err) {
-                                    $.growl.error({ title: "", message: "An error occured while updating data to DB. " + err.message, location: "bc", size: "large", fixed: "true" });
+                                    $.growl.error({ title: "", message: "An error occured while updating data to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
                                 });
-                                //$.growl.notice({ title: "", message: "Data loaded!", location: "bc", size: "large", fixed: "true" });
+                                //$.growl.notice({ title: "", message: "Data loaded!", location: "tc", size: "large", fixed: "true" });
                             },
                             failure: function () {
-                                $.growl.error({ title: "", message: "Error!", location: "bc", size: "large", fixed: "true" });
+                                $.growl.error({ title: "", message: "Error!", location: "tc", size: "large", fixed: "true" });
                             }
                         });
                         google.maps.event.addListener(map, 'click', function (event) {
@@ -381,7 +381,7 @@ function initSettings() {
                         });
                     },
                     failure: function () {
-                        $.growl.error({ title: "", message: "Error loading settings!", location: "bc", size: "large", fixed: "true" });
+                        $.growl.error({ title: "", message: "Error loading settings!", location: "tc", size: "large", fixed: "true" });
                     }
                 });
             };
@@ -389,7 +389,7 @@ function initSettings() {
             if ($("#modalProgress").data('bs.modal').isShown) { $('#modalProgress').modal('hide'); }
         });
     }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while loading app settings. " + err.message, location: "bc", size: "large", fixed: "true" });
+        $.growl.error({ title: "", message: "An error occured while loading app settings. " + err.message, location: "tc", size: "large", fixed: "true" });
     });
 }
 function initLoad() {
@@ -458,7 +458,7 @@ function loadMapMarkers() {
             }
         });
     }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while retrieving observations. " + err.message, location: "bc", size: "large" });
+        $.growl.error({ title: "", message: "An error occured while retrieving observations. " + err.message, location: "tc", size: "large" });
     });
 }
 function clearMarkers() {
@@ -479,7 +479,7 @@ function checkMapBoundsByLoc(location) {
         return (el.activeFlag === 1);
     });
     if (cLat < arr[0].mapBounds.bottomLat || cLat > arr[0].mapBounds.topLat || cLng < arr[0].mapBounds.leftLng || cLng > arr[0].mapBounds.rightLng) {
-        $.growl.warning({ title: "", message: "Location is outside map bounds!", location: "bc", size: "large" });
+        $.growl.warning({ title: "", message: "Location is outside map bounds!", location: "tc", size: "large" });
         nM.setMap(null);
         //return false;
     }
@@ -493,7 +493,7 @@ function checkMapBoundsByPos(position) {
         return (el.activeFlag === 1);
     });
     if (cLat < arr[0].mapBounds.bottomLat || cLat > arr[0].mapBounds.topLat || cLng < arr[0].mapBounds.leftLng || cLng > arr[0].mapBounds.rightLng) {
-        $.growl.warning({ title: "", message: "Location is outside map bounds!", location: "bc", size: "large" });
+        $.growl.warning({ title: "", message: "Location is outside map bounds!", location: "tc", size: "large" });
         //return false;
     }
     return true;
@@ -539,13 +539,13 @@ function checkMapBoundsBySite(position, siteId) {
             return true;
         }
         else {
-            $.growl.warning({ title: "", message: "Location is outside site bounds!", location: "bc", size: "large" });
+            $.growl.warning({ title: "", message: "Location is outside site bounds!", location: "tc", size: "large" });
             return true;
             //return false;
         }
     }
     else {
-        $.growl.warning({ title: "", message: "Location is outside site bounds!", location: "bc", size: "large" });
+        $.growl.warning({ title: "", message: "Location is outside site bounds!", location: "tc", size: "large" });
         return true;
         //return false;
     }
@@ -598,11 +598,11 @@ function myLoc() {
                 placeMarker(pos);
             }
         }, function () {
-            $.growl.error({ title: "", message: "GPS GetCurrentPosition Failed!", location: "bc", size: "large" });
+            $.growl.error({ title: "", message: "GPS GetCurrentPosition Failed!", location: "tc", size: "large" });
         });
     } else {
         // Browser doesn't support Geolocation
-        $.growl.error({ title: "", message: "Geolocation Failed!", location: "bc", size: "large" });
+        $.growl.error({ title: "", message: "Geolocation Failed!", location: "tc", size: "large" });
     }
 }
 function getAltitude() {
@@ -612,14 +612,14 @@ function getAltitude() {
             //$('#form1').find("input[type='text'][name='longitude']").val(position.coords.longitude);
             //alert(position.coords.altitude);
             if (position.coords.altitude) {
-                $('#form1').find("input[type='number'][name^='AltitudeNo']").val(position.coords.altitude.toFixed(5));
+                $('#form1').find("input[type='number'][name^='AltitudeNo']").val(Math.round(position.coords.altitude.toFixed(5)));
             }
         }, function () {
-            $.growl.error({ title: "", message: "GetAltitude Failed on this platform.", location: "bc", size: "large" });
+            $.growl.error({ title: "", message: "GetAltitude Failed on this platform.", location: "tc", size: "large" });
         });
     } else {
         // Browser doesn't support Geolocation
-        $.growl.error({ title: "", message: "GeoLocation Failed.", location: "bc", size: "large" });
+        $.growl.error({ title: "", message: "GeoLocation Failed.", location: "tc", size: "large" });
     };
 }
 function downloadCSV() {
@@ -641,7 +641,7 @@ function downloadCSV() {
 function launchModal(e, f) {
     curIdx = e;
     curDiscipline = f;
-    var arr = results.observations.filter(function (index, el) {
+    var arr = results.observations.filter(function (el, index) {
         if (el.id_M_N === e) { curPos = index; }
         return (el.id_M_N === e);
     });
@@ -690,18 +690,18 @@ function loadData() {
         //            {
         //                "data": "status",
         //                "render": function (data, type, row, meta) {
-        //                    if (data == 0) return "Saved";
-        //                    if (data == 1) return "Submitted";
+        //                    if (data === 0) return "Saved";
+        //                    if (data === 1) return "Submitted";
         //                }
         //            },
         //            {
         //                "data": "discipline",
         //                "render": function (data, type, row, meta) {
-        //                    if (data == 'S') return "Single";
-        //                    if (data == 'G') return "Group";
-        //                    if (data == 'B') return "Botany";
-        //                    if (data == 'E') return "Entomology";
-        //                    if (data == 'P') return "Pathology";
+        //                    if (data === 'S') return "Single";
+        //                    if (data === 'G') return "Group";
+        //                    if (data === 'B') return "Botany";
+        //                    if (data === 'E') return "Entomology";
+        //                    if (data === 'P') return "Pathology";
         //                }
         //            }
         //        ],
@@ -734,18 +734,18 @@ function loadData() {
         //            {
         //                "data": "status",
         //                "render": function (data, type, row, meta) {
-        //                    if (data == 0) return "Saved";
-        //                    if (data == 1) return "Submitted";
+        //                    if (data === 0) return "Saved";
+        //                    if (data === 1) return "Submitted";
         //                }
         //            },
         //            {
         //                "data": "discipline",
         //                "render": function (data, type, row, meta) {
-        //                    if (data == 'S') return "Single";
-        //                    if (data == 'G') return "Group";
-        //                    if (data == 'B') return "Botany";
-        //                    if (data == 'E') return "Entomology";
-        //                    if (data == 'P') return "Pathology";
+        //                    if (data === 'S') return "Single";
+        //                    if (data === 'G') return "Group";
+        //                    if (data === 'B') return "Botany";
+        //                    if (data === 'E') return "Entomology";
+        //                    if (data === 'P') return "Pathology";
         //                }
         //            }
         //        ],
@@ -767,11 +767,11 @@ function loadData() {
                     {
                         "data": "PlantDisciplineCode_M_S",
                         "render": function (data, type, row, meta) {
-                            if (data == 'S') return "Single";
-                            if (data == 'G') return "Group";
-                            if (data == 'B') return "Botany";
-                            if (data == 'E') return "Entomology";
-                            if (data == 'P') return "Pathology";
+                            if (data === 'S') return "Single";
+                            if (data === 'G') return "Group";
+                            if (data === 'B') return "Botany";
+                            if (data === 'E') return "Entomology";
+                            if (data === 'P') return "Pathology";
                         }
                     },
                     { "data": "SurvActivityId_M_N" },
@@ -788,8 +788,8 @@ function loadData() {
                     {
                         "data": "status_M_N",
                         "render": function (data, type, row, meta) {
-                            if (data == 0) return "Saved";
-                            if (data == 1) return "Submitted";
+                            if (data === 0) return "Saved";
+                            if (data === 1) return "Submitted";
                         }
                     }
                 ],
@@ -808,7 +808,7 @@ function loadData() {
 $(document).on('click', '.export', function (event) {
     var args = [$('#srchPHTable_wrapper'), 'export.csv'];
     exportTableToCSV.apply(this, args);
-})
+});
 function exportTableToCSV($table, filename) {
     csv = "";
     var $rows = $table.find('tr:has(td)'),
@@ -861,12 +861,12 @@ function exportTableToCSV($table, filename) {
                         //readFile(fileEntry);
                     };
                     fileWriter.onerror = function (e) {
-                        $.growl.error({ title: "", message: "Failed file read: " + e.toString(), location: "bc", size: "large" });
+                        $.growl.error({ title: "", message: "Failed file read: " + e.toString(), location: "tc", size: "large" });
                     };
                     fileWriter.seek(0);
                     var blob = new Blob([csv], { type: 'text/plain' });
                     fileWriter.write(blob);
-                    $.growl.notice({ title: "", message: 'File saved to Local folder.', location: "bc", size: "large" });
+                    $.growl.notice({ title: "", message: 'File saved to Local folder.', location: "tc", size: "large" });
                 });
             });
         });
@@ -946,7 +946,7 @@ function backupDatabase() {
                 //console.log('[!] Directory: ' + bkupdirectoryEntry.toURL());
                 fileEntry.copyTo(bkupdirectoryEntry, name, function (cpfileEntry) {
                     //console.log('[!] Copy success');
-                    $.growl.notice({ title: "", message: "Observations backedup to local Backup folder.", location: "bc", size: "large" });
+                    $.growl.notice({ title: "", message: "Observations backedup to local Backup folder.", location: "tc", size: "large" });
                 }, function (error) {
                     //console.log('[!] Copy failed: ' + error.code);
                 });
@@ -978,7 +978,7 @@ function restoreDatabase() {
                             //console.log('[!] Directory: ' + bkupdirectoryEntry.toURL());
                             fileEntry.copyTo(bkupdirectoryEntry, name, function (cpfileEntry) {
                                 //console.log('[!] Copy success');
-                                $.growl({ title: "", message: "Observations restored to the application.", location: "bc", size: "large" });
+                                $.growl({ title: "", message: "Observations restored to the application.", location: "tc", size: "large" });
                             }, function (error) {
                                 //console.log('[!] Copy failed: ' + error.code);
                             });
@@ -1016,7 +1016,7 @@ google.maps.Polygon.prototype.Contains = function (point) {
     }
 
     // odd number of crossings?
-    return (crossings % 2 == 1);
+    return (crossings % 2 === 1);
 
     function rayCrossesSegment(point, a, b) {
         var px = point.lng(),
@@ -1042,12 +1042,12 @@ google.maps.Polygon.prototype.Contains = function (point) {
             bx += 360;
         }
 
-        if (py == ay || py == by) py += 0.00000001;
+        if (py === ay || py === by) py += 0.00000001;
         if ((py > by || py < ay) || (px > Math.max(ax, bx))) return false;
         if (px < Math.min(ax, bx)) return true;
 
-        var red = (ax != bx) ? ((by - ay) / (bx - ax)) : Infinity;
-        var blue = (ax != px) ? ((py - ay) / (px - ax)) : Infinity;
+        var red = (ax !== bx) ? ((by - ay) / (bx - ax)) : Infinity;
+        var blue = (ax !== px) ? ((py - ay) / (px - ax)) : Infinity;
         return (blue >= red);
 
     }
@@ -1079,23 +1079,23 @@ $(document).on('click', '#Save', function (e) {
     //var obj1 = JSON.stringify(objectifyForm(form1));
     var obj = objectifyPHFormforSave(form1);
     obj.status_M_N = 0;
-    $.confirm({
-        title: 'Payload Saved!',
-        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
-        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-        buttons: {
-            ok: function () { },
-            copy: {
-                text: 'Copy', // With spaces and symbols
-                action: function () {
-                    var copytext = this.$content.find("#Payload");
-                    copytext.select();
-                    document.execCommand("copy");
-                    return false;
-                }
-            }
-        }
-    });
+    //$.confirm({
+    //    title: 'Payload Saved!',
+    //    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
+    //    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+    //    buttons: {
+    //        ok: function () { },
+    //        copy: {
+    //            text: 'Copy', // With spaces and symbols
+    //            action: function () {
+    //                var copytext = this.$content.find("#Payload");
+    //                copytext.select();
+    //                document.execCommand("copy");
+    //                return false;
+    //            }
+    //        }
+    //    }
+    //});
     if (curIdx > 0) {
         results.observations[curPos] = obj;
     }
@@ -1108,10 +1108,10 @@ $(document).on('click', '#Save', function (e) {
     db.transaction(function (tx) {
         tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
             //alert("Dataset updated.");
-            $.growl({ title: "", message: "Your changes have been saved!", location: "bc", size: "large" });
+            $.growl({ title: "", message: "Your changes have been saved!", location: "tc", size: "large" });
         });
     }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while updating row to DB. " + err.message, location: "bc", size: "large" });
+        $.growl.error({ title: "", message: "An error occured while updating row to DB. " + err.message, location: "tc", size: "large" });
     });
     //$('#modalForm').modal('hide');
     //clearMarkers();
@@ -1124,23 +1124,23 @@ $(document).on('click', '#SaveExit', function (e) {
     //var obj1 = JSON.stringify(objectifyForm(form1));
     var obj = objectifyPHFormforSave(form1);
     obj.status_M_N = 0;
-    $.confirm({
-        title: 'Payload Saved!',
-        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
-        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-        buttons: {
-            ok: function () { },
-            copy: {
-                text: 'Copy', // With spaces and symbols
-                action: function () {
-                    var copytext = this.$content.find("#Payload");
-                    copytext.select();
-                    document.execCommand("copy");
-                    return false;
-                }
-            }
-        }
-    });
+    //$.confirm({
+    //    title: 'Payload Saved!',
+    //    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
+    //    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+    //    buttons: {
+    //        ok: function () { },
+    //        copy: {
+    //            text: 'Copy', // With spaces and symbols
+    //            action: function () {
+    //                var copytext = this.$content.find("#Payload");
+    //                copytext.select();
+    //                document.execCommand("copy");
+    //                return false;
+    //            }
+    //        }
+    //    }
+    //});
     if (curIdx > 0) {
         results.observations[curPos] = obj;
     }
@@ -1153,10 +1153,10 @@ $(document).on('click', '#SaveExit', function (e) {
     db.transaction(function (tx) {
         tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
             //alert("Dataset updated.");
-            $.growl({ title: "", message: "Your changes have been saved!", location: "bc", size: "large" });
+            $.growl({ title: "", message: "Your changes have been saved!", location: "tc", size: "large" });
         });
     }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while updating row to DB. " + err.message, location: "bc", size: "large" });
+        $.growl.error({ title: "", message: "An error occured while updating row to DB. " + err.message, location: "tc", size: "large" });
     });
     $('#modalForm').modal('hide');
 });
@@ -1174,26 +1174,26 @@ $(document).on('click', '#Submit2', function (e) {
     var obj = objectifyPHFormforSave(form1);
     //console.log(JSON.stringify(obj));
     var result = Iterate(obj);
-    if (result.vError == 0) {
+    if (result.vError === 0) {
         //console.log(JSON.stringify(SubmitRecord(objectifyPHFormforSubmit(obj))));
         obj.status_M_N = 1;
-        $.confirm({
-            title: 'Payload marked for Submit!',
-            content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
-            columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-            buttons: {
-                ok: function () { },
-                copy: {
-                    text: 'Copy', // With spaces and symbols
-                    action: function () {
-                        var copytext = this.$content.find("#Payload");
-                        copytext.select();
-                        document.execCommand("copy");
-                        return false;
-                    }
-                }
-            }
-        });
+        //$.confirm({
+        //    title: 'Payload marked for Submit!',
+        //    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
+        //    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+        //    buttons: {
+        //        ok: function () { },
+        //        copy: {
+        //            text: 'Copy', // With spaces and symbols
+        //            action: function () {
+        //                var copytext = this.$content.find("#Payload");
+        //                copytext.select();
+        //                document.execCommand("copy");
+        //                return false;
+        //            }
+        //        }
+        //    }
+        //});
         if (curIdx > 0) {
             results.observations[curPos] = obj;
         }
@@ -1204,10 +1204,10 @@ $(document).on('click', '#Submit2', function (e) {
         }
         db.transaction(function (tx) {
             tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
-                $.growl({ title: "", message: "Observation marked for Sync.", location: "bc", size: "large" });
+                $.growl({ title: "", message: "Observation marked for Sync.", location: "tc", size: "large" });
             });
         }, function (err) {
-            $.growl.error({ title: "", message: "An error occured while saving row to DB. " + err.message, location: "bc", size: "large" });
+            $.growl.error({ title: "", message: "An error occured while saving row to DB. " + err.message, location: "tc", size: "large" });
         });
         $('#modalForm').modal('hide');
         //clearMarkers();
@@ -1218,7 +1218,7 @@ $(document).on('click', '#Submit2', function (e) {
     }
     else {
         rowsFailedErr.push(result.vErrDescription);
-        $.growl.error({ title: "", message: "Submit Failed!<br/>" + rowsFailedErr.join('<br/>'), location: "bc", size: "large", fixed: "true" });
+        $.growl.error({ title: "", message: "Submit Failed!<br/>" + rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" });
     }
 });
 $(document).on('click', '#settings', function (e) {
@@ -1269,7 +1269,7 @@ $(document).on('click', '#Delete', function (e) {
                         //alert("Dataset updated.");
                     });
                 }, function (err) {
-                    $.growl.error({ title: "", message: "An error occured while updating row to DB. " + err.message, location: "bc", size: "large" });
+                    $.growl.error({ title: "", message: "An error occured while updating row to DB. " + err.message, location: "tc", size: "large" });
                 });
                 $('#modalForm').modal('hide');
                 //table.destroy();
@@ -1403,14 +1403,14 @@ $(document).on('click', '.sync', function (event) {
                     "cache-control": "no-cache"
                 },
                 success: function (data, textStatus, XmlHttpRequest) {
-                    //$.growl({ title: "", message: "Success! Observations synced to cloud.", location: "bc", size: "large" });  
+                    //$.growl({ title: "", message: "Success! Observations synced to cloud.", location: "tc", size: "large" });  
                     if (XmlHttpRequest.status === 200) {
                         $.growl({ title: "", message: "Observation Sync'd!", location: "bc" });
                     }
                     rowsSuccess.push(index);
                 },
                 complete: function () {
-                    //$.growl({ title: "", message: "Success! Observations synced to cloud.", location: "bc", size: "large" });
+                    //$.growl({ title: "", message: "Success! Observations synced to cloud.", location: "tc", size: "large" });
                     //results.observations(value.id_M_N - 1).status_M_N = 2;
                     //results.observations.splice(index, 1);
                 },
@@ -1440,15 +1440,15 @@ $(document).on('click', '.sync', function (event) {
         db.transaction(function (tx) {
             tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
                 //alert("Dataset updated.");
-                //$.growl({ title: "", message: "Success! Observations " + rowsSuccess.join(',') + " synced to cloud.", location: "bc", size: "large" });
-                //$.growl({ title: "", message: "Observations synced to cloud.", location: "bc", size: "large" });
+                //$.growl({ title: "", message: "Success! Observations " + rowsSuccess.join(',') + " synced to cloud.", location: "tc", size: "large" });
+                //$.growl({ title: "", message: "Observations synced to cloud.", location: "tc", size: "large" });
             });
         }, function (err) {
-            $.growl.error({ title: "", message: "An error occured while updating records to database. " + err.message, location: "bc", size: "large" });
+            $.growl.error({ title: "", message: "An error occured while updating records to database. " + err.message, location: "tc", size: "large" });
         });
     }
-    else if (success === false && noRowstoPush === false) { $.growl.error({ title: "", message: "Submit Failed for rows:" + rowsFailed.join(',') + "<br/>" + rowsFailedErr.join('<br/>'), location: "bc", size: "large", fixed: "true" }); }
-    else if (success === true && noRowstoPush === true) { $.growl.notice({ title: "", message: "No records to Sync.", location: "bc", size: "large" }); }
+    else if (success === false && noRowstoPush === false) { $.growl.error({ title: "", message: "Submit Failed for rows:" + rowsFailed.join(',') + "<br/>" + rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" }); }
+    else if (success === true && noRowstoPush === true) { $.growl.notice({ title: "", message: "No records to Sync.", location: "tc", size: "large" }); }
     syncPHRefCodes();
     syncActivityData();
     syncstaffData();
@@ -1475,30 +1475,30 @@ $(document).on('shown.bs.modal', '#modalPHGrid', function () {
     loadActivityData();
     loadstaffData();
     loadData();
-    if (statusElem.innerHTML == 'online') {
+    if (statusElem.innerHTML === 'online') {
         $('.sync').removeClass('hide');
     }
-    if (statusElem.innerHTML == 'offline') {
+    if (statusElem.innerHTML === 'offline') {
         $('.sync').addClass('hide');
     }
-})
+});
 $(document).on('hidden.bs.modal', '#modalPHGrid', function () {
     table.destroy();
-})
+});
 $(document).on('shown.bs.modal', '#modalGrid', function () {
     loadAHDefaults();
     loadData();
-})
+});
 $(document).on('hidden.bs.modal', '#modalGrid', function () {
     table.destroy();
-})
+});
 $(document).on('hidden.bs.modal', '#modalForm', function () {
     //table.destroy();
     //loadAHDefaults();
     //loadData();
     clearMarkers();
     loadMapMarkers();
-})
+});
 $(document).on('click', 'a.btnResetData', function (e) {
     $.confirm({
         title: 'Confirm Data Reset!',
@@ -1526,14 +1526,14 @@ $(document).on('click', 'a.btnResetData', function (e) {
                                 //alert("Rows deleted.");
                             });
                         }, function (err) {
-                            $.growl.error({ title: "", message: "An error occured while deleting row from DB. " + err.message, location: "bc", size: "large" });
+                            $.growl.error({ title: "", message: "An error occured while deleting row from DB. " + err.message, location: "tc", size: "large" });
                         });
                         db.transaction(function (tx) {
                             tx.executeSql("INSERT INTO observations (id, filedt, data) VALUES (?,?,?)", [1, today, JSON.stringify(data)], function (tx, res) {
                                 //alert("Row inserted.");
                             });
                         }, function (err) {
-                            $.growl.error({ title: "", message: "An error occured while inserting row to DB. " + err.message, location: "bc", size: "large" });
+                            $.growl.error({ title: "", message: "An error occured while inserting row to DB. " + err.message, location: "tc", size: "large" });
                         });
                         clearMarkers();
                         results = JSON.parse(data);
@@ -1577,15 +1577,15 @@ $(document).on('click', 'a.btnResetData', function (e) {
                         db.transaction(function (tx) {
                             tx.executeSql("UPDATE observations SET data = ?,filedt = ? WHERE id = ?", [JSON.stringify(results), today, 1], function (tx, res) {
                                 //alert("Dataset updated.");
-                                //$.growl({ title: "", message: "Your changes have been saved!", location: "bc", size: "large" });
+                                //$.growl({ title: "", message: "Your changes have been saved!", location: "tc", size: "large" });
                             });
                         }, function (err) {
-                            $.growl.error({ title: "", message: "An error occured while updating data to DB. " + err.message, location: "bc", size: "large" });
+                            $.growl.error({ title: "", message: "An error occured while updating data to DB. " + err.message, location: "tc", size: "large" });
                         });
-                        $.growl.notice({ title: "", message: "Data reset complete!", location: "bc", size: "large" });
+                        $.growl.notice({ title: "", message: "Data reset complete!", location: "tc", size: "large" });
                     },
                     failure: function () {
-                        $.growl.error({ title: "", message: "Error!", location: "bc", size: "large" });
+                        $.growl.error({ title: "", message: "Error!", location: "tc", size: "large" });
                     }
                 });
             },
@@ -1594,7 +1594,7 @@ $(document).on('click', 'a.btnResetData', function (e) {
             }
         }
     });
-})
+});
 $(document).on('click', 'a.btnSync', function (e) {
     $.confirm({
         title: 'Confirm Data Sync!',
@@ -1604,14 +1604,14 @@ $(document).on('click', 'a.btnSync', function (e) {
                 syncPHRefCodes();
                 syncActivityData();
                 syncstaffData();
-                $.growl({ title: "", message: "Sync Complete!.", location: "bc", size: "large" });
+                $.growl({ title: "", message: "Sync Complete!.", location: "tc", size: "large" });
             },
             cancel: function () {
                 //close
             }
         }
     });
-})
+});
 $(document).on('click', '.showPayloads', function (e) {
     $.confirm({
         title: 'Activity Data',
@@ -1768,7 +1768,7 @@ $(document).on('click', 'a.btnRestoreData', function (e) {
 function xmlToJson(xml) {
     // Create the return object
     var obj = {};
-    if (xml.nodeType == 1) { // element
+    if (xml.nodeType === 1) { // element
         // do attributes
         if (xml.attributes.length > 0) {
             obj["@attributes"] = {};
@@ -1777,7 +1777,7 @@ function xmlToJson(xml) {
                 obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
             }
         }
-    } else if (xml.nodeType == 3) { // text
+    } else if (xml.nodeType === 3) { // text
         obj = xml.nodeValue;
     }
     // do children
@@ -1789,10 +1789,10 @@ function xmlToJson(xml) {
         for (var i = 0; i < xml.childNodes.length; i++) {
             var item = xml.childNodes.item(i);
             var nodeName = item.nodeName;
-            if (typeof (obj[nodeName]) == "undefined") {
+            if (typeof (obj[nodeName]) === "undefined") {
                 obj[nodeName] = xmlToJson(item);
             } else {
-                if (typeof (obj[nodeName].push) == "undefined") {
+                if (typeof (obj[nodeName].push) === "undefined") {
                     var old = obj[nodeName];
                     obj[nodeName] = [];
                     obj[nodeName].push(old);
