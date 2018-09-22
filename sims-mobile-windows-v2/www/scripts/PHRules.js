@@ -1403,53 +1403,60 @@ function objectifyPHFormforSubmit(data) {//serialize data function
     if (jsonData.attachments.attachment.length === 0) { delete jsonData.attachments; }
     if (jsonData.PlantSampleTab.length === 0) { delete jsonData.PlantSampleTab; }
     else {
-            $.each(jsonData.PlantSampleTab, function (i, item) {
-                if (item.AdditionalCollectorTab.length === 0) { delete item.AdditionalCollectorTab };
-                if (item.EntoLifeStgTab && item.EntoLifeStgTab.length === 0) { delete item.EntoLifeStgTab };
-                if (item.PlantPartTab && item.PlantPartTab.length === 0) { delete item.PlantPartTab };
-                if (item.PlantPreservationTab && item.PlantPreservationTab.length === 0) { delete item.PlantPreservationTab };
-                if (item.attachments && item.attachments.attachment.length === 0) { delete item.attachments };
-                if (item.PrelimTaxonId > 0) {
-                    delete item.PrelimTaxonText;
-                }
-                if (item.PrelimTaxonId === "" || item.PrelimTaxonId === 0 && $.trim(item.PrelimTaxonText) !== "") {
-                    delete item.PrelimTaxonId;
-                }
-                if (item.PlantPreservOtherText === "") {
-                    delete item.PlantPreservOtherText;
-                }
-                if (item.HostIdentifiedUserId === 0) {
-                    delete item.HostIdentifiedUserId;
-                }
-                if (item.HostTaxonId > 0) {
-                    delete item.HostTaxonText;
-                }
-                if (item.HostTaxonId === "" || item.HostTaxonId === 0 && $.trim(item.HostTaxonText) !== "") {
-                    delete item.HostTaxonId;
-                }
-                if (item.SamplePointWktClob === "") {
-                    delete item.SamplePointWktClob;
-                    delete item.GpsDatumId;
-                }
-                if (item.PathIncidCode === "NONE") {
-                    delete item.PathIncidCode;
-                }
-                if (item.PathSevCode === "NONE") {
-                    delete item.PathSevCode;
-                }
-                if (item.EntoInfestedPctCode === "NONE") {
-                    delete item.EntoInfestedPctCode;
-                }
-                if (item.EntoDamageLevelCode === "NONE") {
-                    delete item.EntoDamageLevelCode;
-                }
-                if (item.EntoPestLevelCode === "NONE") {
-                    delete item.EntoPestLevelCode;
-                }
+        $.each(jsonData.PlantSampleTab, function (i, item) {
+            delete item.PrelimTaxonTextH;
+            delete item.HostTaxonTextH;
+            if (item.AdditionalCollectorTab.length === 0) { delete item.AdditionalCollectorTab };
+            if (item.AdditionalCollectorTab.length > 0) {
+                var arr = $.unique(item.AdditionalCollectorTab);
+                item.AdditionalCollectorTab = arr;
+            };
+            if (item.EntoLifeStgTab && item.EntoLifeStgTab.length === 0) { delete item.EntoLifeStgTab };
+            if (item.PlantPartTab && item.PlantPartTab.length === 0) { delete item.PlantPartTab };
+            if (item.PlantPreservationTab && item.PlantPreservationTab.length === 0) { delete item.PlantPreservationTab };
+            if (item.attachments && item.attachments.attachment.length === 0) { delete item.attachments };
+            if (item.PrelimTaxonId > 0) {
+                delete item.PrelimTaxonText;
+            }
+            if (item.PrelimTaxonId === "" || item.PrelimTaxonId === 0 && $.trim(item.PrelimTaxonText) !== "") {
+                delete item.PrelimTaxonId;
+            }
+            if (item.PlantPreservOtherText === "") {
+                delete item.PlantPreservOtherText;
+            }
+            if (item.HostIdentifiedUserId === 0) {
+                delete item.HostIdentifiedUserId;
+            }
+            if (item.HostTaxonId > 0) {
+                delete item.HostTaxonText;
+            }
+            if (item.HostTaxonId === "" || item.HostTaxonId === 0 && $.trim(item.HostTaxonText) !== "") {
+                delete item.HostTaxonId;
+            }
+            if (item.SamplePointWktClob === "") {
+                delete item.SamplePointWktClob;
+                delete item.GpsDatumId;
+            }
+            if (item.PathIncidCode === "NONE") {
+                delete item.PathIncidCode;
+            }
+            if (item.PathSevCode === "NONE") {
+                delete item.PathSevCode;
+            }
+            if (item.EntoInfestedPctCode === "NONE") {
+                delete item.EntoInfestedPctCode;
+            }
+            if (item.EntoDamageLevelCode === "NONE") {
+                delete item.EntoDamageLevelCode;
+            }
+            if (item.EntoPestLevelCode === "NONE") {
+                delete item.EntoPestLevelCode;
+            }
             });
     };
     $.each(jsonData.PlantObsTab, function (i, item) {
         delete item.CountList;
+        delete item.PlantTaxonTextH;
         if (item.HostStatAreaNo === 0) { delete item.HostStatAreaNo };
         if (item.HostStatCount === 0) { delete item.HostStatCount };
         if (item.PlantObsTargetTab && item.PlantObsTargetTab.length === 0) { delete item.PlantObsTargetTab };
@@ -1474,6 +1481,7 @@ function objectifyPHFormforSubmit(data) {//serialize data function
             delete item.PlantLifeStgCode;
         }
         $.each(item.PlantObsTargetTab, function (i, item1) {
+            delete item1.TargetTaxonTextH;
             if (item1.TargetTaxonId > 0) {
                 delete item1.TargetTaxonText;
             }
@@ -1915,6 +1923,7 @@ function BindAutoCompleteB(e) {
             onSelectItemEvent: function () {
                 var selectedItemValue = e.getSelectedItemData().id;
                 e.closest('.hostweed').find("input.taxonIDB").val(selectedItemValue);
+                e.closest('.hostweed').find("input.taxonHTextB").val(e.getSelectedItemData().name);
             }
         },
         adjustWidth: false
@@ -1932,6 +1941,7 @@ function BindAutoCompleteE(e) {
             onSelectItemEvent: function () {
                 var selectedItemValue = e.getSelectedItemData().id;
                 e.closest('.entobox').find("input.taxonIDE").val(selectedItemValue);
+                e.closest('.entobox').find("input.taxonHTextE").val(e.getSelectedItemData().name);
             }
         },
         adjustWidth: false
@@ -1949,6 +1959,7 @@ function BindAutoCompleteP(e) {
             onSelectItemEvent: function () {
                 var selectedItemValue = e.getSelectedItemData().id;
                 e.closest('.pathbox').find("input.taxonIDP").val(selectedItemValue);
+                e.closest('.pathbox').find("input.taxonHTextP").val(e.getSelectedItemData().name);
             }
         },
         adjustWidth: false
@@ -1966,6 +1977,7 @@ function BindAutoCompleteET(e) {
             onSelectItemEvent: function () {
                 var selectedItemValue = e.getSelectedItemData().id;
                 e.closest('.entotarget').find("input.taxonIDET").val(selectedItemValue);
+                e.closest('.entotarget').find("input.taxonHTextET").val(e.getSelectedItemData().name);
             }
         },
         adjustWidth: false
@@ -1983,6 +1995,7 @@ function BindAutoCompletePT(e) {
             onSelectItemEvent: function () {
                 var selectedItemValue = e.getSelectedItemData().id;
                 e.closest('.pathtarget').find("input.taxonIDPT").val(selectedItemValue);
+                e.closest('.pathtarget').find("input.taxonHTextPT").val(e.getSelectedItemData().name);
             }
         },
         adjustWidth: false
@@ -2000,6 +2013,7 @@ function BindAutoCompleteBS(e) {
             onSelectItemEvent: function () {
                 var selectedItemValue = e.getSelectedItemData().id;
                 e.closest('.sample').find("input.taxonIDBS").val(selectedItemValue);
+                e.closest('.sample').find("input.taxonHTextBS").val(e.getSelectedItemData().name);
             }
         },
         adjustWidth: false
@@ -2017,6 +2031,7 @@ function BindAutoCompleteES(e) {
             onSelectItemEvent: function () {
                 var selectedItemValue = e.getSelectedItemData().id;
                 e.closest('.sample').find("input.taxonIDES").val(selectedItemValue);
+                e.closest('.sample').find("input.taxonHTextES").val(e.getSelectedItemData().name);
             }
         },
         adjustWidth: false
@@ -2034,6 +2049,7 @@ function BindAutoCompleteHES(e) {
             onSelectItemEvent: function () {
                 var selectedItemValue = e.getSelectedItemData().id;
                 e.closest('.sample').find("input.taxonIDHES").val(selectedItemValue);
+                e.closest('.sample').find("input.taxonHTextHES").val(e.getSelectedItemData().name);
             }
         },
         adjustWidth: false
@@ -2051,6 +2067,7 @@ function BindAutoCompletePS(e) {
             onSelectItemEvent: function () {
                 var selectedItemValue = e.getSelectedItemData().id;
                 e.closest('.sample').find("input.taxonIDPS").val(selectedItemValue);
+                e.closest('.sample').find("input.taxonHTextPS").val(e.getSelectedItemData().name);
             }
         },
         adjustWidth: false
@@ -2068,6 +2085,7 @@ function BindAutoCompleteHPS(e) {
             onSelectItemEvent: function () {
                 var selectedItemValue = e.getSelectedItemData().id;
                 e.closest('.sample').find("input.taxonIDHPS").val(selectedItemValue);
+                e.closest('.sample').find("input.taxonHTextHPS").val(e.getSelectedItemData().name);
             }
         },
         adjustWidth: false
@@ -3497,43 +3515,87 @@ function getTaxonText(id) {
             break;
     }
 }
-$(document).on('keydown', '.taxonTextP', function () {
-    var key = event.keyCode || event.charCode;
-    if (key == 8 || key == 46) { $('.taxonIDP').val(''); }
+$(document).on('blur', '.taxonTextP', function () {
+    var x = $(this).closest('.pathbox');
+    if ($(this).val() !== x.find('.taxonHTextP').val()) {
+        x.find('.taxonIDP').val('');
+    }
 });
-$(document).on('keydown', '.taxonTextPT', function () {
-    var key = event.keyCode || event.charCode;
-    if (key == 8 || key == 46) { $('.taxonIDPT').val(''); }
+$(document).on('blur', '.taxonTextPT', function () {
+    var x = $(this).closest('.pathbox');
+    if ($(this).val() !== x.find('.taxonHTextPT').val()) {
+        x.find('.taxonIDPT').val('');
+    }
 });
-$(document).on('keydown', '.taxonTextE', function () {
-    var key = event.keyCode || event.charCode;
-    if (key == 8 || key == 46) { $('.taxonIDE').val(''); }
+$(document).on('blur', '.taxonTextE', function () {
+    var x = $(this).closest('.entobox');
+    if ($(this).val() !== x.find('.taxonHTextE').val()) {
+        x.find('.taxonIDE').val('');
+    }
 });
-$(document).on('keydown', '.taxonTextET', function () {
-    var key = event.keyCode || event.charCode;
-    if (key == 8 || key == 46) { $('.taxonIDET').val(''); }
+$(document).on('blur', '.taxonTextET', function () {
+    var x = $(this).closest('.entobox');
+    if ($(this).val() !== x.find('.taxonHTextET').val()) {
+        x.find('.taxonIDET').val('');
+    }
 });
-$(document).on('keydown', '.taxonTextB', function () {
-    var key = event.keyCode || event.charCode;
-    if (key == 8 || key == 46) { $('.taxonIDB').val(''); }
+$(document).on('blur', '.taxonTextB', function () {
+    var x = $(this).closest('.hostweed');
+    if ($(this).val() !== x.find('.taxonHTextB').val()) {
+        x.find('.taxonIDB').val('');
+    }
 });
-$(document).on('keydown', '.taxonTextBS', function () {
-    var key = event.keyCode || event.charCode;
-    if (key == 8 || key == 46) { $('.taxonIDBS').val(''); }
+$(document).on('blur', '.taxonTextBS', function () {
+    var x = $(this).closest('.sample');
+    if ($(this).val() !== x.find('.taxonHTextBS').val()) {
+        x.find('.taxonIDBS').val('');
+    }
 });
-$(document).on('keydown', '.taxonTextES', function () {
-    var key = event.keyCode || event.charCode;
-    if (key == 8 || key == 46) { $('.taxonIDES').val(''); }
+$(document).on('blur', '.taxonTextES', function () {
+    var x = $(this).closest('.sample');
+    if ($(this).val() !== x.find('.taxonHTextES').val()) {
+        x.find('.taxonIDES').val('');
+    }
 });
-$(document).on('keydown', '.taxonTextPS', function () {
-    var key = event.keyCode || event.charCode;
-    if (key == 8 || key == 46) { $('.taxonIDPS').val(''); }
+$(document).on('blur', '.taxonTextPS', function () {
+    var x = $(this).closest('.sample');
+    if ($(this).val() !== x.find('.taxonHTextPS').val()) {
+        x.find('.taxonIDPS').val('');
+    }
 });
-$(document).on('keydown', '.taxonTextHES', function () {
-    var key = event.keyCode || event.charCode;
-    if (key == 8 || key == 46) { $('.taxonIDHES').val(''); }
+$(document).on('blur', '.taxonTextHES', function () {
+    var x = $(this).closest('.sample');
+    if ($(this).val() !== x.find('.taxonHTextHES').val()) {
+        x.find('.taxonIDHES').val('');
+    }
 });
-$(document).on('keydown', '.taxonTextHPS', function () {
-    var key = event.keyCode || event.charCode;
-    if (key == 8 || key == 46) { $('.taxonIDHPS').val(''); }
+$(document).on('blur', '.taxonTextHPS', function () {
+    var x = $(this).closest('.sample');
+    if ($(this).val() !== x.find('.taxonHTextHPS').val()) {
+        x.find('.taxonIDHPS').val('');
+    }
+});
+$(document).on('dblclick', 'div.hostweed', function () {
+    $(this).find("[data-action=expand]").trigger('click');
+});
+$(document).on('dblclick', 'div.pathbox', function () {
+    $(this).find("[data-action=expand]").trigger('click');
+});
+$(document).on('dblclick', 'div.entobox', function () {
+    $(this).find("[data-action=expand]").trigger('click');
+});
+$(document).on('dblclick', 'div.sample', function () {
+    $(this).find("[data-action=expand]").trigger('click');
+});
+$(document).on('contextmenu', 'div.hostweed', function () {
+    $(this).find("[data-action=collapse]").trigger('click');
+});
+$(document).on('contextmenu', 'div.pathbox', function () {
+    $(this).find("[data-action=collapse]").trigger('click');
+});
+$(document).on('contextmenu', 'div.entobox', function () {
+    $(this).find("[data-action=collapse]").trigger('click');
+});
+$(document).on('contextmenu', 'div.sample', function () {
+    $(this).find("[data-action=collapse]").trigger('click');
 });
