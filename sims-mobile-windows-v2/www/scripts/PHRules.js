@@ -1195,6 +1195,16 @@ function objectifyPHFormforSave(formArray) {
                     formArray[i]['value'] = $("input[name='" + formArray[i]['name'] + "']:checked").val();
                 }
             }
+            if (formArray[i]['name'].startsWith('CountList')) {
+                if ($("input[name='" + formArray[i]['name'] + "']:checked").length === 1) {
+                    formArray[i]['value'] = $("input[name='" + formArray[i]['name'] + "']:checked").val();
+                }
+            }
+            if (formArray[i]['name'].startsWith('HostFlag')) {
+                if ($("input[name='" + formArray[i]['name'] + "']:checked").length === 1) {
+                    formArray[i]['value'] = $("input[name='" + formArray[i]['name'] + "']:checked").val();
+                }
+            }
             var fname = formArray[i]['name'].split("_")[0];
             var fMOC = formArray[i]['name'].split("_")[1];
             var fNSD = formArray[i]['name'].split("_")[2];
@@ -1591,7 +1601,7 @@ function Iterate(data) {
                         return false;
                     }
                 }
-                if (fname === 'TargetObservedCode' && ftype === "T" && value === "N") {
+                if (fname === 'TargetObservedCode' && ftype === "T" && $('input[name="' + index + '"]:checked').val() === "N") {
                     PlantTargetObservedCodeFlag = 1;
                 } 
 
@@ -2386,16 +2396,14 @@ $(document).on('click', '#addBotanySample', function (e) {
             return;
         }
     }
-    if (!addlObservers) {
-        addlObservers = '<option value="NONE">- select -</option>';
-        for (i = 1; i < 6; i++) {
-            var x = $('#form1').find("input[type='text'][name^='AdditionalObserverName" + i + "']").val();
-            if (x !== "") {
-                var option1 = '<option';
-                option1 = option1 + ' value="' + i + '">';
-                option1 = option1 + x + "</option>";
-                addlObservers = addlObservers + option1;
-            }
+    addlObservers = '<option value="NONE">- select -</option>';
+    for (i = 1; i < 6; i++) {
+        var x = $('#form1').find("input[type='text'][name^='AdditionalObserverName" + i + "']").val();
+        if (x !== "") {
+            var option1 = '<option';
+            option1 = option1 + ' value="' + i + '">';
+            option1 = option1 + x + "</option>";
+            addlObservers = addlObservers + option1;
         }
     }
     bsamples = bsamples + 1;
@@ -2439,7 +2447,7 @@ $(document).on('click', '.removeBotSample', function (e) {
         buttons: {
             Ok: function () {
                 bsamples = bsamples - 1;
-                x.parent().parent().parent().remove();
+                x.parent().remove();
             },
             cancel: function () {
                 //close
@@ -2459,16 +2467,14 @@ $(document).on('click', '#addEntoSample', function (e) {
             return;
         }
     }
-    if (!addlObservers) {
-        addlObservers = '<option value="NONE">- select -</option>';
-        for (i = 1; i < 6; i++) {
-            var x = $('#form1').find("input[type='text'][name^='AdditionalObserverName" + i + "']").val();
-            if (x !== "") {
-                var option1 = '<option';
-                option1 = option1 + ' value="' + i + '">';
-                option1 = option1 + x + "</option>";
-                addlObservers = addlObservers + option1;
-            }
+    addlObservers = '<option value="NONE">- select -</option>';
+    for (i = 1; i < 6; i++) {
+        var x = $('#form1').find("input[type='text'][name^='AdditionalObserverName" + i + "']").val();
+        if (x !== "") {
+            var option1 = '<option';
+            option1 = option1 + ' value="' + i + '">';
+            option1 = option1 + x + "</option>";
+            addlObservers = addlObservers + option1;
         }
     }
     esamples = esamples + 1;
@@ -2517,7 +2523,7 @@ $(document).on('click', '.removeEntoSample', function (e) {
         buttons: {
             Ok: function () {
                 esamples = esamples - 1;
-                x.parent().parent().parent().remove();
+                x.parent().remove();
             },
             cancel: function () {
                 //close
@@ -2537,16 +2543,14 @@ $(document).on('click', '#addPathSample', function (e) {
             return;
         }
     }
-    if (!addlObservers) {
-        addlObservers = '<option value="NONE">- select -</option>';
-        for (i = 1; i < 6; i++) {
-            var x = $('#form1').find("input[type='text'][name^='AdditionalObserverName" + i + "']").val();
-            if (x !== "") {
-                var option1 = '<option';
-                option1 = option1 + ' value="' + i + '">';
-                option1 = option1 + x + "</option>";
-                addlObservers = addlObservers + option1;
-            }
+    addlObservers = '<option value="NONE">- select -</option>';
+    for (i = 1; i < 6; i++) {
+        var x = $('#form1').find("input[type='text'][name^='AdditionalObserverName" + i + "']").val();
+        if (x !== "") {
+            var option1 = '<option';
+            option1 = option1 + ' value="' + i + '">';
+            option1 = option1 + x + "</option>";
+            addlObservers = addlObservers + option1;
         }
     }
     psamples = psamples + 1;
@@ -2576,7 +2580,7 @@ $(document).on('click', '#addPathSample', function (e) {
         $(this).attr('name', $(this).attr('name') + '_' + psamples + '_S');
     });
     that.find("input[name^='CollectedSampleCount']").val('1');
-    //that.find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');
+    that.find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');
     that.find("input[type='radio'].minimal").iCheck('uncheck');
     that.find("input.nextid").val(getNextID(resSettings.settings.device.samplePrefix));
     that.find('.badge').text(psamples);
@@ -2593,7 +2597,7 @@ $(document).on('click', '.removePathSample', function (e) {
         buttons: {
             Ok: function () {
                 psamples = psamples - 1;
-                x.parent().parent().parent().remove();
+                x.parent().remove();
             },
             cancel: function () {
                 //close
