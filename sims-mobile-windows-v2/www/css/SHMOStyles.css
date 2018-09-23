@@ -84,6 +84,15 @@ html, body {
     /*margin-right: 20px;*/
 }
 
+#modalPHMenu .modal-body {
+    height: 900px;
+    /*padding: 25px;*/
+    overflow-x: hidden;
+    overflow-y: auto;
+    /*margin-right: 20px;*/
+}
+
+
 #modalAuth .modal-dialog {
     margin: 4% auto;
     width: 50%;
@@ -98,7 +107,7 @@ html, body {
     z-index: 205;
 }
 
-#modalGrid .modal-dialog, #modalPHGrid .modal-dialog, #modalPHMenu .modal-dialog {
+#modalGrid .modal-dialog, #modalPHGrid .modal-dialog, #modalPHMenu .modal-dialog, #modalSettings .modal-dialog {
     margin: 1% auto;
     z-index: 102;
 }
