@@ -60,7 +60,7 @@ function authenticate2(x, y) {
         "async": false,
         "crossDomain": true,
         "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
-        //"url": "http://dev-sims.oztaxa.com/BasicAuth/api/Values",
+        //"url": "https://online-sit.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Authenticating ...");
@@ -265,7 +265,7 @@ function fetchSettings() {
             //This is not the first load
             if (res.rows && res.rows.length > 0) {
                 resSettings = JSON.parse(res.rows.item(0).settingsval);
-                console.log('0-' + JSON.stringify(resSettings));
+                //console.log('0-' + JSON.stringify(resSettings));
             }
             else {
                 $.ajax({

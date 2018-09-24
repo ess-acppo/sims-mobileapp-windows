@@ -44,6 +44,7 @@ function syncPHRefCodes() {
         "async": false,
         "crossDomain": true,
         "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/referenceCodes",
+        //"url": "https://online-sit.agriculture.gov.au/ords-int/rest/sims/plant_health/referenceCodes",
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing Reference Codes ...");
@@ -164,6 +165,7 @@ function syncActivityData() {
         "async": false,
         "crossDomain": true,
         "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/activity",
+        //"url": "https://online-sit.agriculture.gov.au/ords-int/rest/sims/plant_health/activity",
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing Activity Data ...");
@@ -260,6 +262,7 @@ function syncstaffData() {
         "async": false,
         "crossDomain": true,
         "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/common/program/NPH/team",
+        //"url": "https://online-sit.agriculture.gov.au/ords-int/rest/sims/common/program/NPH/team",
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing NPH Staff Data ...");
@@ -308,6 +311,7 @@ function syncBPHstaffData() {
         "async": false,
         "crossDomain": true,
         "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/common/program/BPH/team",
+        //"url": "https://online-sit.agriculture.gov.au/ords-int/rest/sims/common/program/BPH/team",
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing BPH Staff Data ...");
@@ -355,6 +359,7 @@ function syncIPHstaffData() {
         "async": false,
         "crossDomain": true,
         "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/common/program/IPH/team",
+        //"url": "https://online-sit.agriculture.gov.au/ords-int/rest/sims/common/program/IPH/team",
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing IPH Staff Data ...");
@@ -413,6 +418,7 @@ function syncTaxaData() {
         "async": false,
         "crossDomain": true,
         "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
+        //"url": "https://online-sit.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Syncing Taxa ...");
@@ -3573,7 +3579,7 @@ function loadSiteData(str) {
                                         $('div.entobox').eq(key1).find('div.entotarget').eq(key3).find("select[name^='" + key4 + "']").val(value4);
                                         $('div.entobox').eq(key1).find('div.entotarget').eq(key3).find("textarea[name^='" + key4 + "']").val(value4);
                                         if (key4 === "TargetTaxonId") {
-                                            $('div.entobox').eq(key1).find('div.entotarget').eq(key3).find("input[type='text'][name^='TargetTaxonText']").val(getTaxonText(value4));
+                                            $('div.entobox').eq(key1).find('div.entotarget').eq(key3).find("input[type='text'][name^='TargetTaxonText']").val(getTaxonTargetText(value4));
                                         }
                                     });
                                 });
@@ -3642,7 +3648,7 @@ function loadSiteData(str) {
                                         $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3).find("select[name^='" + key4 + "']").val(value4);
                                         $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3).find("textarea[name^='" + key4 + "']").val(value4);
                                         if (key4 === "TargetTaxonId") {
-                                            $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3).find("input[type='text'][name^='TargetTaxonText']").val(getTaxonText(value4));
+                                            $('div.pathbox').eq(key1).find('div.pathtarget').eq(key3).find("input[type='text'][name^='TargetTaxonText']").val(getTaxonTargetText(value4));
                                         }
                                     });
                                 });
@@ -3655,6 +3661,29 @@ function loadSiteData(str) {
     };
 }
 function getTaxonText(id) {
+    var arr;
+    switch (curDiscipline) {
+        case 'B':
+            arr = taxaData.taxaBotany.filter(function (el) {
+                return (el.id === id);
+            });
+            if (arr.length > 0) { return arr[0].name; }
+            break;
+        case 'E':
+            arr = taxaData.taxaBotany.filter(function (el) {
+                return (el.id === id);
+            });
+            if (arr.length > 0) { return arr[0].name; }
+            break;
+        case 'P':
+            arr = taxaData.taxaBotany.filter(function (el) {
+                return (el.id === id);
+            });
+            if (arr.length > 0) { return arr[0].name; }
+            break;
+    }
+}
+function getTaxonTargetText(id) {
     var arr;
     switch (curDiscipline) {
         case 'B':
