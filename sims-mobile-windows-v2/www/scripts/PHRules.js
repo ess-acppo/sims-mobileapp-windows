@@ -227,7 +227,7 @@ function refreshActivityData(str) {
     var arr = ActivityData.activities.filter(function (el) {
         return (el.activityId === Number(str));
     });
-    if (arr) {
+    if (arr && arr.length > 0) {
         siteData = arr[0].sites;
         programId = arr[0].programId;
         lastSurvActValue = arr[0].activityId;
@@ -1211,7 +1211,7 @@ function objectifyPHFormforSave(formArray) {
     for (var i = 0; i < formArray.length; i++) {
         if (formArray[i]['name'].length > 0) {
             if (formArray[i]['name'].startsWith('AdditionalCollectorTab')) { continue; }
-            if (formArray[i]['name'].startsWith('PlantStatisticType')) { continue; }
+            //if (formArray[i]['name'].startsWith('PlantStatisticType')) { continue; }
             if (formArray[i]['name'].startsWith('Latitude')) { continue; }
             if (formArray[i]['name'].startsWith('Longitude')) { continue; }
             if (formArray[i]['name'].startsWith('AdditionalObserverTab')) { continue; }
@@ -1443,6 +1443,7 @@ function objectifyPHFormforSubmit(data) {//serialize data function
     jsonStr = jsonStr.replace(/_M_N/g, '').replace(/_O_N/g, '').replace(/_M_D/g, '').replace(/_M_S/g, '');
     var jsonData = JSON.parse(jsonStr);
     if (jsonData.SiteId === 0) { delete jsonData.SiteId; }
+    if (jsonData.SiteId === 99999) { delete jsonData.SiteId; }
     if (jsonData.WaypointNumber === 0) { delete jsonData.WaypointNumber; }
     if (jsonData.AltitudeNo === 0) { delete jsonData.AltitudeNo; }
     if (jsonData.AdditionalObserverTab.length === 0) { delete jsonData.AdditionalObserverTab; }
@@ -1505,6 +1506,9 @@ function objectifyPHFormforSubmit(data) {//serialize data function
         delete item.PlantTaxonTextH;
         if (item.HostStatAreaNo === 0) { delete item.HostStatAreaNo };
         if (item.HostStatCount === 0) { delete item.HostStatCount };
+        if (item.PlantStatisticType === "C" && item.HostStatAreaNo > 0) { delete item.HostStatAreaNo; }
+        if (item.PlantStatisticType === "A" && item.HostStatCount > 0) { delete item.HostStatCount; }
+        delete item.PlantStatisticType;
         if (item.PlantObsTargetTab && item.PlantObsTargetTab.length === 0) { delete item.PlantObsTargetTab };
         if (item.attachments && item.attachments.attachment.length === 0) { delete item.attachments };
         if (item.PlantTaxonId > 0) {
@@ -1987,7 +1991,7 @@ function BindAutoCompleteB(e) {
 }
 function BindAutoCompleteE(e) {
     var options = {
-        data: taxaData.taxaEntomology,
+        data: taxaData.taxaBotany,
         getValue: "name",
         list: {
             match: {
@@ -2005,7 +2009,7 @@ function BindAutoCompleteE(e) {
 }
 function BindAutoCompleteP(e) {
     var options = {
-        data: taxaData.taxaPathology,
+        data: taxaData.taxaBotany,
         getValue: "name",
         list: {
             match: {
@@ -3520,6 +3524,16 @@ function loadSiteData(str) {
                     }
                 }).complete(function (e) {
                     $.each(value1, function (key2, value2) {
+                        $('div.entobox').eq(key1).find("input[type='text'][name^='" + key2 + "']").val(value2);
+                        $('div.entobox').eq(key1).find("input[type='date'][name^='" + key2 + "']").val(value2);
+                        $('div.entobox').eq(key1).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
+                        $('div.entobox').eq(key1).find("input[type='number'][name^='" + key2 + "']").val(value2);
+                        $('div.entobox').eq(key1).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
+                        $('div.entobox').eq(key1).find("input[type='checkbox'][name^='" + key2 + "'][value='Y']").iCheck('check');
+                        $('div.entobox').eq(key1).find("input[type='radio'][name^='" + key2 + "'][value='" + value2 + "']").iCheck('check');
+                        //$('div.entobox').eq(key1).find("input[type='radio'][name^='" + key2 + "']").val(value2);
+                        $('div.entobox').eq(key1).find("select[name^='" + key2 + "']").val(value2);
+                        $('div.entobox').eq(key1).find("textarea[name^='" + key2 + "']").val(value2);
                         if (key2.startsWith("PlantStatisticTypeCode") && value2 === "C") {
                             $('div.entobox').eq(key1).find("select[name^='PlantStatisticType']").val('C');
                             $('div.entobox').eq(key1).find("input[type='number'][name^='HostStatAreaNo']").addClass('hide');
@@ -3538,16 +3552,6 @@ function loadSiteData(str) {
                         if (key2 === "PlantTaxonId") {
                             $('div.entobox').eq(key1).find("input[type='text'][name^='PlantTaxonText']").val(getTaxonText(value2));
                         }
-                        $('div.entobox').eq(key1).find("input[type='text'][name^='" + key2 + "']").val(value2);
-                        $('div.entobox').eq(key1).find("input[type='date'][name^='" + key2 + "']").val(value2);
-                        $('div.entobox').eq(key1).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
-                        $('div.entobox').eq(key1).find("input[type='number'][name^='" + key2 + "']").val(value2);
-                        $('div.entobox').eq(key1).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
-                        $('div.entobox').eq(key1).find("input[type='checkbox'][name^='" + key2 + "'][value='Y']").iCheck('check');
-                        $('div.entobox').eq(key1).find("input[type='radio'][name^='" + key2 + "'][value='" + value2 + "']").iCheck('check');
-                        //$('div.entobox').eq(key1).find("input[type='radio'][name^='" + key2 + "']").val(value2);
-                        $('div.entobox').eq(key1).find("select[name^='" + key2 + "']").val(value2);
-                        $('div.entobox').eq(key1).find("textarea[name^='" + key2 + "']").val(value2);
                         if (key2 === "ActivitySitePlantTarget") {
                             $.each(value2, function (key3, value3) {
                                 $.ajax({
@@ -3588,6 +3592,16 @@ function loadSiteData(str) {
                     }
                 }).complete(function (e) {
                     $.each(value1, function (key2, value2) {
+                        $('div.pathbox').eq(key1).find("input[type='text'][name^='" + key2 + "']").val(value2);
+                        $('div.pathbox').eq(key1).find("input[type='date'][name^='" + key2 + "']").val(value2);
+                        $('div.pathbox').eq(key1).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
+                        $('div.pathbox').eq(key1).find("input[type='number'][name^='" + key2 + "']").val(value2);
+                        $('div.pathbox').eq(key1).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
+                        $('div.pathbox').eq(key1).find("input[type='checkbox'][name^='" + key2 + "'][value='Y']").iCheck('check');
+                        $('div.pathbox').eq(key1).find("input[type='radio'][name^='" + key2 + "'][value='" + value2 + "']").iCheck('check');
+                        //$('div.pathbox').eq(key1).find("input[type='radio'][name^='" + key2 + "']").val(value2);
+                        $('div.pathbox').eq(key1).find("select[name^='" + key2 + "']").val(value2);
+                        $('div.pathbox').eq(key1).find("textarea[name^='" + key2 + "']").val(value2);
                         if (key2.startsWith("PlantStatisticTypeCode") && value2 === "C") {
                             $('div.pathbox').eq(key1).find("select[name^='PlantStatisticType']").val('C');
                             $('div.pathbox').eq(key1).find("input[type='number'][name^='HostStatAreaNo']").addClass('hide');
@@ -3607,16 +3621,6 @@ function loadSiteData(str) {
                             $('div.pathbox').eq(key1).find("input[name^='" + key2 + "']").val(value2);
                             $('div.pathbox').eq(key1).find("input[type='text'][name^='PlantTaxonText']").val(getTaxonText(value2));
                         }
-                        $('div.pathbox').eq(key1).find("input[type='text'][name^='" + key2 + "']").val(value2);
-                        $('div.pathbox').eq(key1).find("input[type='date'][name^='" + key2 + "']").val(value2);
-                        $('div.pathbox').eq(key1).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
-                        $('div.pathbox').eq(key1).find("input[type='number'][name^='" + key2 + "']").val(value2);
-                        $('div.pathbox').eq(key1).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
-                        $('div.pathbox').eq(key1).find("input[type='checkbox'][name^='" + key2 + "'][value='Y']").iCheck('check');
-                        $('div.pathbox').eq(key1).find("input[type='radio'][name^='" + key2 + "'][value='" + value2 + "']").iCheck('check');
-                        //$('div.pathbox').eq(key1).find("input[type='radio'][name^='" + key2 + "']").val(value2);
-                        $('div.pathbox').eq(key1).find("select[name^='" + key2 + "']").val(value2);
-                        $('div.pathbox').eq(key1).find("textarea[name^='" + key2 + "']").val(value2);
                         if (key2 === "ActivitySitePlantTarget") {
                             $.each(value2, function (key3, value3) {
                                 $.ajax({

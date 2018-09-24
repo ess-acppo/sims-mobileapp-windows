@@ -5,7 +5,7 @@
     <div class="row col-md-11 col-sm-11 col-xs-11">
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
             <span data-toggle="tooltip" title="" class="badge bg-gray-blue badge-host mxr-5" data-original-title="1">1</span>
-            <label><span class="bold-red">*&nbsp;</span>Taxon ID</label>
+            <label>Taxon ID</label>
             <input type="number" class="form-control taxonIDE" placeholder="Taxon ID" name="PlantTaxonId_O_N" readonly min="1" max="99999999" maxlength="8">
         </div>
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
@@ -17,7 +17,7 @@
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Statistic Type</label>
-            <select class="form-control select2" name="PlantStatisticType" data-section="PlantObsTab"></select>
+            <select class="form-control select2" name="PlantStatisticType_M_S" data-section="PlantObsTab"></select>
         </div>
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Count/Area</label>
@@ -97,7 +97,7 @@
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-3 col-sm-3 col-xs-12">
-            <label><span class="bold-red">*&nbsp;</span>Datum</label>
+            <label>Datum</label>
             <select class="form-control entodat" name="GpsDatumId_O_S" data-section="PlantObsTab">
                 <option>WGS84</option>
                 <option>GDA94</option>
@@ -118,7 +118,7 @@
             <input type="number" name="TargetTaxonId_O_N" class="input-sm form-control taxonIDET" placeholder="Target Taxon ID" readonly min="1" max="99999999" maxlength="8" data-section="PlantObsTargetTab">
         </div>
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-            <label>Target Taxon Name</label>
+            <label><span class="bold-red">*&nbsp;</span>Target Taxon Name</label>
             <input type="text" name="TargetTaxonText_M_S" class="input-sm form-control taxonTextET" placeholder="Target Taxon Text" maxlength="50" data-section="PlantObsTargetTab">
             <input type="text" class="form-control taxonHTextET hide" name="TargetTaxonTextH_M_S" data-section="PlantObsTargetTab">
         </div>
