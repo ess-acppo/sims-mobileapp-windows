@@ -125,7 +125,8 @@
       "lastOTPUser": "",
       "lastOTPDateTime": "",
       "otpReset": 0,
-      "signedOut": 0
+      "signedOut": 0,
+      "hashedPassword": ""
     },
     "app": {
       "dataReset": 0,
