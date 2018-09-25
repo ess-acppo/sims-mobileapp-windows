@@ -59,8 +59,9 @@ function authenticate2(x, y) {
     $.ajax({
         "async": false,
         "crossDomain": true,
-        "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
+        //"url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
         //"url": "https://online-sit.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
+        "url": "https://online-uat.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
         "method": "GET",
         "beforeSend": function () {
             $('#mb6 .progText').text("Authenticating ...");

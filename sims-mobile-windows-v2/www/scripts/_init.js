@@ -1371,8 +1371,9 @@ $(document).on('click', '.sync', function (event) {
             $.ajax({
                 method: "POST",
                 async: false,
-                url: "https://online-dev.agriculture.gov.au/psd.comr.svl/PlantHealthService/1.0/createPlantHealthObservation",
+                //url: "https://online-dev.agriculture.gov.au/psd.comr.svl/PlantHealthService/1.0/createPlantHealthObservation",
                 //"url": "https://online-sit.agriculture.gov.au/psd.comr.svl/PlantHealthService/1.0/createPlantHealthObservation",
+                "url": "https://online-uat.agriculture.gov.au/psd.comr.svl/PlantHealthService/1.0/createPlantHealthObservation",
                 //data: JSON.stringify(payload),
                 data: vpayload.escapeSpecialChars(),
                 contentType: "application/json",
