@@ -794,8 +794,9 @@ function loadData() {
     //table.column(10).visible(false);
 }
 $(document).on('click', '.export', function (event) {
-    var args = [$('#srchPHTable_wrapper'), 'export.csv'];
-    exportTableToCSV.apply(this, args);
+    //var args = [$('#srchPHTable_wrapper'), 'export.csv'];
+    //exportTableToCSV.apply(this, args);
+    exportObservationsToCSV();
 });
 function exportTableToCSV($table, filename) {
     csv = "";
@@ -838,6 +839,42 @@ function exportTableToCSV($table, filename) {
         }
         if (mm < 10) {
             mm = '0' + mm
+        }
+        today = yyyy.toString() + mm.toString() + dd.toString();
+        fs.getDirectory("ESFA", { create: true, exclusive: false }, function (dirEntry) {
+            dirEntry.getFile("Observations" + today + ".csv", { create: true, exclusive: false }, function (fileEntry) {
+                console.log("fileEntry is file?" + fileEntry.isFile.toString());
+                fileEntry.createWriter(function (fileWriter) {
+                    fileWriter.onwriteend = function () {
+                        console.log("Successful file read...");
+                        //readFile(fileEntry);
+                    };
+                    fileWriter.onerror = function (e) {
+                        $.growl.error({ title: "", message: "Failed file read: " + e.toString(), location: "tc", size: "large" });
+                    };
+                    fileWriter.seek(0);
+                    var blob = new Blob([csv], { type: 'text/plain' });
+                    fileWriter.write(blob);
+                    $.growl.notice({ title: "", message: 'File saved to Local folder.', location: "tc", size: "large" });
+                });
+            });
+        });
+    });
+}
+function exportObservationsToCSV() {
+    var csv = "";
+    csv = ConvertToCSV(results.observations);
+    window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (fs) {
+        console.log('file system open: ' + fs);
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
         }
         today = yyyy.toString() + mm.toString() + dd.toString();
         fs.getDirectory("ESFA", { create: true, exclusive: false }, function (dirEntry) {
@@ -1371,9 +1408,9 @@ $(document).on('click', '.sync', function (event) {
             $.ajax({
                 method: "POST",
                 async: false,
-                //url: "https://online-dev.agriculture.gov.au/psd.comr.svl/PlantHealthService/1.0/createPlantHealthObservation",
+                url: "https://online-dev.agriculture.gov.au/psd.comr.svl/PlantHealthService/1.0/createPlantHealthObservation",
                 //"url": "https://online-sit.agriculture.gov.au/psd.comr.svl/PlantHealthService/1.0/createPlantHealthObservation",
-                "url": "https://online-uat.agriculture.gov.au/psd.comr.svl/PlantHealthService/1.0/createPlantHealthObservation",
+                //"url": "https://online-uat.agriculture.gov.au/psd.comr.svl/PlantHealthService/1.0/createPlantHealthObservation",
                 //data: JSON.stringify(payload),
                 data: vpayload.escapeSpecialChars(),
                 contentType: "application/json",
@@ -1866,3 +1903,16 @@ $(document).on('click', 'a.btnError', function (e) {
     if (w) { w.focus(); }
     $('div.growl-close').triggerHandler('click');
 });
+function ConvertToCSV(objArray) {
+    var array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+    var str = '';
+    for (var i = 0; i < array.length; i++) {
+        var line = '';
+        for (var index in array[i]) {
+            if (line !== '') line += ',';
+            line += array[i][index];
+        }
+        str += line + '\r\n';
+    }
+    return str;
+}
