@@ -793,7 +793,7 @@ function loadData() {
     }
     //table.column(10).visible(false);
 }
-$(document).on('click', '.export', function (event) {
+$(document).on('click', '.export', function (event) {s
     //var args = [$('#srchPHTable_wrapper'), 'export.csv'];
     //exportTableToCSV.apply(this, args);
     exportObservationsToCSV();
@@ -862,11 +862,11 @@ function exportTableToCSV($table, filename) {
     });
 }
 function exportObservationsToCSV() {
-    var csv = "";
-    csv = ConvertToCSV(results.observations);
+    var flatJSON = results.observations.map(record => flatten(record, {}, ''));
+    var csv = JSON.stringify(flatJSON);
     window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (fs) {
-        console.log('file system open: ' + fs);
-        var today = new Date();
+        console.log('file system open:s ' + fs);
+        var today = new Date();s
         var dd = today.getDate();
         var mm = today.getMonth() + 1; //January is 0!
         var yyyy = today.getFullYear();
@@ -1903,16 +1903,58 @@ $(document).on('click', 'a.btnError', function (e) {
     if (w) { w.focus(); }
     $('div.growl-close').triggerHandler('click');
 });
-function ConvertToCSV(objArray) {
-    var array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
-    var str = '';
-    for (var i = 0; i < array.length; i++) {
-        var line = '';
-        for (var index in array[i]) {
-            if (line !== '') line += ',';
-            line += array[i][index];
+function flatObjectToString(obj) {
+    var s = "";
+    Object.keys(obj).map(key => {
+        if (obj[key] === null) {
+            s += key + ":";
+        } else if (obj[key].toLocaleDateString) {
+            s += key + ": " + obj[key].toLocaleDateString() + "\n";
+        } else if (obj[key] instanceof Array) {
+            s += key + ":\n" + listToFlatString(obj[key]);
+        } else if (typeof obj[key] == "object") {
+            s += key + ":\n" + flatObjectToString(obj[key]);
+        } else {
+            s += key + ":" + obj[key];
         }
-        str += line + '\r\n';
-    }
-    return str;
+        s += "\n";
+    });
+    return s;
+}
+function listToFlatString(list) {
+    var s = "";
+    list.map(item => {
+        Object.keys(item).map(key => {
+            s += "";
+            if (item[key] instanceof Array) {
+                s += key + "\n" + listToFlatString(item[key]);
+            } else if (typeof item[key] === "object" && item[key] !== null) {
+                s += key + ": " + flatObjectToString(item[key]);
+            } else {
+                s += key + ": " + (item[key] === null ? "" : item[key].toLocaleDateString ? item[key].toLocaleDateString : item[key].toString());
+            }
+            s += "\n";
+        });
+    });
+    return s;
+}
+function flatten(object, addToList, prefix) {
+    Object.keys(object).map(key => {
+        if (object[key] === null) {
+            addToList[prefix + key] = "";
+        } else
+            if (object[key] instanceof Array) {
+                // addToList[prefix + key] = listToFlatString(object[key]);
+                for (i in object[key]) {
+                    //flatten(object[key][i], addToList, prefix + key + "." + i);
+                    flatten(object[key][i], addToList, '');
+                }
+            } else if (typeof object[key] === 'object' && !object[key].toLocaleDateString) {
+                //flatten(object[key], addToList, prefix + key + '.');
+                flatten(object[key], addToList, '');
+            } else {
+                addToList[prefix + key] = object[key];
+            }
+    });
+    return addToList;
 }
