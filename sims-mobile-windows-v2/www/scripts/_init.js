@@ -861,42 +861,6 @@ function exportTableToCSV($table, filename) {
         });
     });
 }
-function exportObservationsToCSV() {
-    var flatJSON = results.observations.map(record => flatten(record, {}, ''));
-    var csv = JSON.stringify(flatJSON);
-    window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (fs) {
-        console.log('file system open:s ' + fs);
-        var today = new Date();s
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1; //January is 0!
-        var yyyy = today.getFullYear();
-        if (dd < 10) {
-            dd = '0' + dd;
-        }
-        if (mm < 10) {
-            mm = '0' + mm;
-        }
-        today = yyyy.toString() + mm.toString() + dd.toString();
-        fs.getDirectory("ESFA", { create: true, exclusive: false }, function (dirEntry) {
-            dirEntry.getFile("Observations" + today + ".csv", { create: true, exclusive: false }, function (fileEntry) {
-                console.log("fileEntry is file?" + fileEntry.isFile.toString());
-                fileEntry.createWriter(function (fileWriter) {
-                    fileWriter.onwriteend = function () {
-                        console.log("Successful file read...");
-                        //readFile(fileEntry);
-                    };
-                    fileWriter.onerror = function (e) {
-                        $.growl.error({ title: "", message: "Failed file read: " + e.toString(), location: "tc", size: "large" });
-                    };
-                    fileWriter.seek(0);
-                    var blob = new Blob([csv], { type: 'text/plain' });
-                    fileWriter.write(blob);
-                    $.growl.notice({ title: "", message: 'File saved to Local folder.', location: "tc", size: "large" });
-                });
-            });
-        });
-    });
-}
 function objectifyForm(formArray) {//serialize data function
     var returnArray = {};
     for (var i = 0; i < formArray.length; i++) {
@@ -1903,6 +1867,46 @@ $(document).on('click', 'a.btnError', function (e) {
     if (w) { w.focus(); }
     $('div.growl-close').triggerHandler('click');
 });
+function exportObservationsToCSV() {
+    var flatJSON = results.observations.map(record => flatten(record, {}, ''));
+    var csv = JSON.stringify(flatJSON);
+    csv = csv.replace(/_O_N_\d_T/g, '').replace(/_M_S_\d_T/g, '').replace(/_O_S_\d_T/g, '').replace(/_M_N_\d_H/g, '').replace(/_M_S_\d_H/g, '').replace(/_O_S_\d_H/g, '').replace(/_O_N_\d_H/g, '');
+    csv = csv.replace(/_M_S_\d_S/g, '').replace(/_O_N_\d_S/g, '').replace(/_M_S_\d_S/g, '').replace(/_M_D_\d_S/g, '').replace(/_O_S_\d_S/g, '');
+    csv = csv.replace(/_M_N/g, '').replace(/_O_N/g, '').replace(/_M_D/g, '').replace(/_M_S/g, '');
+    csv = csv.replace("[{", "").replace("}]", "").replace("},", "\r\n").replace(",{", "\r\n").replace("{", "").replace("}", "");
+    window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (fs) {
+        console.log('file system open:s ' + fs);
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+        today = yyyy.toString() + mm.toString() + dd.toString();
+        fs.getDirectory("ESFA", { create: true, exclusive: false }, function (dirEntry) {
+            dirEntry.getFile("Observations" + today + ".csv", { create: true, exclusive: false }, function (fileEntry) {
+                console.log("fileEntry is file?" + fileEntry.isFile.toString());
+                fileEntry.createWriter(function (fileWriter) {
+                    fileWriter.onwriteend = function () {
+                        console.log("Successful file read...");
+                        //readFile(fileEntry);
+                    };
+                    fileWriter.onerror = function (e) {
+                        $.growl.error({ title: "", message: "Failed file read: " + e.toString(), location: "tc", size: "large" });
+                    };
+                    fileWriter.seek(0);
+                    var blob = new Blob([csv], { type: 'text/plain' });
+                    fileWriter.write(blob);
+                    $.growl.notice({ title: "", message: 'File saved to Local folder.', location: "tc", size: "large" });
+                });
+            });
+        });
+    });
+}
 function flatObjectToString(obj) {
     var s = "";
     Object.keys(obj).map(key => {
@@ -1957,4 +1961,27 @@ function flatten(object, addToList, prefix) {
             }
     });
     return addToList;
+}
+function JSON2CSV(objArray) {
+    var array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+    var str = '';
+    var line = '';
+
+    var head = array[0];
+    for (var index in array[0]) {
+        line += index + ',';
+    }
+    line = line.slice(0, -1);
+    str += line + '\r\n';
+
+    for (var i = 0; i < array.length; i++) {
+        var line = '';
+        for (var index in array[i]) {
+            line += array[i][index] + ',';
+        }
+
+        line = line.slice(0, -1);
+        str += line + '\r\n';
+    }
+    return str;
 }
