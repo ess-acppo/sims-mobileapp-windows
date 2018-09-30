@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,11 @@ namespace FiNeZeep
         public static IAsyncOperation<string> unzip([ReadOnlyArray] object[] args)
         {
             return unzipImpl(args).AsAsyncOperation();
+        }
+
+        public static IAsyncOperation<string> submitURL([ReadOnlyArray] object[] args)
+        {
+            return SubmitURLImpl(args).AsAsyncOperation();
         }
 
         private static async Task<string> zipImpl(object[] args)
@@ -46,7 +53,7 @@ namespace FiNeZeep
 
         private static string getRelativePath(StorageFolder fromFolder, StorageFile file)
         {
-            var path = file.Path.Replace(fromFolder.Path, string.Empty);
+            string path = file.Path.Replace(fromFolder.Path, string.Empty);
             while (path.StartsWith("/") || path.StartsWith("\\"))
             {
                 path = path.Substring(1);
@@ -74,16 +81,34 @@ namespace FiNeZeep
             }
         }
 
+        private static async Task<string> SubmitURLImpl(object[] args)
+        {
+            string url = (string)args[0];
+            string authInfo = (string)args[1];
+            //var authToken = Encoding.ASCII.GetBytes(authInfo);
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", authInfo);
+            // The actual Get method
+            using (var result = await _httpClient.GetAsync(url))
+            {
+                if (result.StatusCode == HttpStatusCode.OK)
+                {
+                    string content = await result.Content.ReadAsStringAsync();
+                    return content;
+                }
+                else { throw new HttpRequestException("Webrequest failed!"); }
+            }
+        }
+
         //UTILS
 
         delegate Task onFile(StorageFile file);
 
         private static async Task walk(StorageFolder parentFolder, onFile onfile)
         {
-            var items = await parentFolder.GetItemsAsync();
+            IReadOnlyList<IStorageItem> items = await parentFolder.GetItemsAsync();
             if (items != null)
             {
-                foreach (var item in items)
+                foreach (IStorageItem item in items)
                 {
                     if (item.IsOfType(StorageItemTypes.Folder))
                     {
@@ -121,7 +146,7 @@ namespace FiNeZeep
                     urlToPathMap["ms-appdata://"] = getPathParent(ApplicationData.Current.LocalFolder.Path);
                 }
 
-                foreach (var pair in urlToPathMap)
+                foreach (KeyValuePair<string, string> pair in urlToPathMap)
                 {
                     if (urlOrPath.StartsWith(pair.Key))
                     {
@@ -132,5 +157,7 @@ namespace FiNeZeep
                 return null;
             }
         }
+
+        private static readonly HttpClient _httpClient = new HttpClient();
     }
 }

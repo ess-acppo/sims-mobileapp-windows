@@ -1180,10 +1180,10 @@ function loadModal(pagename) {
                 var mm = today.getMonth() + 1; //January is 0!
                 var yyyy = today.getFullYear();
                 if (dd < 10) {
-                    dd = '0' + dd
+                    dd = '0' + dd;
                 }
                 if (mm < 10) {
-                    mm = '0' + mm
+                    mm = '0' + mm;
                 }
                 today = yyyy.toString() + '-' + mm.toString() + '-' + dd.toString();
                 $('#form1').find('select[id="ObservationStaffId"]').find('option').remove().end().append($(staffData));
@@ -1716,6 +1716,10 @@ function Iterate(data) {
                     return false;
                 }
                 if (fMOC === 'M' && fNSD === 'S' && (value === '' || value === 'NONE')) {
+                    if (fname === 'PlantTaxonTextH') return true;
+                    if (fname === 'TargetTaxonTextH') return true;
+                    if (fname === 'PrelimTaxonTextH') return true;
+                    if (fname === 'HostTaxonTextH') return true;
                     //console.log(index + ' field cannot be NULL');
                     vError = 1;
                     vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + fname + " field cannot be NULL.");

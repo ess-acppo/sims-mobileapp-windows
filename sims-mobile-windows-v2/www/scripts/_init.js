@@ -755,19 +755,27 @@ function loadData() {
                     {
                         "data": "PlantDisciplineCode_M_S",
                         "render": function (data, type, row, meta) {
-                            if (data === 'S') return "Single";
-                            if (data === 'G') return "Group";
                             if (data === 'B') return "Botany";
                             if (data === 'E') return "Entomology";
                             if (data === 'P') return "Pathology";
                         }
                     },
-                    { "data": "SurvActivityId_M_N" },
-                    { "data": "SiteId_O_N" },
+                    {
+                        "data": "SurvActivityId_M_N",
+                        "render": function (data, type, row, meta) {
+                            return getSurvActivity(data);
+                        }
+                    },
+                    {
+                        "data": "SiteId_O_N",
+                        "render": function (data, type, row, meta) {
+                            return getSite(row.SurvActivityId_M_N, data);
+                        }
+                    },
                     {
                         "data": "ObservationDate_M_D",
                         "render": function (data, type, row, meta) {
-                            return moment(data).format("YYYY-MM-DD");
+                            return moment(data).format("YYYY-MM-DD HH:MM:SS");
                         }
                     },
                     { "data": "WaypointNumber_O_N" },
@@ -829,7 +837,7 @@ function exportTableToCSV($table, filename) {
             .split(tmpColDelim).join(colDelim) + '"';
 
     window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (fs) {
-        console.log('file system open: ' + fs);
+        //console.log('file system open: ' + fs);
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth() + 1; //January is 0!
@@ -1874,37 +1882,38 @@ function exportObservationsToCSV() {
     csv = csv.replace(/_M_S_\d_S/g, '').replace(/_O_N_\d_S/g, '').replace(/_M_S_\d_S/g, '').replace(/_M_D_\d_S/g, '').replace(/_O_S_\d_S/g, '');
     csv = csv.replace(/_M_N/g, '').replace(/_O_N/g, '').replace(/_M_D/g, '').replace(/_M_S/g, '');
     csv = csv.replace("[{", "").replace("}]", "").replace("},", "\r\n").replace(",{", "\r\n").replace("{", "").replace("}", "");
-    window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (fs) {
-        console.log('file system open:s ' + fs);
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1; //January is 0!
-        var yyyy = today.getFullYear();
-        if (dd < 10) {
-            dd = '0' + dd;
-        }
-        if (mm < 10) {
-            mm = '0' + mm;
-        }
-        today = yyyy.toString() + mm.toString() + dd.toString();
-        fs.getDirectory("ESFA", { create: true, exclusive: false }, function (dirEntry) {
-            dirEntry.getFile("Observations" + today + ".csv", { create: true, exclusive: false }, function (fileEntry) {
-                console.log("fileEntry is file?" + fileEntry.isFile.toString());
-                fileEntry.createWriter(function (fileWriter) {
-                    fileWriter.onwriteend = function () {
-                        console.log("Successful file read...");
-                        //readFile(fileEntry);
-                    };
-                    fileWriter.onerror = function (e) {
-                        $.growl.error({ title: "", message: "Failed file read: " + e.toString(), location: "tc", size: "large" });
-                    };
-                    fileWriter.seek(0);
-                    var blob = new Blob([csv], { type: 'text/plain' });
-                    fileWriter.write(blob);
-                    $.growl.notice({ title: "", message: 'File saved to Local folder.', location: "tc", size: "large" });
+
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    today = yyyy.toString() + mm.toString() + dd.toString();
+
+    var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+    savePicker.suggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.documentsLibrary;
+    savePicker.fileTypeChoices.insert("CSV", [".csv"]);
+    savePicker.suggestedFileName = "Observations" + today + ".csv";
+    savePicker.pickSaveFileAsync().then(function (file) {
+        if (file) {
+            Windows.Storage.CachedFileManager.deferUpdates(file);
+            Windows.Storage.FileIO.writeTextAsync(file, csv).done(function () {
+                Windows.Storage.CachedFileManager.completeUpdatesAsync(file).done(function (updateStatus) {
+                    if (updateStatus === Windows.Storage.Provider.FileUpdateStatus.complete) {
+                        $.growl.notice({ title: "", message: 'File saved to Downloads folder.', location: "tc", size: "large" });
+                    } else {
+                        $.growl.notice({ title: "", message: 'File save failed!', location: "tc", size: "large" });
+                    }
                 });
             });
-        });
+        } else {
+            $.growl.notice({ title: "", message: 'Operation Cancelled!', location: "tc", size: "large" });
+        }
     });
 }
 function flatObjectToString(obj) {
@@ -1916,7 +1925,7 @@ function flatObjectToString(obj) {
             s += key + ": " + obj[key].toLocaleDateString() + "\n";
         } else if (obj[key] instanceof Array) {
             s += key + ":\n" + listToFlatString(obj[key]);
-        } else if (typeof obj[key] == "object") {
+        } else if (typeof obj[key] === "object") {
             s += key + ":\n" + flatObjectToString(obj[key]);
         } else {
             s += key + ":" + obj[key];
@@ -1957,31 +1966,32 @@ function flatten(object, addToList, prefix) {
                 //flatten(object[key], addToList, prefix + key + '.');
                 flatten(object[key], addToList, '');
             } else {
-                addToList[prefix + key] = object[key];
+                if (key === "SurvActivityId_M_N") {
+                    addToList[prefix + key] = getSurvActivity(object[key]);
+                }
+                else if (key === "SiteId_O_N") {
+                    addToList[prefix + key] = getSite(object["SurvActivityId_M_N"], object[key]);
+                }
+                else { addToList[prefix + key] = object[key]; } 
             }
     });
     return addToList;
 }
-function JSON2CSV(objArray) {
-    var array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
-    var str = '';
-    var line = '';
-
-    var head = array[0];
-    for (var index in array[0]) {
-        line += index + ',';
+function getSurvActivity(id) {
+    var arr = ActivityData.activities.filter(function (el) {
+        return (el.activityId === id);
+    });
+    if (arr && arr.length > 0) { return arr[0].activityName; } else { return ""; }
+}
+function getSite(ActivityId, id) {
+    var arr = ActivityData.activities.filter(function (el) {
+        return (el.activityId === ActivityId);
+    });
+    if (arr && arr.length > 0) {
+        var arr2 = arr[0].sites.filter(function (el) {
+            return (el.id === id);
+        });
+        if (arr2 && arr2.length > 0) { return arr2[0].name; } else { return ""; }
     }
-    line = line.slice(0, -1);
-    str += line + '\r\n';
-
-    for (var i = 0; i < array.length; i++) {
-        var line = '';
-        for (var index in array[i]) {
-            line += array[i][index] + ',';
-        }
-
-        line = line.slice(0, -1);
-        str += line + '\r\n';
-    }
-    return str;
+    else { return ""; }
 }

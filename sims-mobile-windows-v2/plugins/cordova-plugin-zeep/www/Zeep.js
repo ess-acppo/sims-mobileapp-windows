@@ -34,6 +34,9 @@ function validateConfig(config, mode, callback) {
     		callback('failed while locating : ' + config.from + " (" + JSON.stringify(error) + ")");
     	});
     }
+    if (mode === 'submitURL') {
+		callback();
+    }	
 }
 
 exports.zip = function (config, successCallback, errorCallback) {
@@ -64,6 +67,20 @@ exports.unzip = function(config, successCallback, errorCallback) {
 			errorCallback(error.message);
 		}
 	});
+};
+
+exports.submitURL = function(config, successCallback, errorCallback) {
+		try {
+			//exec(successCallback, errorCallback, 'Zeep', 'submitURL', [config.from, config.to]);
+			validateConfig(config, 'submitURL', function (error) {
+				if (error) {
+					return errorCallback(error);
+				}
+				exec(successCallback, errorCallback, 'Zeep', 'submitURL', [config.from, config.to]);
+			});
+		} catch (error) {
+			errorCallback(error.message);
+		}
 };
 
 exports.series = function(tasks, completeCallback) {
