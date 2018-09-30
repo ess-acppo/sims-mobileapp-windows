@@ -3,77 +3,77 @@
     <a href="#" class="btn btn-md btn-default text-arrows expand" data-action="expand"><i class="fa fa-arrow-down"></i></a>
     <a href="#" class="btn btn-md btn-danger text-arrows-2 removePlant"><i class="fa fa-remove"></i></a>
     <div class="row col-md-11 col-sm-11 col-xs-11">
-        <div class="form-group col-md-3 col-sm-3 col-xs-12">
-            <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5" data-original-title="1">1</span>
+        <div class="form-group col-md-3 col-sm-3 col-xs-12 hide">
             <label>Taxon ID</label>
-            <input type="number" class="form-control taxonIDB" placeholder="Taxon ID" name="PlantTaxonId_O_N" readonly min="0" max="99999999" maxlength="8">
+            <input type="number" class="form-control taxonIDB" placeholder="Taxon ID" name="PlantTaxonId_O_N" readonly min="0" max="99999999" maxlength="8" data-name="Plant-Taxon ID">
         </div>
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5" data-original-title="1">1</span>
             <label><span class="bold-red">*&nbsp;</span>Host Name</label>
-            <input type="text" class="form-control taxonTextB" placeholder="Host Name" name="PlantTaxonText_M_S" data-section="PlantObsTab">
+            <input type="text" class="form-control taxonTextB" placeholder="Host Name" name="PlantTaxonText_M_S" data-name="Plant-Taxon Text" data-section="PlantObsTab">
             <input type="text" class="form-control taxonHTextB hide" name="PlantTaxonTextH_M_S" data-section="PlantObsTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-            <input type="radio" class="minimal" name="CountList_M_S" value="Count" data-code="Count" data-validate="N" maxlength="1" data-section="PlantObsTab">&nbsp;
+            <input type="radio" class="minimal" name="CountList_M_S" value="Count" data-code="Count" data-validate="N" maxlength="1" data-name="Count List Option" data-section="PlantObsTab">&nbsp;
             <label><span class="bold-red">*&nbsp;</span>Count</label>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-            <input type="radio" class="minimal" name="CountList_M_S" value="List" data-code="List" data-validate="N" maxlength="1" data-section="PlantObsTab">&nbsp;
+            <input type="radio" class="minimal" name="CountList_M_S" value="List" data-code="List" data-validate="N" maxlength="1" data-name="Count List Option" data-section="PlantObsTab">&nbsp;
             <label>List</label>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12 countArea hide">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Statistic Type</label>
-            <select class="form-control select2" name="PlantStatisticType_M_S" data-section="PlantObsTab"></select>
+            <select class="form-control select2" name="PlantStatisticType_M_S" data-name="Plant-Statistic Type" data-section="PlantObsTab"></select>
         </div>
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Count/Area</label>
             <br />
             <button type="button" class="btn btn-md btn-default qtyminus"><i class="fa fa-minus"></i></button>
-            <input type="number" class="qty count" name="HostStatCount_M_N" value="0" min="0" max="99999999" maxlength="8" data-section="PlantObsTab">
-            <input type="number" class="qty area" name="HostStatAreaNo_M_N" value="0" min="0" max="99999999" maxlength="8" data-section="PlantObsTab">
+            <input type="number" class="qty count" name="HostStatCount_M_N" value="0" min="0" max="99999999" maxlength="8" data-name="Plant-HostStat Count" data-section="PlantObsTab">
+            <input type="number" class="qty area" name="HostStatAreaNo_M_N" value="0" min="0" max="99999999" maxlength="8" data-name="Plant-HostStat AreaNo" data-section="PlantObsTab">
             <button type="button" class="btn btn-md btn-default qtyplus"><i class="fa fa-plus"></i></button>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-            <input type="checkbox" name="CheckFutureSurveyFlag_O_S" class="minimal" maxlength="1" data-section="PlantObsTab">&nbsp;
+            <input type="checkbox" name="CheckFutureSurveyFlag_O_S" class="minimal" maxlength="1" data-name="Plant-Check Future Survey Flag" data-section="PlantObsTab">&nbsp;
             <label>Flag</label>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-            <input type="checkbox" name="ExternalPhotoExistFlag_O_S" class="minimal" maxlength="1" data-section="PlantObsTab">&nbsp;
+            <input type="checkbox" name="ExternalPhotoExistFlag_O_S" class="minimal" maxlength="1" data-name="Plant-External Photo Flag" data-section="PlantObsTab">&nbsp;
             <label>External Photo</label>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Notes</label>
-            <textarea class="form-control" rows="6" name="CommentText_O_S" style="height:60px;" maxlength="400" data-section="PlantObsTab"></textarea>
+            <textarea class="form-control" rows="6" name="CommentText_O_S" style="height:60px;" maxlength="400" data-name="Plant-Comments Text" data-section="PlantObsTab"></textarea>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Latitude</label>
-            <input type="number" class="form-control hostweedlat" name="Latitude" placeholder="Latitude" data-section="PlantObsTab">
+            <input type="number" class="form-control hostweedlat" name="Latitude" placeholder="Latitude" data-name="Plant-Latitude" data-section="PlantObsTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Longitude</label>
-            <input type="number" class="form-control hostweedlng" name="Longitude" placeholder="Longitude" data-section="PlantObsTab">
+            <input type="number" class="form-control hostweedlng" name="Longitude" placeholder="Longitude" data-name="Plant-Longitude" data-section="PlantObsTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-3 col-sm-3 col-xs-6">
             <label>Datum</label>
-            <select class="form-control hostweeddat" name="GpsDatumId_O_S" data-section="PlantObsTab">
+            <select class="form-control hostweeddat" name="GpsDatumId_O_S" data-name="Plant-Datum" data-section="PlantObsTab">
                 <option>WGS84</option>
                 <option>GDA94</option>
             </select>
@@ -85,7 +85,7 @@
     <div class="row col-md-12 col-sm-12 col-xs-12 hide">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Point WKT</label>
-            <input type="text" class="form-control" readonly name="LocationPointWktClob_O_S" data-section="PlantObsTab">
+            <input type="text" class="form-control" readonly name="LocationPointWktClob_O_S" data-name="Plant-LatLon" data-section="PlantObsTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">

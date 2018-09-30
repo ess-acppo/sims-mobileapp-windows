@@ -843,10 +843,10 @@ function exportTableToCSV($table, filename) {
         var mm = today.getMonth() + 1; //January is 0!
         var yyyy = today.getFullYear();
         if (dd < 10) {
-            dd = '0' + dd
+            dd = '0' + dd;
         }
         if (mm < 10) {
-            mm = '0' + mm
+            mm = '0' + mm;
         }
         today = yyyy.toString() + mm.toString() + dd.toString();
         fs.getDirectory("ESFA", { create: true, exclusive: false }, function (dirEntry) {
@@ -1934,7 +1934,8 @@ function StartSync() {
                 success: function (data, textStatus, XmlHttpRequest) {
                     //$.growl({ title: "", message: "Success! Observations synced to cloud.", location: "tc", size: "large" });  
                     if (XmlHttpRequest.status === 200) {
-                        $.growl({ title: "", message: "Observation Sync'd!", location: "bc" });
+                        //$.growl({ title: "", message: "Observation Sync'd!", location: "bc" });
+                        logRecord(vpayload.escapeSpecialChars() + "\r\n");
                     }
                     rowsSuccess.push(index);
                 },
@@ -2000,4 +2001,38 @@ function EnableForm() {
     $('#Sync').removeClass('disabled');
     $('#newObservation').attr('disabled', false);
     $('#newObservation').removeClass('disabled');
+}
+function logRecord(record) {
+    window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (fs) {
+        //console.log('file system open: ' + fs);
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+        today = yyyy.toString() + mm.toString() + dd.toString();
+        fs.getDirectory("Logs", { create: true, exclusive: false }, function (dirEntry) {
+            dirEntry.getFile("log" + today + ".txt", { create: true, exclusive: false }, function (fileEntry) {
+                //console.log("fileEntry is file?" + fileEntry.isFile.toString());
+                fileEntry.createWriter(function (fileWriter) {
+                    fileWriter.onwriteend = function () {
+                        //console.log("Successful file read...");
+                        //readFile(fileEntry);
+                    };
+                    fileWriter.onerror = function (e) {
+                        $.growl.error({ title: "", message: "Failed to log record: " + e.toString(), location: "tc", size: "large" });
+                    };
+                    fileWriter.seek(fileWriter.length);
+                    var blob = new Blob([record], { type: 'text/plain' });
+                    fileWriter.write(blob);
+                    //$.growl.notice({ title: "", message: 'Record logged.', location: "tc", size: "large" });
+                });
+            });
+        });
+    });
 }
