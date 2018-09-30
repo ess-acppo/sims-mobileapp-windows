@@ -1918,6 +1918,10 @@ function Iterate2(data) {
                     return false;
                 }
                 if (fMOC === 'M' && fNSD === 'S' && (value === '' || value === 'NONE')) {
+                    if (fname === 'PlantTaxonTextH') return true;
+                    if (fname === 'TargetTaxonTextH') return true;
+                    if (fname === 'PrelimTaxonTextH') return true;
+                    if (fname === 'HostTaxonTextH') return true;
                     //console.log(index + ' field cannot be NULL');
                     vError = 1;
                     vErrDescription.push(fname + " field cannot be NULL.");

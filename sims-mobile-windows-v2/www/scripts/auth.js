@@ -21,103 +21,41 @@ function initAuth() {
             }
         });
 };
-function authenticate(x, y) {
-    var settings = {
-        "async": false,
-        "crossDomain": true,
-        "url": "http://dev-sims.oztaxa.com/oAuth20/oAuth2API/token",
-        "beforeSend": function () {
-            s.classList.remove('hide');
-        },
-        "method": "POST",
-        "headers": {
-            "content-type": "application/x-www-form-urlencoded",
-            "cache-control": "no-cache"
-        },
-        "data": {
-            "grant_type": "password",
-            "username": x,
-            "password": y
-        }
-    };
-    $.ajax(settings).done(function (response) {
-        //alert(JSON.stringify(response));
-        s.classList.add('hide');
-        icon.classList.add('fa-check');
-        icon.classList.remove('fa-times');
-        text.innerHTML = 'Login success!';
-        $('#modalAuth').modal('hide');
-    }).fail(function (response) {
-        s.classList.add('hide');
-        icon.classList.add('fa-times');
-        icon.classList.remove('fa-check');
-        text.innerHTML = 'Login Failed!';
-    });
+//function authenticate(x, y) {
+//    var settings = {
+//        "async": false,
+//        "crossDomain": true,
+//        "url": "http://dev-sims.oztaxa.com/oAuth20/oAuth2API/token",
+//        "beforeSend": function () {
+//            s.classList.remove('hide');
+//        },
+//        "method": "POST",
+//        "headers": {
+//            "content-type": "application/x-www-form-urlencoded",
+//            "cache-control": "no-cache"
+//        },
+//        "data": {
+//            "grant_type": "password",
+//            "username": x,
+//            "password": y
+//        }
+//    };
+//    $.ajax(settings).done(function (response) {
+//        //alert(JSON.stringify(response));
+//        s.classList.add('hide');
+//        icon.classList.add('fa-check');
+//        icon.classList.remove('fa-times');
+//        text.innerHTML = 'Login success!';
+//        $('#modalAuth').modal('hide');
+//    }).fail(function (response) {
+//        s.classList.add('hide');
+//        icon.classList.add('fa-times');
+//        icon.classList.remove('fa-check');
+//        text.innerHTML = 'Login Failed!';
+//    });
 
-}
+//}
 function authenticate2(x, y) {
-    //$.ajax({
-    //    "async": false,
-    //    "crossDomain": true,
-    //    "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
-    //    //"url": "https://online-sit.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
-    //    //"url": "https://online-uat.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
-    //    "method": "GET",
-    //    "beforeSend": function () {
-    //        $('#mb6 .progText').text("Authenticating ...");
-    //        $('#mb6 .progress').addClass('hide');
-    //        $('#mb6 .fa-clock-o').addClass('hide');
-    //        $('#modalProgress').modal();
-
-    //        $('.auth-username').attr('disabled', true);
-    //        $('.auth-username').addClass('disabled');
-    //        $('.auth-password').attr('disabled', true);
-    //        $('.auth-password').addClass('disabled');
-    //        $('.auth-send').attr('disabled', true);
-    //        $('.auth-send').addClass('disabled');
-    //        fetchSettings();
-    //    },
-    //    "headers": {
-    //        "authorization": "Basic " + btoa(x + ":" + y),
-    //        "cache-control": "no-cache"
-    //    },
-    //    success: function (data, textStatus, XmlHttpRequest) {
-    //        //alert(JSON.stringify(response));
-    //        s.classList.add('hide');
-    //        icon.classList.add('fa-check');
-    //        icon.classList.remove('fa-times');
-    //        text.innerHTML = 'Login success!';
-    //        derive_key(x, y);
-    //        authCode = "Basic " + btoa(x + ":" + y);
-    //        initSettings();
-    //        //$('#modalProgress').modal('hide');
-    //        $('.auth-username').attr('disabled', false);
-    //        $('.auth-username').removeClass('disabled');
-    //        $('.auth-password').attr('disabled', false);
-    //        $('.auth-password').removeClass('disabled');
-    //        $('.auth-send').attr('disabled', false);
-    //        $('.auth-send').removeClass('disabled');
-    //        $('#modalAuth').modal('hide');
-    //    },
-    //    error: function (xhr, textStatus, errorThrown) {
-    //        $('#mb6 .progText').text("");
-    //        $('#modalProgress').modal('hide');
-
-    //        $('.auth-username').attr('disabled', false);
-    //        $('.auth-username').removeClass('disabled');
-    //        $('.auth-password').attr('disabled', false);
-    //        $('.auth-password').removeClass('disabled');
-    //        $('.auth-send').attr('disabled', false);
-    //        $('.auth-send').removeClass('disabled');
-
-    //        s.classList.add('hide');
-    //        icon.classList.add('fa-times');
-    //        icon.classList.remove('fa-check');
-    //        text.innerHTML = 'Login Failed!';
-    //        //$.growl.error({ title: "", message: "Username or Password is incorrect.", location: "bc", size: "large" });
-    //        $.growl.error({ title: "", message: xhr.status + ': ' + textStatus + ', ' + errorThrown + ', ' + xhr.responseText, location: "bc" });
-    //    }
-    //});
     Zeep.submitURL({
         from: "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
         to: btoa(x + ":" + y)

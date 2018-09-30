@@ -128,6 +128,10 @@ html, body {
     z-index: 305;
 }
 
+#modalProgress {
+    background-color: rgba(0,0,0,0.5);
+}
+
 #modalProgress .modal-dialog {
     width: 50%;
     z-index: 350;
