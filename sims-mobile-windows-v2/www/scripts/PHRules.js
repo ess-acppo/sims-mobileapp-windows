@@ -2928,11 +2928,11 @@ $(document).on('ifChecked', 'input[type="radio"].minimal', function (event) {
         var that = $(this).parentsUntil('.hostweed').parent().find('div.countArea');
         that.find("input[type='number'][name^='HostStatAreaNo']").val(HostStatAreaNo);
         that.find("input[type='number'][name^='HostStatCount']").val(HostStatCount);
-        that.find("select[name^='PlantStatisticType']").val('C');
-        that.find("input[type='number'][name^='HostStatAreaNo']").addClass('hide');
-        that.find("input[type='number'][name^='HostStatCount']").removeClass('hide');
-        that.find("input[type='number'][name^='HostStatCount']").val(0);
-        that.find("input[type='number'][name^='HostStatCount']").text(0);
+        //that.find("select[name^='PlantStatisticType']").val('C');
+        //that.find("input[type='number'][name^='HostStatAreaNo']").addClass('hide');
+        //that.find("input[type='number'][name^='HostStatCount']").removeClass('hide');
+        //that.find("input[type='number'][name^='HostStatCount']").val(0);
+        //that.find("input[type='number'][name^='HostStatCount']").text(0);
         that.removeClass('hide');
     };
     if ($(this).attr('name').startsWith('CountList') && $(this).val() === 'List') {

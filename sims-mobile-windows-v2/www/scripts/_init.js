@@ -129,7 +129,7 @@ function initSettings() {
                 //This is the first load
                 syncPHRefCodes();
                 loadPHRefCodes();
-            };
+            }
         });
     }, function (err) {
         $.growl.error({ title: "", message: "An error occured while loading PH RefenceCodes. ", location: "tc", size: "large", fixed: "true" });
@@ -213,37 +213,36 @@ function initSettings() {
     });
     //Loading maps and Markers
     db.transaction(function (tx) {
-        tx.executeSql("SELECT * FROM settings WHERE id = ?", [1], function (tx, res) {
+        tx.executeSql("SELECT * FROM observations WHERE id = ?", [1], function (tx, res) {
             //This is not the first load
-            if (res.rows && res.rows.length > 0) {
-                resSettings = JSON.parse(res.rows.item(0).settingsval);
-                var arr = resSettings.settings.mapSets.filter(function (el) {
-                    return (el.activeFlag === 1);
+            var arr = resSettings.settings.mapSets.filter(function (el) {
+                return (el.activeFlag === 1);
+            });
+            ActiveMapSet = arr[0].mapsetID - 1;
+            mapPath = arr[0].mapPath;
+            emptyTilePath = arr[0].emptyTilePath;
+            myCenter = new google.maps.LatLng(Number(arr[0].mapCenter.lat), Number(arr[0].mapCenter.lng));
+            var mymap = new MyMapType();
+            function MyMapType() { }
+            MyMapType.prototype.tileSize = new google.maps.Size(256, 256);
+            MyMapType.prototype.maxZoom = arr[0].endZoom;
+            MyMapType.prototype.minZoom = arr[0].startZoom;
+            MyMapType.prototype.name = "Offline Map";
+            MyMapType.prototype.getTile = function (coord, zoom, ownerDocument) {
+                zoomlevel.innerHTML = 'zoom: ' + zoom;
+                curZoom = zoom;
+                var div = ownerDocument.createElement('div');
+                var image = $('<img name="" src="' + mapPath + zoom + "/" + coord.x + "/" + coord.y + '.jpg"/>');
+                image.error(function () {
+                    div.innerHTML = '<img name="" src="' + emptyTilePath + '"/>';
                 });
-                ActiveMapSet = arr[0].mapsetID - 1;
-                mapPath = arr[0].mapPath;
-                emptyTilePath = arr[0].emptyTilePath;
-                myCenter = new google.maps.LatLng(Number(arr[0].mapCenter.lat), Number(arr[0].mapCenter.lng));
-                var mymap = new MyMapType();
-                function MyMapType() { }
-                MyMapType.prototype.tileSize = new google.maps.Size(256, 256);
-                MyMapType.prototype.maxZoom = arr[0].endZoom;
-                MyMapType.prototype.minZoom = arr[0].startZoom;
-                MyMapType.prototype.name = "Offline Map";
-                MyMapType.prototype.getTile = function (coord, zoom, ownerDocument) {
-                    zoomlevel.innerHTML = 'zoom: ' + zoom;
-                    curZoom = zoom;
-                    var div = ownerDocument.createElement('div');
-                    var image = $('<img name="" src="' + mapPath + zoom + "/" + coord.x + "/" + coord.y + '.jpg"/>');
-                    image.error(function () {
-                        div.innerHTML = '<img name="" src="' + emptyTilePath + '"/>';
-                    });
-                    div.innerHTML = '<img name="" src="' + mapPath + zoom + "/" + coord.x + "/" + coord.y + '.jpg"/>';
-                    div.style.width = this.tileSize.width + 'px'; div.style.height = this.tileSize.height + 'px';
-                    return div;
-                };
-                var mapOptions = { zoom: arr[0].startZoom, center: myCenter, streetViewControl: false, panControl: false, zoomControl: false, mapTypeControl: false, scaleControl: false, overviewMapControl: false, mapTypeControlOptions: { mapTypeIds: ["xx"] } };
-                map = new google.maps.Map(document.getElementById("map"), mapOptions); map.mapTypes.set('xx', mymap); map.setMapTypeId('xx');
+                div.innerHTML = '<img name="" src="' + mapPath + zoom + "/" + coord.x + "/" + coord.y + '.jpg"/>';
+                div.style.width = this.tileSize.width + 'px'; div.style.height = this.tileSize.height + 'px';
+                return div;
+            };
+            var mapOptions = { zoom: arr[0].startZoom, center: myCenter, streetViewControl: false, panControl: false, zoomControl: false, mapTypeControl: false, scaleControl: false, overviewMapControl: false, mapTypeControlOptions: { mapTypeIds: ["xx"] } };
+            map = new google.maps.Map(document.getElementById("map"), mapOptions); map.mapTypes.set('xx', mymap); map.setMapTypeId('xx');
+            if (res.rows && res.rows.length > 0) {
                 clearMarkers();
                 loadMapMarkers();
                 google.maps.event.addListener(map, 'click', function (event) {
@@ -254,147 +253,51 @@ function initSettings() {
                 //This is the first load
                 $.ajax({
                     method: "GET",
-                    url: "data/settings.json",
+                    url: "data/observations2.json",
                     contentType: "json",
-                    success: function (dataS) {
-                        resSettings = JSON.parse(dataS);
+                    success: function (data) {
+                        var today = new Date();
+                        var dd = today.getDate();
+                        var mm = today.getMonth() + 1; //January is 0!
+                        var yyyy = today.getFullYear();
+                        if (dd < 10) {
+                            dd = '0' + dd;
+                        }
+                        if (mm < 10) {
+                            mm = '0' + mm;
+                        }
+                        today = dd.toString() + '/' + mm.toString() + '/' + yyyy.toString();
+                        results = JSON.parse(data);
                         db.transaction(function (tx) {
-                            tx.executeSql("DELETE FROM settings", [], function (tx, res) {
+                            tx.executeSql("DELETE FROM observations", [], function (tx, res) {
                                 //alert("Rows deleted.");
                             });
                         }, function (err) {
-                            $.growl.error({ title: "", message: "An error occured while deleting settings from DB. " + err.message, location: "tc", size: "large", fixed: "true" });
+                            $.growl.error({ title: "", message: "An error occured while deleting row from DB. " + err.message, location: "tc", size: "large", fixed: "true" });
                         });
                         db.transaction(function (tx) {
-                            tx.executeSql("INSERT INTO settings (id, settingstext, settingsval) VALUES (?,?,?)", [1, 'appSettings', JSON.stringify(resSettings)], function (tx, res) {
+                            tx.executeSql("INSERT INTO observations (id, filedt, data) VALUES (?,?,?)", [1, today, JSON.stringify(data)], function (tx, res) {
                                 //alert("Row inserted.");
                             });
                         }, function (err) {
-                            $.growl.error({ title: "", message: "An error occured while updating settings to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
+                            $.growl.error({ title: "", message: "An error occured while inserting row to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
                         });
                         db.transaction(function (tx) {
-                            tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
+                            tx.executeSql("UPDATE observations SET data = ?,filedt = ? WHERE id = ?", [JSON.stringify(results), today, 1], function (tx, res) {
                                 //alert("Dataset updated.");
                                 //$.growl({ title: "", message: "Your changes have been saved!", location: "tc", size: "large", fixed: "true" });
                             });
                         }, function (err) {
-                            $.growl.error({ title: "", message: "An error occured while updating settings to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
-                        });
-                        var arr = resSettings.settings.mapSets.filter(function (el) {
-                            return (el.activeFlag === 1);
-                        });                      
-                        ActiveMapSet = arr[0].mapsetID - 1;
-                        mapPath = arr[0].mapPath;
-                        emptyTilePath = arr[0].emptyTilePath;
-                        myCenter = new google.maps.LatLng(Number(arr[0].mapCenter.lat), Number(arr[0].mapCenter.lng));
-                        var mymap = new MyMapType();
-                        function MyMapType() { }
-                        MyMapType.prototype.tileSize = new google.maps.Size(256, 256);
-                        MyMapType.prototype.maxZoom = arr[0].endZoom;
-                        MyMapType.prototype.minZoom = arr[0].startZoom;
-                        MyMapType.prototype.name = "Offline Map";
-                        MyMapType.prototype.getTile = function (coord, zoom, ownerDocument) {
-                            zoomlevel.innerHTML = 'zoom: ' + zoom;
-                            curZoom = zoom;
-                            var div = ownerDocument.createElement('div');
-                            var image = $('<img name="" src="' + mapPath + zoom + "/" + coord.x + "/" + coord.y + '.jpg"/>');
-                            image.error(function () {
-                                div.innerHTML = '<img name="" src="' + emptyTilePath + '"/>';
+                            $.growl.error({ title: "", message: "An error occured while loading observations to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
                             });
-                            div.innerHTML = '<img name="" src="' + mapPath + zoom + "/" + coord.x + "/" + coord.y + '.jpg"/>';
-                            div.style.width = this.tileSize.width + 'px'; div.style.height = this.tileSize.height + 'px';
-                            return div;
-                        };
-                        var mapOptions = { zoom: arr[0].startZoom, center: myCenter, streetViewControl: false, panControl: false, zoomControl: false, mapTypeControl: false, scaleControl: false, overviewMapControl: false, mapTypeControlOptions: { mapTypeIds: ["xx"] } };
-                        map = new google.maps.Map(document.getElementById("map"), mapOptions); map.mapTypes.set('xx', mymap); map.setMapTypeId('xx');
-                        $.ajax({
-                            method: "GET",
-                            url: "data/observations2.json",
-                            contentType: "json",
-                            success: function (data) {
-                                var today = new Date();
-                                var dd = today.getDate();
-                                var mm = today.getMonth() + 1; //January is 0!
-                                var yyyy = today.getFullYear();
-                                if (dd < 10) {
-                                    dd = '0' + dd;
-                                }
-                                if (mm < 10) {
-                                    mm = '0' + mm;
-                                }
-                                today = dd.toString() + '/' + mm.toString() + '/' + yyyy.toString();
-                                db.transaction(function (tx) {
-                                    tx.executeSql("DELETE FROM observations", [], function (tx, res) {
-                                        //alert("Rows deleted.");
-                                    });
-                                }, function (err) {
-                                    $.growl.error({ title: "", message: "An error occured while deleting row from DB. " + err.message, location: "tc", size: "large", fixed: "true" });
-                                });
-                                db.transaction(function (tx) {
-                                    tx.executeSql("INSERT INTO observations (id, filedt, data) VALUES (?,?,?)", [1, today, JSON.stringify(data)], function (tx, res) {
-                                        //alert("Row inserted.");
-                                    });
-                                }, function (err) {
-                                    $.growl.error({ title: "", message: "An error occured while inserting row to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
-                                });
-                                clearMarkers();
-                                results = JSON.parse(data);
-                                for (var i = 0; i < results.observations.length; i++) {
-                                    var wkt = new Wkt.Wkt();
-                                    wkt.read(results.observations[i].ObservationWhereWktClob_M_S);
-                                    wkt.toObject();
-                                    var latLng = new google.maps.LatLng(wkt.toJson().coordinates[1], wkt.toJson().coordinates[0]);
-                                    var ti = results.observations[i].id_M_N.toString().trim() + "/" + results.observations[i].PlantDisciplineCode_M_S.toString().trim();
-                                    var marker = new google.maps.Marker({
-                                        position: latLng,
-                                        map: map,
-                                        title: ti
-                                    });
-                                    markers.push(marker);
-                                    google.maps.event.addListener(marker, 'click', function () {
-                                        curIdx = this.title.split("/")[0];
-                                        var curD = "'" + this.title.split("/")[1].toString().trim() + "'";
-                                        curLat = this.getPosition().lat();
-                                        curLng = this.getPosition().lng();
-                                        //curAlt = this.getPosition().altitude();
-                                        if (infoWindow) {
-                                            infoWindow.close();
-                                        }
-                                        infoWindow = new google.maps.InfoWindow({
-                                            content: '<div id="content"><h4>Observation ' + this.title + '</h4><div id="bodyContent">' +
-                                            '<i class="fa fa-pencil fa-2x text-info" onclick="launchModal(' + curIdx + ',' + curD + ')"></i><label class="text-info">Edit</label></div></div>'
-                                        });
-                                        infoWindow.setPosition(this.position);
-                                        infoWindow.open(map);
-                                        map.setCenter(this.position);
-                                    });
-                                }
-                                var mcOptions = { gridSize: 50, maxZoom: 9, imagePath: 'mapfiles/markers2/m' };
-                                markerCluster = new MarkerClusterer(map, markers, mcOptions);
-                                google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
-                                    map.setCenter(cluster.getCenter());
-                                });
-                                db.transaction(function (tx) {
-                                    tx.executeSql("UPDATE observations SET data = ?,filedt = ? WHERE id = ?", [JSON.stringify(results), today, 1], function (tx, res) {
-                                        //alert("Dataset updated.");
-                                        //$.growl({ title: "", message: "Your changes have been saved!", location: "tc", size: "large", fixed: "true" });
-                                    });
-                                }, function (err) {
-                                    $.growl.error({ title: "", message: "An error occured while updating data to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
-                                });
-                                //$.growl.notice({ title: "", message: "Data loaded!", location: "tc", size: "large", fixed: "true" });
-                                //if ($("#modalProgress").data('bs.modal').isShown) { $('#modalProgress').modal('hide'); }
-                            },
-                            failure: function () {
-                                $.growl.error({ title: "", message: "Error!", location: "tc", size: "large", fixed: "true" });
-                            }
-                        });
+                        clearMarkers();
+                        loadMapMarkers();
                         google.maps.event.addListener(map, 'click', function (event) {
                             placeMarker(event.latLng);
                         });
                     },
                     failure: function () {
-                        $.growl.error({ title: "", message: "Error loading settings!", location: "tc", size: "large", fixed: "true" });
+                        $.growl.error({ title: "", message: "Error!", location: "tc", size: "large", fixed: "true" });
                     }
                 });
             }
@@ -2048,6 +1951,8 @@ function EnableForm() {
     $('#Sync').removeClass('disabled');
     $('#newObservation').attr('disabled', false);
     $('#newObservation').removeClass('disabled');
+    $('#mb6 .progText').text("");
+    $('#modalProgress').modal('hide');
 }
 function logRecord(record) {
     window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (fs) {

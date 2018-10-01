@@ -107,12 +107,7 @@
       "currentSampleNumber": 0
     },
     "auth": {
-      "authenticated": 0,
-      "authURL": "",
-      "lastLoggedIn":  [],
-      "lastLoggedInUser": "",
-      "lastLoggedInDateTime": "",
-      "hashedPassword": ""
+      "lastLoggedIn":  []
     },
     "app": {
       "appMode": "PH",

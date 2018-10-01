@@ -106,7 +106,11 @@ function authenticate3(x, y) {
     var result_callback = function (key) {
         //console.log("The derived " + (bytes * 8) + "-bit key is: " + key);
         //console.log('3-' +JSON.stringify(resSettings));
-        if (!resSettings) {
+        var arr = resSettings.settings.auth.lastLoggedIn.filter(function (el, index) {
+            if (el.user === x) { curUser = index; }
+            return (el.user === x);
+        });
+        if (arr.length === 0) {
             $.growl.error({ title: "", message: "You must be authenticated atleast once in online mode.", location: "bc", size: "large" });
             s.classList.add('hide');
             icon.classList.add('fa-times');
@@ -114,15 +118,7 @@ function authenticate3(x, y) {
             text.innerHTML = 'Login Error!';
             return;
         }
-        if (!resSettings.settings.auth.hashedPassword) {
-            $.growl.error({ title: "", message: "You must be authenticated atleast once in online mode.", location: "bc", size: "large" });
-            s.classList.add('hide');
-            icon.classList.add('fa-times');
-            icon.classList.remove('fa-check');
-            text.innerHTML = 'Login Error!';
-            return;
-        }
-        if (x !== resSettings.settings.auth.lastLoggedInUser || key !== resSettings.settings.auth.hashedPassword) {
+        if (arr.length > 0 && key !== arr[0].hashedPassword) {
             $.growl.error({ title: "", message: "Username or Password is incorrect.", location: "bc", size: "large" });
             s.classList.add('hide');
             icon.classList.add('fa-times');
@@ -130,8 +126,8 @@ function authenticate3(x, y) {
             text.innerHTML = 'Login Failed!';
             return;
         }
-        if (x === resSettings.settings.auth.lastLoggedInUser && key === resSettings.settings.auth.hashedPassword) {
-            resSettings.settings.auth.lastLoggedInDateTime = new Date().toUTCString;
+        if (arr.length > 0 && key === arr[0].hashedPassword) {
+            resSettings.settings.auth.lastLoggedIn[curUser].inDateTime = new Date().toString();
             db.transaction(function (tx) {
                 tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
                     //alert("Row inserted.");
@@ -180,10 +176,25 @@ function derive_key(u, p) {
     };
     var result_callback = function (key) {
         //console.log("The derived " + (bytes * 8) + "-bit key is: " + key);
-        resSettings.settings.auth.authenticated = 1;
-        resSettings.settings.auth.hashedPassword = key;
-        resSettings.settings.auth.lastLoggedInUser = u;
-        resSettings.settings.auth.lastLoggedInDateTime = new Date().toString();
+        var arr = resSettings.settings.auth.lastLoggedIn.filter(function (el, index) {
+            if (el.user === u && el.hashedPassword === key) { curUser = index; }
+            return (el.user === u && el.hashedPassword === key);
+        });
+        if (arr.length === 0) {
+            var loggeduser = { "user": "", "inDateTime": "", "hashedPassword": "" };
+            loggeduser.user = u;
+            loggeduser.inDateTime = new Date().toString();
+            loggeduser.hashedPassword = key;
+            resSettings.settings.auth.lastLoggedIn.push(loggeduser);
+        }
+        else if (arr.length > 0 && u === arr[0].user) {
+            resSettings.settings.auth.lastLoggedIn[curUser].hashedPassword = key;
+            resSettings.settings.auth.lastLoggedIn[curUser].inDateTime = new Date().toString();
+        }
+        //resSettings.settings.auth.authenticated = 1;
+        //resSettings.settings.auth.hashedPassword = key;
+        //resSettings.settings.auth.lastLoggedInUser = u;
+        //resSettings.settings.auth.lastLoggedInDateTime = new Date().toString();
         db.transaction(function (tx) {
             tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
                 //alert("Row inserted.");
