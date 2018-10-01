@@ -44,9 +44,7 @@ function syncPHRefCodes() {
     var settings = {
         "async": false,
         "crossDomain": true,
-        "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/referenceCodes",
-        //"url": "https://online-sit.agriculture.gov.au/ords-int/rest/sims/plant_health/referenceCodes",
-        //"url": "https://online-uat.agriculture.gov.au/ords-int/rest/sims/plant_health/referenceCodes",
+        "url": refCodesAddress,
         "method": "GET",
         "beforeSend": function () {
             //$.growl.notice({ title: "", message: "Syncing reference codes ...", location: "bc", size: "small" });
@@ -82,7 +80,7 @@ function syncPHRefCodes() {
             $.growl.error({ title: "", message: "An error occured while updating PHRefCodes to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
         });
     }).fail(function (response) {
-        $.growl.error({ title: "", message: "An error occurred while fetching reference codes.", location: "tc", size: "large", fixed: "true" });
+        $.growl.error({ title: "", message: "An error occurred while fetching PH Reference Codes. " + response.responseText, location: "tc", size: "large", fixed: "true" });
     });
 }
 function loadPHRefCodes() {
@@ -161,9 +159,7 @@ function syncActivityData() {
     var settings = {
         "async": false,
         "crossDomain": true,
-        "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/activity",
-        //"url": "https://online-sit.agriculture.gov.au/ords-int/rest/sims/plant_health/activity",
-        //"url": "https://online-uat.agriculture.gov.au/ords-int/rest/sims/plant_health/activity",
+        "url": ActivityAddress,
         "method": "GET",
         "beforeSend": function () {
             //$.growl.notice({ title: "", message: "Syncing Activity Data ...", location: "bc", size: "small" });
@@ -201,7 +197,7 @@ function syncActivityData() {
             $.growl.error({ title: "", message: "An error occured while updating ActivityData to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
         });
     }).fail(function (response) {
-        $.growl.error({ title: "", message: "An error occurred while fetching ActivityData. " + err.message, location: "tc", size: "large", fixed: "true" });
+        $.growl.error({ title: "", message: "An error occurred while fetching Activity Data. " + response.responseText, location: "tc", size: "large", fixed: "true" });
     });
 }
 function loadActivityData() {
@@ -255,9 +251,7 @@ function syncNPHstaffData() {
     var NPHsettings = {
         "async": false,
         "crossDomain": true,
-        "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/common/program/NPH/team",
-        //"url": "https://online-sit.agriculture.gov.au/ords-int/rest/sims/common/program/NPH/team",
-        //"url": "https://online-uat.agriculture.gov.au/ords-int/rest/sims/common/program/NPH/team",
+        "url": NPHStaffAddress,
         "method": "GET",
         "beforeSend": function () {
             //$.growl.notice({ title: "", message: "Syncing NPH Staff Data ...", location: "bc", size: "small" });
@@ -300,12 +294,10 @@ function syncBPHstaffData() {
     var BPHsettings = {
         "async": false,
         "crossDomain": true,
-        "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/common/program/BPH/team",
-        //"url": "https://online-sit.agriculture.gov.au/ords-int/rest/sims/common/program/BPH/team",
-        //"url": "https://online-uat.agriculture.gov.au/ords-int/rest/sims/common/program/BPH/team",
+        "url": BPHStaffAddress,
         "method": "GET",
         "beforeSend": function () {
-            $.growl.notice({ title: "", message: "Syncing BPH Staff Data ...", location: "bc", size: "small" });
+            //$.growl.notice({ title: "", message: "Syncing BPH Staff Data ...", location: "bc", size: "small" });
         },
         "headers": {
             "authorization": authCode,
@@ -344,9 +336,7 @@ function syncIPHstaffData() {
     var IPHsettings = {
         "async": false,
         "crossDomain": true,
-        "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/common/program/IPH/team",
-        //"url": "https://online-sit.agriculture.gov.au/ords-int/rest/sims/common/program/IPH/team",
-        //"url": "https://online-uat.agriculture.gov.au/ords-int/rest/sims/common/program/IPH/team",
+        "url": IPHStaffAddress,
         "method": "GET",
         "beforeSend": function () {
             //$.growl.notice({ title: "", message: "Syncing IPH Staff Data ...", location: "bc", size: "small" });
@@ -388,9 +378,7 @@ function syncTaxaData() {
     var Taxasettings = {
         "async": false,
         "crossDomain": true,
-        "url": "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
-        //"url": "https://online-sit.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
-        //"url": "https://online-uat.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
+        "url": taxaAddress,
         "method": "GET",
         "beforeSend": function () {
             //$.growl.notice({ title: "", message: "Syncing Taxa Data ...", location: "bc", size: "small" });
@@ -425,7 +413,7 @@ function syncTaxaData() {
             $.growl.error({ title: "", message: "An error occured while updating Taxa Data to database. " + err.message, location: "tc", size: "large", fixed: "true" });
         });
     }).fail(function (response) {
-        $.growl.error({ title: "", message: "An error occurred while fetching Taxa Data. " + err.message, location: "tc", size: "large", fixed: "true" });
+        $.growl.error({ title: "", message: "An error occurred while fetching Taxa Data. " + response.responseText, location: "tc", size: "large", fixed: "true" });
     });
 }
 function loadstaffData() {
@@ -517,16 +505,16 @@ function loadBotanySample() {
     //that.find('select[name^="HostIdentifiedUserId"]').find('option').remove().end().append($(staffData));
     that.find('input').each(function () {
         $(this).attr('name', $(this).attr('name') + '_' + bsamples + '_S');
-    })
+    });
     that.find('img').each(function () {
         $(this).attr('name', $(this).attr('name') + '_' + bsamples + '_S');
-    })
+    });
     that.find('select').each(function () {
         $(this).attr('name', $(this).attr('name') + '_' + bsamples + '_S');
-    })
+    });
     that.find('textarea').each(function () {
         $(this).attr('name', $(this).attr('name') + '_' + bsamples + '_S');
-    })
+    });
     that.find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');
     that.find("input[type='radio'].minimal").iCheck('uncheck');
     $('#samples').append(that);
@@ -551,16 +539,16 @@ function loadEntoSample() {
     that.find('select[name^="EntoPestLevelCode"]').find('option').remove().end().append($(pestLevel));
     that.find('input').each(function () {
         $(this).attr('name', $(this).attr('name') + '_' + esamples + '_S');
-    })
+    });
     that.find('img').each(function () {
         $(this).attr('name', $(this).attr('name') + '_' + esamples + '_S');
-    })
+    });
     that.find('select').each(function () {
         $(this).attr('name', $(this).attr('name') + '_' + esamples + '_S');
-    })
+    });
     that.find('textarea').each(function () {
         $(this).attr('name', $(this).attr('name') + '_' + esamples + '_S');
-    })
+    });
     that.find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');
     that.find("input[type='radio'].minimal").iCheck('uncheck');
     $('#samples').append(that);
@@ -2988,13 +2976,21 @@ $(document).on('click', '#SaveSettingsExit', function (e) {
     resSettings.settings.device.samplePrefix = $('#form3').find('input[name="samplePrefix"]').val();
     resSettings.settings.device.sampleStartNumber = $('#form3').find('input[name="sampleStartNum"]').val();
     resSettings.settings.device.currentSampleNumber = $('#form3').find('input[name="sampleCurrNum"]').val();
+    resSettings.settings.app.serverMode = $('#form3').find('select[id="serverMode"]').val();
     /* Save to DB */
     db.transaction(function (tx) {
         tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
             //alert("Row inserted.");
             //return e + pad(nextID.toString(), 4);
-            initSettings();
-            $('#modalSettings').modal('hide');
+            if (resSettings.settings.app.serverMode !== $('#AppEnv').text()) {
+                clearCache();
+                $('#modalSettings').modal('hide');
+                $.growl.warning({ title: "", message: "Please restart the app for the settings to take effect. ", location: "tc", size: "large" });
+            } else {
+                $.when(fetchSettings()).then(initSettings()).done(function () {
+                    $('#modalSettings').modal('hide');
+                });
+            }
         });
     }, function (err) {
         $.growl.error({ title: "", message: "An error occured while updating settings. " + err.message, location: "tc", size: "large" });
