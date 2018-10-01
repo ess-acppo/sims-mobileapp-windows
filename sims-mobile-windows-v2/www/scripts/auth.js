@@ -60,26 +60,25 @@ function authenticate2(x, y) {
         from: "https://online-dev.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
         to: btoa(x + ":" + y)
     }, function (e) {
-            //alert(JSON.stringify(response));
-            s.classList.add('hide');
-            icon.classList.add('fa-check');
-            icon.classList.remove('fa-times');
-            text.innerHTML = 'Login success!';
-            derive_key(x, y);
-            authCode = "Basic " + btoa(x + ":" + y);
-            initSettings();
-            //$('#modalProgress').modal('hide');
-            $('.auth-username').attr('disabled', false);
-            $('.auth-username').removeClass('disabled');
-            $('.auth-password').attr('disabled', false);
-            $('.auth-password').removeClass('disabled');
-            $('.auth-send').attr('disabled', false);
-            $('.auth-send').removeClass('disabled');
-            $('#modalAuth').modal('hide');
+        //console.log('auth success:');
+        //alert(JSON.stringify(response));
+        s.classList.add('hide');
+        icon.classList.add('fa-check');
+        icon.classList.remove('fa-times');
+        text.innerHTML = 'Login success!';
+        derive_key(x, y);
+        authCode = "Basic " + btoa(x + ":" + y);
+        initSettings();
+        //$('#modalProgress').modal('hide');
+        $('.auth-username').attr('disabled', false);
+        $('.auth-username').removeClass('disabled');
+        $('.auth-password').attr('disabled', false);
+        $('.auth-password').removeClass('disabled');
+        $('.auth-send').attr('disabled', false);
+        $('.auth-send').removeClass('disabled');
+        $('#modalAuth').modal('hide');
         }, function (e) {
-            //console.log('submit error: ', e);
-            $('#mb6 .progText').text("");
-            $('#modalProgress').modal('hide');
+            //console.log('auth fail: ', e);
 
             $('.auth-username').attr('disabled', false);
             $('.auth-username').removeClass('disabled');
@@ -109,8 +108,6 @@ function authenticate3(x, y) {
         //console.log('3-' +JSON.stringify(resSettings));
         if (!resSettings) {
             $.growl.error({ title: "", message: "You must be authenticated atleast once in online mode.", location: "bc", size: "large" });
-            $('#mb6 .progText').text("");
-            $('#modalProgress').modal('hide');
             s.classList.add('hide');
             icon.classList.add('fa-times');
             icon.classList.remove('fa-check');
@@ -119,8 +116,6 @@ function authenticate3(x, y) {
         }
         if (!resSettings.settings.auth.hashedPassword) {
             $.growl.error({ title: "", message: "You must be authenticated atleast once in online mode.", location: "bc", size: "large" });
-            $('#mb6 .progText').text("");
-            $('#modalProgress').modal('hide');
             s.classList.add('hide');
             icon.classList.add('fa-times');
             icon.classList.remove('fa-check');
@@ -129,8 +124,6 @@ function authenticate3(x, y) {
         }
         if (x !== resSettings.settings.auth.lastLoggedInUser || key !== resSettings.settings.auth.hashedPassword) {
             $.growl.error({ title: "", message: "Username or Password is incorrect.", location: "bc", size: "large" });
-            $('#mb6 .progText').text("");
-            $('#modalProgress').modal('hide');
             s.classList.add('hide');
             icon.classList.add('fa-times');
             icon.classList.remove('fa-check');

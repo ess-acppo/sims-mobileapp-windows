@@ -5,6 +5,7 @@ var staffDataNPH;
 var staffDataBPH;
 var staffDataIPH;
 var staffDataS;
+var staffDataFull;
 var statType;
 var MoB;
 var elifeStage;
@@ -48,9 +49,7 @@ function syncPHRefCodes() {
         //"url": "https://online-uat.agriculture.gov.au/ords-int/rest/sims/plant_health/referenceCodes",
         "method": "GET",
         "beforeSend": function () {
-            $('#mb6 .progText').text("Syncing Reference Codes ...");
-            $('#mb6 .progress').addClass('hide');
-            $('#mb6 .fa-clock-o').addClass('hide');
+            //$.growl.notice({ title: "", message: "Syncing reference codes ...", location: "bc", size: "small" });
         },
         "headers": {
             "authorization": authCode,
@@ -82,11 +81,8 @@ function syncPHRefCodes() {
         }, function (err) {
             $.growl.error({ title: "", message: "An error occured while updating PHRefCodes to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
         });
-        $('#modalProgress').modal('hide');
     }).fail(function (response) {
-        $('#mb6 .progText').text("");
-        $('#modalProgress').modal('hide');
-        $.growl.error({ title: "", message: "An error occurred while fetching reference codes.", location: "tc", size: "large" });
+        $.growl.error({ title: "", message: "An error occurred while fetching reference codes.", location: "tc", size: "large", fixed: "true" });
     });
 }
 function loadPHRefCodes() {
@@ -170,9 +166,7 @@ function syncActivityData() {
         //"url": "https://online-uat.agriculture.gov.au/ords-int/rest/sims/plant_health/activity",
         "method": "GET",
         "beforeSend": function () {
-            $('#mb6 .progText').text("Syncing Activity Data ...");
-            $('#mb6 .progress').addClass('hide');
-            $('#mb6 .fa-clock-o').addClass('hide');
+            //$.growl.notice({ title: "", message: "Syncing Activity Data ...", location: "bc", size: "small" });
         },
         "headers": {
             "authorization": authCode,
@@ -207,9 +201,7 @@ function syncActivityData() {
             $.growl.error({ title: "", message: "An error occured while updating ActivityData to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
         });
     }).fail(function (response) {
-        $('#mb6 .progText').text("");
-        $('#modalProgress').modal('hide');
-        $.growl.error({ title: "", message: "An error occurred while fetching ActivityData. " + err.message, location: "tc", size: "large" });
+        $.growl.error({ title: "", message: "An error occurred while fetching ActivityData. " + err.message, location: "tc", size: "large", fixed: "true" });
     });
 }
 function loadActivityData() {
@@ -259,7 +251,7 @@ function refreshActivityData(str) {
     });
     $("#form1").find('select[name="SiteId_O_N"]').append($('<option value="99999">New Site</option>'));
 }
-function syncstaffData() {
+function syncNPHstaffData() {
     var NPHsettings = {
         "async": false,
         "crossDomain": true,
@@ -268,9 +260,7 @@ function syncstaffData() {
         //"url": "https://online-uat.agriculture.gov.au/ords-int/rest/sims/common/program/NPH/team",
         "method": "GET",
         "beforeSend": function () {
-            $('#mb6 .progText').text("Syncing NPH Staff Data ...");
-            $('#mb6 .progress').addClass('hide');
-            $('#mb6 .fa-clock-o').addClass('hide');
+            //$.growl.notice({ title: "", message: "Syncing NPH Staff Data ...", location: "bc", size: "small" });
         },
         "headers": {
             "authorization": authCode,
@@ -302,11 +292,8 @@ function syncstaffData() {
         }, function (err) {
             $.growl.error({ title: "", message: "An error occured while updating NPH StaffData to database. " + err.message, location: "tc", size: "large", fixed: "true" });
         });
-        syncBPHstaffData();
     }).fail(function (response) {
-        $('#mb6 .progText').text("");
-        $('#modalProgress').modal('hide');
-        $.growl.error({ title: "", message: "An error occurred while fetching StaffData. " + response.responseText, location: "tc", size: "large" });
+        $.growl.error({ title: "", message: "An error occurred while fetching StaffData. " + response.responseText, location: "tc", size: "large", fixed: "true" });
     });
 }
 function syncBPHstaffData() {
@@ -318,9 +305,7 @@ function syncBPHstaffData() {
         //"url": "https://online-uat.agriculture.gov.au/ords-int/rest/sims/common/program/BPH/team",
         "method": "GET",
         "beforeSend": function () {
-            $('#mb6 .progText').text("Syncing BPH Staff Data ...");
-            $('#mb6 .progress').addClass('hide');
-            $('#mb6 .fa-clock-o').addClass('hide');
+            $.growl.notice({ title: "", message: "Syncing BPH Staff Data ...", location: "bc", size: "small" });
         },
         "headers": {
             "authorization": authCode,
@@ -351,11 +336,8 @@ function syncBPHstaffData() {
         }, function (err) {
             $.growl.error({ title: "", message: "An error occured while updating BPH StaffData to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
         });
-        syncIPHstaffData();
     }).fail(function (response) {
-        $('#mb6 .progText').text("");
-        $('#modalProgress').modal('hide');
-        $.growl.error({ title: "", message: "An error occurred while fetching BPH StaffData. " + response.responseText, location: "tc", size: "large" });
+        $.growl.error({ title: "", message: "An error occurred while fetching BPH StaffData. " + response.responseText, location: "tc", size: "large", fixed:"true" });
     });
 }
 function syncIPHstaffData() {
@@ -367,9 +349,7 @@ function syncIPHstaffData() {
         //"url": "https://online-uat.agriculture.gov.au/ords-int/rest/sims/common/program/IPH/team",
         "method": "GET",
         "beforeSend": function () {
-            $('#mb6 .progText').text("Syncing IPH Staff Data ...");
-            $('#mb6 .progress').addClass('hide');
-            $('#mb6 .fa-clock-o').addClass('hide');
+            //$.growl.notice({ title: "", message: "Syncing IPH Staff Data ...", location: "bc", size: "small" });
         },
         "headers": {
             "authorization": authCode,
@@ -400,22 +380,8 @@ function syncIPHstaffData() {
         }, function (err) {
             $.growl.error({ title: "", message: "An error occured while updating IPH StaffData to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
             });
-        staffDataS = staffDataNPH;
-        //switch (programId) {
-        //    case "NPH":
-        //        staffDataS = staffDataNPH;
-        //        break;
-        //    case "BPH":
-        //        staffDataS = staffDataBPH;
-        //        break;
-        //    case "IPH":
-        //        staffDataS = staffDataIPH;
-        //        break;
-        //}
     }).fail(function (response) {
-        $('#mb6 .progText').text("");
-        $('#modalProgress').modal('hide');
-        $.growl.error({ title: "", message: "An error occurred while fetching IPH StaffData. " + response.responseText, location: "tc", size: "large" });
+        $.growl.error({ title: "", message: "An error occurred while fetching IPH StaffData. " + response.responseText, location: "tc", size: "large", fixed: "true" });
     });
 }
 function syncTaxaData() {
@@ -427,9 +393,7 @@ function syncTaxaData() {
         //"url": "https://online-uat.agriculture.gov.au/ords-int/rest/sims/plant_health/taxa",
         "method": "GET",
         "beforeSend": function () {
-            $('#mb6 .progText').text("Syncing Taxa ...");
-            $('#mb6 .progress').addClass('hide');
-            $('#mb6 .fa-clock-o').addClass('hide');
+            //$.growl.notice({ title: "", message: "Syncing Taxa Data ...", location: "bc", size: "small" });
         },
         "headers": {
             "authorization": authCode,
@@ -461,13 +425,44 @@ function syncTaxaData() {
             $.growl.error({ title: "", message: "An error occured while updating Taxa Data to database. " + err.message, location: "tc", size: "large", fixed: "true" });
         });
     }).fail(function (response) {
-        $('#mb6 .progText').text("");
-        $('#modalProgress').modal('hide');
-        $.growl.error({ title: "", message: "An error occurred while fetching Taxa Data. " + err.message, location: "tc", size: "large" });
+        $.growl.error({ title: "", message: "An error occurred while fetching Taxa Data. " + err.message, location: "tc", size: "large", fixed: "true" });
     });
 }
 function loadstaffData() {
-    // Loading Team Defaults //
+    // Loading StaffData for device Owner //
+    staffDataFull = '<option value="0">- select -</option>';
+    $.each(staffDataBPH.staffs.staff, function (key, val) {
+        var option1 = '<option';
+        option1 = option1 + ' value="' + val.id + '">';
+        option1 = option1 + 'BPH - ' + val.displayName + "</option>";
+        staffDataFull = staffDataFull + option1;
+    });
+    $.each(staffDataIPH.staffs.staff, function (key, val) {
+        var option1 = '<option';
+        option1 = option1 + ' value="' + val.id + '">';
+        option1 = option1 + 'IPH - ' + val.displayName + "</option>";
+        staffDataFull = staffDataFull + option1;
+    });
+    $.each(staffDataNPH.staffs.staff, function (key, val) {
+        var option1 = '<option';
+        option1 = option1 + ' value="' + val.id + '">';
+        option1 = option1 + 'NPH - ' + val.displayName + "</option>";
+        staffDataFull = staffDataFull + option1;
+    });
+    // Loading StaffData per programID //
+    if (programId && programId !== "") {
+        switch (programId) {
+            case "NPH":
+                staffDataS = staffDataNPH;
+                break;
+            case "BPH":
+                staffDataS = staffDataBPH;
+                break;
+            case "IPH":
+                staffDataS = staffDataIPH;
+                break;
+        }
+    } else { staffDataS = staffDataNPH; }
     staffData = '<option value="0">- select -</option>';
     $.each(staffDataS.staffs.staff, function (key, val) {
         var option1 = '<option';
@@ -1625,21 +1620,21 @@ function Iterate(data) {
                 if (fname === 'HostStatAreaNo' && value === 0 && HostStatCountFlag === 1 && CountListFlag === 'Count' && plantDisciplineCode === 'B') {
                     //console.log('HostStatCount and Area fields - both cannot be NULL');
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>HostStatCount and Area fields - both cannot be NULL.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>HostStatCount and Area fields - both cannot be empty.");
                     vFailed = true;
                     return false;
                 }
                 if (fname === 'HostStatAreaNo' && value === 0 && HostStatCountFlag === 1 && plantDisciplineCode === 'E') {
                     //console.log('HostStatCount and Area fields - both cannot be NULL');
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>HostStatCount and Area fields - both cannot be NULL.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>HostStatCount and Area fields - both cannot be empty.");
                     vFailed = true;
                     return false;
                 }
                 if (fname === 'HostStatAreaNo' && value === 0 && HostStatCountFlag === 1 && plantDisciplineCode === 'P') {
                     //console.log('HostStatCount and Area fields - both cannot be NULL');
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>HostStatCount and Area fields - both cannot be NULL.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>HostStatCount and Area fields - both cannot be empty.");
                     vFailed = true;
                     return false;
                 }
@@ -1679,14 +1674,14 @@ function Iterate(data) {
                 } 
                 if (fname === 'TargetObservedCode' && ftype === "T" && $('input[name="' + index + '"]:checked').length === 0 && value === "N") {
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + fname + " field cannot be NULL.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
                     vFailed = true;
                     return false;
                 } 
 
                 if (fname === 'CommentText' && ftype === "T" && value === "" && PlantTargetObservedCodeFlag === 1) {
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Comments Text for TargetObserved field cannot be NULL.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Comments Text for TargetObserved field cannot be empty.");
                     PlantTargetObservedCodeFlag = 0;
                     vFailed = true;
                     return false;
@@ -1704,7 +1699,7 @@ function Iterate(data) {
                 }
                 if (fname === 'PlantPreservOtherText' && fNSD === 'S' && value === '' && PlantPreservationOtherFlag === 1) {
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>PlantPreservOtherText cannot be NULL.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>PlantPreservOtherText cannot be empty.");
                     PlantPreservationOtherFlag = 0;
                     vFailed = true;
                     return false;
@@ -1722,14 +1717,14 @@ function Iterate(data) {
                     if (fname === 'HostTaxonTextH') return true;
                     //console.log(index + ' field cannot be NULL');
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + fname + " field cannot be NULL.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
                     vFailed = true;
                     return false;
                 }
                 if (fMOC === 'M' && fNSD === 'D' && value === '') {
                     //console.log(index + ' field cannot be NULL');
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + fname + " field cannot be NULL.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
                     vFailed = true;
                     return false;
                 }
@@ -1739,7 +1734,7 @@ function Iterate(data) {
                     if (fname === 'HostStatAreaNo') return true;
                     //console.log(index + ' field cannot be NULL');
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + fname + " field cannot be NULL or ZERO.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
                     vFailed = true;
                     return false;
                 }
@@ -1760,7 +1755,7 @@ function Iterate(data) {
                         return false;
                     }
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + fname + " field cannot be ZERO");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be ZERO");
                     vFailed = true;
                     return false;
                 }
@@ -1831,21 +1826,21 @@ function Iterate2(data) {
                 if (fname === 'HostStatAreaNo' && value === 0 && HostStatCountFlag === 1 && CountListFlag === 'Count' && plantDisciplineCode === 'B') {
                     //console.log('HostStatCount and Area fields - both cannot be NULL');
                     vError = 1;
-                    vErrDescription.push("HostStatCount and Area fields - both cannot be NULL.");
+                    vErrDescription.push("HostStatCount and Area fields - both cannot be empty.");
                     vFailed = true;
                     return false;
                 }
                 if (fname === 'HostStatAreaNo' && value === 0 && HostStatCountFlag === 1 && plantDisciplineCode === 'E') {
                     //console.log('HostStatCount and Area fields - both cannot be NULL');
                     vError = 1;
-                    vErrDescription.push("HostStatCount and Area fields - both cannot be NULL.");
+                    vErrDescription.push("HostStatCount and Area fields - both cannot be empty.");
                     vFailed = true;
                     return false;
                 }
                 if (fname === 'HostStatAreaNo' && value === 0 && HostStatCountFlag === 1 && plantDisciplineCode === 'P') {
                     //console.log('HostStatCount and Area fields - both cannot be NULL');
                     vError = 1;
-                    vErrDescription.push("HostStatCount and Area fields - both cannot be NULL.");
+                    vErrDescription.push("HostStatCount and Area fields - both cannot be empty.");
                     vFailed = true;
                     return false;
                 }
@@ -1888,7 +1883,7 @@ function Iterate2(data) {
 
                 if (fname === 'CommentText' && ftype === "T" && value === "" && PlantTargetObservedCodeFlag === 1) {
                     vError = 1;
-                    vErrDescription.push("Comments Text for TargetObserved field cannot be NULL.");
+                    vErrDescription.push("Comments Text for TargetObserved field cannot be empty.");
                     PlantTargetObservedCodeFlag = 0;
                     vFailed = true;
                     return false;
@@ -1906,7 +1901,7 @@ function Iterate2(data) {
                 }
                 if (fname === 'PlantPreservOtherText' && fNSD === 'S' && value === '' && PlantPreservationOtherFlag === 1) {
                     vError = 1;
-                    vErrDescription.push("PlantPreservOtherText cannot be NULL.");
+                    vErrDescription.push("PlantPreservOtherText cannot be empty.");
                     PlantPreservationOtherFlag = 0;
                     vFailed = true;
                     return false;
@@ -1924,14 +1919,14 @@ function Iterate2(data) {
                     if (fname === 'HostTaxonTextH') return true;
                     //console.log(index + ' field cannot be NULL');
                     vError = 1;
-                    vErrDescription.push(fname + " field cannot be NULL.");
+                    vErrDescription.push($('[name="' + index + '"]').data("name") + " field cannot be empty.");
                     vFailed = true;
                     return false;
                 }
                 if (fMOC === 'M' && fNSD === 'D' && value === '') {
                     //console.log(index + ' field cannot be NULL');
                     vError = 1;
-                    vErrDescription.push(fname + " field cannot be NULL.");
+                    vErrDescription.push($('[name="' + index + '"]').data("name") + " field cannot be empty.");
                     vFailed = true;
                     return false;
                 }
@@ -1941,7 +1936,7 @@ function Iterate2(data) {
                     if (fname === 'HostStatAreaNo') return true;
                     //console.log(index + ' field cannot be NULL');
                     vError = 1;
-                    vErrDescription.push(fname + " field cannot be NULL or ZERO.");
+                    vErrDescription.push($('[name="' + index + '"]').data("name") + " field cannot be empty.");
                     vFailed = true;
                     return false;
                 }
@@ -1956,7 +1951,7 @@ function Iterate2(data) {
                     if (fname === 'CollectedAltitudeNo') return true;
                     if (fname === 'WaypointNumber') return true;
                     vError = 1;
-                    vErrDescription.push(fname + " field cannot be ZERO");
+                    vErrDescription.push($('[name="' + index + '"]').data("name") + " field cannot be zero.");
                     vFailed = true;
                     return false;
                 }
@@ -3097,14 +3092,17 @@ $(document).on('focus', 'select[name="SurvActivityId_M_N"]', function (e) {
         if (that.val() === "0") return;
         if (curDiscipline === "B" && numPlants === 0 && bsamples === 0) {
             refreshActivityData(str);
+            loadstaffData();
             return;
         }
         if (curDiscipline === "E" && numEntoHosts === 0 && esamples === 0) {
             refreshActivityData(str);
+            loadstaffData();
             return;
         }
         if (curDiscipline === "P" && numPathHosts === 0 && psamples === 0) {
             refreshActivityData(str);
+            loadstaffData();
             return;
         }
         $.confirm({
@@ -3128,6 +3126,7 @@ $(document).on('focus', 'select[name="SurvActivityId_M_N"]', function (e) {
                     $('#numSamples').text("");
                     $('#numAttachments').text("");
                     refreshActivityData(str);
+                    loadstaffData();
                 },
                 cancel: function () {
                     that.val(lastSurvActValue);
@@ -3151,7 +3150,7 @@ function getFileandExtract(url, mapset, i, n) {
             $('#mb6 .progText').text("File " + i + " out of " + n + ": Download in progress ...");
             $('#mb6 .progress').removeClass('hide');
             //$('#mb6 .fa-clock-o').removeClass('hide');
-        }
+        };
         xhr.onloadend = function () {
             if (this.status === 200) {
                 t1 = performance.now();

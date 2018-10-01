@@ -74,7 +74,7 @@ var trackPath;
 setInterval(function () {
     statusElem.className = navigator.onLine ? 'label label-success' : 'label label-info';
     statusElem.innerHTML = navigator.onLine ? 'online' : 'offline';
-}, 1000)
+}, 1000);
 function checkPermissions() {
     var permissions = cordova.plugins.permissions;
     permissions.requestPermission(permissions.WRITE_EXTERNAL_STORAGE,
@@ -100,7 +100,8 @@ function checkPermissions() {
     }
 }
 function initSettings() {
-    $('#mb6 .progText').text("Loading App Defaults ...");
+    //$('#mb6 .progText').text("Loading App Defaults ...");
+    $.growl.notice({ title: "", message: "Loading ...", location: "bc", size: "small" });
     if (!db) {
         db = window.sqlitePlugin.openDatabase({ name: "sims.db", location: 'default' });
         db.transaction(function (tx) {
@@ -141,7 +142,7 @@ function initSettings() {
             else {
                 //This is the first load
                 syncTaxaData();
-            };
+            }
         });
     }, function (err) {
         $.growl.error({ title: "", message: "An error occured while loading Taxa Data. ", location: "tc", size: "large", fixed: "true" });
@@ -167,20 +168,46 @@ function initSettings() {
     });
     //Loading Staff Data
     db.transaction(function (tx) {
-        tx.executeSql("SELECT * FROM staffdata WHERE settingstext = ?", ['NPHstaff'], function (tx, res) {
+        tx.executeSql("SELECT * FROM staffdata WHERE settingstext = ?", ['BPHstaff'], function (tx, res) {
             //This is not the first load
             if (res.rows && res.rows.length > 0) {
-                staffDataS = JSON.parse(res.rows.item(0).settingsval);
-                loadstaffData();
+                staffDataBPH = JSON.parse(res.rows.item(0).settingsval);
             }
             else {
                 //This is the first load
-                syncstaffData();
-                loadstaffData();
+                syncBPHstaffData();
             }
         });
     }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while loading staff Data. " + err.message, location: "tc", size: "large", fixed: "true" });
+        $.growl.error({ title: "", message: "An error occured while loading BPH Staff Data. " + err.message, location: "tc", size: "large", fixed: "true" });
+        });
+    db.transaction(function (tx) {
+        tx.executeSql("SELECT * FROM staffdata WHERE settingstext = ?", ['IPHstaff'], function (tx, res) {
+            //This is not the first load
+            if (res.rows && res.rows.length > 0) {
+                staffDataIPH = JSON.parse(res.rows.item(0).settingsval);
+            }
+            else {
+                //This is the first load
+                syncIPHstaffData();
+            }
+        });
+    }, function (err) {
+        $.growl.error({ title: "", message: "An error occured while loading IPH Staff Data. " + err.message, location: "tc", size: "large", fixed: "true" });
+        });
+    db.transaction(function (tx) {
+        tx.executeSql("SELECT * FROM staffdata WHERE settingstext = ?", ['NPHstaff'], function (tx, res) {
+            //This is not the first load
+            if (res.rows && res.rows.length > 0) {
+                staffDataNPH = JSON.parse(res.rows.item(0).settingsval);
+            }
+            else {
+                //This is the first load
+                syncNPHstaffData();
+            }
+        });
+    }, function (err) {
+        $.growl.error({ title: "", message: "An error occured while loading NPH Staff Data. " + err.message, location: "tc", size: "large", fixed: "true" });
     });
     //Loading maps and Markers
     db.transaction(function (tx) {
@@ -373,6 +400,7 @@ function initSettings() {
                     }
                 });
             }
+            loadstaffData();
             loadSitePolygons();
             if ($("#modalProgress").data('bs.modal') && $("#modalProgress").data('bs.modal').isShown) { $('#modalProgress').modal('hide'); }
         });
@@ -392,6 +420,7 @@ function initLoad() {
     /* Not required for Android and iOS platform */
     initAuth();
     $('#modalAuth').modal();
+    $('.auth-username').focus();
     //return;
     //OTP functionality ends -----------------
 
@@ -1240,8 +1269,8 @@ $(document).on('click', '#settings', function (e) {
             });
             $('#form3').find('input[name="optMaps"][data-id="' + (arr[0].mapsetID - 1) + '"]').iCheck('check');
             $('#form3').find('label.mapNotes').eq(arr[0].mapsetID - 1).text("Last downloaded on:" + arr[0].lastDownloadDate);
-            $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(staffData));
-            if (resSettings.settings.device.ownerId) { $('#form3').find('select[id="deviceOwner"]').val(resSettings.settings.device.ownerId) };
+            $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(staffDataFull));
+            if (resSettings.settings.device.ownerId) { $('#form3').find('select[id="deviceOwner"]').val(resSettings.settings.device.ownerId); }
             $('#form3').find('input[name="samplePrefix"]').val(resSettings.settings.device.samplePrefix);
             $('#form3').find('input[name="sampleCurrNum"]').val(resSettings.settings.device.currentSampleNumber);
         }).done(function () {
@@ -1473,8 +1502,10 @@ $(document).on('click', 'a.btnSync', function (e) {
             Ok: function () {
                 syncPHRefCodes();
                 syncActivityData();
-                syncstaffData();
-                $.growl({ title: "", message: "Sync Complete!.", location: "tc", size: "large" });
+                syncBPHstaffData();
+                syncIPHstaffData();
+                syncNPHstaffData();
+                $.growl.notice({ title: "", message: "Sync Complete!.", location: "bc", size: "small" });
             },
             cancel: function () {
                 //close
@@ -1497,7 +1528,7 @@ $(document).on('click', '.showPayloads', function (e) {
                         Ok: function () {
                             $.confirm({
                                 title: 'Staff Data',
-                                content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadSD">' + JSON.stringify(staffDataS) + '</textarea></div>',
+                                content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadSD">' + JSON.stringify(staffDataBPH) + JSON.stringify(staffDataIPH) + JSON.stringify(staffDataNPH) + '</textarea></div>',
                                 columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
                                 buttons: {
                                     Ok: function () {
@@ -1700,13 +1731,16 @@ $(document).on('click', 'a.btnError', function (e) {
             $('#tab1').trigger('click');
             switch (curDiscipline) {
                 case 'B':
-                    $('.hostweed').eq(z).find("[data-action=expand]").trigger("click");;
+                    $('.hostweed').find("[data-action=collapse]").trigger("click");
+                    $('.hostweed').eq(z).find("[data-action=expand]").trigger("click");
                     break;
                 case 'E':
-                    $('.entobox').eq(z).find("[data-action=expand]").trigger("click");;
+                    $('.entobox').find("[data-action=collapse]").trigger("click");
+                    $('.entobox').eq(z).find("[data-action=expand]").trigger("click");
                     break;
                 case 'P':
-                    $('.pathbox').eq(z).find("[data-action=expand]").trigger("click");;
+                    $('.pathbox').find("[data-action=collapse]").trigger("click");
+                    $('.pathbox').eq(z).find("[data-action=expand]").trigger("click");
                     break;
             }
             break;
@@ -1714,30 +1748,30 @@ $(document).on('click', 'a.btnError', function (e) {
             $('#tab1').trigger('click');
             switch (curDiscipline) {
                 case 'B':
-                    $('.hostweed').eq(z).find("[data-action=expand]").trigger("click");;
+                    $('.hostweed').find("[data-action=collapse]").trigger("click");
+                    $('.hostweed').eq(z).find("[data-action=expand]").trigger("click");
                     break;
                 case 'E':
-                    $('.entobox').eq(z).find("[data-action=expand]").trigger("click");;
+                    $('.entobox').find("[data-action=collapse]").trigger("click");
+                    $('.entobox').eq(z).find("[data-action=expand]").trigger("click");
                     break;
                 case 'P':
-                    $('.pathbox').eq(z).find("[data-action=expand]").trigger("click");;
+                    $('.pathbox').find("[data-action=collapse]").trigger("click");
+                    $('.pathbox').eq(z).find("[data-action=expand]").trigger("click");
                     break;
             }
             break;
         case 'S':
             $('#tab2').trigger('click');
+            $('.sample').find("[data-action=collapse]").trigger("click");
             $('.sample').eq(z*1-1).find("[data-action=expand]").trigger("click");
             break;
         default:
             $('#tab0').trigger('click');
             break;
     }
-    var u = $("#form1").find("input[name='" + x + "']");
-    var v = $("#form1").find("select[name='" + x + "']");
-    var w = $("#form1").find("textarea[name='" + x + "']");
+    var u = $("#form1").find("[name='" + x + "']");
     if (u) { u.focus(); }
-    if (v) { v.focus(); }
-    if (w) { w.focus(); }
     $('div.growl-close').triggerHandler('click');
 });
 function exportObservationsToCSV() {
@@ -1982,7 +2016,9 @@ function StartSync() {
     else if (success === true && noRowstoPush === true) { $.growl.notice({ title: "", message: "No records to Sync.", location: "tc", size: "large" }); }
     syncPHRefCodes();
     syncActivityData();
-    syncstaffData();
+    syncBPHstaffData();
+    syncIPHstaffData();
+    syncNPHstaffData();
     table.destroy();
     loadData();
     clearMarkers();
