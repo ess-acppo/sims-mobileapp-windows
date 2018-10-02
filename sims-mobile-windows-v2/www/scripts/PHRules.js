@@ -1139,6 +1139,27 @@ function loadModal(pagename) {
                             });
                         });
                     }
+                    if (key === "attachments") {
+                        $.each(value.attachment, function (key3, value3) {
+                            $.ajax({
+                                url: "",
+                                beforeSend: function (xhr) {
+                                    $('#form1').find("#addPlantAttachment").trigger("click");
+                                }
+                            }).complete(function (e) {
+                                if (value3.content !== "") {
+                                    $('#form1').find("input[name^='PlantAttachmentD_M_S_" + key3 + "']").val(value3.description);
+                                    $('#form1').find("img[name^='iPlantAttachment_M_S_" + key3 + "']").attr("src", "data:image/jpeg;base64," + value3.content);
+                                    $('#form1').find("textarea[name^='PlantAttachment_M_S_" + key3 + "']").val(value3.content);
+                                }
+                                if (value3.content === "") {
+                                    $('#form1').find("input[name^='PlantAttachmentD_M_S_" + key3 + "']").val(value3.description);
+                                    $('#form1').find("img[name^='iPlantAttachment_M_S_" + key3 + "']").attr("src", "images/plant.png");
+                                    $('#form1').find("textarea[name^='PlantAttachment_M_S_" + key3 + "']").val("");
+                                }
+                            });
+                        });
+                    }
                     $('#form1').find("input[type='text'][name^='" + key + "']").val(value);
                     $('#form1').find("input[type='date'][name^='" + key + "']").val(value);
                     $('#form1').find("input[type='datetime-local'][name^='" + key + "']").val(value);
@@ -2931,8 +2952,8 @@ $(document).on('ifChecked', 'input[type="radio"].minimal', function (event) {
         //that.find("select[name^='PlantStatisticType']").val('C');
         //that.find("input[type='number'][name^='HostStatAreaNo']").addClass('hide');
         //that.find("input[type='number'][name^='HostStatCount']").removeClass('hide');
-        //that.find("input[type='number'][name^='HostStatCount']").val(0);
-        //that.find("input[type='number'][name^='HostStatCount']").text(0);
+        that.find("input[type='number'][name^='HostStatCount']").val(0);
+        that.find("input[type='number'][name^='HostStatCount']").text(0);
         that.removeClass('hide');
     };
     if ($(this).attr('name').startsWith('CountList') && $(this).val() === 'List') {

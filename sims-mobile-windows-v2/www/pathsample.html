@@ -2,7 +2,7 @@
     <a href="#" class="btn btn-md btn-default text-arrows collapse hide" data-action="collapse"><i class="fa fa-arrow-up"></i></a>
     <a href="#" class="btn btn-md btn-default text-arrows expand" data-action="expand"><i class="fa fa-arrow-down"></i></a>
     <a href="#" class="btn btn-md btn-danger text-arrows-2 removePathSample"><i class="fa fa-remove"></i></a>
-    <div class="row col-md-11 col-sm-11 col-xs-11">
+    <div class="row col-md-11 col-sm-10 col-xs-10 pl-0">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5" data-original-title="1">1</span>
             <label><span class="bold-red">*&nbsp;</span>Sample Field ID </label>
@@ -24,7 +24,7 @@
     <div class="row col-md-12 col-sm-12 col-xs-12 hide">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Preliminary Taxon ID </label>
-            <input type="number" class="form-control taxonIDPS" placeholder="Preliminary ID" name="PrelimTaxonId_O_N" readonly min="1" max="99999999" maxlength="8" data-name="Sample-Preliminary Taxon ID" data-section="PlantSampleTab">
+            <input type="number" class="form-control taxonIDPS" placeholder="Preliminary ID" name="PrelimTaxonId_O_N" min="1" max="99999999" maxlength="8" data-name="Sample-Preliminary Taxon ID" data-section="PlantSampleTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
@@ -59,7 +59,7 @@
         </div>
         <div class="form-group col-md-11 col-sm-11 col-xs-11 hide">
             <label><span class="bold-red">*&nbsp;</span>Point WKT</label>
-            <input type="text" class="form-control" readonly name="SamplePointWktClob_M_S" data-name="Sample-LatLon" data-section="PlantSampleTab">
+            <input type="text" class="form-control" name="SamplePointWktClob_M_S" data-name="Sample-LatLon" data-section="PlantSampleTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
@@ -166,7 +166,7 @@
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12 hide">
             <label>Host/Other Taxon Id</label>
-            <input type="number" class="form-control taxonIDHPS" placeholder="Other Name" name="HostTaxonId_O_N" readonly min="1" max="99999999" maxlength="8" data-name="Sample-Host Other Taxon ID" data-section="PlantSampleTab">
+            <input type="number" class="form-control taxonIDHPS" placeholder="Other Name" name="HostTaxonId_O_N" min="1" max="99999999" maxlength="8" data-name="Sample-Host Other Taxon ID" data-section="PlantSampleTab">
         </div>
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Host/Other Taxon Text</label>
@@ -259,7 +259,7 @@
         </div>
         <div class="row col-md-12 col-sm-12 col-xs-12 pr-0">
             <div class="form-group col-md-12 col-sm-12 col-xs-12 text-center">
-                <button type="button" class="btn btn-md btn-info" id="addPlantSampleAttachment"><i class="fa fa-plus"></i>&nbsp;Add Attachment</button>
+                <button type="button" class="btn btn-md btn-default" id="addPlantSampleAttachment"><i class="fa fa-plus"></i>&nbsp;Add Attachment</button>
             </div>
         </div>
         <div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="PlantSampleAttachments">

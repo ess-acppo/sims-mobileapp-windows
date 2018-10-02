@@ -52,10 +52,10 @@
                 </div>
                 <div class="modal-body" id="mb">
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-warning" id="Submit2"><i class="fa fa-arrow-circle-o-right"></i>&nbsp;Submit</button>
-                    <button type="button" class="btn btn-sm btn-default" id="Save"><i class="fa fa-save"></i>&nbsp;Save</button>
-                    <button type="button" class="btn btn-sm btn-info" id="SaveExit"><i class="fa fa-save"></i>&nbsp;Save'Exit</button>
+                <div class="modal-footer" style="padding-bottom:20px;">
+                    <button type="button" class="btn btn-md btn-warning" id="Submit2"><i class="fa fa-arrow-circle-o-right"></i>&nbsp;Submit</button>
+                    <button type="button" class="btn btn-md btn-default" id="Save"><i class="fa fa-save"></i>&nbsp;Save</button>
+                    <button type="button" class="btn btn-md btn-default" id="SaveExit"><i class="fa fa-save"></i>&nbsp;Save'Exit</button>
                     <a href="#" class="text-danger pull-left" id="Delete">Delete</a>&nbsp;
                 </div>
             </div><!-- /.modal-content -->
@@ -92,9 +92,9 @@
                         </table>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-circle btn-lg btn-info export" id="Download"><i class="fa fa-download fa-2x"></i></button>
-                    <button type="button" class="btn btn-circle btn-lg btn-success sync" id="Sync"><i class="fa fa-refresh fa-2x"></i></button>
+                <div class="modal-footer" style="padding-bottom:20px;">
+                    <button type="button" class="btn btn-md btn-default export" id="Download"><i class="fa fa-download fa-2x"></i></button>
+                    <button type="button" class="btn btn-md btn-warning sync" id="Sync"><i class="fa fa-refresh fa-2x"></i></button>
                     <a href="#" class="text-info pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
                 </div>
             </div><!-- /.modal-content -->
@@ -130,10 +130,10 @@
                         </table>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" style="padding-bottom:20px;">
                     <button type="button" class="btn btn-md btn-default" id="newObservation"><i class="fa fa-plus"></i>&nbsp;New</button>
                     <button type="button" class="btn btn-md btn-default export" id="Download"><i class="fa fa-download"></i>&nbsp;Download</button>
-                    <button type="button" class="btn btn-md btn-info sync" id="Sync"><i class="fa fa-refresh"></i>&nbsp;Sync</button>
+                    <button type="button" class="btn btn-md btn-warning sync" id="Sync"><i class="fa fa-refresh"></i>&nbsp;Sync</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -151,9 +151,9 @@
                 </div>
                 <div class="modal-body" id="mb2">
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" style="padding-bottom:20px;">
                     <a href="#" class="text-info pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
-                    <button type="button" id="zoomlevel2" class="btn btn-circle btn-lg btn-info"><i class="fa fa-search-plus fa-2x"></i></button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" id="zoomlevel2" class="btn btn-md btn-default"><i class="fa fa-search-plus fa-2x"></i></button>&nbsp;&nbsp;&nbsp;
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -187,9 +187,9 @@
                         </div>
                     </div>-->
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" style="padding-bottom:20px;">
                     <a href="#" class="text-info pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
-                    <button type="button" id="showForm" class="btn btn-circle btn-lg btn-info"><i class="fa fa-check fa-2x"></i></button>
+                    <button type="button" id="showForm" class="btn btn-md btn-default"><i class="fa fa-check fa-2x"></i></button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -223,9 +223,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" style="padding-bottom:20px;">
                     <a href="#" class="text-info pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
-                    <button type="button" id="showFormAH" class="btn btn-circle btn-lg btn-info"><i class="fa fa-check fa-2x"></i></button>
+                    <button type="button" id="showFormAH" class="btn btn-md btn-default"><i class="fa fa-check fa-2x"></i></button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -277,42 +277,53 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body" id="mb4">
-                    <div class="row col-md-12 col-sm-12 col-xs-12">
-                        <br /><br />
-                    </div>
-                    <div class="row col-md-12 col-sm-12 col-xs-12">
-                        <div class="col-md-3">&nbsp;</div>
-                        <div class="col-md-6" style="text-align:center;">
-                            <img src="images/icon-96-xhdpi.png" />
-                        </div>
-                        <div class="col-md-3">&nbsp;</div>
-                    </div>
-                    <div class="row col-md-12 col-sm-12 col-xs-12">
-                        <br /><br /><br />
-                    </div>
-                    <div class="row col-md-12 col-sm-12 col-xs-12">
-                        <div class="col-md-3">&nbsp;</div>
-                        <div class="col-md-6" style="text-align:center;">
-                            <input class="otp-verify-input"
-                                   placeholder="000000"
-                                   maxlength="6"
-                                   value="" type="tel" />
-                            <button type="button" class="btn btn-lg btn-warning otp-verify-send">Verify</button>
-                            <div class="otp-verify-result">
-                                <i class='fa'></i>
-                                <span class='text'></span>
+                    <div class="login-box text-center">
+                        <div class="login-logo" style="margin-top:30px;">
+                            <div class="login-logo" style="margin-top:30px;">
+                                <h1 class="text-info">ESFA</h1><small>Enterprise Surveillance Field App</small>
                             </div>
                         </div>
-                        <div class="col-md-3">&nbsp;</div>
+                        <!-- /.login-logo -->
+                        <div class="login-box-body" style="margin-top:30px;">
+                            <div class="row col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-6">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-3">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <div class="row col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-6 col-sm-3 col-xs-3">
+                                    <form role="form" id="form5">
+                                        <input class="otp-verify-input"
+                                               placeholder="000000"
+                                               maxlength="6"
+                                               value="" type="tel" />
+                                        <button type="button" class="btn btn-md btn-warning otp-verify-send">Verify</button>
+                                        <div class="otp-verify-result">
+                                            <i class='fa'></i>
+                                            <span class='text'></span>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.login-box-body -->
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <div class="row col-md-12 col-sm-12 col-xs-12">
-                        <div class="col-md-3">&nbsp;</div>
-                        <div class="col-md-6" style="text-align:center;">
-                            <h6>Department of Agriculture and Water Resources.</h6>
-                        </div>
-                        <div class="col-md-3">&nbsp;</div>
+                <div class="modal-footer" style="border: 0px;">
+                    <div class="row col-md-12 col-sm-12 col-xs-12 text-center" style="margin:0;">
+                        <h6>Department of Agriculture and Water Resources.</h6>
                     </div>
                 </div>
             </div><!-- /.modal-content -->
@@ -363,7 +374,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-sm-3 col-xs-3">
                                     &nbsp;
                                 </div>
                             </div>
@@ -392,8 +403,8 @@
                 </div>
                 <div class="modal-body" id="mb5" style="overflow-x:hidden">
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-md btn-info" id="SaveSettingsExit"><i class="fa fa-save"></i>&nbsp;Save</button>
+                <div class="modal-footer" style="padding-bottom:20px;">
+                    <button type="button" class="btn btn-md btn-default" id="SaveSettingsExit"><i class="fa fa-save"></i>&nbsp;Save</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -416,11 +427,11 @@
     </div><!-- /.modal -->
     <div id="map"></div>
     <div class="topButton">
-        <button type="button" id="settings" class="btn btn-circle btn-lg btn-warning"><i class="fa fa-cog fa-2x"></i></button>
-        <button type="button" id="CSV" class="btn btn-circle btn-lg btn-warning" onclick="downloadCSV()"><i class="fa fa-tasks fa-2x"></i></button>
-        <button type="button" id="init" class="btn btn-circle btn-lg btn-warning" onclick="myLoc()"><i class="fa fa-map-marker fa-2x"></i></button>
-        <button type="button" id="zplus" class="btn btn-circle btn-lg btn-warning"><i class="fa fa-plus fa-2x"></i></button>
-        <button type="button" id="zminus" class="btn btn-circle btn-lg btn-warning"><i class="fa fa-minus fa-2x"></i></button>
+        <button type="button" id="settings" class="btn btn-circle btn-lg"><i class="fa fa-cog fa-2x"></i></button>
+        <button type="button" id="CSV" class="btn btn-circle btn-lg" onclick="downloadCSV()"><i class="fa fa-tasks fa-2x"></i></button>
+        <button type="button" id="init" class="btn btn-circle btn-lg" onclick="myLoc()"><i class="fa fa-map-marker fa-2x"></i></button>
+        <button type="button" id="zplus" class="btn btn-circle btn-lg"><i class="fa fa-plus fa-2x"></i></button>
+        <button type="button" id="zminus" class="btn btn-circle btn-lg"><i class="fa fa-minus fa-2x"></i></button>
     </div>
     <div class="bottomButton">
         <span class="label label-success" id="status"></span>

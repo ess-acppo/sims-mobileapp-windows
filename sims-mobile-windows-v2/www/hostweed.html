@@ -2,10 +2,10 @@
     <a href="#" class="btn btn-md btn-default text-arrows collapse hide" data-action="collapse"><i class="fa fa-arrow-up"></i></a>
     <a href="#" class="btn btn-md btn-default text-arrows expand" data-action="expand"><i class="fa fa-arrow-down"></i></a>
     <a href="#" class="btn btn-md btn-danger text-arrows-2 removePlant"><i class="fa fa-remove"></i></a>
-    <div class="row col-md-11 col-sm-11 col-xs-11">
+    <div class="row col-md-11 col-sm-10 col-xs-10 pl-0">
         <div class="form-group col-md-3 col-sm-3 col-xs-12 hide">
             <label>Taxon ID</label>
-            <input type="number" class="form-control taxonIDB" placeholder="Taxon ID" name="PlantTaxonId_O_N" readonly min="0" max="99999999" maxlength="8" data-name="Plant-Taxon ID">
+            <input type="number" class="form-control taxonIDB" placeholder="Taxon ID" name="PlantTaxonId_O_N" min="0" max="99999999" maxlength="8" data-name="Plant-Taxon ID">
         </div>
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5" data-original-title="1">1</span>
@@ -79,13 +79,13 @@
             </select>
         </div>
         <div class="form-group col-md-3 col-sm-3 col-xs-6">
-            <button class="btn btn-md btn-info getPlantCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button>
+            <button class="btn btn-md btn-default getPlantCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12 hide">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Point WKT</label>
-            <input type="text" class="form-control" readonly name="LocationPointWktClob_O_S" data-name="Plant-LatLon" data-section="PlantObsTab">
+            <input type="text" class="form-control" name="LocationPointWktClob_O_S" data-name="Plant-LatLon" data-section="PlantObsTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
@@ -94,7 +94,7 @@
         </div>
         <div class="row col-md-12 col-sm-12 col-xs-12 pr-0">
             <div class="form-group col-md-12 col-sm-12 col-xs-12 text-center">
-                <button type="button" class="btn btn-md btn-info" id="addPlantObsAttachment"><i class="fa fa-plus"></i>&nbsp;Add Attachment</button>
+                <button type="button" class="btn btn-md btn-default" id="addPlantObsAttachment"><i class="fa fa-plus"></i>&nbsp;Add Attachment</button>
             </div>
         </div>
         <div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="PlantObsAttachments">

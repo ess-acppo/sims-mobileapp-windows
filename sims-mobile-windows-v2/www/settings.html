@@ -13,15 +13,15 @@
                         <a href="#tab_MS" data-toggle="tab"><i class="fa fa-map mxr-5"></i>Maps</a>
                     </li>
                     <li class="">
-                        <a href="#tab_SR" data-toggle="tab"><i class="fa fa-map mxr-5"></i>Server</a>
+                        <a href="#tab_SR" data-toggle="tab"><i class="fa fa-server mxr-5"></i>Server</a>
                     </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_AS">
-                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom">
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <h5>Application Mode</h5>
-                                <small>Set application modes for various streams: PH = Planth Health</small>
+                                <small>Select application mode: PH, AH</small>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <select class="form-control pull-right" id="appMode">
@@ -30,26 +30,26 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom">
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <h5>Device Owner</h5>
-                                <small>Select this device's Owner from the picklist. All observations will be submitted as the device owner.</small>
+                                <small>Select this device's Owner. All observations will be submitted as the device owner.</small>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <select class="form-control pull-right" id="deviceOwner"></select>
                             </div>
                         </div>
-                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom">
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <h5>Application Data Sync</h5>
-                                <small>Sync application defaults with the Server.</small>
+                                <small>Sync application cache with the Server.</small>
+                                <i class="fa fa-info-circle fa-2x text-info showPayloads" style="cursor:pointer"></i>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <a href="#" class="btn btn-md btn-sm btn-default btnSync"><i class="fa fa-refresh"></i>&nbsp;Data Sync</a>&nbsp;
-                                <i class="fa fa-info-circle fa-2x text-info showPayloads pull-right" style="cursor:pointer"></i>
                             </div>
                         </div>
-                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom">
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <h5>Sample Prefix</h5>
                                 <small>Set the 2-letter prefix for your samples. By default, this value is set to 'XX'.</small>
@@ -67,10 +67,10 @@
                                 <input type="text" class="form-control pull-right" name="sampleStartNum" readonly value="0" />
                             </div>
                         </div>-->
-                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom">
+                        <div class="row col-md-12 col-sm-12 col-xs-12 obsForm">
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <h5>Sample Current Number</h5>
-                                <small>Set the current number for your samples sequence number. By default, this value shown the current running number.</small>
+                                <small>Set the current number for your samples sequence number. By default, this value shows the current sample sequence number.</small>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <input type="text" class="form-control pull-right" name="sampleCurrNum" value="0" />
@@ -78,7 +78,7 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="tab_DS">
-                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom">
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <h5>Data Backup</h5>
                                 <small>Backup your observations to a local folder.</small>
@@ -87,38 +87,24 @@
                                 <a href="#" class="btn btn-md btn-sm btn-default btnBackupData pull-right"><i class="fa fa-database"></i>&nbsp;Data Backup</a>
                             </div>
                         </div>
-                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom">
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <h5>Data Restore</h5>
-                                <small>Restore your observations to a local folder.</small>
+                                <small>Restore your observations from the last backup.</small>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <a href="#" class="btn btn-md btn-sm btn-default btnRestoreData pull-right"><i class="fa fa-rotate-left"></i>&nbsp;Data Restore</a>
                             </div>
                         </div>
-                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom">
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <h5>Data Reset</h5>
-                                <small>Clear all observations and start from scratch.</small>
+                                <small>Clear all observations.</small>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                                <a href="#" class="btn btn-md btn-sm btn-default btnResetData pull-right"><i class="fa fa-power-off"></i>&nbsp;Data Reset</a>
+                                <a href="#" class="btn btn-md btn-sm btn-danger btnResetData pull-right"><i class="fa fa-power-off"></i>&nbsp;Data Reset</a>
                             </div>
                         </div>
-                        <!--<div class="row col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                <h5>Reset OTP</h5>
-                                <small>Reset your OTP (one-time-password). You will be prompted to verify your current OTP.</small>
-                                <a href="#" class="btn btn-md btn-sm btn-default pull-right btnResetOTP"><i class="fa fa-power-off"></i>&nbsp;OTP Reset</a>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 col-sm-12 col-xs-12">
-                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                <h5>SignIn Status</h5>
-                                <small>Click this button to signout. You will be prompted to signin next time you launch the app.</small>
-                                <a href="#" class="btn btn-sm btn-default pull-right btnSignout"><i class="fa fa-sign-out"></i>&nbsp;SignOut</a>
-                            </div>
-                        </div>-->
                     </div>
                     <div class="tab-pane" id="tab_MS">
                         <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm hide">
@@ -145,7 +131,7 @@
                                 <a href="#" class="btn btn-md btn-sm btn-default downloadMaps pull-right">Download</a><br /><br />
                             </div>
                         </div>
-                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom  obsForm">
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <input type="radio" class="minimal" value="ACT" name="optMaps" data-id="3" data-url="http://dev-sims.oztaxa.com/files/maps/ACT/" data-files="13">
                                 ACT Maps
@@ -155,7 +141,7 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="tab_SR">
-                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom">
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <h5>Server Mode</h5>
                                 <small>Point the app to one of these servers: DEV, SIT, UAT or PROD</small>
