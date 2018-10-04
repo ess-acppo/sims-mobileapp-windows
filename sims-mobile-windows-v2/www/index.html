@@ -21,6 +21,7 @@
     <link href="scripts/growl/jquery.growl.css" rel="stylesheet" type="text/css" />
     <link href="scripts/jquery-confirm/jquery-confirm.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/SHMOStyles.css" />
+    <link rel="stylesheet" href="css/ripple.min.css">
     <style>
         #map, #mapc {
             width: 100%;
@@ -53,9 +54,9 @@
                 <div class="modal-body" id="mb">
                 </div>
                 <div class="modal-footer" style="padding-bottom:20px;">
-                    <button type="button" class="btn btn-md btn-warning" id="Submit2"><i class="fa fa-arrow-circle-o-right"></i>&nbsp;Submit</button>
-                    <button type="button" class="btn btn-md btn-default" id="Save"><i class="fa fa-save"></i>&nbsp;Save</button>
-                    <button type="button" class="btn btn-md btn-default" id="SaveExit"><i class="fa fa-save"></i>&nbsp;Save'Exit</button>
+                    <button type="button" class="btn btn-md ripple btn-warning" id="Submit2"><i class="fa fa-arrow-circle-o-right"></i>&nbsp;Submit</button>
+                    <button type="button" class="btn btn-md ripple btn-default" id="Save"><i class="fa fa-save"></i>&nbsp;Save</button>
+                    <button type="button" class="btn btn-md ripple btn-default" id="SaveExit"><i class="fa fa-save"></i>&nbsp;Save'Exit</button>
                     <a href="#" class="text-danger pull-left" id="Delete">Delete</a>&nbsp;
                 </div>
             </div><!-- /.modal-content -->
@@ -93,8 +94,8 @@
                     </form>
                 </div>
                 <div class="modal-footer" style="padding-bottom:20px;">
-                    <button type="button" class="btn btn-md btn-default export" id="Download"><i class="fa fa-download fa-2x"></i></button>
-                    <button type="button" class="btn btn-md btn-warning sync" id="Sync"><i class="fa fa-refresh fa-2x"></i></button>
+                    <button type="button" class="btn btn-md ripple btn-default export" id="Download"><i class="fa fa-download fa-2x"></i></button>
+                    <button type="button" class="btn btn-md ripple btn-warning sync" id="Sync"><i class="fa fa-refresh fa-2x"></i></button>
                     <a href="#" class="text-info pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
                 </div>
             </div><!-- /.modal-content -->
@@ -131,9 +132,9 @@
                     </form>
                 </div>
                 <div class="modal-footer" style="padding-bottom:20px;">
-                    <button type="button" class="btn btn-md btn-default" id="newObservation"><i class="fa fa-plus"></i>&nbsp;New</button>
-                    <button type="button" class="btn btn-md btn-default export" id="Download"><i class="fa fa-download"></i>&nbsp;Download</button>
-                    <button type="button" class="btn btn-md btn-warning sync" id="Sync"><i class="fa fa-refresh"></i>&nbsp;Sync</button>
+                    <button type="button" class="btn btn-md ripple btn-default" id="newObservation"><i class="fa fa-plus"></i>&nbsp;New</button>
+                    <button type="button" class="btn btn-md ripple btn-default export" id="Download"><i class="fa fa-download"></i>&nbsp;Download</button>
+                    <button type="button" class="btn btn-md ripple btn-warning sync" id="Sync"><i class="fa fa-refresh"></i>&nbsp;Sync</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -153,7 +154,7 @@
                 </div>
                 <div class="modal-footer" style="padding-bottom:20px;">
                     <a href="#" class="text-info pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
-                    <button type="button" id="zoomlevel2" class="btn btn-md btn-default"><i class="fa fa-search-plus fa-2x"></i></button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" id="zoomlevel2" class="btn btn-md ripple btn-default"><i class="fa fa-search-plus fa-2x"></i></button>&nbsp;&nbsp;&nbsp;
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -170,7 +171,7 @@
                     </div>
                 </div>
                 <div class="modal-body" id="mb3">
-                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm ripple">
                         <div class="form-group col-md-2 col-sm-2 col-xs-2">
                             <input type="radio" class="minimal" value="mo_sngObservation" name="optObs" data-id="0" data-discipline="S">
                         </div>
@@ -178,7 +179,7 @@
                             <h5>Single Opportunisitic Observation (IAH)</h5>
                         </div>
                     </div>
-                    <!--<div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                    <!--<div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm ripple">
                         <div class="form-group col-md-2">
                             <input type="radio" class="minimal" value="mo_grpObservation" name="optObs" data-id="1">
                         </div>
@@ -189,7 +190,7 @@
                 </div>
                 <div class="modal-footer" style="padding-bottom:20px;">
                     <a href="#" class="text-info pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
-                    <button type="button" id="showForm" class="btn btn-md btn-default"><i class="fa fa-check fa-2x"></i></button>
+                    <button type="button" id="showForm" class="btn btn-md ripple btn-default"><i class="fa fa-check fa-2x"></i></button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -206,7 +207,7 @@
                     </div>
                 </div>
                 <div class="modal-body" id="mb3">
-                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm ripple">
                         <div class="form-group col-md-2 col-sm-2 col-xs-2">
                             <input type="radio" class="minimal" value="mo_sngObservation" name="optObs" data-id="0" data-discipline="S">
                         </div>
@@ -214,7 +215,7 @@
                             <h5>Single Domestic Observation</h5>
                         </div>
                     </div>
-                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm ripple">
                         <div class="form-group col-md-2 col-sm-2 col-xs-2">
                             <input type="radio" class="minimal" value="mo_grpObservation" name="optObs" data-id="1" data-discipline="G">
                         </div>
@@ -225,7 +226,7 @@
                 </div>
                 <div class="modal-footer" style="padding-bottom:20px;">
                     <a href="#" class="text-info pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
-                    <button type="button" id="showFormAH" class="btn btn-md btn-default"><i class="fa fa-check fa-2x"></i></button>
+                    <button type="button" id="showFormAH" class="btn btn-md ripple btn-default"><i class="fa fa-check fa-2x"></i></button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -242,7 +243,7 @@
                     </div>
                 </div>
                 <div class="modal-body" id="mb3">
-                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm ripple">
                         <div class="form-group col-md-2 col-sm-2 col-xs-2 text-right">
                             <input type="radio" class="minimal" value="mo_BotObservation" name="optObs" data-id="2" data-discipline="B">
                         </div>
@@ -250,7 +251,7 @@
                             <h4>Botany Observation</h4>
                         </div>
                     </div>
-                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm ripple">
                         <div class="form-group col-md-2 col-sm-2 col-xs-2 text-right">
                             <input type="radio" class="minimal" value="mo_EntObservation" name="optObs" data-id="3" data-discipline="E">
                         </div>
@@ -258,7 +259,7 @@
                             <h4>Entomology Observation</h4>
                         </div>
                     </div>
-                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm ripple">
                         <div class="form-group col-md-2 col-sm-2 col-xs-2 text-right">
                             <input type="radio" class="minimal" value="mo_PatObservation" name="optObs" data-id="4" data-discipline="P">
                         </div>
@@ -268,7 +269,7 @@
                     </div>
                 </div>
                 <div class="modal-footer" style="padding-bottom:20px;">
-                    <button type="button" id="showFormPH" class="btn btn-md btn-default"><i class="fa fa-check"></i>&nbsp;Done</button>
+                    <button type="button" id="showFormPH" class="btn btn-md ripple btn-default"><i class="fa fa-check"></i>&nbsp;Done</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -306,7 +307,7 @@
                                                placeholder="000000"
                                                maxlength="6"
                                                value="" type="tel" />
-                                        <button type="button" class="btn btn-md btn-warning otp-verify-send">Verify</button>
+                                        <button type="button" class="btn btn-md ripple btn-warning otp-verify-send">Verify</button>
                                         <div class="otp-verify-result">
                                             <i class='fa'></i>
                                             <span class='text'></span>
@@ -366,7 +367,7 @@
                                             <input class=" form-control auth-password" name="password" id="password" placeholder="password" maxlength="40" value="" type="password">
                                         </div>
                                         <div class="form-group">
-                                            <button class="btn btn-lg btn-warning auth-send" type="button"><i class="fa fa-circle-o-notch fa-spin hide"></i>Login</button>
+                                            <button class="btn btn-lg btn-warning auth-send ripple" type="button"><i class="fa fa-circle-o-notch fa-spin hide"></i>Login</button>
                                         </div>
                                         <div class="auth-result text-center">
                                             <i class="fa"></i>
@@ -404,7 +405,7 @@
                 <div class="modal-body" id="mb5" style="overflow-x:hidden">
                 </div>
                 <div class="modal-footer" style="padding-bottom:20px;">
-                    <button type="button" class="btn btn-md btn-default" id="SaveSettingsExit"><i class="fa fa-save"></i>&nbsp;Save</button>
+                    <button type="button" class="btn btn-md ripple btn-default" id="SaveSettingsExit"><i class="fa fa-save"></i>&nbsp;Save</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -416,7 +417,7 @@
                     <i class="fa fa-circle-o-notch fa-2x fa-spin text-info" style="margin:8px;">
                     </i><span class="progText" style="margin-top:10px;">Loading...</span>
                     <div class="progress" style="margin-top:10px;margin-bottom:3px;">
-                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:90%">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
                             0%
                         </div>
                     </div>
@@ -427,11 +428,11 @@
     </div><!-- /.modal -->
     <div id="map"></div>
     <div class="topButton">
-        <button type="button" id="settings" class="btn btn-circle btn-lg"><i class="fa fa-cog fa-2x"></i></button>
-        <button type="button" id="CSV" class="btn btn-circle btn-lg" onclick="downloadCSV()"><i class="fa fa-tasks fa-2x"></i></button>
-        <button type="button" id="init" class="btn btn-circle btn-lg" onclick="myLoc()"><i class="fa fa-map-marker fa-2x"></i></button>
-        <button type="button" id="zplus" class="btn btn-circle btn-lg"><i class="fa fa-plus fa-2x"></i></button>
-        <button type="button" id="zminus" class="btn btn-circle btn-lg"><i class="fa fa-minus fa-2x"></i></button>
+        <button type="button" id="settings" class="btn btn-circle btn-lg ripple"><i class="fa fa-cog fa-2x"></i></button>
+        <button type="button" id="CSV" class="btn btn-circle btn-lg ripple" onclick="downloadCSV()"><i class="fa fa-tasks fa-2x"></i></button>
+        <button type="button" id="init" class="btn btn-circle btn-lg ripple" onclick="myLoc()"><i class="fa fa-map-marker fa-2x"></i></button>
+        <button type="button" id="zplus" class="btn btn-circle btn-lg ripple"><i class="fa fa-plus fa-2x"></i></button>
+        <button type="button" id="zminus" class="btn btn-circle btn-lg ripple"><i class="fa fa-minus fa-2x"></i></button>
     </div>
     <div class="bottomButton">
         <span class="label label-success" id="status"></span>

@@ -1,5 +1,6 @@
 var mapPath;
 var emptyTilePath;
+var greenTilePath;
 var AppMode;
 var ServerMode;
 var ServerAddress;
@@ -50,6 +51,17 @@ var resizeId;
 var firstLoad = 0;
 var ActiveMapSet;
 var numAttachments = 0;
+var downerId;
+var downerTeam;
+var TILE_SIZE = 256;
+var tiles = 0;
+var minX;
+var minY;
+var maxX;
+var maxY;
+var cX;
+var cY;
+
 /* AH Initialized variables */
 //var species = '<div class="row col-md-12 sims dynarow"><div class="form-group col-xs-2"><input type="text" class="form-control speciesText"/></div><div class="form-group col-xs-2"><label>Taxon Name<span class="bold-red">*</span></label></div><div class="form-group col-xs-2"><input type="text" class="form-control taxonText" placeholder="Taxon Name" name="taxonName"></div><div class="form-group col-xs-3" ><label>Number in Group<span class="bold-red">*</span></label></div><div class="form-group col-xs-1"><input type="text" class="form-control" placeholder="#" name="Number"></div><div class="form-group col-xs-1"><button type="button" class="btn btn-danger btn-circle btn-xs pull-right removeSpecies"><i class="fa fa-times-circle fa-2x"></i></button></div></div>';
 //var fieldtest = '<div class="row col-md-12 sims dynarow fieldtest"><div class="form-group col-xs-12"><label class="ftName">Field Test 1</label><i class="fa fa-times-circle fa-2x text-default removeFieldTest pull-right"></i></div><div class="form-group col-xs-6"><label>Fieldtest Name<span class="bold-red">*</span></label><input type="text" class="form-control hide" placeholder="Field Test ID" name="ftId"/><select class="form-control" name="fieldTest"></select></div><div class="form-group col-xs-6"><label>&nbsp;</label><br/><input type="checkbox" name="ftInvalid" class="minimal"><label>Invalid</label></div><div class="row col-xs-12 diseases indentLeft"></div><div class="form-group col-xs-11"><label>Field Test Comment</label><input type="text" class="form-control" name="ftComment"/></div></div>';
@@ -215,18 +227,19 @@ function initSettings() {
     db.transaction(function (tx) {
         tx.executeSql("SELECT * FROM observations WHERE id = ?", [1], function (tx, res) {
             //This is not the first load
-            var arr = resSettings.settings.mapSets.filter(function (el) {
-                return (el.activeFlag === 1);
-            });
-            ActiveMapSet = arr[0].mapsetID - 1;
-            mapPath = arr[0].mapPath;
-            emptyTilePath = arr[0].emptyTilePath;
-            myCenter = new google.maps.LatLng(Number(arr[0].mapCenter.lat), Number(arr[0].mapCenter.lng));
+            //var arr = resSettings.settings.mapSets.filter(function (el) {
+            //    return (el.activeFlag === 1);
+            //});
+            ActiveMapSet = resSettings.settings.mapSets[0].mapsetID;
+            mapPath = resSettings.settings.mapSets[0].mapPath;
+            emptyTilePath = resSettings.settings.mapSets[0].emptyTilePath;
+            greenTilePath = resSettings.settings.mapSets[0].greenTilePath;
+            myCenter = new google.maps.LatLng(Number(resSettings.settings.mapSets[0].mapCenter.lat), Number(resSettings.settings.mapSets[0].mapCenter.lng));
             var mymap = new MyMapType();
             function MyMapType() { }
             MyMapType.prototype.tileSize = new google.maps.Size(256, 256);
-            MyMapType.prototype.maxZoom = arr[0].endZoom;
-            MyMapType.prototype.minZoom = arr[0].startZoom;
+            MyMapType.prototype.maxZoom = resSettings.settings.mapSets[0].endZoom;
+            MyMapType.prototype.minZoom = resSettings.settings.mapSets[0].startZoom;
             MyMapType.prototype.name = "Offline Map";
             MyMapType.prototype.getTile = function (coord, zoom, ownerDocument) {
                 zoomlevel.innerHTML = 'zoom: ' + zoom;
@@ -234,13 +247,15 @@ function initSettings() {
                 var div = ownerDocument.createElement('div');
                 var image = $('<img name="" src="' + mapPath + zoom + "/" + coord.x + "/" + coord.y + '.jpg"/>');
                 image.error(function () {
-                    div.innerHTML = '<img name="" src="' + emptyTilePath + '"/>';
+                    if (curZoom >= 10) {
+                        div.innerHTML = '<img name="" src="' + greenTilePath + '"/>';
+                    } else { div.innerHTML = '<img name="" src="' + emptyTilePath + '"/>';}
                 });
                 div.innerHTML = '<img name="" src="' + mapPath + zoom + "/" + coord.x + "/" + coord.y + '.jpg"/>';
                 div.style.width = this.tileSize.width + 'px'; div.style.height = this.tileSize.height + 'px';
                 return div;
             };
-            var mapOptions = { zoom: arr[0].startZoom, center: myCenter, streetViewControl: false, panControl: false, zoomControl: false, mapTypeControl: false, scaleControl: false, overviewMapControl: false, mapTypeControlOptions: { mapTypeIds: ["xx"] } };
+            var mapOptions = { zoom: resSettings.settings.mapSets[0].startZoom, center: myCenter, streetViewControl: false, panControl: false, zoomControl: false, mapTypeControl: false, scaleControl: false, overviewMapControl: false, mapTypeControlOptions: { mapTypeIds: ["xx"] } };
             map = new google.maps.Map(document.getElementById("map"), mapOptions); map.mapTypes.set('xx', mymap); map.setMapTypeId('xx');
             if (res.rows && res.rows.length > 0) {
                 clearMarkers();
@@ -310,17 +325,17 @@ function initSettings() {
     });
 }
 function initLoad() {
-        db = window.sqlitePlugin.openDatabase({ name: "sims.db", location: 'default' });
-        db.transaction(function (tx) {
-            tx.executeSql("CREATE TABLE IF NOT EXISTS observations (id integer primary key, filedt text, data blob)");
-            tx.executeSql("CREATE TABLE IF NOT EXISTS settings (id integer primary key, settingstext text, settingsval text default '{}')");
-            tx.executeSql("CREATE TABLE IF NOT EXISTS phrefcodes (id integer primary key, settingstext text, settingsval text default '{}')");
-            tx.executeSql("CREATE TABLE IF NOT EXISTS activitydata (id integer primary key, settingstext text, settingsval text default '{}')");
-            tx.executeSql("CREATE TABLE IF NOT EXISTS staffdata (id integer primary key, settingstext text, settingsval text default '{}')");
-            tx.executeSql("CREATE TABLE IF NOT EXISTS taxadata (id integer primary key, settingstext text, settingsval text default '{}')");
-        }, function (err) {
-            $.growl.error({ title: "", message: "An error occurred while initializing the DB. " + err.message, location: "tc", size: "large" });
-        });
+    db = window.sqlitePlugin.openDatabase({ name: "sims.db", location: 'default' });
+    db.transaction(function (tx) {
+        tx.executeSql("CREATE TABLE IF NOT EXISTS observations (id integer primary key, filedt text, data blob)");
+        tx.executeSql("CREATE TABLE IF NOT EXISTS settings (id integer primary key, settingstext text, settingsval text default '{}')");
+        tx.executeSql("CREATE TABLE IF NOT EXISTS phrefcodes (id integer primary key, settingstext text, settingsval text default '{}')");
+        tx.executeSql("CREATE TABLE IF NOT EXISTS activitydata (id integer primary key, settingstext text, settingsval text default '{}')");
+        tx.executeSql("CREATE TABLE IF NOT EXISTS staffdata (id integer primary key, settingstext text, settingsval text default '{}')");
+        tx.executeSql("CREATE TABLE IF NOT EXISTS taxadata (id integer primary key, settingstext text, settingsval text default '{}')");
+    }, function (err) {
+        $.growl.error({ title: "", message: "An error occurred while initializing the DB. " + err.message, location: "tc", size: "large" });
+    });
     //Invoke Authentication functionality ---------------
     /* Not required for Windows platform */
     //checkPermissions();
@@ -405,10 +420,10 @@ function checkMapBoundsByLoc(location) {
     });
     var cLat = nM.getPosition().lat();
     var cLng = nM.getPosition().lng();
-    var arr = resSettings.settings.mapSets.filter(function (el) {
-        return (el.activeFlag === 1);
-    });
-    if (cLat < arr[0].mapBounds.bottomLat || cLat > arr[0].mapBounds.topLat || cLng < arr[0].mapBounds.leftLng || cLng > arr[0].mapBounds.rightLng) {
+    //var arr = resSettings.settings.mapSets.filter(function (el) {
+    //    return (el.activeFlag === 1);
+    //});
+    if (cLat < resSettings.settings.mapSets[0].mapBounds.bottomLat || cLat > resSettings.settings.mapSets[0].mapBounds.topLat || cLng < resSettings.settings.mapSets[0].mapBounds.leftLng || cLng > resSettings.settings.mapSets[0].mapBounds.rightLng) {
         $.growl.warning({ title: "", message: "Location is outside map bounds!", location: "tc", size: "large" });
         nM.setMap(null);
         //return false;
@@ -419,10 +434,10 @@ function checkMapBoundsByLoc(location) {
 function checkMapBoundsByPos(position) {
     var cLat = position.coords.latitude;
     var cLng = position.coords.longitude;
-    var arr = resSettings.settings.mapSets.filter(function (el) {
-        return (el.activeFlag === 1);
-    });
-    if (cLat < arr[0].mapBounds.bottomLat || cLat > arr[0].mapBounds.topLat || cLng < arr[0].mapBounds.leftLng || cLng > arr[0].mapBounds.rightLng) {
+    //var arr = resSettings.settings.mapSets.filter(function (el) {
+    //    return (el.activeFlag === 1);
+    //});
+    if (cLat < resSettings.settings.mapSets[0].mapBounds.bottomLat || cLat > resSettings.settings.mapSets[0].mapBounds.topLat || cLng < resSettings.settings.mapSets[0].mapBounds.leftLng || cLng > resSettings.settings.mapSets[0].mapBounds.rightLng) {
         $.growl.warning({ title: "", message: "Location is outside map bounds!", location: "tc", size: "large" });
         //return false;
     }
@@ -793,7 +808,7 @@ function exportTableToCSV($table, filename) {
         today = yyyy.toString() + mm.toString() + dd.toString();
         fs.getDirectory("ESFA", { create: true, exclusive: false }, function (dirEntry) {
             dirEntry.getFile("Observations" + today + ".csv", { create: true, exclusive: false }, function (fileEntry) {
-                console.log("fileEntry is file?" + fileEntry.isFile.toString());
+                //console.log("fileEntry is file?" + fileEntry.isFile.toString());
                 fileEntry.createWriter(function (fileWriter) {
                     fileWriter.onwriteend = function () {
                         console.log("Successful file read...");
@@ -1173,16 +1188,21 @@ $(document).on('click', '#settings', function (e) {
             $(document).find('script[id="pageScript"]').remove();
             $('#mb5').load('settings.html');
         }
-    })
-        .complete(function (e) {
+    }).complete(function (e) {
+            loadActivityData();
             $('#mb5').find('#appMode').val(AppMode);
-            var arr = resSettings.settings.mapSets.filter(function (el) {
-                return (el.activeFlag === 1);
+            //var arr = resSettings.settings.mapSets.filter(function (el) {
+            //    return (el.activeFlag === 1);
+            //});
+            $('#form3').find('input[name="optMaps"][data-id="' + resSettings.settings.mapSets[0].mapsetID + '"]').iCheck('check');
+            $('#form3').find('select[id="curActivities"]').val(resSettings.settings.mapSets[0].curActivity); 
+            $('#form3').find('label.mapNotes').eq(resSettings.settings.mapSets[0].mapsetID).text("Last downloaded on:" + resSettings.settings.mapSets[0].lastDownloadDate);
+            $('#form3').find('label.mapBNotes').eq(resSettings.settings.mapSets[0].mapsetID).text("Last downloaded on:" + resSettings.settings.mapSets[0].lastDownloadBDate);
+            if (resSettings.settings.device.ownerTeam) { $('#form3').find('select[id="doTeam"]').val(resSettings.settings.device.ownerTeam); }
+            $.when(getStaffData(resSettings.settings.device.ownerTeam)).then(function () {
+                $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(staffDataFull));
+                if (resSettings.settings.device.ownerId) { $('#form3').find('select[id="deviceOwner"]').val(resSettings.settings.device.ownerId); }
             });
-            $('#form3').find('input[name="optMaps"][data-id="' + (arr[0].mapsetID - 1) + '"]').iCheck('check');
-            $('#form3').find('label.mapNotes').eq(arr[0].mapsetID - 1).text("Last downloaded on:" + arr[0].lastDownloadDate);
-            $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(staffDataFull));
-            if (resSettings.settings.device.ownerId) { $('#form3').find('select[id="deviceOwner"]').val(resSettings.settings.device.ownerId); }
             $('#form3').find('input[name="samplePrefix"]').val(resSettings.settings.device.samplePrefix);
             $('#form3').find('input[name="sampleCurrNum"]').val(resSettings.settings.device.currentSampleNumber);
             $('#form3').find('select[id="serverMode"]').val(resSettings.settings.app.serverMode);
@@ -1196,6 +1216,56 @@ $(document).on('click', '#settings', function (e) {
             }
         });
     $('#modalSettings').modal();
+});
+$(document).on('click', '#SaveSettingsExit', function (e) {
+    var v_appMode = $('#form3').find('#appMode').val();
+    if (!v_appMode) {
+        $.growl.warning({ title: "", message: "Provide a valid mode: PH!", location: "tc", size: "large" });
+        return false;
+    }
+    /* Set AppMode */
+    resSettings.settings.app.appMode = v_appMode;
+    /* Clear active Flag on Mapsets */
+    $.each(resSettings.settings.mapSets, function (i, v) {
+        resSettings.settings.mapSets[i].activeFlag = 0;
+    });
+    /* Set active Mapset */
+    ActiveMapset = $("input[name='optMaps']:checked").data('id');
+    if (ActiveMapset) { resSettings.settings.mapSets[ActiveMapset].activeFlag = 1; }
+    resSettings.settings.mapSets[0].curActivity = $('#form3').find('select[id="curActivities"]').val();
+    if (Number($('#form3').find('select[id="curActivities"]').val()) > 0 )
+        $.when(getCurrentActivityBounds($('#form3').find('select[id="curActivities"]').val(), 10)).then(function () {
+            resSettings.settings.mapSets[0].mapCenter.lat = cX;
+            resSettings.settings.mapSets[0].mapCenter.lng = cY;
+            resSettings.settings.mapSets[0].mapBounds.topLat = minX;
+            resSettings.settings.mapSets[0].mapBounds.leftLng = minY;
+            resSettings.settings.mapSets[0].mapBounds.bottomLat = maxX;
+            resSettings.settings.mapSets[0].mapBounds.rightLng = maxY;
+    });
+    /* Set Device Owner */
+    resSettings.settings.device.ownerId = $('#form3').find('select[id="deviceOwner"]').val();
+    resSettings.settings.device.ownerTeam = $('#form3').find('select[id="doTeam"]').val();
+    resSettings.settings.device.ownerName = $('#form3').find('select[id="deviceOwner"]').text();
+    resSettings.settings.device.samplePrefix = $('#form3').find('input[name="samplePrefix"]').val();
+    resSettings.settings.device.sampleStartNumber = $('#form3').find('input[name="sampleStartNum"]').val();
+    resSettings.settings.device.currentSampleNumber = $('#form3').find('input[name="sampleCurrNum"]').val();
+    resSettings.settings.app.serverMode = $('#form3').find('select[id="serverMode"]').val();
+    /* Save to DB */
+    db.transaction(function (tx) {
+        tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
+            if (resSettings.settings.app.serverMode !== $('#AppEnv').text()) {
+                clearCache();
+                $('#modalSettings').modal('hide');
+                $.growl.warning({ title: "", message: "Please restart the app for the settings to take effect. ", location: "tc", size: "large" });
+            } else {
+                $.when(fetchSettings()).then(initSettings()).done(function () {
+                    $('#modalSettings').modal('hide');
+                });
+            }
+        });
+    }, function (err) {
+        $.growl.error({ title: "", message: "An error occured while updating settings. " + err.message, location: "tc", size: "large" });
+    });
 });
 $(document).on('click', '#zplus', function (e) {
     map.setZoom(curZoom + 1);
@@ -2044,6 +2114,8 @@ function fetchServerDetails() {
     settings.innerHTML = AppMode;
     ServerMode = resSettings.settings.app.serverMode;
     appEnv.innerHTML = ServerMode;
+    downerId = resSettings.settings.device.ownerId;
+    downerTeam = resSettings.settings.device.ownerTeam;
     devServerAddress = resSettings.settings.app.devServerAddress;
     sitServerAddress = resSettings.settings.app.sitServerAddress;
     uatServerAddress = resSettings.settings.app.uatServerAddress;
@@ -2121,3 +2193,159 @@ function clearCache() {
         $.growl.error({ title: "", message: "An error occured while deleting Taxa Data from database. " + err.message, location: "tc", size: "large", fixed: "true" });
     });
 }
+
+function getMapTiles(zoom) {
+    if (allLats.length > 0 && allLngs.length > 0) {
+        var scale = 1 << zoom;
+        allLats.sort();
+        allLngs.sort();
+        minX = allLats[0];
+        minY = allLngs[0];
+        maxX = allLats[allLats.length - 1];
+        maxY = allLngs[allLngs.length - 1];
+        var minLatLng = new google.maps.LatLng(minX, minY);
+        var maxLatLng = new google.maps.LatLng(maxX, maxY);
+        var wC1 = project(minLatLng);
+        var wC2 = project(maxLatLng);
+        var pC1x = Math.floor(wC1.x * scale / TILE_SIZE);
+        var pC1y = Math.floor(wC1.y * scale / TILE_SIZE);
+        var pC2x = Math.floor(wC2.x * scale / TILE_SIZE);
+        var pC2y = Math.floor(wC2.y * scale / TILE_SIZE);
+        $('#modalProgress').modal();
+        $('#mb6 .progText').text("Download in progress ...");
+        $('#mb6 .progress').removeClass('hide');
+        tiles = 0;
+        fetchAndSaveTile(pC1x, pC1y, zoom, pC2x, pC1y, pC2y);
+    }
+}
+function getCurrentActivityTiles(str, zoom) {
+    if (Number(str) === 99999) { return true; }
+    curLats = []; curLngs = [];
+    var arr = ActivityData.activities.filter(function (el) {
+        return (el.activityId === Number(str));
+    });
+    if (arr && arr.length > 0) {
+        $.each(arr[0].sites, function (key, val) {
+            var wkt = new Wkt.Wkt();
+            wkt.read(val.locationDatum.wkt);
+            wkt.toObject();
+            for (var k = 0; k < wkt.toJson().coordinates[0].length; k++) {
+                curLats.push(wkt.toJson().coordinates[0][k][1]);
+                curLngs.push(wkt.toJson().coordinates[0][k][0]);
+            }
+        });
+        if (curLats.length > 0 && curLngs.length > 0) {
+            var scale = 1 << zoom;
+            cX = curLats[0];
+            cY = curLngs[0];
+            curLats.sort();
+            curLngs.sort();
+            minX = curLats[0];
+            minY = curLngs[0];
+            maxX = curLats[curLats.length - 1];
+            maxY = curLngs[curLngs.length - 1];
+            var minLatLng = new google.maps.LatLng(minX, minY);
+            var maxLatLng = new google.maps.LatLng(maxX, maxY);
+            var wC1 = project(minLatLng);
+            var wC2 = project(maxLatLng);
+            var pC1x = Math.floor(wC1.x * scale / TILE_SIZE);
+            var pC1y = Math.floor(wC1.y * scale / TILE_SIZE);
+            var pC2x = Math.floor(wC2.x * scale / TILE_SIZE);
+            var pC2y = Math.floor(wC2.y * scale / TILE_SIZE);
+            $('#modalProgress').modal();
+            $('#mb6 .progText').text("Download in progress ...");
+            $('#mb6 .progress').removeClass('hide');
+            tiles = 0;
+            fetchAndSaveTile(pC1x, pC1y, zoom, pC2x, pC1y, pC2y);
+        }
+    }
+}
+function getCurrentActivityBounds(str, zoom) {
+    if (Number(str) === 99999) { return true; }
+    curLats = []; curLngs = [];
+    var arr = ActivityData.activities.filter(function (el) {
+        return (el.activityId === Number(str));
+    });
+    if (arr && arr.length > 0) {
+        $.each(arr[0].sites, function (key, val) {
+            var wkt = new Wkt.Wkt();
+            wkt.read(val.locationDatum.wkt);
+            wkt.toObject();
+            for (var k = 0; k < wkt.toJson().coordinates[0].length; k++) {
+                curLats.push(wkt.toJson().coordinates[0][k][1]);
+                curLngs.push(wkt.toJson().coordinates[0][k][0]);
+            }
+        });
+        if (curLats.length > 0 && curLngs.length > 0) {
+            var scale = 1 << zoom;
+            cX = curLats[0];
+            cY = curLngs[0];
+            curLats.sort();
+            curLngs.sort();
+            minX = curLats[0];
+            minY = curLngs[0];
+            maxX = curLats[curLats.length - 1];
+            maxY = curLngs[curLngs.length - 1];
+        }
+    }
+}
+function fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit) {
+    window.requestFileSystem(window.PERSISTENT, 5 * 1024 * 1024, function (fs) {
+        var numtiles = Math.pow(2, zoom);
+        var xhr = new XMLHttpRequest();
+        var url = "http://mt1.google.com/vt/lyrs=y&x=" + i + "&y=" + j + "&z=" + zoom;
+        xhr.open('GET', url, true);
+        xhr.responseType = 'blob';
+        xhr.onloadstart = function () {
+            tiles++;
+            $('#mb6 .progText').text("File " + tiles + ": Download in progress ...");
+            $('.progress-bar').css('width', Math.round(tiles%500) + '%').attr('aria-valuenow', Math.round(tiles%500)).text(Math.round(tiles%500) + '%');
+            $('#mb6 .progress').removeClass('hide');
+        };
+        xhr.onloadend = function () {
+            if (this.status === 200) {
+                var blob = new Blob([this.response], { type: "image/jpeg" });
+                fs.root.getDirectory("maps", { create: true, exclusive: false }, function (dir0Entry) {
+                    dir0Entry.getDirectory(zoom.toString(), { create: true, exclusive: false }, function (dir2Entry) {
+                        dir2Entry.getDirectory(i.toString(), { create: true, exclusive: false }, function (dir4Entry) {
+                            dir4Entry.getFile(j + ".jpg", { create: true, exclusive: false }, function (fileEntry) {
+                                //console.log("fileEntry is file?" + fileEntry.isFile.toString());
+                                fileEntry.createWriter(function (fileWriter) {
+                                    fileWriter.onwriteend = function () {
+                                        //console.log("Successful file write...");
+                                        //readFile(fileEntry);
+                                        if (i <= xlimit) {
+                                            if (j <= ylimit) {
+                                                j++;
+                                                fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit);
+                                            } else {
+                                                i++;
+                                                j = ystart;
+                                                fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit);
+                                            }
+                                        }
+                                    };
+                                    fileWriter.onerror = function (e) {
+                                        $.growl.error({ title: "", message: "Failed file read: " + e.toString(), location: "tc", size: "large" });
+                                    };
+                                    fileWriter.write(blob);
+                                    //$.growl.notice({ title: "", message: 'File saved to Local folder.', location: "tc", size: "large" });
+                                });
+                            });
+                        });
+                    });
+                });
+            }
+        };
+        xhr.send();
+    });
+}
+function project(latLng) {
+        var siny = Math.sin(latLng.lat() * Math.PI / 180);
+        // Truncating to 0.9999 effectively limits latitude to 89.189. This is
+        // about a third of a tile past the edge of the world tile.
+        siny = Math.min(Math.max(siny, -0.9999), 0.9999);
+        return new google.maps.Point(
+            TILE_SIZE * (0.5 + latLng.lng() / 360),
+            TILE_SIZE * (0.5 - Math.log((1 + siny) / (1 - siny)) / (4 * Math.PI)));
+      }

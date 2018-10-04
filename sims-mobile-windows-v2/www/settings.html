@@ -3,16 +3,16 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active">
+                    <li class="active ripple">
                         <a href="#tab_AS" data-toggle="tab"><i class="fa fa-tablet mxr-5"></i>Application</a>
                     </li>
-                    <li class="">
+                    <li class="ripple">
                         <a href="#tab_DS" data-toggle="tab"><i class="fa fa-cog mxr-5"></i>Device</a>
                     </li>
-                    <li class="">
+                    <li class="ripple">
                         <a href="#tab_MS" data-toggle="tab"><i class="fa fa-map mxr-5"></i>Maps</a>
                     </li>
-                    <li class="">
+                    <li class="ripple">
                         <a href="#tab_SR" data-toggle="tab"><i class="fa fa-server mxr-5"></i>Server</a>
                     </li>
                 </ul>
@@ -32,21 +32,24 @@
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <h5>Device Owner - Team</h5>
+                                <small>Select team: BPH, IPH, NPH</small>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <select class="form-control pull-right" id="doTeam">
+                                    <option value=NPH>NPH</option>
+                                    <option value=BPH>BPH</option>
+                                    <option value=IPH>IPH</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <h5>Device Owner</h5>
                                 <small>Select this device's Owner. All observations will be submitted as the device owner.</small>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <select class="form-control pull-right" id="deviceOwner"></select>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
-                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                                <h5>Application Data Sync</h5>
-                                <small>Sync application cache with the Server.</small>
-                                <i class="fa fa-info-circle fa-2x text-info showPayloads" style="cursor:pointer"></i>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                                <a href="#" class="btn btn-md btn-sm btn-default btnSync"><i class="fa fa-refresh"></i>&nbsp;Data Sync</a>&nbsp;
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
@@ -74,6 +77,16 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <input type="text" class="form-control pull-right" name="sampleCurrNum" value="0" />
+                            </div>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <h5>Application Data Sync</h5>
+                                <small>Sync application cache with the Server.</small>
+                                <i class="fa fa-info-circle fa-2x text-info showPayloads" style="cursor:pointer"></i>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <a href="#" class="btn btn-md btn-sm btn-default btnSync"><i class="fa fa-refresh"></i>&nbsp;Data Sync</a>&nbsp;
                             </div>
                         </div>
                     </div>
@@ -107,7 +120,26 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="tab_MS">
-                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm hide">
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                Base Maps
+                                <br /><label class="mapBNotes text-sm">Last downloaded on: 09/09/1900</label>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <a href="#" class="btn btn-sm btn-default downloadBaseMaps pull-right">Download</a><br /><br />
+                            </div>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <select class="form-control" id="curActivities"></select><br />
+                                <input type="radio" class="minimal" value="AU" name="optMaps" data-id="0">&nbsp;&nbsp;Set as Current Activity<br />
+                                <label class="mapNotes text-sm">Last downloaded on: 09/09/1900</label>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <a href="#" class="btn btn-sm btn-default downloadMaps pull-right">Download</a><br /><br />
+                            </div>
+                        </div>
+                        <!--<div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm hide">
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <input type="radio" class="minimal" value="QLD" name="optMaps" data-id="0" data-url="http://dev-sims.oztaxa.com/files/maps/QLD/" data-files="1">
                                 Queensland Maps
@@ -138,7 +170,7 @@
                                 <br /><label class="mapNotes text-sm">Last downloaded on: 09/09/1900</label>
                                 <a href="#" class="btn btn-sm btn-default downloadMaps pull-right">Download</a><br /><br />
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="tab-pane" id="tab_SR">
                         <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">

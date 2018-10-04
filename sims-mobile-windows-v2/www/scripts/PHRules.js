@@ -38,6 +38,10 @@ var taxaData;
 var t0 = 0, t1 = 0, t3 = 0;
 var lastSiteValue;
 var lastSurvActValue;
+var allLats = [];
+var allLngs = [];
+var curLats = [];
+var curLngs = [];
 
 function syncPHRefCodes() {
     // Loading Activity Defaults //
@@ -203,9 +207,19 @@ function syncActivityData() {
 function loadActivityData() {
     $("#form1").find('select[name="SurvActivityId_M_N"]').find('option').remove().end().append($('<option value="0">- select -</option>'));
     $.each(ActivityData.activities, function (key, val) {
-        var option = $('<option />');
-        option.attr('value', val.activityId).text(val.activityName);
-        $("#form1").find('select[name="SurvActivityId_M_N"]').append(option);
+        if (val.programId === downerTeam) {
+            var option = $('<option />');
+            option.attr('value', val.activityId).text(val.activityName);
+            $("#form1").find('select[name="SurvActivityId_M_N"]').append(option);
+        }
+    });
+    $("#curActivities").find('option').remove().end().append($('<option value="0">- select -</option>'));
+    $.each(ActivityData.activities, function (key, val) {
+        if (val.programId === downerTeam) {
+            var option = $('<option />');
+            option.attr('value', val.activityId).text(val.activityName);
+            $("#curActivities").append(option);
+        }
     });
     $("#form1").find('select[name="SiteId_O_N"]').find('option').remove().end().append($('<option value="0">- select -</option>'));
     $.each(siteData, function (key, val) {
@@ -419,22 +433,10 @@ function syncTaxaData() {
 function loadstaffData() {
     // Loading StaffData for device Owner //
     staffDataFull = '<option value="0">- select -</option>';
-    $.each(staffDataBPH.staffs.staff, function (key, val) {
-        var option1 = '<option';
-        option1 = option1 + ' value="' + val.id + '">';
-        option1 = option1 + 'BPH - ' + val.displayName + "</option>";
-        staffDataFull = staffDataFull + option1;
-    });
-    $.each(staffDataIPH.staffs.staff, function (key, val) {
-        var option1 = '<option';
-        option1 = option1 + ' value="' + val.id + '">';
-        option1 = option1 + 'IPH - ' + val.displayName + "</option>";
-        staffDataFull = staffDataFull + option1;
-    });
     $.each(staffDataNPH.staffs.staff, function (key, val) {
         var option1 = '<option';
         option1 = option1 + ' value="' + val.id + '">';
-        option1 = option1 + 'NPH - ' + val.displayName + "</option>";
+        option1 = option1 + val.displayName + "</option>";
         staffDataFull = staffDataFull + option1;
     });
     // Loading StaffData per programID //
@@ -461,19 +463,22 @@ function loadstaffData() {
     $("#form1").find('select[name="ObservationStaffId_M_N"]').find('option').remove().end().append($(staffData));
 }
 function loadSitePolygons() {
+    allLats = [];
+    allLngs = [];
     $.each(ActivityData.activities, function (key1, val1) {
         $.each(val1.sites, function (key, val) {
             if (val.id === 99999) { return true; }
             var wkt = new Wkt.Wkt();
             wkt.read(val.locationDatum.wkt);
             wkt.toObject();
-
             var tC = [];
             // Add each GPS entry to an array
             for (var k = 0; k < wkt.toJson().coordinates[0].length; k++) {
                 var latlngc = new google.maps.LatLng(wkt.toJson().coordinates[0][k][1], wkt.toJson().coordinates[0][k][0]);
                 tC.push(latlngc);
-            };
+                allLats.push(wkt.toJson().coordinates[0][k][1]);
+                allLngs.push(wkt.toJson().coordinates[0][k][0]);
+            }
             // Plot the GPS entries as a line on the Google Map
             var tP = new google.maps.Polygon({
                 map: map,
@@ -1204,6 +1209,7 @@ function loadModal(pagename) {
                 $('#form1').find("input[type='number'][name^='status']").val("0");
                 $('#form1').find("input[type='text'][name^='PlantDisciplineCode']").val(curDiscipline);
                 $('#form1').find("input[type='number'][name^='SubmittedByStaffId']").val(resSettings.settings.device.ownerId);
+                $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId); 
                 $('#form1').find("input[type='text'][name='TimeHourCount_M_S']").inputmask("99:99");
                 $('.nextid').text('');
                 //loadSiteData($('#form1').find("select[name='SiteId_O_N']").val());
@@ -2976,61 +2982,54 @@ $(document).on('change', 'select[name^="PlantStatisticType"]', function () {
         $(this).parent().parent().find("input[type='number'][name^='HostStatCount']").addClass('hide');
     }
 });
-$(document).on('click', '#SaveSettingsExit', function (e) {
-    var v_appMode = $('#form3').find('#appMode').val();
-    if (!v_appMode) {
-        $.growl.warning({ title: "", message: "Provide a valid mode: PH!", location: "tc", size: "large" });
-        return false;
-    }
-    /* Set AppMode */
-    resSettings.settings.app.appMode = v_appMode;
-    /* Clear active Flag on Mapsets */
-    $.each(resSettings.settings.mapSets, function (i, v) {
-        resSettings.settings.mapSets[i].activeFlag = 0;
-    });
-    /* Set active Mapset */
-    var activeMapset = $("input[name='optMaps']:checked").data('id');
-    if (activeMapset) { resSettings.settings.mapSets[activeMapset].activeFlag = 1; }
-    /* Set Device Owner */
-    resSettings.settings.device.ownerId = $('#form3').find('select[id="deviceOwner"]').val();
-    resSettings.settings.device.ownerName = $('#form3').find('select[id="deviceOwner"]').text();
-    resSettings.settings.device.samplePrefix = $('#form3').find('input[name="samplePrefix"]').val();
-    resSettings.settings.device.sampleStartNumber = $('#form3').find('input[name="sampleStartNum"]').val();
-    resSettings.settings.device.currentSampleNumber = $('#form3').find('input[name="sampleCurrNum"]').val();
-    resSettings.settings.app.serverMode = $('#form3').find('select[id="serverMode"]').val();
-    /* Save to DB */
-    db.transaction(function (tx) {
-        tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
-            //alert("Row inserted.");
-            //return e + pad(nextID.toString(), 4);
-            if (resSettings.settings.app.serverMode !== $('#AppEnv').text()) {
-                clearCache();
-                $('#modalSettings').modal('hide');
-                $.growl.warning({ title: "", message: "Please restart the app for the settings to take effect. ", location: "tc", size: "large" });
-            } else {
-                $.when(fetchSettings()).then(initSettings()).done(function () {
-                    $('#modalSettings').modal('hide');
-                });
-            }
-        });
-    }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while updating settings. " + err.message, location: "tc", size: "large" });
-    });
-});
 $(document).on('click', 'a.downloadMaps', function (e) {
-    var url = $('#form3').find("input[name='optMaps']:checked").data("url");
-    var numfiles = $('#form3').find("input[name='optMaps']:checked").data("files");
-    var mapset = $('#form3').find("input[name='optMaps']:checked").val();
+    var str = $('#curActivities').val();
+    if (str === "0") { return true; }
+    $('#modalProgress').modal();
+    $('#mb6 .progText').text("Download in progress ...");
+    $('#mb6 .progress').removeClass('hide');
+    $.when(getCurrentActivityTiles(str, 10)).then(getCurrentActivityTiles(str, 11)).then(getCurrentActivityTiles(str, 12))
+        .then(getCurrentActivityTiles(str, 13)).then(getCurrentActivityTiles(str, 14))
+        .then(getCurrentActivityTiles(str, 15)).then(getCurrentActivityTiles(str, 16)).then(function () {
+            resSettings.settings.mapSets[0].lastDownloadDate = new Date().toString();
+            db.transaction(function (tx) {
+                tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
+                    $('#form3').find('label.mapBNotes').text("Last downloaded on:" + new Date().toString());
+                    $('#modalProgress').modal('hide');
+                    $.growl.notice({ title: "", message: "Download complete", location: "bc", size: "small" });
+                });
+            }, function (err) {
+                $.growl({ title: "", message: "An error occured while updating mapsets. " + err.message, location: "tc", size: "large" });
+            });
+        });
+});
+$(document).on('click', 'a.downloadBaseMaps', function (e) {
+    var url = resSettings.settings.mapSets[0].downloadPath;
+    var numfiles = resSettings.settings.mapSets[0].numfiles;
+    var mapset = "BASE";
     var filename;
     var filenum = 0;
     t0 = performance.now();
     $('#modalProgress').modal();
     $('#mb6 .progText').text("Download in progress ...");
     $('#mb6 .progress').removeClass('hide');
-    //$('#mb6 .fa-clock-o').removeClass('hide');
     $('#mb6 .progTime').text(new Date().toString());
     getFileandExtract(url, mapset, 1, numfiles);
 });
+//$(document).on('click', 'a.downloadMaps', function (e) {
+//    var url = $('#form3').find("input[name='optMaps']:checked").data("url");
+//    var numfiles = $('#form3').find("input[name='optMaps']:checked").data("files");
+//    var mapset = $('#form3').find("input[name='optMaps']:checked").val();
+//    var filename;
+//    var filenum = 0;
+//    t0 = performance.now();
+//    $('#modalProgress').modal();
+//    $('#mb6 .progText').text("Download in progress ...");
+//    $('#mb6 .progress').removeClass('hide');
+//    //$('#mb6 .fa-clock-o').removeClass('hide');
+//    $('#mb6 .progTime').text(new Date().toString());
+//    getFileandExtract(url, mapset, 1, numfiles);
+//});
 $(document).on('focus', 'select[name="SiteId_O_N"]', function (e) {
     lastSiteValue = $(this).val();
 })
@@ -3159,19 +3158,19 @@ function getFileandExtract(url, mapset, i, n) {
         //console.log(filename);
         xhr.open('GET', url2, true);
         xhr.responseType = 'blob';
-        t0 = performance.now();
+        //t0 = performance.now();
         xhr.onloadstart = function () {
             //$('#modalProgress').modal();
-            t1 = performance.now();
-            t3 = t3 + Math.round((t1 - t0));
+            //t1 = performance.now();
+            //t3 = t3 + Math.round((t1 - t0));
             $('#mb6 .progText').text("File " + i + " out of " + n + ": Download in progress ...");
             $('#mb6 .progress').removeClass('hide');
             //$('#mb6 .fa-clock-o').removeClass('hide');
         };
         xhr.onloadend = function () {
             if (this.status === 200) {
-                t1 = performance.now();
-                t3 = t3 + Math.round((t1 - t0));
+                //t1 = performance.now();
+                //t3 = t3 + Math.round((t1 - t0));
                 $('#mb6 .progText').text("File " + i + " out of " + n + ": Download in progress ...");
                 $('#mb6 .progress').removeClass('hide');
                 //$('#mb6 .fa-clock-o').removeClass('hide');
@@ -3182,11 +3181,11 @@ function getFileandExtract(url, mapset, i, n) {
                     //if (i === 10) {
                     //    $('#modalProgress').modal('hide');
                     //    initSettings();
-                    //    $.growl.notice({ title: "", message: "Maps downloaded in progress.", location: "bl", size: "medium", fixed: "true" });
+                    //    $.growl.notice({ title: "", message: "Maps downloaded in progress.", location: "bc", size: "medium", fixed: "true" });
                     //}
                     if (i > n) {
-                        resSettings.settings.mapSets[ActiveMapSet].downloaded = 1;
-                        resSettings.settings.mapSets[ActiveMapSet].lastDownloadDate = new Date().toString();
+                        //resSettings.settings.mapSets[ActiveMapSet].downloaded = 1;
+                        resSettings.settings.mapSets[ActiveMapSet].lastDownloadBDate = new Date().toString();
                         db.transaction(function (tx) {
                             tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
                                 //alert("Row inserted.");
@@ -3196,10 +3195,11 @@ function getFileandExtract(url, mapset, i, n) {
                             $.growl({ title: "", message: "An error occured while updating mapsets. " + err.message, location: "tc", size: "large" });
                         });
                         $('#modalProgress').modal('hide');
-                        $('#form3').find('label.mapNotes').eq(ActiveMapSet).text("Last downloaded on:" + new Date().toString());
+                        //$('#form3').find('label.mapNotes').eq(ActiveMapSet).text("Last downloaded on:" + new Date().toString());
                         initSettings();
-                        $('#mb6 .progTime').text("");
-                        $.growl({ title: "", message: "Maps downloaded successfully.", location: "tc", size: "large" });
+                        //$('#mb6 .progTime').text("");
+                        //$.growl({ title: "", message: "Maps downloaded successfully.", location: "tc", size: "large" });
+                        $.growl.notice({ title: "", message: "Download complete", location: "bc", size: "small" });
                         return false;
                     } else {
                         setTimeout(getFileandExtract(url, mapset, i, n), 10000);
@@ -3258,7 +3258,8 @@ function writeFile(fileEntry, filename, dataObj, i, n) {
             $('#mb6 .progress').removeClass('hide');
             //$('#mb6 .fa-clock-o').removeClass('hide');
             $('.progress-bar').css('width', Math.round(i / n * 100) + '%').attr('aria-valuenow', Math.round(i / n * 100)).text(Math.round(i / n * 100) + '%');
-            setTimeout(processZip2(fileEntry.toURL(), "maps/" + filename), 20000);
+            //setTimeout(processZip2(fileEntry.toURL(), "maps/" + filename), 20000);
+            setTimeout(processZip2(fileEntry.toURL(), "maps"), 20000);
         };
         fileWriter.onerror = function (e) {
             $.growl.error({ title: "", message: "Failed file write: " + e.toString(), location: "tc", size: "large" });
@@ -3819,4 +3820,40 @@ $(document).on('contextmenu', 'div.entobox', function () {
 });
 $(document).on('contextmenu', 'div.sample', function () {
     $(this).find("[data-action=collapse]").trigger('click');
+});
+function getStaffData(str) {
+    switch (str) {
+        case "NPH":
+            staffDataFull = "";
+            $.each(staffDataNPH.staffs.staff, function (key, val) {
+                var option1 = '<option';
+                option1 = option1 + ' value="' + val.id + '">';
+                option1 = option1 + val.displayName + "</option>";
+                staffDataFull = staffDataFull + option1;
+            });
+            break;
+        case "BPH":
+            staffDataFull = "";
+            $.each(staffDataBPH.staffs.staff, function (key, val) {
+                var option1 = '<option';
+                option1 = option1 + ' value="' + val.id + '">';
+                option1 = option1 + val.displayName + "</option>";
+                staffDataFull = staffDataFull + option1;
+            });
+            break;
+        case "IPH":
+            staffDataFull = "";
+            $.each(staffDataIPH.staffs.staff, function (key, val) {
+                var option1 = '<option';
+                option1 = option1 + ' value="' + val.id + '">';
+                option1 = option1 + val.displayName + "</option>";
+                staffDataFull = staffDataFull + option1;
+            });
+            break;
+    }
+    return staffDataFull;
+}
+$(document).on('change', 'select[id="doTeam"]', function () {
+    var str = $(this).val();
+    $('#deviceOwner').find('option').remove().end().append($(getStaffData(str)));
 });

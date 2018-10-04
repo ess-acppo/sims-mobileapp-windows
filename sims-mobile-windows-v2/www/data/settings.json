@@ -2,90 +2,20 @@
   "settings": {
     "mapSets": [
       {
-        "mapsetID": 1,
-        "mapSetName": "Queensland Street Maps",
-        "downloadPath": "http://sprinq.com.au/files/AU.zip",
-        "mapPath": "ms-appdata:///local/maps/AU/",
+        "mapsetID": 0,
+        "mapSetName": "Hybrid Maps",
+        "mapPath": "ms-appdata:///local/maps/",
         "emptyTilePath": "maps/empty.jpg",
+        "greenTilePath": "maps/green.jpg",
+        "downloadPath": "http://dev-sims.oztaxa.com/files/maps/BASE/",
+        "numfiles": 1,
         "startZoom": 9,
-        "endZoom": 14,
-        "activeFlag": 0,
-        "downloaded": 0,
-        "lastDownloadDate": "",
-        "numfiles": 0,
-        "format": "jpg",
-        "mapCenter": {
-          "lat": "-35.30873",
-          "lng": "149.124412"
-        },
-        "mapBounds": {
-          "topLat": "-8.55413",
-          "leftLng": "138.79849",
-          "bottomLat": "-29.01318",
-          "rightLng": "154.67349"
-        }
-      },
-      {
-        "mapsetID": 2,
-        "mapSetName": "Papua New Guinea Street Maps",
-        "downloadPath": "http://sprinq.com.au/files/PNG.zip",
-        "mapPath": "ms-appdata:///local/maps/PNG/",
-        "emptyTilePath": "maps/empty.jpg",
-        "startZoom": 9,
-        "endZoom": 14,
-        "activeFlag": 0,
-        "downloaded": 0,
-        "lastDownloadDate": "09/09/1900",
-        "numfiles": 22,
-        "format": "png",
-        "mapCenter": {
-          "lat": "-5.95452",
-          "lng": "144.60374"
-        },
-        "mapBounds": {
-          "topLat": "-2.528109",
-          "leftLng": "140.65029",
-          "bottomLat": "-10.9648",
-          "rightLng": "151.197165"
-        }
-      },
-      {
-        "mapsetID": 3,
-        "mapSetName": "East Timor Street Maps",
-        "downloadPath": "http://sprinq.com.au/files/ET.zip",
-        "mapPath": "ms-appdata:///local/maps/ET/",
-        "emptyTilePath": "maps/empty.jpg",
-        "startZoom": 9,
-        "endZoom": 14,
-        "activeFlag": 0,
-        "downloaded": 0,
-        "lastDownloadDate": "09/09/1900",
-        "numfiles": 0,
-        "format": "jpg",
-        "mapCenter": {
-          "lat": "-8.79854",
-          "lng": "125.83805"
-        },
-        "mapBounds": {
-          "topLat": "-8.12481",
-          "leftLng": "124.84378",
-          "bottomLat": "-9.57940",
-          "rightLng": "128.22757"
-        }
-      },
-      {
-        "mapsetID": 4,
-        "mapSetName": "ACT Hybrid Maps",
-        "downloadPath": "http://sprinq.com.au/files/ACT.zip",
-        "mapPath": "ms-appdata:///local/maps/ACT/",
-        "emptyTilePath": "maps/empty.jpg",
-        "startZoom": 9,
-        "endZoom": 15,
+        "endZoom": 16,
         "activeFlag": 1,
         "downloaded": 0,
+        "lastDownloadBDate": "09/09/1900",
         "lastDownloadDate": "09/09/1900",
-        "numfiles": 31,
-        "format": "jpg",
+        "curActivity": 0,
         "mapCenter": {
           "lat": "-35.267905",
           "lng": "149.130706"
@@ -102,6 +32,7 @@
       "ownerId": "NONE",
       "ownerName": "Raj Jonnalagedda",
       "ownerRole": "Botanist",
+      "ownerTeam": "NPH",
       "samplePrefix": "XX",
       "sampleStartNumber": 0,
       "currentSampleNumber": 0

@@ -92,10 +92,15 @@ html, body {
     /*margin-right: 20px;*/
 }
 
-
 #modalAuth .modal-dialog {
     margin: 4% auto;
     width: 50%;
+}
+
+#modalAuth .modal-body {
+    background: url("../images/dawr.png") no-repeat bottom right;
+    background-position-x: 90%;
+    background-position-y:90%;
 }
 
 #modalForm .modal-dialog {
@@ -174,15 +179,10 @@ html, body {
     overflow-y: hidden;
 }
 
-    .sample .collapsed, .hostweed .collapsed, .entobox .collapsed, .pathbox .collapsed {
-        height: 90px;
-        background-color: #f5f5f5;
-    }
-
-    .PlantAttachment .collapsed, .PlantObsAttachment .collapsed, .PlantSampleAttachment .collapsed {
-        height: 70px;
-        background-color: #f5f5f5;
-    }
+.collapsed {
+    height: 90px;
+    background-color: #f5f5f5;
+}
 
 .modal-dialog {
     width: 96%;
@@ -1274,9 +1274,10 @@ text-right {
     }
 }
 
-label.mapNotes {
+label.mapNotes, label.mapBNotes {
     font-weight: 400;
     font-size: 1.3rem;
+    text-decoration: none;
 }
 
 .btnError {
