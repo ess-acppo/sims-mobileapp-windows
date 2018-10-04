@@ -1635,27 +1635,27 @@ function Iterate(data) {
                 if (fname === 'HostStatAreaNo' && value === 0 && HostStatCountFlag === 1 && CountListFlag === 'Count' && plantDisciplineCode === 'B') {
                     //console.log('HostStatCount and Area fields - both cannot be NULL');
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>HostStatCount and Area fields - both cannot be empty.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>HostStatCount and Area fields - both cannot be empty.");
                     vFailed = true;
                     return false;
                 }
                 if (fname === 'HostStatAreaNo' && value === 0 && HostStatCountFlag === 1 && plantDisciplineCode === 'E') {
                     //console.log('HostStatCount and Area fields - both cannot be NULL');
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>HostStatCount and Area fields - both cannot be empty.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>HostStatCount and Area fields - both cannot be empty.");
                     vFailed = true;
                     return false;
                 }
                 if (fname === 'HostStatAreaNo' && value === 0 && HostStatCountFlag === 1 && plantDisciplineCode === 'P') {
                     //console.log('HostStatCount and Area fields - both cannot be NULL');
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>HostStatCount and Area fields - both cannot be empty.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>HostStatCount and Area fields - both cannot be empty.");
                     vFailed = true;
                     return false;
                 }
                 if (fname === 'TimeHourCount' && fNSD === 'S' && value.indexOf('_') > -1) {
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Invalid Duration Value.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Invalid Duration Value.");
                     vFailed = true;
                     return false;
                 }
@@ -1665,7 +1665,7 @@ function Iterate(data) {
                     wkt.toObject();
                     if (wkt.toJson().coordinates[1] < -180 || wkt.toJson().coordinates[1] > 180 || wkt.toJson().coordinates[0] < -180 || wkt.toJson().coordinates[0] > 180) {
                         vError = 1;
-                        vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Invalid Latitude/Longitude Value in the Observation.");
+                        vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Invalid Latitude/Longitude Value in the Observation.");
                         vFailed = true;
                         return false;
                     }
@@ -1676,7 +1676,7 @@ function Iterate(data) {
                     wkt.toObject();
                     if (wkt.toJson().coordinates[1] < -180 || wkt.toJson().coordinates[1] > 180 || wkt.toJson().coordinates[0] < -180 || wkt.toJson().coordinates[0] > 180) {
                         vError = 1;
-                        vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Invalid Latitude/Longitude Value in the Observation.");
+                        vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Invalid Latitude/Longitude Value in the Observation.");
                         vFailed = true;
                         return false;
                     }
@@ -1689,14 +1689,14 @@ function Iterate(data) {
                 } 
                 if (fname === 'TargetObservedCode' && ftype === "T" && $('input[name="' + index + '"]:checked').length === 0 && value === "N") {
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
                     vFailed = true;
                     return false;
                 } 
 
                 if (fname === 'CommentText' && ftype === "T" && value === "" && PlantTargetObservedCodeFlag === 1) {
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Comments Text for TargetObserved field cannot be empty.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Comments Text for TargetObserved field cannot be empty.");
                     PlantTargetObservedCodeFlag = 0;
                     vFailed = true;
                     return false;
@@ -1707,21 +1707,21 @@ function Iterate(data) {
                     wkt.toObject();
                     if (wkt.toJson().coordinates[1] < -180 || wkt.toJson().coordinates[1] > 180 || wkt.toJson().coordinates[0] < -180 || wkt.toJson().coordinates[0] > 180) {
                         vError = 1;
-                        vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Invalid Latitude/Longitude Value in the Observation.");
+                        vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Invalid Latitude/Longitude Value in the Observation.");
                         vFailed = true;
                         return false;
                     }
                 }
                 if (fname === 'PlantPreservOtherText' && fNSD === 'S' && value === '' && PlantPreservationOtherFlag === 1) {
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>PlantPreservOtherText cannot be empty.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>PlantPreservOtherText cannot be empty.");
                     PlantPreservationOtherFlag = 0;
                     vFailed = true;
                     return false;
                 }
                 if (fname === 'PlantPreservOtherText' && fNSD === 'S' && value !== '' && PlantPreservationOtherFlag === 0) {
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Invalid PlantPreservOtherText.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Invalid PlantPreservOtherText.");
                     vFailed = true;
                     return false;
                 }
@@ -1732,7 +1732,7 @@ function Iterate(data) {
                     if (fname === 'HostTaxonTextH') return true;
                     //console.log(index + ' field cannot be NULL');
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
                     vFailed = true;
                     return false;
                 }
@@ -2994,7 +2994,7 @@ $(document).on('click', 'a.downloadMaps', function (e) {
             resSettings.settings.mapSets[0].lastDownloadDate = new Date().toString();
             db.transaction(function (tx) {
                 tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
-                    $('#form3').find('label.mapBNotes').text("Last downloaded on:" + new Date().toString());
+                    $('#form3').find('label.mapNotes').text("Last downloaded on:" + new Date().toString());
                     $('#modalProgress').modal('hide');
                     $.growl.notice({ title: "", message: "Download complete", location: "bc", size: "small" });
                 });
@@ -3178,27 +3178,20 @@ function getFileandExtract(url, mapset, i, n) {
                 fs.root.getFile(filename, { create: true, exclusive: false }, function (fileEntry) {
                     writeFile(fileEntry, mapset, blob, i, n);
                     i++;
-                    //if (i === 10) {
-                    //    $('#modalProgress').modal('hide');
-                    //    initSettings();
-                    //    $.growl.notice({ title: "", message: "Maps downloaded in progress.", location: "bc", size: "medium", fixed: "true" });
-                    //}
                     if (i > n) {
                         //resSettings.settings.mapSets[ActiveMapSet].downloaded = 1;
                         resSettings.settings.mapSets[ActiveMapSet].lastDownloadBDate = new Date().toString();
                         db.transaction(function (tx) {
                             tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
                                 //alert("Row inserted.");
-                                //return e + pad(nextID.toString(), 4);
                             });
                         }, function (err) {
                             $.growl({ title: "", message: "An error occured while updating mapsets. " + err.message, location: "tc", size: "large" });
                         });
                         $('#modalProgress').modal('hide');
-                        //$('#form3').find('label.mapNotes').eq(ActiveMapSet).text("Last downloaded on:" + new Date().toString());
-                        initSettings();
+                        $('#form3').find('label.mapBNotes').text("Last downloaded on:" + new Date().toString());
+                        //initSettings();
                         //$('#mb6 .progTime').text("");
-                        //$.growl({ title: "", message: "Maps downloaded successfully.", location: "tc", size: "large" });
                         $.growl.notice({ title: "", message: "Download complete", location: "bc", size: "small" });
                         return false;
                     } else {

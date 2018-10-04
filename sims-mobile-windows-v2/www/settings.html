@@ -86,7 +86,17 @@
                                 <i class="fa fa-info-circle fa-2x text-info showPayloads" style="cursor:pointer"></i>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                                <a href="#" class="btn btn-md btn-sm btn-default btnSync"><i class="fa fa-refresh"></i>&nbsp;Data Sync</a>&nbsp;
+                                <a href="#" class="btn btn-md btn-sm btn-default ripple btnSync"><i class="fa fa-refresh"></i>&nbsp;Data Sync</a>&nbsp;
+                            </div>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <h5>Application Logs</h5>
+                                <small>Download or clear application logs.</small>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <a href="#" class="btn btn-md btn-sm btn-default ripple btnDownloadLogs"><i class="fa fa-download"></i>&nbsp;Download</a>&nbsp;
+                                <a href="#" class="btn btn-md btn-sm btn-default ripple btnClearLogs"><i class="fa fa-trash"></i>&nbsp;Clear</a>&nbsp;
                             </div>
                         </div>
                     </div>
@@ -97,7 +107,7 @@
                                 <small>Backup your observations to a local folder.</small>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                                <a href="#" class="btn btn-md btn-sm btn-default btnBackupData pull-right"><i class="fa fa-database"></i>&nbsp;Data Backup</a>
+                                <a href="#" class="btn btn-md btn-sm btn-default ripple btnBackupData pull-right"><i class="fa fa-database"></i>&nbsp;Data Backup</a>
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
@@ -106,7 +116,7 @@
                                 <small>Restore your observations from the last backup.</small>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                                <a href="#" class="btn btn-md btn-sm btn-default btnRestoreData pull-right"><i class="fa fa-rotate-left"></i>&nbsp;Data Restore</a>
+                                <a href="#" class="btn btn-md btn-sm btn-default ripple btnRestoreData pull-right"><i class="fa fa-rotate-left"></i>&nbsp;Data Restore</a>
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
@@ -126,7 +136,7 @@
                                 <br /><label class="mapBNotes text-sm">Last downloaded on: 09/09/1900</label>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                                <a href="#" class="btn btn-sm btn-default downloadBaseMaps pull-right">Download</a><br /><br />
+                                <a href="#" class="btn btn-sm btn-default ripple downloadBaseMaps pull-right">Download</a><br /><br />
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
@@ -136,7 +146,7 @@
                                 <label class="mapNotes text-sm">Last downloaded on: 09/09/1900</label>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                                <a href="#" class="btn btn-sm btn-default downloadMaps pull-right">Download</a><br /><br />
+                                <a href="#" class="btn btn-sm btn-default ripple downloadMaps pull-right">Download</a><br /><br />
                             </div>
                         </div>
                         <!--<div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm hide">
@@ -144,7 +154,7 @@
                                 <input type="radio" class="minimal" value="QLD" name="optMaps" data-id="0" data-url="http://dev-sims.oztaxa.com/files/maps/QLD/" data-files="1">
                                 Queensland Maps
                                 <br /><label class="mapNotes text-sm">Last downloaded on: 09/09/1900</label>
-                                <a href="#" class="btn btn-sm btn-default downloadMaps pull-right">Download</a><br /><br />
+                                <a href="#" class="btn btn-sm btn-default ripple downloadMaps pull-right">Download</a><br /><br />
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm hide">
@@ -152,7 +162,7 @@
                                 <input type="radio" class="minimal" value="PNG" name="optMaps" data-id="1" data-url="http://dev-sims.oztaxa.com/files/maps/PNG/" data-files="22">
                                 Papua New Guinea Maps
                                 <br /><label class="mapNotes text-sm">Last downloaded on: 09/09/1900</label>
-                                <a href="#" class="btn btn-md btn-sm btn-default downloadMaps pull-right">Download</a><br /><br />
+                                <a href="#" class="btn btn-md btn-sm btn-default ripple downloadMaps pull-right">Download</a><br /><br />
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm hide">
@@ -160,7 +170,7 @@
                                 <input type="radio" class="minimal" value="ET" name="optMaps" data-id="2" data-url="http://dev-sims.oztaxa.com/files/maps/ET/" data-files="1">
                                 East Timor Maps
                                 <br /><label class="mapNotes text-sm">Last downloaded on: 09/09/1900</label>
-                                <a href="#" class="btn btn-md btn-sm btn-default downloadMaps pull-right">Download</a><br /><br />
+                                <a href="#" class="btn btn-md btn-sm btn-default ripple downloadMaps pull-right">Download</a><br /><br />
                             </div>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom  obsForm">
@@ -168,7 +178,7 @@
                                 <input type="radio" class="minimal" value="ACT" name="optMaps" data-id="3" data-url="http://dev-sims.oztaxa.com/files/maps/ACT/" data-files="13">
                                 ACT Maps
                                 <br /><label class="mapNotes text-sm">Last downloaded on: 09/09/1900</label>
-                                <a href="#" class="btn btn-sm btn-default downloadMaps pull-right">Download</a><br /><br />
+                                <a href="#" class="btn btn-sm btn-default ripple downloadMaps pull-right">Download</a><br /><br />
                             </div>
                         </div>-->
                     </div>

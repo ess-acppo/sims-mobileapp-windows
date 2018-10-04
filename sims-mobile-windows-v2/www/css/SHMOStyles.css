@@ -100,7 +100,7 @@ html, body {
 #modalAuth .modal-body {
     background: url("../images/dawr.png") no-repeat bottom right;
     background-position-x: 90%;
-    background-position-y:90%;
+    background-position-y: 90%;
 }
 
 #modalForm .modal-dialog {
@@ -921,8 +921,9 @@ hr {
         font-size: 1.6rem;
         line-height: 1.33;
         border-radius: 25px;
-        background-color: transparent;
-        color: #fff;
+        background-color: #fff;
+        opacity: 0.4;
+        color: #000;
         margin-right: 15px;
     }
 

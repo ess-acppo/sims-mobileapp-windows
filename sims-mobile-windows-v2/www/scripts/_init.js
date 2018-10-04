@@ -533,8 +533,8 @@ function myLoc() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             if (checkMapBoundsByPos(position)) {
-                var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-                map.setZoom(11);
+                var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                map.setZoom(9);
                 map.setCenter(pos);
                 $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
                     checkboxClass: 'icheckbox_square-blue',
@@ -763,6 +763,63 @@ $(document).on('click', '.export', function (event) {s
     //exportTableToCSV.apply(this, args);
     exportObservationsToCSV();
 });
+$(document).on('click', '.btnDownloadLogs', function (event) {
+    window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (fs) {
+        fs.getDirectory("Logs", { create: true, exclusive: false }, function (dirEntry) {
+            dirEntry.getFile("log.txt", { create: true, exclusive: false }, function (fileEntry) {
+                //console.log("fileEntry is file?" + fileEntry.isFile.toString());
+                fileEntry.file(function (file) {
+                    var reader = new FileReader();
+                    reader.onloadend = function () {
+                        //console.log("Successful file read: " + this.result);
+                        var logtext = this.result;
+                        var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+                        savePicker.suggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.documentsLibrary;
+                        savePicker.fileTypeChoices.insert("TEXT", [".txt"]);
+                        savePicker.suggestedFileName = "log.txt";
+                        savePicker.pickSaveFileAsync().then(function (file) {
+                            if (file) {
+                                Windows.Storage.CachedFileManager.deferUpdates(file);
+                                Windows.Storage.FileIO.writeTextAsync(file, logtext).done(function () {
+                                    Windows.Storage.CachedFileManager.completeUpdatesAsync(file).done(function (updateStatus) {
+                                        if (updateStatus === Windows.Storage.Provider.FileUpdateStatus.complete) {
+                                            $.growl.notice({ title: "", message: 'File saved to Downloads folder.', location: "bc", size: "small" });
+                                        } else {
+                                            $.growl.error({ title: "", message: 'File save failed!', location: "tc", size: "large" });
+                                        }
+                                    });
+                                });
+                            } else {
+                                $.growl.notice({ title: "", message: 'Operation Cancelled!', location: "bc", size: "small" });
+                            }
+                        });
+                    };
+                    reader.readAsText(file);
+                }, function () {
+                    $.growl.error({ title: "", message: 'File read error!', location: "tc", size: "large" });
+                    }); 
+            });
+        });
+    });
+});
+$(document).on('click', '.btnClearLogs', function (event) {
+    window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (fs) {
+        fs.getDirectory("Logs", { create: true, exclusive: false }, function (dirEntry) {
+            dirEntry.getFile("log.txt", { create: true, exclusive: false }, function (fileEntry) {
+                fileEntry.remove(function () {
+                    // The file has been removed succesfully
+                    $.growl.notice({ title: "", message: "Logs cleared.", location: "bc", size: "small" });
+                }, function (error) {
+                    // Error deleting the file
+                    $.growl.error({ title: "", message: "Error removing zip file.", location: "tc", size: "large" });
+                }, function () {
+                    // The file doesn't exist
+                    $.growl.notice({ title: "", message: "Zip file does not exist.", location: "bc", size: "small" });
+                });
+            });
+        });
+    });
+});
 function exportTableToCSV($table, filename) {
     csv = "";
     var $rows = $table.find('tr:has(td)'),
@@ -820,7 +877,7 @@ function exportTableToCSV($table, filename) {
                     fileWriter.seek(0);
                     var blob = new Blob([csv], { type: 'text/plain' });
                     fileWriter.write(blob);
-                    $.growl.notice({ title: "", message: 'File saved to Local folder.', location: "tc", size: "large" });
+                    $.growl.notice({ title: "", message: 'File saved to Local folder.', location: "bc", size: "small" });
                 });
             });
         });
@@ -900,7 +957,7 @@ function backupDatabase() {
                 //console.log('[!] Directory: ' + bkupdirectoryEntry.toURL());
                 fileEntry.copyTo(bkupdirectoryEntry, name, function (cpfileEntry) {
                     //console.log('[!] Copy success');
-                    $.growl.notice({ title: "", message: "Observations backedup to local Backup folder.", location: "tc", size: "large" });
+                    $.growl.notice({ title: "", message: "Observations backedup to local Backup folder.", location: "bc", size: "small" });
                 }, function (error) {
                     //console.log('[!] Copy failed: ' + error.code);
                 });
@@ -1158,7 +1215,7 @@ $(document).on('click', '#Submit2', function (e) {
         }
         db.transaction(function (tx) {
             tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
-                $.growl({ title: "", message: "Observation marked for Sync.", location: "tc", size: "large" });
+                $.growl.notice({ title: "", message: "Observation marked for Sync.", location: "bc", size: "small" });
             });
         }, function (err) {
             $.growl.error({ title: "", message: "An error occured while saving row to DB. " + err.message, location: "tc", size: "large" });
@@ -1464,7 +1521,7 @@ $(document).on('click', 'a.btnResetData', function (e) {
                         }, function (err) {
                             $.growl.error({ title: "", message: "An error occured while updating data to DB. " + err.message, location: "tc", size: "large" });
                         });
-                        $.growl.notice({ title: "", message: "Data reset complete!", location: "tc", size: "large" });
+                        $.growl.notice({ title: "", message: "Data reset complete!", location: "bc", size: "small" });
                     },
                     failure: function () {
                         $.growl.error({ title: "", message: "Error!", location: "tc", size: "large" });
@@ -1788,14 +1845,14 @@ function exportObservationsToCSV() {
             Windows.Storage.FileIO.writeTextAsync(file, csv).done(function () {
                 Windows.Storage.CachedFileManager.completeUpdatesAsync(file).done(function (updateStatus) {
                     if (updateStatus === Windows.Storage.Provider.FileUpdateStatus.complete) {
-                        $.growl.notice({ title: "", message: 'File saved to Downloads folder.', location: "tc", size: "large" });
+                        $.growl.notice({ title: "", message: 'File saved to Downloads folder.', location: "bc", size: "small" });
                     } else {
-                        $.growl.notice({ title: "", message: 'File save failed!', location: "tc", size: "large" });
+                        $.growl.error({ title: "", message: 'File save failed!', location: "tc", size: "large" });
                     }
                 });
             });
         } else {
-            $.growl.notice({ title: "", message: 'Operation Cancelled!', location: "tc", size: "large" });
+            $.growl.notice({ title: "", message: 'Operation Cancelled!', location: "bc", size: "small" });
         }
     });
 }
@@ -1995,7 +2052,7 @@ function StartSync() {
         });
     }
     else if (success === false && noRowstoPush === false) { $.growl.error({ title: "", message: "Submit Failed for rows:" + rowsFailed.join(',') + "<br/>" + rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" }); }
-    else if (success === true && noRowstoPush === true) { $.growl.notice({ title: "", message: "No records to Sync.", location: "tc", size: "large" }); }
+    else if (success === true && noRowstoPush === true) { $.growl.notice({ title: "", message: "No records to Sync.", location: "bc", size: "small" }); }
     syncPHRefCodes();
     syncActivityData();
     syncBPHstaffData();
@@ -2027,19 +2084,19 @@ function EnableForm() {
 function logRecord(record) {
     window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (fs) {
         //console.log('file system open: ' + fs);
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1; //January is 0!
-        var yyyy = today.getFullYear();
-        if (dd < 10) {
-            dd = '0' + dd;
-        }
-        if (mm < 10) {
-            mm = '0' + mm;
-        }
-        today = yyyy.toString() + mm.toString() + dd.toString();
+        //var today = new Date();
+        //var dd = today.getDate();
+        //var mm = today.getMonth() + 1; //January is 0!
+        //var yyyy = today.getFullYear();
+        //if (dd < 10) {
+        //    dd = '0' + dd;
+        //}
+        //if (mm < 10) {
+        //    mm = '0' + mm;
+        //}
+        //today = yyyy.toString() + mm.toString() + dd.toString();
         fs.getDirectory("Logs", { create: true, exclusive: false }, function (dirEntry) {
-            dirEntry.getFile("log" + today + ".txt", { create: true, exclusive: false }, function (fileEntry) {
+            dirEntry.getFile("log.txt", { create: true, exclusive: false }, function (fileEntry) {
                 //console.log("fileEntry is file?" + fileEntry.isFile.toString());
                 fileEntry.createWriter(function (fileWriter) {
                     fileWriter.onwriteend = function () {
@@ -2248,10 +2305,10 @@ function getCurrentActivityTiles(str, zoom) {
             var maxLatLng = new google.maps.LatLng(maxX, maxY);
             var wC1 = project(minLatLng);
             var wC2 = project(maxLatLng);
-            var pC1x = Math.floor(wC1.x * scale / TILE_SIZE);
-            var pC1y = Math.floor(wC1.y * scale / TILE_SIZE);
-            var pC2x = Math.floor(wC2.x * scale / TILE_SIZE);
-            var pC2y = Math.floor(wC2.y * scale / TILE_SIZE);
+            var pC1x = Math.floor(wC1.x * scale / TILE_SIZE)-1;
+            var pC1y = Math.floor(wC1.y * scale / TILE_SIZE)-1;
+            var pC2x = Math.floor(wC2.x * scale / TILE_SIZE)+1;
+            var pC2y = Math.floor(wC2.y * scale / TILE_SIZE)+1;
             $('#modalProgress').modal();
             $('#mb6 .progText').text("Download in progress ...");
             $('#mb6 .progress').removeClass('hide');
