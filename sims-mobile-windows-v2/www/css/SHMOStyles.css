@@ -72,7 +72,7 @@ html, body {
     height: 900px;
     /*padding: 25px;*/
     overflow-x: auto;
-    overflow-y: scroll;
+    overflow-y: auto;
     /*margin-right: 20px;*/
 }
 
@@ -98,9 +98,10 @@ html, body {
 }
 
 #modalAuth .modal-body {
-    background: url("../images/dawr.png") no-repeat bottom right;
-    background-position-x: 90%;
-    background-position-y: 90%;
+    background: url("../images/dawr.png") no-repeat bottom left;
+    background-position-x: 0px;
+    background-position-y: 140px;
+    background-attachment: fixed;
 }
 
 #modalForm .modal-dialog {
@@ -775,6 +776,11 @@ table.dataTable {
     margin-top: 0px !important;
     margin-bottom: 0px !important;
 }
+
+    table.dataTable tbody tr {
+        cursor: pointer;
+    }
+
 
 .sidebar-menu > li > a > .fa, .sidebar-menu > li > a > .glyphicon, .sidebar-menu > li > a > .fa {
     color: #fff;

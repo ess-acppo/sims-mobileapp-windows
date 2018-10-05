@@ -1,8 +1,10 @@
-﻿/* global*/
+﻿/* Auth variables */
 var text;
 var icon;
 var s;
 var authCode;
+var curUser;
+/* Auth variables */
 
 function initAuth() {
     document.querySelector('.auth-send')
@@ -21,47 +23,12 @@ function initAuth() {
             }
         });
 }
-//function authenticate(x, y) {
-//    var settings = {
-//        "async": false,
-//        "crossDomain": true,
-//        "url": "http://dev-sims.oztaxa.com/oAuth20/oAuth2API/token",
-//        "beforeSend": function () {
-//            s.classList.remove('hide');
-//        },
-//        "method": "POST",
-//        "headers": {
-//            "content-type": "application/x-www-form-urlencoded",
-//            "cache-control": "no-cache"
-//        },
-//        "data": {
-//            "grant_type": "password",
-//            "username": x,
-//            "password": y
-//        }
-//    };
-//    $.ajax(settings).done(function (response) {
-//        //alert(JSON.stringify(response));
-//        s.classList.add('hide');
-//        icon.classList.add('fa-check');
-//        icon.classList.remove('fa-times');
-//        text.innerHTML = 'Login success!';
-//        $('#modalAuth').modal('hide');
-//    }).fail(function (response) {
-//        s.classList.add('hide');
-//        icon.classList.add('fa-times');
-//        icon.classList.remove('fa-check');
-//        text.innerHTML = 'Login Failed!';
-//    });
-
-//}
 function authenticate2(x, y) {
     Zeep.submitURL({
         from: authAddress,
         to: btoa(x + ":" + y)
     }, function (e) {
         //console.log('auth success:');
-        //alert(JSON.stringify(response));
         s.classList.add('hide');
         icon.classList.add('fa-check');
         icon.classList.remove('fa-times');
@@ -69,7 +36,6 @@ function authenticate2(x, y) {
         derive_key(x, y);
         authCode = "Basic " + btoa(x + ":" + y);
         initSettings();
-        //$('#modalProgress').modal('hide');
         $('.auth-username').attr('disabled', false);
         $('.auth-username').removeClass('disabled');
         $('.auth-password').attr('disabled', false);
@@ -78,15 +44,13 @@ function authenticate2(x, y) {
         $('.auth-send').removeClass('disabled');
         $('#modalAuth').modal('hide');
         }, function (e) {
-            //console.log('auth fail: ', e);
-
+            //console.log('auth fail:', e);
             $('.auth-username').attr('disabled', false);
             $('.auth-username').removeClass('disabled');
             $('.auth-password').attr('disabled', false);
             $('.auth-password').removeClass('disabled');
             $('.auth-send').attr('disabled', false);
             $('.auth-send').removeClass('disabled');
-
             s.classList.add('hide');
             icon.classList.add('fa-times');
             icon.classList.remove('fa-check');
@@ -100,12 +64,10 @@ function authenticate3(x, y) {
     var bytes = 16;
     var mypbkdf2 = new PBKDF2(password, salt, iterations, bytes);
     var status_callback = function (percent_done) {
-        //display_message("Computed " + Math.floor(percent_done) + "%")
         //console.log("Computed " + Math.floor(percent_done) + "%");
     };
     var result_callback = function (key) {
         //console.log("The derived " + (bytes * 8) + "-bit key is: " + key);
-        //console.log('3-' +JSON.stringify(resSettings));
         var arr = resSettings.settings.auth.lastLoggedIn.filter(function (el, index) {
             if (el.user === x) { curUser = index; }
             return (el.user === x);
@@ -130,8 +92,7 @@ function authenticate3(x, y) {
             resSettings.settings.auth.lastLoggedIn[curUser].inDateTime = new Date().toString();
             db.transaction(function (tx) {
                 tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
-                    //alert("Row inserted.");
-                    //return e + pad(nextID.toString(), 4);
+                    //console.log("Settings Updated.");
                 });
             }, function (err) {
                 $.growl.error({ title: "", message: "An error occured while updating Auth Settings. " + err.message, location: "bc", size: "large" });
@@ -141,7 +102,6 @@ function authenticate3(x, y) {
             icon.classList.remove('fa-times');
             text.innerHTML = 'Login success!';
             initSettings();
-            //$('#modalProgress').modal('hide');
             $('#modalAuth').modal('hide');
             return;
         }
@@ -171,7 +131,6 @@ function derive_key(u, p) {
 
     var mypbkdf2 = new PBKDF2(password, salt, iterations, bytes);
     var status_callback = function (percent_done) {
-        //display_message("Computed " + Math.floor(percent_done) + "%")
         //console.log("Computed " + Math.floor(percent_done) + "%");
     };
     var result_callback = function (key) {
@@ -191,19 +150,13 @@ function derive_key(u, p) {
             resSettings.settings.auth.lastLoggedIn[curUser].hashedPassword = key;
             resSettings.settings.auth.lastLoggedIn[curUser].inDateTime = new Date().toString();
         }
-        //resSettings.settings.auth.authenticated = 1;
-        //resSettings.settings.auth.hashedPassword = key;
-        //resSettings.settings.auth.lastLoggedInUser = u;
-        //resSettings.settings.auth.lastLoggedInDateTime = new Date().toString();
         db.transaction(function (tx) {
             tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
-                //alert("Row inserted.");
-                //return e + pad(nextID.toString(), 4);
+                //console.log("Settings updated.");
             });
         }, function (err) {
             $.growl.error({ title: "", message: "An error occured while updating Auth Settings. " + err.message, location: "bc", size: "large" });
         });
-        //console.log('2-' +JSON.stringify(resSettings));
     };
     mypbkdf2.deriveKey(status_callback, result_callback);
 }
