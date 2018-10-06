@@ -4,6 +4,7 @@ var emptyTilePath;
 var greenTilePath;
 var AppMode;
 var ServerMode;
+var debugMode;
 var ServerAddress;
 var devServerAddress;
 var sitServerAddress;
@@ -961,23 +962,25 @@ $(document).on('click', '#Save', function (e) {
     //var obj1 = JSON.stringify(objectifyForm(form1));
     var obj = objectifyPHFormforSave(form1);
     obj.status_M_N = 0;
-    $.confirm({
-        title: 'Payload Saved!',
-        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
-        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-        buttons: {
-            ok: function () { },
-            copy: {
-                text: 'Copy', // With spaces and symbols
-                action: function () {
-                    var copytext = this.$content.find("#Payload");
-                    copytext.select();
-                    document.execCommand("copy");
-                    return false;
+    if (debugMode === 1) {
+        $.confirm({
+            title: 'Payload Saved!',
+            content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
+            columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+            buttons: {
+                ok: function () { },
+                copy: {
+                    text: 'Copy', // With spaces and symbols
+                    action: function () {
+                        var copytext = this.$content.find("#Payload");
+                        copytext.select();
+                        document.execCommand("copy");
+                        return false;
+                    }
                 }
             }
-        }
-    });
+        });
+    }
     if (curIdx > 0) {
         results.observations[curPos] = obj;
     }
@@ -1006,23 +1009,25 @@ $(document).on('click', '#SaveExit', function (e) {
     //var obj1 = JSON.stringify(objectifyForm(form1));
     var obj = objectifyPHFormforSave(form1);
     obj.status_M_N = 0;
-    $.confirm({
-        title: 'Payload Saved!',
-        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
-        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-        buttons: {
-            ok: function () { },
-            copy: {
-                text: 'Copy', // With spaces and symbols
-                action: function () {
-                    var copytext = this.$content.find("#Payload");
-                    copytext.select();
-                    document.execCommand("copy");
-                    return false;
+    if (debugMode === 1) {
+        $.confirm({
+            title: 'Payload Saved!',
+            content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
+            columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+            buttons: {
+                ok: function () { },
+                copy: {
+                    text: 'Copy', // With spaces and symbols
+                    action: function () {
+                        var copytext = this.$content.find("#Payload");
+                        copytext.select();
+                        document.execCommand("copy");
+                        return false;
+                    }
                 }
             }
-        }
-    });
+        });
+    }
     if (curIdx > 0) {
         results.observations[curPos] = obj;
     }
@@ -1059,23 +1064,25 @@ $(document).on('click', '#Submit2', function (e) {
     if (result.vError === 0) {
         //console.log(JSON.stringify(SubmitRecord(objectifyPHFormforSubmit(obj))));
         obj.status_M_N = 1;
-        $.confirm({
-            title: 'Payload marked for Submit!',
-            content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
-            columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-            buttons: {
-                ok: function () { },
-                copy: {
-                    text: 'Copy', // With spaces and symbols
-                    action: function () {
-                        var copytext = this.$content.find("#Payload");
-                        copytext.select();
-                        document.execCommand("copy");
-                        return false;
+        if (debugMode === 1) {
+            $.confirm({
+                title: 'Payload marked for Submit!',
+                content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
+                columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                buttons: {
+                    ok: function () { },
+                    copy: {
+                        text: 'Copy', // With spaces and symbols
+                        action: function () {
+                            var copytext = this.$content.find("#Payload");
+                            copytext.select();
+                            document.execCommand("copy");
+                            return false;
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
         if (curIdx > 0) {
             results.observations[curPos] = obj;
         }
@@ -1128,6 +1135,12 @@ $(document).on('click', '#settings', function (e) {
         $('#form3').find('label.mapNotes').eq(resSettings.settings.mapSets[0].mapsetID).text("Last downloaded on:" + resSettings.settings.mapSets[0].lastDownloadDate);
         $('#form3').find('label.mapBNotes').eq(resSettings.settings.mapSets[0].mapsetID).text("Last downloaded on:" + resSettings.settings.mapSets[0].lastDownloadBDate);
         if (resSettings.settings.device.ownerTeam) { $('#form3').find('select[id="doTeam"]').val(resSettings.settings.device.ownerTeam); }
+        if (resSettings.settings.device.debugMode === 0) {
+            $('#form3').find('input[id="debugMode"]').iCheck('uncheck');
+        }
+        if (resSettings.settings.device.debugMode === 1) {
+            $('#form3').find('input[id="debugMode"]').iCheck('check');
+        }
         $.when(getStaffData(resSettings.settings.device.ownerTeam)).then(function () {
             $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(staffDataFull));
             if (resSettings.settings.device.ownerId) { $('#form3').find('select[id="deviceOwner"]').val(resSettings.settings.device.ownerId); }
@@ -1175,6 +1188,12 @@ $(document).on('click', '#SaveSettingsExit', function (e) {
     resSettings.settings.device.ownerId = $('#form3').find('select[id="deviceOwner"]').val();
     resSettings.settings.device.ownerTeam = $('#form3').find('select[id="doTeam"]').val();
     resSettings.settings.device.ownerName = $('#form3').find('select[id="deviceOwner"]').text();
+    if ($('#form3').find('input[id="debugMode"]').val() === 'Y') {
+        resSettings.settings.device.debugMode = 1;
+    }
+    if ($('#form3').find('input[id="debugMode"]').val() === 'N') {
+        resSettings.settings.device.debugMode = 0;
+    }
     resSettings.settings.device.samplePrefix = $('#form3').find('input[name="samplePrefix"]').val();
     resSettings.settings.device.sampleStartNumber = $('#form3').find('input[name="sampleStartNum"]').val();
     resSettings.settings.device.currentSampleNumber = $('#form3').find('input[name="sampleCurrNum"]').val();
@@ -1426,95 +1445,97 @@ $(document).on('click', 'a.btnSync', function (e) {
     });
 });
 $(document).on('click', '.showPayloads', function (e) {
-    $.confirm({
-        title: 'Activity Data',
-        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadAD">' + JSON.stringify(ActivityData) + '</textarea></div>',
-        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-        buttons: {
-            Ok: function () {
-                $.confirm({
-                    title: 'PHRefCodes Data',
-                    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadPHRC">' + JSON.stringify(PHRefCodes) + '</textarea></div>',
-                    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-                    buttons: {
-                        Ok: function () {
-                            $.confirm({
-                                title: 'Staff Data',
-                                content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadSD">' + JSON.stringify(staffDataBPH) + JSON.stringify(staffDataIPH) + JSON.stringify(staffDataNPH) + '</textarea></div>',
-                                columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-                                buttons: {
-                                    Ok: function () {
-                                        $.confirm({
-                                            title: 'Taxa Data',
-                                            content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadTD">' + JSON.stringify(taxaData) + '</textarea></div>',
-                                            columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-                                            buttons: {
-                                                Ok: function () {
-                                                    $.confirm({
-                                                        title: 'Settings',
-                                                        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadRS">' + JSON.stringify(resSettings) + '</textarea></div>',
-                                                        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-                                                        buttons: {
-                                                            Ok: function () { },
-                                                            copy: {
-                                                                text: 'Copy', // With spaces and symbols
-                                                                action: function () {
-                                                                    var copytext = this.$content.find("#PayloadRS");
-                                                                    copytext.select();
-                                                                    document.execCommand("copy");
-                                                                    return false;
+    if (debugMode === 1) {
+        $.confirm({
+            title: 'Activity Data',
+            content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadAD">' + JSON.stringify(ActivityData) + '</textarea></div>',
+            columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+            buttons: {
+                Ok: function () {
+                    $.confirm({
+                        title: 'PHRefCodes Data',
+                        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadPHRC">' + JSON.stringify(PHRefCodes) + '</textarea></div>',
+                        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                        buttons: {
+                            Ok: function () {
+                                $.confirm({
+                                    title: 'Staff Data',
+                                    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadSD">' + JSON.stringify(staffDataBPH) + JSON.stringify(staffDataIPH) + JSON.stringify(staffDataNPH) + '</textarea></div>',
+                                    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                                    buttons: {
+                                        Ok: function () {
+                                            $.confirm({
+                                                title: 'Taxa Data',
+                                                content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadTD">' + JSON.stringify(taxaData) + '</textarea></div>',
+                                                columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                                                buttons: {
+                                                    Ok: function () {
+                                                        $.confirm({
+                                                            title: 'Settings',
+                                                            content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadRS">' + JSON.stringify(resSettings) + '</textarea></div>',
+                                                            columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                                                            buttons: {
+                                                                Ok: function () { },
+                                                                copy: {
+                                                                    text: 'Copy', // With spaces and symbols
+                                                                    action: function () {
+                                                                        var copytext = this.$content.find("#PayloadRS");
+                                                                        copytext.select();
+                                                                        document.execCommand("copy");
+                                                                        return false;
+                                                                    }
                                                                 }
                                                             }
+                                                        });
+                                                    },
+                                                    copy: {
+                                                        text: 'Copy', // With spaces and symbols
+                                                        action: function () {
+                                                            var copytext = this.$content.find("#PayloadTD");
+                                                            copytext.select();
+                                                            document.execCommand("copy");
+                                                            return false;
                                                         }
-                                                    });
-                                                },
-                                                copy: {
-                                                    text: 'Copy', // With spaces and symbols
-                                                    action: function () {
-                                                        var copytext = this.$content.find("#PayloadTD");
-                                                        copytext.select();
-                                                        document.execCommand("copy");
-                                                        return false;
                                                     }
                                                 }
+                                            });
+                                        },
+                                        copy: {
+                                            text: 'Copy', // With spaces and symbols
+                                            action: function () {
+                                                var copytext = this.$content.find("#PayloadSD");
+                                                copytext.select();
+                                                document.execCommand("copy");
+                                                return false;
                                             }
-                                        });
-                                    },
-                                    copy: {
-                                        text: 'Copy', // With spaces and symbols
-                                        action: function () {
-                                            var copytext = this.$content.find("#PayloadSD");
-                                            copytext.select();
-                                            document.execCommand("copy");
-                                            return false;
                                         }
                                     }
+                                });
+                            },
+                            copy: {
+                                text: 'Copy', // With spaces and symbols
+                                action: function () {
+                                    var copytext = this.$content.find("#PayloadPHRC");
+                                    copytext.select();
+                                    document.execCommand("copy");
+                                    return false;
                                 }
-                            });
-                        },
-                        copy: {
-                            text: 'Copy', // With spaces and symbols
-                            action: function () {
-                                var copytext = this.$content.find("#PayloadPHRC");
-                                copytext.select();
-                                document.execCommand("copy");
-                                return false;
                             }
                         }
+                    });
+                },
+                copy: {
+                    text: 'Copy', // With spaces and symbols
+                    action: function () {
+                        var copytext = this.$content.find("#PayloadAD");
+                        copytext.select();
+                        document.execCommand("copy");
+                        return false;
                     }
-                });
-            },
-            copy: {
-                text: 'Copy', // With spaces and symbols
-                action: function () {
-                    var copytext = this.$content.find("#PayloadAD");
-                    copytext.select();
-                    document.execCommand("copy");
-                    return false;
                 }
             }
-        }
-    });
+        });
+    }
 });
 $(document).on('click', '.obsForm', function (e) {
     $('.obsForm').removeClass('bg-Obs');
@@ -1949,23 +1970,25 @@ function StartSync() {
         var result = Iterate2(value);
         if (result.vError === 0) {
             var vpayload = JSON.stringify(SubmitRecord(objectifyPHFormforSubmit(value)));
-            $.confirm({
-                title: 'Payload Attempted!',
-                content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + vpayload.escapeSpecialChars() + '</textarea></div>',
-                columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-                buttons: {
-                    ok: function () { },
-                    copy: {
-                        text: 'Copy', // With spaces and symbols
-                        action: function () {
-                            var copytext = this.$content.find("#Payload");
-                            copytext.select();
-                            document.execCommand("copy");
-                            return false;
+            if (debugMode === 1) {
+                $.confirm({
+                    title: 'Payload Attempted!',
+                    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + vpayload.escapeSpecialChars() + '</textarea></div>',
+                    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                    buttons: {
+                        ok: function () { },
+                        copy: {
+                            text: 'Copy', // With spaces and symbols
+                            action: function () {
+                                var copytext = this.$content.find("#Payload");
+                                copytext.select();
+                                document.execCommand("copy");
+                                return false;
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
             //var payload = {
             //    "value": vpayload.escapeSpecialChars() 
             //};
@@ -2113,6 +2136,7 @@ function fetchServerDetails() {
     appEnv.innerHTML = ServerMode;
     downerId = resSettings.settings.device.ownerId;
     downerTeam = resSettings.settings.device.ownerTeam;
+    debugMode = resSettings.settings.device.debugMode;
     devServerAddress = resSettings.settings.app.devServerAddress;
     sitServerAddress = resSettings.settings.app.sitServerAddress;
     uatServerAddress = resSettings.settings.app.uatServerAddress;
