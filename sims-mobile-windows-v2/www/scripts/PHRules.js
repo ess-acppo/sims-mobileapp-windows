@@ -1908,9 +1908,11 @@ function loadSiteData(str) {
             var arr = arr2[0].ActivitySitePlant.filter(function (el) {
                 return (el.PlantDisciplineCode === curDiscipline);
             });
-            var arr1 = arr2[0].FlaggedObservations.filter(function (el) {
-                return (el.PlantDisciplineCode === curDiscipline);
-            });
+            if (arr2[0].FlaggedObservations) {
+                var arr1 = arr2[0].FlaggedObservations.filter(function (el) {
+                    return (el.PlantDisciplineCode === curDiscipline);
+                });
+            }
         }
     }
     if (arr) {
@@ -3121,21 +3123,27 @@ $(document).on('ifChecked', 'input[type="radio"].minimal', function (event) {
     //alert(event.type + ' callback');
     if ($(this).attr('name') === 'addlCollectors') {
         $('#Roles').modal();
-    };
+    }
     if ($(this).attr('name') === 'otherSample') {
         $(this).parent('div').parent('div').find('input[type="text"]').removeClass('hide');
-    };
+    }
     if ($(this).attr('name').startsWith('CountList') && $(this).val() === 'Count') {
         var that = $(this).parentsUntil('.hostweed').parent().find('div.countArea');
-        that.find("input[type='number'][name^='HostStatAreaNo']").val(HostStatAreaNo);
-        that.find("input[type='number'][name^='HostStatCount']").val(HostStatCount);
+        if (HostStatAreaNo > 0) { that.find("input[type='number'][name^='HostStatAreaNo']").val(HostStatAreaNo); } 
+        else {
+            that.find("input[type='number'][name^='HostStatAreaNo']").val(0);
+            that.find("input[type='number'][name^='HostStatAreaNo']").text(0);
+        }
+        if (HostStatCount > 0) { that.find("input[type='number'][name^='HostStatCount']").val(HostStatCount); }
+        else {
+            that.find("input[type='number'][name^='HostStatCount']").val(0);
+            that.find("input[type='number'][name^='HostStatCount']").text(0);
+        }
         //that.find("select[name^='PlantStatisticType']").val('C');
         //that.find("input[type='number'][name^='HostStatAreaNo']").addClass('hide');
         //that.find("input[type='number'][name^='HostStatCount']").removeClass('hide');
-        that.find("input[type='number'][name^='HostStatCount']").val(0);
-        that.find("input[type='number'][name^='HostStatCount']").text(0);
         that.removeClass('hide');
-    };
+    }
     if ($(this).attr('name').startsWith('CountList') && $(this).val() === 'List') {
         var that = $(this).parentsUntil('.hostweed').parent().find('div.countArea');
         HostStatAreaNo = that.find("input[type='number'][name^='HostStatAreaNo']").val();
@@ -3235,16 +3243,19 @@ $(document).on('focus', 'select[name="SurvActivityId_M_N"]', function (e) {
         if (curDiscipline === "B" && numPlants === 0 && bsamples === 0) {
             refreshActivityData(str);
             loadstaffData();
+            $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
             return;
         }
         if (curDiscipline === "E" && numEntoHosts === 0 && esamples === 0) {
             refreshActivityData(str);
             loadstaffData();
+            $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
             return;
         }
         if (curDiscipline === "P" && numPathHosts === 0 && psamples === 0) {
             refreshActivityData(str);
             loadstaffData();
+            $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
             return;
         }
         $.confirm({
@@ -3269,6 +3280,7 @@ $(document).on('focus', 'select[name="SurvActivityId_M_N"]', function (e) {
                     $('#numAttachments').text("");
                     refreshActivityData(str);
                     loadstaffData();
+                    $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
                 },
                 cancel: function () {
                     that.val(lastSurvActValue);

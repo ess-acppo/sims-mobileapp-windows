@@ -62,12 +62,12 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    <div class="modal" tabindex="-1" role="dialog" id="modalGrid" data-keyboard="false" data-backdrop="static">
+    <div class="modal" tabindex="-1" role="dialog" id="modalAHGrid" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-remove text-default"></i></span></button>
-                    <span class="modal-title" id="mt1"></span><br />
+                    <span class="modal-title" id="mt1">All Observations</span><br />
                     <small class="text-info esfatitle"><b>ESFA</b> - Enterprise Surveillance Field App</small>
                     <div class="overlay hide">
                         <center><b>Loading ...</b></center>
@@ -75,28 +75,27 @@
                 </div>
                 <div class="modal-body" id="mb1" style="padding:20px;margin-right:20px;">
                     <form role="form" id="form2">
-                        <table id="srchTable" class="table table-bordered table-hover display" cellspacing="0">
+                        <table id="srchAHTable" class="table table-bordered table-hover display" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>SurveillanceActivity</th>
-                                    <th>CommonName</th>
-                                    <th>Date</th>
-                                    <th>Latitude</th>
-                                    <th>Longitude</th>
-                                    <th>Datum</th>
                                     <th>Id</th>
-                                    <th>Status</th>
                                     <th>Discipline</th>
-                                    <th>obType</th>
+                                    <th>SurveillanceActivity</th>
+                                    <th>Site</th>
+                                    <th>Date</th>
+                                    <th>Waypoint</th>
+                                    <th>Location</th>
+                                    <th>Datum</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                         </table>
                     </form>
                 </div>
                 <div class="modal-footer" style="padding-bottom:20px;">
-                    <button type="button" class="btn btn-md ripple btn-default export" id="Download"><i class="fa fa-download fa-2x"></i></button>
-                    <button type="button" class="btn btn-md ripple btn-warning sync" id="Sync"><i class="fa fa-refresh fa-2x"></i></button>
-                    <a href="#" class="text-info pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
+                    <button type="button" class="btn btn-md ripple btn-default" id="newObservationAH"><i class="fa fa-plus"></i>&nbsp;New</button>
+                    <button type="button" class="btn btn-md ripple btn-default" id="DownloadAH"><i class="fa fa-download"></i>&nbsp;Download</button>
+                    <button type="button" class="btn btn-md ripple btn-warning" id="SyncAH"><i class="fa fa-refresh"></i>&nbsp;Sync</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -132,9 +131,9 @@
                     </form>
                 </div>
                 <div class="modal-footer" style="padding-bottom:20px;">
-                    <button type="button" class="btn btn-md ripple btn-default" id="newObservation"><i class="fa fa-plus"></i>&nbsp;New</button>
-                    <button type="button" class="btn btn-md ripple btn-default export" id="Download"><i class="fa fa-download"></i>&nbsp;Download</button>
-                    <button type="button" class="btn btn-md ripple btn-warning sync" id="Sync"><i class="fa fa-refresh"></i>&nbsp;Sync</button>
+                    <button type="button" class="btn btn-md ripple btn-default" id="newObservationPH"><i class="fa fa-plus"></i>&nbsp;New</button>
+                    <button type="button" class="btn btn-md ripple btn-default" id="DownloadPH"><i class="fa fa-download"></i>&nbsp;Download</button>
+                    <button type="button" class="btn btn-md ripple btn-warning" id="SyncPH"><i class="fa fa-refresh"></i>&nbsp;Sync</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

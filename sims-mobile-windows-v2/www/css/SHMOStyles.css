@@ -41,10 +41,6 @@ html, body {
         font-size: 1.2rem;
     }
 
-.export {
-    margin-left: 20px;
-}
-
 .fa-first-order {
     margin-top: 5px;
     margin-right: 5px;
@@ -68,7 +64,7 @@ html, body {
     border-radius: 0px;
 }*/
 
-#modalGrid .modal-body, #modalPHGrid .modal-body {
+#modalAHGrid .modal-body, #modalPHGrid .modal-body {
     height: 900px;
     /*padding: 25px;*/
     overflow-x: auto;
@@ -113,16 +109,16 @@ html, body {
     z-index: 205;
 }
 
-#modalGrid .modal-dialog, #modalPHGrid .modal-dialog, #modalPHMenu .modal-dialog, #modalSettings .modal-dialog {
+#modalAHGrid .modal-dialog, #modalPHGrid .modal-dialog, #modalPHMenu .modal-dialog, #modalSettings .modal-dialog {
     margin: 1% auto;
     z-index: 102;
 }
 
-#modalGrid .modal-content {
+#modalAHGrid .modal-content {
     z-index: 103;
 }
 
-#modalGrid .modal-body {
+#modalAHGrid .modal-body {
     overflow-x: scroll;
 }
 

@@ -759,10 +759,10 @@ function downloadCSV() {
     $('#mt1').text('All Observations');
     switch (AppMode) {
         case "IAH":
-            $('#modalGrid').modal();
+            $('#modalAHGrid').modal();
             break;
         case "AH":
-            $('#modalGrid').modal();
+            $('#modalAHGrid').modal();
             break;
         case "PH":
             $('#modalPHGrid').modal();
@@ -946,7 +946,7 @@ function loadData() {
     }
     //table.column(10).visible(false);
 }
-$(document).on('click', '.export', function (event) {
+$(document).on('click', '#DownloadPH', function (event) {
     exportObservationsToCSV();
 });
 function objectifyForm(formArray) {//serialize data function
@@ -1297,8 +1297,8 @@ $(document).on('click', '#srchPHTable tbody tr', function () {
             $('#modalProgress').modal('hide');
         });
 });
-$(document).on('click', '.sync', function (event) {
-    $.when(setTimeout(DisableForm(), 1000));
+$(document).on('click', '#SyncPH', function (event) {
+    $.when(setTimeout(DisableFormPH(), 1000));
 });
 $(document).on('shown.bs.modal', '#modalPHGrid', function () {
     loadPHRefCodes();
@@ -1306,20 +1306,20 @@ $(document).on('shown.bs.modal', '#modalPHGrid', function () {
     loadstaffData();
     loadData();
     if (statusElem.innerHTML === 'online') {
-        $('.sync').removeClass('hide');
+        $('#SyncPH').removeClass('hide');
     }
     if (statusElem.innerHTML === 'offline') {
-        $('.sync').addClass('hide');
+        $('#SyncPH').addClass('hide');
     }
 });
 $(document).on('hidden.bs.modal', '#modalPHGrid', function () {
     table.destroy();
 });
-$(document).on('shown.bs.modal', '#modalGrid', function () {
+$(document).on('shown.bs.modal', '#modalAHGrid', function () {
     loadAHDefaults();
     loadData();
 });
-$(document).on('hidden.bs.modal', '#modalGrid', function () {
+$(document).on('hidden.bs.modal', '#modalAHGrid', function () {
     table.destroy();
 });
 $(document).on('hidden.bs.modal', '#modalForm', function () {
@@ -1573,22 +1573,10 @@ $(document).on('change', 'input:checkbox', function (e) {
         $(this).val('N');
     }
 });
-$(document).on('click', '#newObservation', function () {
+$(document).on('click', '#newObservationPH', function () {
     curIdx = -2;
-    switch (AppMode) {
-        case 'IAH':
-            $('#modalMenu').modal();
-            break;
-        case 'AH':
-            $('#modalAHMenu').modal();
-            break;
-        case 'PH':
-            //var zi = $('#modalPHGrid').css('z-index');
-            //$('#modalPHMenu').css('z-index', zi + 100);
-            $('#modalPHGrid').modal('hide');
-            $('#modalPHMenu').modal();
-            break;
-    }
+    $('#modalPHGrid').modal('hide');
+    $('#modalPHMenu').modal();
 });
 $(document).on('click', 'a.btnBackupData', function (e) {
     backupDatabase();
@@ -1932,150 +1920,162 @@ function getSite(ActivityId, id) {
     }
     else { return ""; }
 }
-function DisableForm() {
-    $('#Download').removeClass('btn-default');
-    $('#Download').attr('disabled', true);
-    $('#Download').addClass('disabled');
-    $('#Sync').removeClass('btn-info');
-    $('#Sync').attr('disabled', true);
-    $('#Sync').addClass('disabled');
-    $('#newObservation').removeClass('btn-default');
-    $('#newObservation').attr('disabled', true);
-    $('#newObservation').addClass('disabled');
+function DisableFormPH() {
+    $('#DownloadPH').removeClass('btn-default');
+    $('#DownloadPH').attr('disabled', true);
+    $('#DownloadPH').addClass('disabled');
+    $('#SyncPH').removeClass('btn-info');
+    $('#SyncPH').attr('disabled', true);
+    $('#SyncPH').addClass('disabled');
+    $('#newObservationPH').removeClass('btn-default');
+    $('#newObservationPH').attr('disabled', true);
+    $('#newObservationPH').addClass('disabled');
 
     $('#mb6 .progText').text("Sync in progress ...");
     $('#mb6 .progress').addClass('hide');
     $('#mb6 .fa-clock-o').addClass('hide');
     $('#modalProgress').modal();
-    setTimeout(StartSync, 1000);
+    setTimeout(StartSyncPH, 1000);
 }
-function StartSync() {
-    var success = true;
-    var noRowstoPush = true;
-    var rowsFailed = [];
-    var rowsFailedErr = [];
-    var rowsSuccess = [];
-    $.each(results.observations, function (index, value) {
-        if (value.status_M_N === 0) { return true };
-        noRowstoPush = false;
-        vError = 0;
-        vErrDescription = [];
-        vFailed = false;
-        CountListFlag = 0;
-        HostStatCountFlag = 0;
-        HostStatAreaFlag = 0;
-        PlantPreservationOtherFlag = 0;
-        PlantTargetObservedCodeFlag = 0;
-        var rowid = value.id_M_N;
-        var result = Iterate2(value);
-        if (result.vError === 0) {
-            var vpayload = JSON.stringify(SubmitRecord(objectifyPHFormforSubmit(value)));
-            if (debugMode === 1) {
-                $.confirm({
-                    title: 'Payload Attempted!',
-                    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + vpayload.escapeSpecialChars() + '</textarea></div>',
-                    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-                    buttons: {
-                        ok: function () { },
-                        copy: {
-                            text: 'Copy', // With spaces and symbols
-                            action: function () {
-                                var copytext = this.$content.find("#Payload");
-                                copytext.select();
-                                document.execCommand("copy");
-                                return false;
+function StartSyncPH() {
+    var arr = results.observations.filter(function (el) {
+        return (el.status_M_N === 1);
+    });
+    if (arr && arr.length === 0) {
+        $.growl.notice({ title: "", message: "No records to Sync.", location: "bc", size: "small" });
+        setTimeout(EnableFormPH(), 1000);
+        return false;
+    }
+    else {
+        var success = true;
+        var noRowstoPush = true;
+        var rowsFailed = [];
+        var rowsFailedErr = [];
+        var rowsSuccess = [];
+        var logstr = "";
+        $.each(arr, function (index, value) {
+            vError = 0;
+            vErrDescription = [];
+            vFailed = false;
+            CountListFlag = 0;
+            HostStatCountFlag = 0;
+            HostStatAreaFlag = 0;
+            PlantPreservationOtherFlag = 0;
+            PlantTargetObservedCodeFlag = 0;
+            var rowid = value.id_M_N;
+            var result = Iterate2(value);
+            if (result.vError === 0) {
+                var vpayload = JSON.stringify(SubmitRecord(objectifyPHFormforSubmit(value)));
+                if (debugMode === 1) {
+                    $.confirm({
+                        title: 'Payload Attempted!',
+                        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + vpayload.escapeSpecialChars() + '</textarea></div>',
+                        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                        buttons: {
+                            ok: function () { },
+                            copy: {
+                                text: 'Copy', // With spaces and symbols
+                                action: function () {
+                                    var copytext = this.$content.find("#Payload");
+                                    copytext.select();
+                                    document.execCommand("copy");
+                                    return false;
+                                }
                             }
                         }
+                    });
+                }
+                //var payload = {
+                //    "value": vpayload.escapeSpecialChars() 
+                //};
+                $.ajax({
+                    method: "POST",
+                    async: false,
+                    url: submitPHObsAddress,
+                    //data: JSON.stringify(payload),
+                    data: vpayload.escapeSpecialChars(),
+                    contentType: "application/json",
+                    dataType: "json",
+                    beforeSend: function () {
+                        $('#mb6 .progText').text("Syncing " + index + " of " + arr.length + " records");
+                    },
+                    headers: {
+                        "authorization": authCode,
+                        "cache-control": "no-cache"
+                    },
+                    success: function (data, textStatus, XmlHttpRequest) {
+                        //$.growl({ title: "", message: "Success! Observations synced to cloud.", location: "tc", size: "large" });  
+                        if (XmlHttpRequest.status === 200) {
+                            //$.growl({ title: "", message: "Observation Sync'd!", location: "bc" });
+                            logstr = logstr + vpayload.escapeSpecialChars() + "\r\n";
+                        }
+                        rowsSuccess.push(index);
+                    },
+                    complete: function (xhr, textStatus) {
+                        //$.growl({ title: "", message: "Success! Observations synced to cloud.", location: "tc", size: "large" });
+                        //results.observations(value.id_M_N - 1).status_M_N = 2;
+                        //results.observations.splice(index, 1);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        //$.growl.error({ title: "", message: xhr.status + ': ' + textStatus + ', ' + errorThrown + ', ' + xhr.responseText , location: "bc" });   
+                        $.dialog({
+                            title: 'Sync Failed!',
+                            content: xhr.status + ': ' + textStatus + ', ' + errorThrown + ', ' + xhr.responseText,
+                            columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1'
+                        });
                     }
                 });
             }
-            //var payload = {
-            //    "value": vpayload.escapeSpecialChars() 
-            //};
-            $.ajax({
-                method: "POST",
-                async: false,
-                url: submitPHObsAddress,
-                //data: JSON.stringify(payload),
-                data: vpayload.escapeSpecialChars(),
-                contentType: "application/json",
-                dataType: "json",
-                headers: {
-                    "authorization": authCode,
-                    "cache-control": "no-cache"
-                },
-                success: function (data, textStatus, XmlHttpRequest) {
-                    //$.growl({ title: "", message: "Success! Observations synced to cloud.", location: "tc", size: "large" });  
-                    if (XmlHttpRequest.status === 200) {
-                        //$.growl({ title: "", message: "Observation Sync'd!", location: "bc" });
-                        logRecord(vpayload.escapeSpecialChars() + "\r\n");
-                    }
-                    rowsSuccess.push(index);
-                },
-                complete: function () {
-                    //$.growl({ title: "", message: "Success! Observations synced to cloud.", location: "tc", size: "large" });
-                    //results.observations(value.id_M_N - 1).status_M_N = 2;
-                    //results.observations.splice(index, 1);
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    //$.growl.error({ title: "", message: xhr.status + ': ' + textStatus + ', ' + errorThrown + ', ' + xhr.responseText , location: "bc" });   
-                    $.dialog({
-                        title: 'Sync Failed!',
-                        content: xhr.status + ': ' + textStatus + ', ' + errorThrown + ', ' + xhr.responseText,
-                        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1'
-                    });
-                }
+            else {
+                rowsFailed.push(rowid);
+                rowsFailedErr.push(result.vErrDescription);
+                success = false;
+                return false;
+            }
+        });
+        if (success === true) {
+            rowsSuccess.sort();
+            rowsSuccess.reverse();
+            $.each(rowsSuccess, function (index, value) {
+                results.observations.splice(value, 1);
+            });
+            db.transaction(function (tx) {
+                tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
+                    logRecord(logstr);
+                    //alert("Dataset updated.");
+                    //$.growl({ title: "", message: "Observations synced to cloud.", location: "tc", size: "large" });
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while updating records to database. " + err.message, location: "tc", size: "large" });
             });
         }
-        else {
-            rowsFailed.push(rowid);
-            rowsFailedErr.push(result.vErrDescription);
-            success = false;
-            return false;
+        else if (success === false) { $.growl.error({ title: "", message: rowsFailed.join(',') + "<br/>" + rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" }); }
+        syncPHRefCodes();
+        syncActivityData();
+        syncBPHstaffData();
+        syncIPHstaffData();
+        syncNPHstaffData();
+        syncTaxaData();
+        table.destroy();
+        loadData();
+        clearMarkers();
+        loadMapMarkers();
+        if (infoWindow) {
+            infoWindow.close();
         }
-    });
-    if (success === true && noRowstoPush === false) {
-        rowsSuccess.sort();
-        rowsSuccess.reverse();
-        $.each(rowsSuccess, function (index, value) {
-            results.observations.splice(value, 1);
-        });
-        db.transaction(function (tx) {
-            tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
-                //alert("Dataset updated.");
-                //$.growl({ title: "", message: "Observations synced to cloud.", location: "tc", size: "large" });
-            });
-        }, function (err) {
-            $.growl.error({ title: "", message: "An error occured while updating records to database. " + err.message, location: "tc", size: "large" });
-        });
+        setTimeout(EnableFormPH(), 1000);
     }
-    else if (success === false && noRowstoPush === false) { $.growl.error({ title: "", message: rowsFailed.join(',') + "<br/>" + rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" }); }
-    else if (success === true && noRowstoPush === true) { $.growl.notice({ title: "", message: "No records to Sync.", location: "bc", size: "small" }); }
-    syncPHRefCodes();
-    syncActivityData();
-    syncBPHstaffData();
-    syncIPHstaffData();
-    syncNPHstaffData();
-    syncTaxaData();
-    table.destroy();
-    loadData();
-    clearMarkers();
-    loadMapMarkers();
-    if (infoWindow) {
-        infoWindow.close();
-    }
-    setTimeout(EnableForm(), 1000);
 }
-function EnableForm() {
-    $('#Download').addClass('btn-default');
-    $('#Sync').addClass('btn-info');
-    $('#newObservation').addClass('btn-default');
-    $('#Download').attr('disabled', false);
-    $('#Download').removeClass('disabled');
-    $('#Sync').attr('disabled', false);
-    $('#Sync').removeClass('disabled');
-    $('#newObservation').attr('disabled', false);
-    $('#newObservation').removeClass('disabled');
+function EnableFormPH() {
+    $('#DownloadPH').addClass('btn-default');
+    $('#SyncPH').addClass('btn-info');
+    $('#newObservationPH').addClass('btn-default');
+    $('#DownloadPH').attr('disabled', false);
+    $('#DownloadPH').removeClass('disabled');
+    $('#SyncPH').attr('disabled', false);
+    $('#SyncPH').removeClass('disabled');
+    $('#newObservationPH').attr('disabled', false);
+    $('#newObservationPH').removeClass('disabled');
     $('#mb6 .progText').text("");
     $('#modalProgress').modal('hide');
 }
