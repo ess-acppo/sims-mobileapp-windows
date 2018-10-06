@@ -521,7 +521,6 @@ function initSettings() {
                         db.transaction(function (tx) {
                             tx.executeSql("UPDATE observations SET data = ?,filedt = ? WHERE id = ?", [JSON.stringify(results), today, 1], function (tx, res) {
                                 //alert("Dataset updated.");
-                                //$.growl({ title: "", message: "Your changes have been saved!", location: "tc", size: "large", fixed: "true" });
                             });
                         }, function (err) {
                             $.growl.error({ title: "", message: "An error occured while loading observations to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
@@ -612,7 +611,7 @@ function checkMapBoundsByLoc(location) {
     //    return (el.activeFlag === 1);
     //});
     if (cLat < resSettings.settings.mapSets[0].mapBounds.bottomLat || cLat > resSettings.settings.mapSets[0].mapBounds.topLat || cLng < resSettings.settings.mapSets[0].mapBounds.leftLng || cLng > resSettings.settings.mapSets[0].mapBounds.rightLng) {
-        $.growl.warning({ title: "", message: "Location is outside map bounds!", location: "tc", size: "large" });
+        $.growl.warning({ title: "", message: "Location is outside site bounds!", location: "bc", size: "small" });
         nM.setMap(null);
         //return false;
     }
@@ -626,7 +625,7 @@ function checkMapBoundsByPos(position) {
     //    return (el.activeFlag === 1);
     //});
     if (cLat < resSettings.settings.mapSets[0].mapBounds.bottomLat || cLat > resSettings.settings.mapSets[0].mapBounds.topLat || cLng < resSettings.settings.mapSets[0].mapBounds.leftLng || cLng > resSettings.settings.mapSets[0].mapBounds.rightLng) {
-        $.growl.warning({ title: "", message: "Location is outside map bounds!", location: "tc", size: "large" });
+        $.growl.warning({ title: "", message: "Location is outside site bounds!", location: "bc", size: "small" });
         //return false;
     }
     return true;
@@ -672,13 +671,13 @@ function checkMapBoundsBySite(position, siteId) {
             return true;
         }
         else {
-            $.growl.warning({ title: "", message: "Location is outside site bounds!", location: "tc", size: "large" });
+            $.growl.warning({ title: "", message: "Location is outside site bounds!", location: "bc", size: "small" });
             return true;
             //return false;
         }
     }
     else {
-        $.growl.warning({ title: "", message: "Location is outside site bounds!", location: "tc", size: "large" });
+        $.growl.warning({ title: "", message: "Location is outside site bounds!", location: "bc", size: "small" });
         return true;
         //return false;
     }
@@ -991,7 +990,7 @@ $(document).on('click', '#Save', function (e) {
     db.transaction(function (tx) {
         tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
             //alert("Dataset updated.");
-            $.growl({ title: "", message: "Your changes have been saved!", location: "tc", size: "large" });
+            $.growl({ title: "", message: "Your changes have been saved!", location: "bc", size: "small" });
         });
     }, function (err) {
         $.growl.error({ title: "", message: "An error occured while updating row to DB. " + err.message, location: "tc", size: "large" });
@@ -1036,7 +1035,7 @@ $(document).on('click', '#SaveExit', function (e) {
     db.transaction(function (tx) {
         tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
             //alert("Dataset updated.");
-            $.growl({ title: "", message: "Your changes have been saved!", location: "tc", size: "large" });
+            $.growl({ title: "", message: "Your changes have been saved!", location: "bc", size: "small" });
         });
     }, function (err) {
         $.growl.error({ title: "", message: "An error occured while updating row to DB. " + err.message, location: "tc", size: "large" });
@@ -1117,8 +1116,9 @@ $(document).on('click', '#settings', function (e) {
             $(document).find('script[id="pageScript"]').remove();
             $('#mb5').load('settings.html');
         }
-    }).complete(function (e) {
+    }).success(function (e) {
         loadActivityData();
+    }).complete(function (e) {
         $('#mb5').find('#appMode').val(AppMode);
         //var arr = resSettings.settings.mapSets.filter(function (el) {
         //    return (el.activeFlag === 1);
@@ -1388,7 +1388,6 @@ $(document).on('click', 'a.btnResetData', function (e) {
                         db.transaction(function (tx) {
                             tx.executeSql("UPDATE observations SET data = ?,filedt = ? WHERE id = ?", [JSON.stringify(results), today, 1], function (tx, res) {
                                 //alert("Dataset updated.");
-                                //$.growl({ title: "", message: "Your changes have been saved!", location: "tc", size: "large" });
                             });
                         }, function (err) {
                             $.growl.error({ title: "", message: "An error occured while updating data to DB. " + err.message, location: "tc", size: "large" });
@@ -1639,7 +1638,6 @@ function syncActivityData() {
         db.transaction(function (tx) {
             tx.executeSql("UPDATE activitydata SET settingsval = ? WHERE id = ?", [JSON.stringify(ActivityData), 1], function (tx, res) {
                 //alert("Dataset updated.");
-                //$.growl({ title: "Changes Saved!", message: "Your changes have been saved!", location: "tc", size: "large", fixed: "true" });
             });
         }, function (err) {
             $.growl.error({ title: "", message: "An error occured while updating ActivityData to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
@@ -1739,7 +1737,6 @@ function syncNPHstaffData() {
         db.transaction(function (tx) {
             tx.executeSql("UPDATE staffdata SET settingsval = ? WHERE id = ?", [JSON.stringify(staffDataNPH), 1], function (tx, res) {
                 //alert("Dataset updated.");
-                //$.growl({ title: "Changes Saved!", message: "Your changes have been saved!", location: "tc", size: "large", fixed: "true" });
             });
         }, function (err) {
             $.growl.error({ title: "", message: "An error occured while updating NPH StaffData to database. " + err.message, location: "tc", size: "large", fixed: "true" });
@@ -1781,7 +1778,6 @@ function syncBPHstaffData() {
         db.transaction(function (tx) {
             tx.executeSql("UPDATE staffdata SET settingsval = ? WHERE id = ?", [JSON.stringify(staffDataBPH), 2], function (tx, res) {
                 //alert("Dataset updated.");
-                //$.growl({ title: "Changes Saved!", message: "Your changes have been saved!", location: "tc", size: "large", fixed: "true" });
             });
         }, function (err) {
             $.growl.error({ title: "", message: "An error occured while updating BPH StaffData to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
@@ -1823,7 +1819,6 @@ function syncIPHstaffData() {
         db.transaction(function (tx) {
             tx.executeSql("UPDATE staffdata SET settingsval = ? WHERE id = ?", [JSON.stringify(staffDataIPH), 3], function (tx, res) {
                 //alert("Dataset updated.");
-                //$.growl({ title: "Changes Saved!", message: "Your changes have been saved!", location: "tc", size: "large", fixed: "true" });
             });
         }, function (err) {
             $.growl.error({ title: "", message: "An error occured while updating IPH StaffData to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
@@ -2094,7 +2089,6 @@ function fetchSettings() {
                         db.transaction(function (tx) {
                             tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
                                 //alert("Dataset updated.");
-                                //$.growl({ title: "", message: "Your changes have been saved!", location: "tc", size: "large", fixed: "true" });
                             });
                         }, function (err) {
                             $.growl.error({ title: "", message: "An error occured while updating settings to DB. " + err.message, location: "tc", size: "large", fixed: "true" });

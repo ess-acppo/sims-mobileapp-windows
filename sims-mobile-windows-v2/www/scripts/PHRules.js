@@ -40,7 +40,7 @@ var numPathTargets = 0;
 var esamples = 0;
 var psamples = 0;
 var addlObservers;
-var hostweed = '<div class="row col-md-12 col-sm-12 col-xs-12 hostweed collapsed"><a href="#" class="btn btn-md btn-default text-arrows collapse hide" data-action="collapse"><i class="fa fa-arrow-up"></i></a><a href="#" class="btn btn-md btn-default text-arrows expand" data-action="expand"><i class="fa fa-arrow-down"></i></a><a href="#" class="btn btn-md btn-danger text-arrows-2 removePlant"><i class="fa fa-remove"></i></a><div class="row col-md-11 col-sm-10 col-xs-10 pl-0"><div class="form-group col-md-3 col-sm-3 col-xs-12 hide"><label>Taxon ID</label><input type="number" class="form-control taxonIDB" placeholder="Taxon ID" name="PlantTaxonId_O_N" readonly min="0" max="99999999" maxlength="8" data-name="Plant-Taxon ID"></div><div class="form-group col-md-6 col-sm-6 col-xs-12"><span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5" data-original-title="1">1</span><label><span class="bold-red">*&nbsp;</span>Host Name</label><input type="text" class="form-control taxonTextB" placeholder="Host Name" name="PlantTaxonText_M_S" data-name="Plant-Taxon Text" data-section="PlantObsTab"><input type="text" class="form-control taxonHTextB hide" name="PlantTaxonTextH_M_S" data-section="PlantObsTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="radio" class="minimal" name="CountList_M_S" value="Count" data-code="Count" data-validate="N" maxlength="1" data-name="Count List Option" data-section="PlantObsTab">&nbsp;<label><span class="bold-red">*&nbsp;</span>Count</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="radio" class="minimal" name="CountList_M_S" value="List" data-code="List" data-validate="N" maxlength="1" data-name="Count List Option" data-section="PlantObsTab">&nbsp;<label>List</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12 countArea hide"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label><span class="bold-red">*&nbsp;</span>Statistic Type</label><select class="form-control select2" name="PlantStatisticType_M_S" data-name="Plant-Statistic Type" data-section="PlantObsTab"></select></div><div class="form-group col-md-6 col-sm-6 col-xs-12"><label><span class="bold-red">*&nbsp;</span>Count/Area</label><br /><button type="button" class="btn btn-md btn-default qtyminus"><i class="fa fa-minus"></i></button><input type="number" class="qty count" name="HostStatCount_M_N" value="0" min="0" max="99999999" maxlength="8" data-name="Plant-HostStat Count" data-section="PlantObsTab"><input type="number" class="qty area" name="HostStatAreaNo_M_N" value="0" min="0" max="99999999" maxlength="8" data-name="Plant-HostStat AreaNo" data-section="PlantObsTab"><button type="button" class="btn btn-md btn-default qtyplus"><i class="fa fa-plus"></i></button></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="checkbox" name="CheckFutureSurveyFlag_O_S" class="minimal" maxlength="1" data-name="Plant-Check Future Survey Flag" data-section="PlantObsTab">&nbsp;<label>Flag</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="checkbox" name="ExternalPhotoExistFlag_O_S" class="minimal" maxlength="1" data-name="Plant-External Photo Flag" data-section="PlantObsTab">&nbsp;<label>External Photo</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Notes</label><textarea class="form-control" rows="6" name="CommentText_O_S" style="height:60px;" maxlength="400" data-name="Plant-Comments Text" data-section="PlantObsTab"></textarea></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Latitude</label><input type="number" class="form-control hostweedlat" name="Latitude" placeholder="Latitude" data-name="Plant-Latitude" data-section="PlantObsTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Longitude</label><input type="number" class="form-control hostweedlng" name="Longitude" placeholder="Longitude" data-name="Plant-Longitude" data-section="PlantObsTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-3 col-sm-3 col-xs-6"><label>Datum</label><select class="form-control hostweeddat" name="GpsDatumId_O_S" data-name="Plant-Datum" data-section="PlantObsTab"><option>WGS84</option><option>GDA94</option></select></div><div class="form-group col-md-3 col-sm-3 col-xs-6"><button class="btn btn-md btn-info getPlantCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button></div></div><div class="row col-md-12 col-sm-12 col-xs-12 hide"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label><span class="bold-red">*&nbsp;</span>Point WKT</label><input type="text" class="form-control" readonly name="LocationPointWktClob_O_S" data-name="Plant-LatLon" data-section="PlantObsTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="row col-md-12 col-sm-12 col-xs-12 pr-0"><hr /></div><div class="row col-md-12 col-sm-12 col-xs-12 pr-0"><div class="form-group col-md-12 col-sm-12 col-xs-12 text-center"><button type="button" class="btn btn-md btn-info" id="addPlantObsAttachment"><i class="fa fa-plus"></i>&nbsp;Add Attachment</button></div></div><div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="PlantObsAttachments"></div></div></div>';
+var hostweed = '<div class="row col-md-12 col-sm-12 col-xs-12 hostweed collapsed"><a href="#" class="btn btn-md btn-default text-arrows collapse hide" data-action="collapse"><i class="fa fa-arrow-up"></i></a><a href="#" class="btn btn-md btn-default text-arrows expand" data-action="expand"><i class="fa fa-arrow-down"></i></a><a href="#" class="btn btn-md btn-danger text-arrows-2 removePlant"><i class="fa fa-remove"></i></a><div class="row col-md-11 col-sm-10 col-xs-10 pl-0"><div class="form-group col-md-3 col-sm-3 col-xs-12 hide"><label>Taxon ID</label><input type="number" class="form-control taxonIDB" placeholder="Taxon ID" name="PlantTaxonId_O_N" readonly min="0" max="99999999" maxlength="8" data-name="Plant-Taxon ID"></div><div class="form-group col-md-6 col-sm-6 col-xs-12"><span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5" data-original-title="1">1</span><label><span class="bold-red">*&nbsp;</span>Host Name</label><input type="text" class="form-control taxonTextB" placeholder="Host Name" name="PlantTaxonText_M_S" data-name="Plant-Taxon Text" data-section="PlantObsTab"><input type="text" class="form-control taxonHTextB hide" name="PlantTaxonTextH_M_S" data-section="PlantObsTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="radio" class="minimal" name="CountList_M_S" value="Count" data-code="Count" data-validate="Y" maxlength="1" data-name="Count List Option" data-section="PlantObsTab">&nbsp;<label><span class="bold-red">*&nbsp;</span>Count</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="radio" class="minimal" name="CountList_M_S" value="List" data-code="List" data-validate="Y" maxlength="1" data-name="Count List Option" data-section="PlantObsTab">&nbsp;<label>List</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12 countArea hide"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label><span class="bold-red">*&nbsp;</span>Statistic Type</label><select class="form-control select2" name="PlantStatisticType_M_S" data-name="Plant-Statistic Type" data-section="PlantObsTab"></select></div><div class="form-group col-md-6 col-sm-6 col-xs-12"><label><span class="bold-red">*&nbsp;</span>Count/Area</label><br /><button type="button" class="btn btn-md btn-default qtyminus"><i class="fa fa-minus"></i></button><input type="number" class="qty count" name="HostStatCount_M_N" value="0" min="0" max="99999999" maxlength="8" data-name="Plant-HostStat Count" data-section="PlantObsTab"><input type="number" class="qty area" name="HostStatAreaNo_M_N" value="0" min="0" max="99999999" maxlength="8" data-name="Plant-HostStat AreaNo" data-section="PlantObsTab"><button type="button" class="btn btn-md btn-default qtyplus"><i class="fa fa-plus"></i></button></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="checkbox" name="CheckFutureSurveyFlag_O_S" class="minimal" maxlength="1" data-name="Plant-Check Future Survey Flag" data-section="PlantObsTab">&nbsp;<label>Flag</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="checkbox" name="ExternalPhotoExistFlag_O_S" class="minimal" maxlength="1" data-name="Plant-External Photo Flag" data-section="PlantObsTab">&nbsp;<label>External Photo</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Notes</label><textarea class="form-control" rows="6" name="CommentText_O_S" style="height:60px;" maxlength="400" data-name="Plant-Comments Text" data-section="PlantObsTab"></textarea></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Latitude</label><input type="number" class="form-control hostweedlat" name="Latitude" placeholder="Latitude" data-name="Plant-Latitude" data-section="PlantObsTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Longitude</label><input type="number" class="form-control hostweedlng" name="Longitude" placeholder="Longitude" data-name="Plant-Longitude" data-section="PlantObsTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-3 col-sm-3 col-xs-6"><label>Datum</label><select class="form-control hostweeddat" name="GpsDatumId_O_S" data-name="Plant-Datum" data-section="PlantObsTab"><option>WGS84</option><option>GDA94</option></select></div><div class="form-group col-md-3 col-sm-3 col-xs-6"><button class="btn btn-md btn-info getPlantCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button></div></div><div class="row col-md-12 col-sm-12 col-xs-12 hide"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label><span class="bold-red">*&nbsp;</span>Point WKT</label><input type="text" class="form-control" readonly name="LocationPointWktClob_O_S" data-name="Plant-LatLon" data-section="PlantObsTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="row col-md-12 col-sm-12 col-xs-12 pr-0"><hr /></div><div class="row col-md-12 col-sm-12 col-xs-12 pr-0"><div class="form-group col-md-12 col-sm-12 col-xs-12 text-center"><button type="button" class="btn btn-md btn-info" id="addPlantObsAttachment"><i class="fa fa-plus"></i>&nbsp;Add Attachment</button></div></div><div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="PlantObsAttachments"></div></div></div>';
 var botSample = '<div class="row col-md-12 col-sm-12 col-xs-12 sample collapsed"><a href="#" class="btn btn-md btn-default text-arrows collapse hide" data-action="collapse"><i class="fa fa-arrow-up"></i></a><a href="#" class="btn btn-md btn-default text-arrows expand" data-action="expand"><i class="fa fa-arrow-down"></i></a><a href="#" class="btn btn-md btn-danger text-arrows-2 removeBotSample"><i class="fa fa-remove"></i></a><div class="row col-md-11 col-sm-10 col-xs-10 pl-0"><div class="form-group col-md-6 col-sm-6 col-xs-12"><span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5" data-original-title="1">1</span><label><span class="bold-red">*&nbsp;</span>Sample Field ID </label><input type="text" class="form-control nextid" placeholder="Sample Field ID" readonly name="SampleFieldLabelText_M_S" data-name="Sample-Field Label" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label><span class="bold-red">*&nbsp;</span>Number Collected </label><input type="number" class="form-control" placeholder="Number Collected" name="CollectedSampleCount_O_N" min="1" max="99999999" maxlength="8" data-name="Sample-Count" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Linked Sample #</label><input type="text" class="form-control" placeholder="Linked Sample #" name="LinkedSampleFieldLabelText_O_S" maxlength="50" data-name="Sample-Linked Sample Field Text" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12 hide"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Preliminary Taxon ID </label><input type="number" class="form-control taxonIDBS" placeholder="Preliminary ID" name="PrelimTaxonId_O_N" readonly min="1" max="99999999" maxlength="8" data-name="Sample-Preliminary Taxon ID" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label><span class="bold-red">*&nbsp;</span>Preliminary Taxon Text </label><input type="text" class="form-control taxonTextBS" placeholder="Preliminary Taxon Text" name="PrelimTaxonText_M_S" maxlength="50" data-name="Sample-Preliminary Taxon Text" data-section="PlantSampleTab"><input type="text" class="form-control taxonHTextBS hide" name="PrelimTaxonTextH_M_S" data-name="Host-Taxon ID" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label><span class="bold-red">*&nbsp;</span>Latitude </label><input type="number" class="form-control samplelat" placeholder="Latitude" name="Latitude" data-name="Sample-Latitude" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label><span class="bold-red">*&nbsp;</span>Longitude </label><input type="number" class="form-control samplelng" placeholder="Longitude" name="Longitude" data-name="Sample-Longitude" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-3 col-sm-3 col-xs-12"><label><span class="bold-red">*&nbsp;</span>Datum</label><select class="form-control sampledat" name="GpsDatumId_M_S" data-name="Sample-Datum" data-section="PlantSampleTab"><option>WGS84</option><option>GDA94</option></select></div><div class="form-group col-md-3 col-sm-3 col-xs-12"><button class="btn btn-md btn-info getSampleCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button></div><div class="form-group col-md-6 col-sm-6 col-xs-11 hide"><label><span class="bold-red">*&nbsp;</span>Point WKT</label><input type="text" class="form-control" readonly name="SamplePointWktClob_M_S" data-name="Sample-LatLon" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label><span class="bold-red">*&nbsp;</span>Collected DateTime</label><input type="datetime-local" class="form-control" placeholder="Time" name="CollectedDatetime_M_D" step="1" data-name="Sample-Collected DateTime" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Altitude (Meters)</label><input type="number" class="form-control samplealt" placeholder="Altitude" name="CollectedAltitudeNo_O_N" min="1" max="9999" maxlength="4" data-name="Sample-Collected Altitude Number" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Additional Comments</label><textarea class="form-control" rows="6" name="CommentText_O_S" style="height:60px;" maxlength="400" data-name="Sample-Comments Text" data-section="PlantSampleTab"></textarea></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-6"><input class="mxr-5 minimal" type="checkbox" name="AdditionalCollectorTab" data-name="Sample-Additional Collectors" data-section="PlantSampleTab">&nbsp;<label>Additional Collectors</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12 addlCollectors hide"><div class="form-group col-md-6 col-sm-6 col-xs-12"><select class="form-control" name="AdditionalCollectorName1_O_S" data-name="Sample-Additional Collector" data-section="PlantSampleTab"></select></div>' +
     '<div class="form-group col-md-6 col-sm-6 col-xs-12"><select class="form-control" name="AdditionalCollectorName2_O_S" data-name="Sample-Additional Collector" data-section="PlantSampleTab"></select></div><div class="form-group col-md-6 col-sm-6 col-xs-12"><select class="form-control" name="AdditionalCollectorName3_O_S" data-name="Sample-Additional Collector" data-section="PlantSampleTab"></select></div></div><div class="row col-md-12 col-sm-12 col-xs-12 addlCollectors hide"><div class="form-group col-md-6 col-sm-6 col-xs-12"><select class="form-control" name="AdditionalCollectorName4_O_S" data-name="Sample-Additional Collector" data-section="PlantSampleTab"></select></div><div class="form-group col-md-6 col-sm-6 col-xs-12"><select class="form-control" name="AdditionalCollectorName5_O_S" data-name="Sample-Additional Collector" data-section="PlantSampleTab"></select></div><div class="form-group col-md-6 col-sm-6 col-xs-12"><select class="form-control" name="AdditionalCollectorName6_O_S" data-name="Sample-Additional Collector" data-section="PlantSampleTab"></select></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Habit </label><input type="text" class="form-control" placeholder="Habit" name="HabitText_O_S" maxlength="200" data-name="Sample-Habit Text" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Description </label><input type="text" class="form-control" placeholder="Description" name="DetailedDescriptionText_O_S" maxlength="400" data-name="Sample-Detailed Description" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Habitat </label><input type="text" class="form-control" placeholder="Habitat" name="HabitatText_O_S" maxlength="400" data-name="Sample-Habitat Text" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Landform </label><input type="text" class="form-control" placeholder="LandForm" name="LandformText_O_S" maxlength="200" data-name="Sample-Landform" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Soil/Geology </label><input type="text" class="form-control" placeholder="Soil/Geology" name="SoilGeologyText_O_S" maxlength="200" data-name="Sample-Soil Geology" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Abundance</label><input type="text" class="form-control" placeholder="Abundance" name="AbundanceText_O_S" maxlength="200" data-name="Sample-Abundance" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="checkbox" name="ExternalPhotoExistFlag_O_S" class="minimal" maxlength="1" data-name="Sample-External Photo Exists Flag" data-section="PlantSampleTab">&nbsp;&nbsp;<label>Photo(s) taken using external camera</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-12 col-sm-12 col-xs-12"><label>Preservation Type</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="checkbox" name="PlantPreservationTab-SP_O_S" class="minimal" data-attr="PlantPreservationTab" data-code="SP" data-desc="Spirit Sample" data-seq="1" maxlength="2" data-name="Sample-Plant Preservation-Spirit Sample" data-section="PlantSampleTab">&nbsp;<label>Spirit Sample</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="checkbox" name="PlantPreservationTab-DN_O_S" class="minimal" data-attr="PlantPreservationTab" data-code="DN" data-desc="DNA Sample" data-seq="2" maxlength="2" data-name="Sample-Plant Preservation-DNA Sample" data-section="PlantSampleTab">&nbsp;<label>DNA Sample</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="checkbox" name="PlantPreservationTab-O_O_S" class="minimal" data-attr="PlantPreservationTab" data-code="O" data-desc="Other" data-seq="3" maxlength="2" data-name="Sample-Plant Preservation-Other" data-section="PlantSampleTab">&nbsp;<label>Other</label>&nbsp;</div><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="text" class="form-control" placeholder="Other Text" name="PlantPreservOtherText_O_S" maxlength="50" data-name="Sample-Plant Preservation-Other Text" data-section="PlantSampleTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="row col-md-12 col-sm-12 col-xs-12 pr-0"><hr /></div><div class="row col-md-12 col-sm-12 col-xs-12 pr-0"><div class="form-group col-md-12 col-sm-12 col-xs-12 text-center"><button type="button" class="btn btn-md btn-info" id="addPlantSampleAttachment"><i class="fa fa-plus"></i>&nbsp;Add Attachment</button></div></div><div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="PlantSampleAttachments"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-12 col-sm-12 col-xs-12"><input type="hidden" name="EndOfSample_O_S" class="minimal" maxlength="1" data-name="Sample-EoS" data-section="PlantSampleTab">&nbsp;&nbsp;</div></div></div>';
 var entobox = '<div class="row col-md-12 col-sm-12 col-xs-12 entobox collapsed"><a href="#" class="btn btn-md btn-default text-arrows collapse hide" data-action="collapse"><i class="fa fa-arrow-up"></i></a><a href="#" class="btn btn-md btn-default text-arrows expand" data-action="expand"><i class="fa fa-arrow-down"></i></a><a href="#" class="btn btn-md btn-danger text-arrows-2 removeEntoHost"><i class="fa fa-remove"></i></a><div class="row col-md-11 col-sm-10 col-xs-10 pl-0"><div class="form-group col-md-3 col-sm-3 col-xs-12 hide"><label>Taxon ID</label><input type="number" class="form-control taxonIDE" placeholder="Taxon ID" name="PlantTaxonId_O_N" readonly min="1" max="99999999" maxlength="8" data-name="Host-Taxon ID"></div><div class="form-group col-md-6 col-sm-6 col-xs-12"><span data-toggle="tooltip" title="" class="badge bg-gray-blue badge-host mxr-5" data-original-title="1">1</span><label><span class="bold-red">*&nbsp;</span>Host Name</label><input type="text" class="form-control taxonTextE" placeholder="Host Name" name="PlantTaxonText_M_S" data-section="PlantObsTab" data-name="Host-Taxon Text"><input type="text" class="form-control taxonHTextE hide" name="PlantTaxonTextH_M_S" data-section="PlantObsTab" data-name="Plant-Taxon Text"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label><span class="bold-red">*&nbsp;</span>Statistic Type</label><select class="form-control select2" name="PlantStatisticType_M_S" data-name="Host-Statistic Type" data-section="PlantObsTab"></select></div><div class="form-group col-md-6 col-sm-6 col-xs-12"><label><span class="bold-red">*&nbsp;</span>Count/Area</label><br /><button type="button" class="btn btn-md btn-default qtyminus"><i class="fa fa-minus"></i></button><input type="number" class="qty count" name="HostStatCount_M_N" min="0" max="99999999" maxlength="8" value="0" data-name="Host-Stat Count" data-section="PlantObsTab"><input type="number" class="qty area hide" name="HostStatAreaNo_M_N" min="0" max="99999999" maxlength="8" value="0" data-name="Host-Stat AreaNo" data-section="PlantObsTab"><button type="button" class="btn btn-md btn-default qtyplus"><i class="fa fa-plus"></i></button></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="checkbox" name="CheckFutureSurveyFlag_O_S" maxlength="1" class="minimal" data-name="Host-Check Future Survey Flag" data-section="PlantObsTab">&nbsp;<label>Flag</label></div></div><div class="row col-md-6 col-sm-6 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="checkbox" name="ExternalPhotoExistFlag_O_S" maxlength="1" class="minimal" data-name="Host-External Photo Exist Flag" data-section="PlantObsTab">&nbsp;<label>External Photo</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label><span class="bold-red">*&nbsp;</span>Method of Observation</label><select class="form-control" name="PlantObsMethodCode_M_S" data-name="Host-Observation Method Code" data-section="PlantObsTab"></select></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Notes</label><textarea class="form-control" rows="6" name="CommentText_O_S" maxlength="400" style="height:60px;" data-name="Host-Comments Text" data-section="PlantObsTab"></textarea></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Life Stage</label><select class="form-control select2" name="EntoLifeStgCode_O_S" style="width: 100%;" data-name="Host-Life Stage Code" data-section="PlantObsTab"></select></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Host Plant Status</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="checkbox" name="PlantStatusFruitingFlag_O_S" class="minimal" value="FR" maxlength="2" data-name="Host-Status Fruiting Flag" data-section="PlantObsTab">&nbsp;<label>Fruiting</label></div><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="checkbox" name="PlantStatusFloweringFlag_O_S" class="minimal" value="FL" maxlength="2" data-name="Host-Status Flowering Flag" data-section="PlantObsTab">&nbsp;<label>Flowering</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="checkbox" name="PlantStatusFlushingFlag_O_S" class="minimal" value="FU" maxlength="2" data-name="Host-Status Flushing Flag" data-section="PlantObsTab">&nbsp;<label>Flushing</label></div><div class="form-group col-md-6 col-sm-6 col-xs-12"><input type="checkbox" name="PlantStatusDeadWoodFlag_O_S" class="minimal" value="DE" maxlength="2" data-name="Host-Status Deadwood Flag" data-section="PlantObsTab">&nbsp;<label>Deadwood</label></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Latitude</label><input type="number" class="form-control entolat" name="Latitude" placeholder="Latitude" data-name="Host-Latitude" data-section="PlantObsTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Longitude</label><input type="number" class="form-control entolng" name="Longitude" placeholder="Longitude" data-name="Host-Longitude" data-section="PlantObsTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="form-group col-md-3 col-sm-3 col-xs-12"><label>Datum</label><select class="form-control entodat" name="GpsDatumId_O_S" data-name="Host-Datum" data-section="PlantObsTab"><option>WGS84</option><option>GDA94</option></select></div><div class="form-group col-md-3 col-sm-3 col-xs-12"><button class="btn btn-md btn-info getEntoHostCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button></div><div class="form-group col-md-6 col-sm-6 col-xs-12 hide"><label><span class="bold-red">*&nbsp;</span>Point WKT</label><input type="text" class="form-control" readonly name="LocationPointWktClob_O_S" data-name="Host-LatLon" data-section="PlantObsTab"></div></div><div class="row col-md-12 col-sm-12 col-xs-12 bg-target entotarget"><div class="form-group col-md-3 col-sm-3 col-xs-12 hide"><label>Target Taxon Id</label><input type="number" name="TargetTaxonId_O_N" class="input-sm form-control taxonIDET" placeholder="Target Taxon ID" readonly min="1" max="99999999" maxlength="8" data-name="Target-Taxon ID" data-section="PlantObsTargetTab"></div><div class="form-group col-md-6 col-sm-6 col-xs-12"><span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5 badge-target" data-original-title="1">1</span><label><span class="bold-red">*&nbsp;</span>Target Taxon Name</label><input type="text" name="TargetTaxonText_M_S" class="input-sm form-control taxonTextET" placeholder="Target Taxon Text" maxlength="50" data-name="Target-Taxon Text" data-section="PlantObsTargetTab"><input type="text" class="form-control taxonHTextET hide" name="TargetTaxonTextH_M_S" data-name="Target-Taxon Text" data-section="PlantObsTargetTab"></div><div class="form-group col-md-3 col-sm-3 col-xs-12"><label>Target Count</label><input type="text" name="TargetCount_O_N" class="input-sm form-control" placeholder="Target Count" min="1" max="99999999" maxlength="8" data-name="Target-Count" data-section="PlantObsTargetTab"></div><div class="form-group col-md-3 col-sm-3 col-xs-12"><input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optA" value="A" data-code="A" data-validate="Y" maxlength="1" data-name="Target-Not Observed" data-section="PlantObsTargetTab">&nbsp;<label>Not Observed</label></div><div class="form-group col-md-3 col-sm-3 col-xs-12"><input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optP" value="P" data-code="P" data-validate="Y" maxlength="1" data-name="Target-Present" data-section="PlantObsTargetTab">&nbsp;<label>Present</label></div><div class="form-group col-md-3 col-sm-3 col-xs-12"><input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optS" value="S" data-code="S" data-validate="Y" maxlength="1" data-name="Target-Suspected" data-section="PlantObsTargetTab">&nbsp;<label>Suspected</label></div><div class="form-group col-md-3 col-sm-3 col-xs-3"><input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optND" value="N" data-code="N" data-validate="Y" maxlength="1" data-name="Target-Not Done" data-section="PlantObsTargetTab">&nbsp;<label>Not Done</label></div><div class="form-group col-md-6 col-sm-6 col-xs-12"><label>Comments</label><input type="text" name="CommentText_O_S" class="input-sm form-control" placeholder="Comments" maxlength="400" data-name="Target-Comments Text" data-section="PlantObsTargetTab"></div><div class="form-group col-md-12 col-sm-12 col-xs-12"><button type="button" class="btn btn-md btn-default pull-right" data-action="addEntoTarget"><i class="fa fa-plus text-info"></i>&nbsp;Add Target</button><a href="#" class="btn btn-sm btn-danger" data-action="removeEntoTarget">Delete</a></div></div><div class="row col-md-12 col-sm-12 col-xs-12"><div class="row col-md-12 col-sm-12 col-xs-12 pr-0"><hr /></div><div class="row col-md-12 col-sm-12 col-xs-12 pr-0"><div class="form-group col-md-12 col-sm-12 col-xs-12 text-center"><button type="button" class="btn btn-md btn-info" id="addPlantObsAttachment"><i class="fa fa-plus"></i>&nbsp;Add Attachment</button></div></div><div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="PlantObsAttachments"></div></div></div>';
@@ -91,7 +91,6 @@ function syncPHRefCodes() {
         db.transaction(function (tx) {
             tx.executeSql("UPDATE phrefcodes SET settingsval = ? WHERE id = ?", [JSON.stringify(PHRefCodes), 1], function (tx, res) {
                 //alert("Dataset updated.");
-                //$.growl({ title: "Changes Saved!", message: "Your changes have been saved!", location: "tc", size: "large", fixed: "true" });
             });
         }, function (err) {
             $.growl.error({ title: "", message: "An error occured while updating PHRefCodes to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
@@ -205,7 +204,6 @@ function syncTaxaData() {
         db.transaction(function (tx) {
             tx.executeSql("UPDATE taxadata SET settingsval = ? WHERE id = ?", [JSON.stringify(taxaData), 1], function (tx, res) {
                 //alert("Dataset updated.");
-                //$.growl({ title: "Changes Saved!", message: "Your changes have been saved!", location: "tc", size: "large", fixed: "true" });
             });
         }, function (err) {
             $.growl.error({ title: "", message: "An error occured while updating Taxa Data to database. " + err.message, location: "tc", size: "large", fixed: "true" });
@@ -355,17 +353,16 @@ function loadModal(pagename) {
         $('#form1').find("input[type=text],input[type=date],input[type=number], textarea").val("");
         $('#form1').find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');
         $('#form1').find("input[type='radio'].minimal").iCheck('uncheck');
-        $.ajax({
-            beforeSend: function () {
-                loadPHRefCodes();       
-                loadActivityData();
-                if (curIdx > -1) {
-                    var curActivity = results.observations[curPos].SurvActivityId_M_N;
-                    refreshActivityData(curActivity);
-                }             
-                loadstaffData();
+        setTimeout(function (e) {
+            loadPHRefCodes();
+            loadActivityData();
+            if (curIdx > -1) {
+                var curActivity = results.observations[curPos].SurvActivityId_M_N;
+                refreshActivityData(curActivity);
             }
-        }).complete(function () {
+            loadstaffData();
+        }, 300);
+        setTimeout(function (e) {
             if (curIdx > -1) {
                 var data = results.observations[curPos];
                 //console.log(JSON.stringify(data));
@@ -912,7 +909,7 @@ function loadModal(pagename) {
                 if (mm < 10) {
                     mm = '0' + mm;
                 }
-                today = yyyy.toString() + '-' + mm.toString() + '-' + dd.toString();
+                today = yyyy.toString() + '-' + mm.toString() + '-' + dd.toString() + 'T00:00:00';
                 $('#form1').find('select[id="ObservationStaffId"]').find('option').remove().end().append($(staffData));
                 if (curIdx === -1) {
                     $('#form1').find("input[name^='Latitude']").val(curLat.toFixed(5));
@@ -920,19 +917,19 @@ function loadModal(pagename) {
                     $('#form1').find("input[type='text'][name^='ObservationWhereWktClob']").val(curWkt);
                     //getAltitude();
                 }
-                $('#form1').find("input[type='date'][name^='ObservationDatetime']").val(today);
+                $('#form1').find("input[name^='ObservationDatetime']").val(today);
                 if (results.observations.length === 0) {
                     $('#form1').find("input[type='number'][name^='id']").val(1);
                 } else { $('#form1').find("input[type='number'][name^='id']").val(results.observations[results.observations.length - 1].id_M_N + 1); }
                 $('#form1').find("input[type='number'][name^='status']").val("0");
                 $('#form1').find("input[type='text'][name^='PlantDisciplineCode']").val(curDiscipline);
                 $('#form1').find("input[type='number'][name^='SubmittedByStaffId']").val(resSettings.settings.device.ownerId);
-                $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId); 
-                $('#form1').find("input[type='text'][name='TimeHourCount_M_S']").inputmask("99:99");
+                $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
+                $('#form1').find("input[type='text'][name='TimeHourCount_M_S']").inputmask("99:99").val("00:10");
                 $('.nextid').text('');
                 //loadSiteData($('#form1').find("select[name='SiteId_O_N']").val());
             }
-        });
+        }, 300);
     }).done(function () {
         $('#modalProgress').modal('hide');
         t1 = performance.now();
@@ -1911,6 +1908,9 @@ function loadSiteData(str) {
             var arr = arr2[0].ActivitySitePlant.filter(function (el) {
                 return (el.PlantDisciplineCode === curDiscipline);
             });
+            var arr1 = arr2[0].FlaggedObservations.filter(function (el) {
+                return (el.PlantDisciplineCode === curDiscipline);
+            });
         }
     }
     if (arr) {
@@ -1924,6 +1924,15 @@ function loadSiteData(str) {
                     }
                 }).complete(function (e) {
                     $.each(value1, function (key2, value2) {
+                        $('div.hostweed').eq(key1).find("input[type='text'][name^='" + key2 + "']").val(value2);
+                        $('div.hostweed').eq(key1).find("input[type='date'][name^='" + key2 + "']").val(value2);
+                        $('div.hostweed').eq(key1).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
+                        $('div.hostweed').eq(key1).find("input[type='number'][name^='" + key2 + "']").val(value2);
+                        $('div.hostweed').eq(key1).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
+                        $('div.hostweed').eq(key1).find("input[type='checkbox'][name^='" + key2 + "'][value='Y']").iCheck('check');
+                        $('div.hostweed').eq(key1).find("input[type='radio'][name^='" + key2 + "'][value='" + value2 + "']").iCheck('check');
+                        $('div.hostweed').eq(key1).find("select[name^='" + key2 + "']").val(value2);
+                        $('div.hostweed').eq(key1).find("textarea[name^='" + key2 + "']").val(value2);
                         if (key2.startsWith("PlantStatisticTypeCode") && value2 === "C") {
                             $('div.hostweed').eq(key1).find("select[name^='PlantStatisticType']").val('C');
                             $('div.hostweed').eq(key1).find("input[type='number'][name^='HostStatAreaNo']").addClass('hide');
@@ -2083,7 +2092,166 @@ function loadSiteData(str) {
                 });
             });
         }
-    };
+    }
+    if (arr1) {
+        curSiteData = arr1;
+        if (curDiscipline === "B") {
+            $.each(curSiteData, function (key1, value1) {
+                $.ajax({
+                    url: "",
+                    beforeSend: function (xhr) {
+                        $("#addPlant").trigger("click");
+                    }
+                }).complete(function (e) {
+                    var pkey = arr.length + key1;
+                    $.each(value1, function (key2, value2) {
+                        $('div.hostweed').eq(pkey).find("input[type='text'][name^='" + key2 + "']").val(value2);
+                        $('div.hostweed').eq(pkey).find("input[type='date'][name^='" + key2 + "']").val(value2);
+                        $('div.hostweed').eq(pkey).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
+                        $('div.hostweed').eq(pkey).find("input[type='number'][name^='" + key2 + "']").val(value2);
+                        $('div.hostweed').eq(pkey).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
+                        $('div.hostweed').eq(pkey).find("input[type='checkbox'][name^='" + key2 + "'][value='Y']").iCheck('check');
+                        $('div.hostweed').eq(pkey).find("input[type='radio'][name^='" + key2 + "'][value='" + value2 + "']").iCheck('check');
+                        $('div.hostweed').eq(pkey).find("select[name^='" + key2 + "']").val(value2);
+                        $('div.hostweed').eq(pkey).find("textarea[name^='" + key2 + "']").val(value2);
+                        if (key2.startsWith("PlantTaxonText") && value2.length > 0) {
+                            $('div.hostweed').eq(pkey).addClass(value2.substring(0, 1).toLowerCase());
+                            $('div.glossary').find('#' + value2.substring(0, 1).toLowerCase()).removeClass('hide');
+                        }
+                        if (key2.startsWith("HostStatCount") && value2 > 0) {
+                            $('div.hostweed').eq(pkey).find("select[name^='PlantStatisticType']").val('C');
+                            $('div.hostweed').eq(pkey).find("input[type='number'][name^='HostStatAreaNo']").addClass('hide');
+                            $('div.hostweed').eq(pkey).find("input[type='number'][name^='HostStatCount']").removeClass('hide');
+                            $('div.hostweed').eq(pkey).find("div.countArea").removeClass('hide');
+                            $('div.hostweed').eq(pkey).find("input[type='radio'][name^='CountList'][value='Count']").iCheck('check');
+                        }
+                        if (key2.startsWith("HostStatAreaNo") && value2 > 0) {
+                            $('div.hostweed').eq(pkey).find("select[name^='PlantStatisticType']").val('A');
+                            $('div.hostweed').eq(pkey).find("input[type='number'][name^='HostStatCount']").addClass('hide');
+                            $('div.hostweed').eq(pkey).find("input[type='number'][name^='HostStatAreaNo']").removeClass('hide');
+                            $('div.hostweed').eq(pkey).find("div.countArea").removeClass('hide');
+                            $('div.hostweed').eq(pkey).find("input[type='radio'][name^='CountList'][value='Count']").iCheck('check');
+                        }
+                        if (key2.startsWith("LocationPointWktClob") && value2.length > 0) {
+                            var wkt = new Wkt.Wkt();
+                            wkt.read(value2);
+                            wkt.toObject();
+                            $('div.hostweed').eq(pkey).find("input[type='number'][name^='Longitude']").val(wkt.toJson().coordinates[0]);
+                            $('div.hostweed').eq(pkey).find("input[type='number'][name^='Latitude']").val(wkt.toJson().coordinates[1]);
+                        }
+                        $('div.hostweed').eq(pkey).find("input[name^='" + key2 + "']").val(value2);
+                        if (key2 === "PlantTaxonId") {
+                            $('div.hostweed').eq(pkey).find("input[type='text'][name^='PlantTaxonText']").val(getTaxonText(value2));
+                        }
+                    });
+                });
+            });
+        }
+        if (curDiscipline === "E") {
+            $.each(curSiteData, function (key1, value1) {
+                $.ajax({
+                    url: "",
+                    beforeSend: function (xhr) {
+                        $("#addEntoHost").trigger("click");
+                    }
+                }).complete(function (e) {
+                    var pkey = arr.length + key1;
+                    $.each(value1, function (key2, value2) {
+                        $('div.entobox').eq(pkey).find("input[type='text'][name^='" + key2 + "']").val(value2);
+                        $('div.entobox').eq(pkey).find("input[type='date'][name^='" + key2 + "']").val(value2);
+                        $('div.entobox').eq(pkey).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
+                        $('div.entobox').eq(pkey).find("input[type='number'][name^='" + key2 + "']").val(value2);
+                        $('div.entobox').eq(pkey).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
+                        $('div.entobox').eq(pkey).find("input[type='checkbox'][name^='" + key2 + "'][value='Y']").iCheck('check');
+                        $('div.entobox').eq(pkey).find("input[type='radio'][name^='" + key2 + "'][value='" + value2 + "']").iCheck('check');
+                        $('div.entobox').eq(pkey).find("select[name^='" + key2 + "']").val(value2);
+                        $('div.entobox').eq(pkey).find("textarea[name^='" + key2 + "']").val(value2);
+                        if (key2.startsWith("PlantTaxonText") && value2.length > 0) {
+                            $('div.entobox').eq(pkey).addClass(value2.substring(0, 1).toLowerCase());
+                            $('div.glossary').find('#' + value2.substring(0, 1).toLowerCase()).removeClass('hide');
+                        }
+                        if (key2.startsWith("HostStatCount") && value2 > 0) {
+                            $('div.entobox').eq(pkey).find("select[name^='PlantStatisticType']").val('C');
+                            $('div.entobox').eq(pkey).find("input[type='number'][name^='HostStatAreaNo']").addClass('hide');
+                            $('div.entobox').eq(pkey).find("input[type='number'][name^='HostStatCount']").removeClass('hide');
+                            $('div.entobox').eq(pkey).find("div.countArea").removeClass('hide');
+                            $('div.entobox').eq(pkey).find("input[type='radio'][name^='CountList'][value='Count']").iCheck('check');
+                        }
+                        if (key2.startsWith("HostStatAreaNo") && value2 > 0) {
+                            $('div.entobox').eq(pkey).find("select[name^='PlantStatisticType']").val('A');
+                            $('div.entobox').eq(pkey).find("input[type='number'][name^='HostStatCount']").addClass('hide');
+                            $('div.entobox').eq(pkey).find("input[type='number'][name^='HostStatAreaNo']").removeClass('hide');
+                            $('div.entobox').eq(pkey).find("div.countArea").removeClass('hide');
+                            $('div.entobox').eq(pkey).find("input[type='radio'][name^='CountList'][value='Count']").iCheck('check');
+                        }
+                        if (key2.startsWith("LocationPointWktClob") && value2.length > 0) {
+                            var wkt = new Wkt.Wkt();
+                            wkt.read(value2);
+                            wkt.toObject();
+                            $('div.entobox').eq(pkey).find("input[type='number'][name^='Longitude']").val(wkt.toJson().coordinates[0]);
+                            $('div.entobox').eq(pkey).find("input[type='number'][name^='Latitude']").val(wkt.toJson().coordinates[1]);
+                        }
+                        if (key2 === "PlantTaxonId") {
+                            $('div.entobox').eq(pkey).find("input[type='text'][name^='PlantTaxonText']").val(getTaxonText(value2));
+                        }
+                    });
+                });
+            });
+        }
+        if (curDiscipline === "P") {
+            $.each(curSiteData, function (key1, value1) {
+                $.ajax({
+                    url: "",
+                    beforeSend: function (xhr) {
+                        $("#addPathHost").trigger("click");
+                    }
+                }).complete(function (e) {
+                    var pkey = arr.length + key1;
+                    $.each(value1, function (key2, value2) {
+                        $('div.pathbox').eq(pkey).find("input[type='text'][name^='" + key2 + "']").val(value2);
+                        $('div.pathbox').eq(pkey).find("input[type='date'][name^='" + key2 + "']").val(value2);
+                        $('div.pathbox').eq(pkey).find("input[type='datetime-local'][name^='" + key2 + "']").val(value2);
+                        $('div.pathbox').eq(pkey).find("input[type='number'][name^='" + key2 + "']").val(value2);
+                        $('div.pathbox').eq(pkey).find("input[type='checkbox'][name^='" + key2 + "']").val(value2);
+                        $('div.pathbox').eq(pkey).find("input[type='checkbox'][name^='" + key2 + "'][value='Y']").iCheck('check');
+                        $('div.pathbox').eq(pkey).find("input[type='radio'][name^='" + key2 + "'][value='" + value2 + "']").iCheck('check');
+                        $('div.pathbox').eq(pkey).find("select[name^='" + key2 + "']").val(value2);
+                        $('div.pathbox').eq(pkey).find("textarea[name^='" + key2 + "']").val(value2);
+                        if (key2.startsWith("PlantTaxonText") && value2.length > 0) {
+                            $('div.pathbox').eq(pkey).addClass(value2.substring(0, 1).toLowerCase());
+                            $('div.glossary').find('#' + value2.substring(0, 1).toLowerCase()).removeClass('hide');
+                        }
+                        if (key2.startsWith("HostStatCount") && value2 > 0) {
+                            $('div.pathbox').eq(pkey).find("select[name^='PlantStatisticType']").val('C');
+                            $('div.pathbox').eq(pkey).find("input[type='number'][name^='HostStatAreaNo']").addClass('hide');
+                            $('div.pathbox').eq(pkey).find("input[type='number'][name^='HostStatCount']").removeClass('hide');
+                            $('div.pathbox').eq(pkey).find("div.countArea").removeClass('hide');
+                            $('div.pathbox').eq(pkey).find("input[type='radio'][name^='CountList'][value='Count']").iCheck('check');
+                        }
+                        if (key2.startsWith("HostStatAreaNo") && value2 > 0) {
+                            $('div.pathbox').eq(pkey).find("select[name^='PlantStatisticType']").val('A');
+                            $('div.pathbox').eq(pkey).find("input[type='number'][name^='HostStatCount']").addClass('hide');
+                            $('div.pathbox').eq(pkey).find("input[type='number'][name^='HostStatAreaNo']").removeClass('hide');
+                            $('div.pathbox').eq(pkey).find("div.countArea").removeClass('hide');
+                            $('div.pathbox').eq(pkey).find("input[type='radio'][name^='CountList'][value='Count']").iCheck('check');
+                        }
+                        if (key2.startsWith("LocationPointWktClob") && value2.length > 0) {
+                            var wkt = new Wkt.Wkt();
+                            wkt.read(value2);
+                            wkt.toObject();
+                            $('div.pathbox').eq(pkey).find("input[type='number'][name^='Longitude']").val(wkt.toJson().coordinates[0]);
+                            $('div.pathbox').eq(pkey).find("input[type='number'][name^='Latitude']").val(wkt.toJson().coordinates[1]);
+                        }
+                        if (key2 === "PlantTaxonId") {
+                            $('div.pathbox').eq(pkey).find("input[name^='" + key2 + "']").val(value2);
+                            $('div.pathbox').eq(pkey).find("input[type='text'][name^='PlantTaxonText']").val(getTaxonText(value2));
+                        }
+
+                    });
+                });
+            });
+        }
+    }
 }
 function getTaxonText(id) {
     var arr;
