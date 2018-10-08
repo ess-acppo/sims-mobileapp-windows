@@ -1,15 +1,21 @@
 ﻿<div class="row col-md-12 col-sm-12 col-xs-12 entobox collapsed">
-    <a href="#" class="btn btn-md btn-default text-arrows collapse hide" data-action="collapse"><i class="fa fa-arrow-up"></i></a>
-    <a href="#" class="btn btn-md btn-default text-arrows expand" data-action="expand"><i class="fa fa-arrow-down"></i></a>
-    <a href="#" class="btn btn-md btn-danger text-arrows-2 removeEntoHost"><i class="fa fa-remove"></i></a>
-    <div class="row col-md-11 col-sm-11 col-xs-11">
+    <div class="row col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group col-md-6 col-sm-6 col-xs-6">
+            <span data-toggle="tooltip" title="" class="badge bg-gray-blue badge-host mxr-5" data-original-title="1">1</span>
+            <label><span class="bold-red">*&nbsp;</span>Host Name</label>
+        </div>
+        <div class="form-group col-md-6 col-sm-6 col-xs-6">
+            <a href="#" class="form-control btn btn-md btn-default text-arrows collapse hide" data-action="collapse"><i class="fa fa-arrow-up"></i></a>
+            <a href="#" class="form-control btn btn-md btn-default text-arrows expand" data-action="expand"><i class="fa fa-arrow-down"></i></a>
+            <a href="#" class="form-control btn btn-md btn-danger text-arrows-2 removeEntoHost"><i class="fa fa-remove"></i></a>
+        </div>
+    </div>
+    <div class="row col-md-11 col-sm-10 col-xs-10 pl-0">
         <div class="form-group col-md-3 col-sm-3 col-xs-12 hide">
             <label>Taxon ID</label>
             <input type="number" class="form-control taxonIDE" placeholder="Taxon ID" name="PlantTaxonId_O_N" min="1" max="99999999" maxlength="8" data-name="Host-Taxon ID">
         </div>
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-            <span data-toggle="tooltip" title="" class="badge bg-gray-blue badge-host mxr-5" data-original-title="1">1</span>
-            <label><span class="bold-red">*&nbsp;</span>Host Name</label>
             <input type="text" class="form-control taxonTextE" placeholder="Host Name" name="PlantTaxonText_M_S" data-section="PlantObsTab" data-name="Host-Taxon Text">
             <input type="text" class="form-control taxonHTextE hide" name="PlantTaxonTextH_M_S" data-section="PlantObsTab" data-name="Plant-Taxon Text">
         </div>

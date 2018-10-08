@@ -158,7 +158,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    <div class="modal" tabindex="-1" role="dialog" id="modalMenu" data-keyboard="false" data-backdrop="static">
+    <div class="modal" tabindex="-1" role="dialog" id="modalAHMenu" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -413,14 +413,24 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body" id="mb6">
-                    <i class="fa fa-circle-o-notch fa-2x fa-spin text-info" style="margin:8px;">
-                    </i><span class="progText" style="margin-top:10px;">Loading...</span>
-                    <div class="progress" style="margin-top:10px;margin-bottom:3px;">
-                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
-                            0%
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-3 col-sm-3 col-xs-3 text-center">
+                            <i class="fa fa-circle-o-notch fa-3x fa-spin text-info"></i>
+                        </div>
+                        <div class="form-group col-md-9 col-sm-9 col-xs-9">
+                            <span class="progText">Loading...</span>
                         </div>
                     </div>
-                    <i class="fa fa-clock-o text-info hide"></i>&nbsp;<small class="progTime hide"></small>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                                    0%
+                                </div>
+                            </div>
+                            <i class="fa fa-clock-o text-info hide"></i>&nbsp;<small class="progTime hide"></small>
+                        </div>
+                    </div>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
