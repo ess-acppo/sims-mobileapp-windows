@@ -341,43 +341,78 @@
                         </div>
                         <!-- /.login-logo -->
                         <div class="login-box-body" style="margin-top:30px;">
-                            <div class="row col-md-12 col-sm-12 col-xs-12">
-                                <div class="col-md-3 col-sm-3 col-xs-3">
-                                    &nbsp;
-                                </div>
-                                <div class="col-md-6">
-                                    &nbsp;
-                                </div>
-                                <div class="col-md-3">
-                                    &nbsp;
-                                </div>
-                            </div>
-                            <div class="row col-md-12 col-sm-12 col-xs-12">
-                                <div class="col-md-3 col-sm-3 col-xs-3">
-                                    &nbsp;
-                                </div>
-                                <div class="col-md-6">
-                                    <form role="form" id="form4">
-                                        <div class="form-group input-group-lg">
-                                            <input type="hidden" name="grant_type" id="grant_type" value="password">
-                                            <input class="form-control auth-username" name="username" id="username" placeholder="username" maxlength="40" value="" type="email">
+                            <form role="form" id="form4">
+                                <div class="nav-tabs-custom">
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active ripple">
+                                            <a href="#tab_0" id="tab0" data-toggle="tab"><i class="fa fa-sign-in mxr-5"></i>Login</a>
+                                        </li>
+                                        <li class="ripple">
+                                            <a href="#tab_1" id="tab1" data-toggle="tab">
+                                                <i class="fa fa-cog mxr-5"></i>Server
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab_0">
+                                            <div class="row col-md-12 col-sm-12 col-xs-12">
+                                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                                    &nbsp;
+                                                </div>
+                                                <div class="col-md-6">
+                                                    &nbsp;
+                                                </div>
+                                                <div class="col-md-3">
+                                                    &nbsp;
+                                                </div>
+                                            </div>
+                                            <div class="row col-md-12 col-sm-12 col-xs-12">
+                                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                                    &nbsp;
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group input-group-lg">
+                                                        <input type="hidden" name="grant_type" id="grant_type" value="password">
+                                                        <input class="form-control auth-username" name="username" id="username" placeholder="username" maxlength="40" value="" type="email">
+                                                    </div>
+                                                    <div class="form-group input-group-lg">
+                                                        <input class=" form-control auth-password" name="password" id="password" placeholder="password" maxlength="40" value="" type="password">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <button class="btn btn-lg btn-warning auth-send ripple" type="button"><i class="fa fa-circle-o-notch fa-spin hide"></i>Login</button>
+                                                    </div>
+                                                    <div class="auth-result text-center">
+                                                        <i class="fa"></i>
+                                                        <span class="text"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                                    &nbsp;
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-group input-group-lg">
-                                            <input class=" form-control auth-password" name="password" id="password" placeholder="password" maxlength="40" value="" type="password">
+                                        <div class="tab-pane" id="tab_1">
+                                            <div class="row col-md-12 col-sm-12 col-xs-12">
+                                                <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                                    &nbsp;
+                                                </div>
+                                                <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                                    <label>Server</label>
+                                                    <select class="form-control" id="serverMode">
+                                                        <option value=PROD>Production</option>
+                                                        <option value=UAT>UAT</option>
+                                                        <option value=SIT>SIT</option>
+                                                        <option value=DEV>Development</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                                    &nbsp;
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <button class="btn btn-lg btn-warning auth-send ripple" type="button"><i class="fa fa-circle-o-notch fa-spin hide"></i>Login</button>
-                                        </div>
-                                        <div class="auth-result text-center">
-                                            <i class="fa"></i>
-                                            <span class="text"></span>
-                                        </div>
-                                    </form>
+                                    </div>
                                 </div>
-                                <div class="col-md-3 col-sm-3 col-xs-3">
-                                    &nbsp;
-                                </div>
-                            </div>
+                            </form>
                         </div>
                         <!-- /.login-box-body -->
                     </div>

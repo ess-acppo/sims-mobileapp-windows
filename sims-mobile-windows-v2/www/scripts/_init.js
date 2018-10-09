@@ -1142,7 +1142,7 @@ $(document).on('click', '#settings', function (e) {
         if (resSettings.settings.device.ownerId) { $('#form3').find('select[id="deviceOwner"]').val(resSettings.settings.device.ownerId); }
         $('#form3').find('input[name="samplePrefix"]').val(resSettings.settings.device.samplePrefix);
         $('#form3').find('input[name="sampleCurrNum"]').val(resSettings.settings.device.currentSampleNumber);
-        $('#form3').find('select[id="serverMode"]').val(resSettings.settings.app.serverMode);
+        //$('#form3').find('select[id="serverMode"]').val(resSettings.settings.app.serverMode);
     }).done(function () {
         $('#modalProgress').modal('hide');
         if (statusElem.innerHTML === 'online') {
@@ -1190,19 +1190,22 @@ $(document).on('click', '#SaveSettingsExit', function (e) {
     resSettings.settings.device.samplePrefix = $('#form3').find('input[name="samplePrefix"]').val();
     resSettings.settings.device.sampleStartNumber = $('#form3').find('input[name="sampleStartNum"]').val();
     resSettings.settings.device.currentSampleNumber = $('#form3').find('input[name="sampleCurrNum"]').val();
-    resSettings.settings.app.serverMode = $('#form3').find('select[id="serverMode"]').val();
+    //resSettings.settings.app.serverMode = $('#form3').find('select[id="serverMode"]').val();
     /* Save to DB */
     db.transaction(function (tx) {
         tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
-            if (resSettings.settings.app.serverMode !== $('#AppEnv').text()) {
-                clearCache();
+            //if (resSettings.settings.app.serverMode !== $('#AppEnv').text()) {
+            //    clearCache();
+            //    $('#modalSettings').modal('hide');
+            //    $.growl.warning({ title: "", message: "Please restart the app for the settings to take effect. ", location: "tc", size: "large" });
+            //} else {
+            //    $.when(fetchSettings()).then(initSettings()).done(function () {
+            //        $('#modalSettings').modal('hide');
+            //    });
+            //}
+            $.when(fetchSettings()).then(initSettings()).done(function () {
                 $('#modalSettings').modal('hide');
-                $.growl.warning({ title: "", message: "Please restart the app for the settings to take effect. ", location: "tc", size: "large" });
-            } else {
-                $.when(fetchSettings()).then(initSettings()).done(function () {
-                    $('#modalSettings').modal('hide');
-                });
-            }
+            });
         });
     }, function (err) {
         $.growl.error({ title: "", message: "An error occured while updating settings. " + err.message, location: "tc", size: "large" });
@@ -1914,165 +1917,6 @@ function getSite(ActivityId, id) {
     }
     else { return ""; }
 }
-function DisableFormPH() {
-    $('#DownloadPH').removeClass('btn-default');
-    $('#DownloadPH').attr('disabled', true);
-    $('#DownloadPH').addClass('disabled');
-    $('#SyncPH').removeClass('btn-info');
-    $('#SyncPH').attr('disabled', true);
-    $('#SyncPH').addClass('disabled');
-    $('#newObservationPH').removeClass('btn-default');
-    $('#newObservationPH').attr('disabled', true);
-    $('#newObservationPH').addClass('disabled');
-
-    $('#mb6 .progText').text("Sync in progress ...");
-    $('#mb6 .progress').addClass('hide');
-    $('#mb6 .fa-clock-o').addClass('hide');
-    $('#modalProgress').modal();
-    setTimeout(StartSyncPH, 1000);
-}
-function StartSyncPH() {
-    var arr = results.observations.filter(function (el) {
-        return (el.status_M_N === 1);
-    });
-    if (arr && arr.length === 0) {
-        $.growl.notice({ title: "", message: "No records to Sync.", location: "bc", size: "small" });
-        setTimeout(EnableFormPH(), 1000);
-        return false;
-    }
-    else {
-        var success = true;
-        var noRowstoPush = true;
-        var rowsFailed = [];
-        var rowsFailedErr = [];
-        var rowsSuccess = [];
-        var logstr = "";
-        $.each(arr, function (index, value) {
-            vError = 0;
-            vErrDescription = [];
-            vFailed = false;
-            CountListFlag = 0;
-            HostStatCountFlag = 0;
-            HostStatAreaFlag = 0;
-            PlantPreservationOtherFlag = 0;
-            PlantTargetObservedCodeFlag = 0;
-            var rowid = value.id_M_N;
-            var result = Iterate2(value);
-            if (result.vError === 0) {
-                var vpayload = JSON.stringify(SubmitRecord(objectifyPHFormforSubmit(value)));
-                if (debugMode === 1) {
-                    $.confirm({
-                        title: 'Payload Attempted!',
-                        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + vpayload.escapeSpecialChars() + '</textarea></div>',
-                        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-                        buttons: {
-                            ok: function () { },
-                            copy: {
-                                text: 'Copy', // With spaces and symbols
-                                action: function () {
-                                    var copytext = this.$content.find("#Payload");
-                                    copytext.select();
-                                    document.execCommand("copy");
-                                    return false;
-                                }
-                            }
-                        }
-                    });
-                }
-                //var payload = {
-                //    "value": vpayload.escapeSpecialChars() 
-                //};
-                $.ajax({
-                    method: "POST",
-                    async: false,
-                    url: submitPHObsAddress,
-                    //data: JSON.stringify(payload),
-                    data: vpayload.escapeSpecialChars(),
-                    contentType: "application/json",
-                    dataType: "json",
-                    beforeSend: function () {
-                        $('#mb6 .progText').text("Syncing " + index + " of " + arr.length + " records");
-                    },
-                    headers: {
-                        "authorization": authCode,
-                        "cache-control": "no-cache"
-                    },
-                    success: function (data, textStatus, XmlHttpRequest) {
-                        //$.growl({ title: "", message: "Success! Observations synced to cloud.", location: "tc", size: "large" });  
-                        if (XmlHttpRequest.status === 200) {
-                            //$.growl({ title: "", message: "Observation Sync'd!", location: "bc" });
-                            logstr = logstr + vpayload.escapeSpecialChars() + "\r\n";
-                        }
-                        rowsSuccess.push(index);
-                    },
-                    complete: function (xhr, textStatus) {
-                        //$.growl({ title: "", message: "Success! Observations synced to cloud.", location: "tc", size: "large" });
-                        //results.observations(value.id_M_N - 1).status_M_N = 2;
-                        //results.observations.splice(index, 1);
-                    },
-                    error: function (xhr, textStatus, errorThrown) {
-                        //$.growl.error({ title: "", message: xhr.status + ': ' + textStatus + ', ' + errorThrown + ', ' + xhr.responseText , location: "bc" });   
-                        $.dialog({
-                            title: 'Sync Failed!',
-                            content: xhr.status + ': ' + textStatus + ', ' + errorThrown + ', ' + xhr.responseText,
-                            columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1'
-                        });
-                    }
-                });
-            }
-            else {
-                rowsFailed.push(rowid);
-                rowsFailedErr.push(result.vErrDescription);
-                success = false;
-                return false;
-            }
-        });
-        if (success === true) {
-            rowsSuccess.sort();
-            rowsSuccess.reverse();
-            $.each(rowsSuccess, function (index, value) {
-                results.observations.splice(value, 1);
-            });
-            db.transaction(function (tx) {
-                tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
-                    logRecord(logstr);
-                    //alert("Dataset updated.");
-                    //$.growl({ title: "", message: "Observations synced to cloud.", location: "tc", size: "large" });
-                });
-            }, function (err) {
-                $.growl.error({ title: "", message: "An error occured while updating records to database. " + err.message, location: "tc", size: "large" });
-            });
-        }
-        else if (success === false) { $.growl.error({ title: "", message: rowsFailed.join(',') + "<br/>" + rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" }); }
-        syncPHRefCodes();
-        syncActivityData();
-        syncBPHstaffData();
-        syncIPHstaffData();
-        syncNPHstaffData();
-        syncTaxaData();
-        table.destroy();
-        loadData();
-        clearMarkers();
-        loadMapMarkers();
-        if (infoWindow) {
-            infoWindow.close();
-        }
-        setTimeout(EnableFormPH(), 1000);
-    }
-}
-function EnableFormPH() {
-    $('#DownloadPH').addClass('btn-default');
-    $('#SyncPH').addClass('btn-info');
-    $('#newObservationPH').addClass('btn-default');
-    $('#DownloadPH').attr('disabled', false);
-    $('#DownloadPH').removeClass('disabled');
-    $('#SyncPH').attr('disabled', false);
-    $('#SyncPH').removeClass('disabled');
-    $('#newObservationPH').attr('disabled', false);
-    $('#newObservationPH').removeClass('disabled');
-    $('#mb6 .progText').text("");
-    $('#modalProgress').modal('hide');
-}
 function fetchSettings() {
     db.transaction(function (tx) {
         tx.executeSql("SELECT * FROM settings WHERE id = ?", [1], function (tx, res) {
@@ -2080,7 +1924,7 @@ function fetchSettings() {
             if (res.rows && res.rows.length > 0) {
                 resSettings = JSON.parse(res.rows.item(0).settingsval);
                 //console.log('0-' + JSON.stringify(resSettings));
-                fetchServerDetails();
+                //fetchServerDetails($("#serverMode").val());
             }
             else {
                 $.ajax({
@@ -2110,7 +1954,7 @@ function fetchSettings() {
                         }, function (err) {
                             $.growl.error({ title: "", message: "An error occured while updating settings to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
                         });
-                        fetchServerDetails();
+                        //fetchServerDetails($("#serverMode").val());
                     },
                     failure: function () {
                         $.growl.error({ title: "", message: "Error loading settings!", location: "tc", size: "large", fixed: "true" });
@@ -2123,11 +1967,11 @@ function fetchSettings() {
         $.growl.error({ title: "", message: "An error occured fetching app settings. " + err.message, location: "tc", size: "large", fixed: "true" });
     });
 }
-function fetchServerDetails() {
+function fetchServerDetails(serverMode) {
     AppMode = resSettings.settings.app.appMode;
     settings.innerHTML = AppMode;
-    ServerMode = resSettings.settings.app.serverMode;
-    appEnv.innerHTML = ServerMode;
+    //ServerMode = resSettings.settings.app.serverMode;
+    appEnv.innerHTML = serverMode;
     downerId = resSettings.settings.device.ownerId;
     downerTeam = resSettings.settings.device.ownerTeam;
     debugMode = resSettings.settings.device.debugMode;
@@ -2135,28 +1979,53 @@ function fetchServerDetails() {
     sitServerAddress = resSettings.settings.app.sitServerAddress;
     uatServerAddress = resSettings.settings.app.uatServerAddress;
     prodServerAddress = resSettings.settings.app.prodServerAddress;
-    switch (ServerMode) {
+    switch (serverMode) {
         case "DEV":
             ServerAddress = devServerAddress;
+            authAddress = ServerAddress + resSettings.settings.app.authAddress;
+            ActivityAddress = ServerAddress + resSettings.settings.app.activityAddress;
+            refCodesAddress = ServerAddress + resSettings.settings.app.refCodesAddress;
+            BPHStaffAddress = ServerAddress + resSettings.settings.app.BPHStaffAddress;
+            IPHStaffAddress = ServerAddress + resSettings.settings.app.IPHStaffAddress;
+            NPHStaffAddress = ServerAddress + resSettings.settings.app.NPHStaffAddress;
+            taxaAddress = ServerAddress + resSettings.settings.app.taxaAddress;
+            submitPHObsAddress = ServerAddress + resSettings.settings.app.submitPHObsAddress;
             break;
         case "SIT":
             ServerAddress = sitServerAddress;
+            authAddress = ServerAddress + resSettings.settings.app.authAddress;
+            ActivityAddress = ServerAddress + resSettings.settings.app.activityAddress;
+            refCodesAddress = ServerAddress + resSettings.settings.app.refCodesAddress;
+            BPHStaffAddress = ServerAddress + resSettings.settings.app.BPHStaffAddress;
+            IPHStaffAddress = ServerAddress + resSettings.settings.app.IPHStaffAddress;
+            NPHStaffAddress = ServerAddress + resSettings.settings.app.NPHStaffAddress;
+            taxaAddress = ServerAddress + resSettings.settings.app.taxaAddress;
+            submitPHObsAddress = ServerAddress + resSettings.settings.app.submitPHObsAddress;
             break;
         case "UAT":
             ServerAddress = uatServerAddress;
+            authAddress = ServerAddress + resSettings.settings.app.authAddress;
+            ActivityAddress = ServerAddress + resSettings.settings.app.activityAddress;
+            refCodesAddress = ServerAddress + resSettings.settings.app.refCodesAddress;
+            BPHStaffAddress = ServerAddress + resSettings.settings.app.BPHStaffAddress;
+            IPHStaffAddress = ServerAddress + resSettings.settings.app.IPHStaffAddress;
+            NPHStaffAddress = ServerAddress + resSettings.settings.app.NPHStaffAddress;
+            taxaAddress = ServerAddress + resSettings.settings.app.taxaAddress;
+            submitPHObsAddress = ServerAddress + resSettings.settings.app.submitPHObsAddress;
             break;
         case "PROD":
             ServerAddress = prodServerAddress;
+            authAddress = (ServerAddress + resSettings.settings.app.authAddress).replace('int','ext');
+            ActivityAddress = (ServerAddress + resSettings.settings.app.activityAddress).replace('int', 'ext');
+            refCodesAddress = (ServerAddress + resSettings.settings.app.refCodesAddress).replace('int', 'ext');
+            BPHStaffAddress = (ServerAddress + resSettings.settings.app.BPHStaffAddress).replace('int', 'ext');
+            IPHStaffAddress = (ServerAddress + resSettings.settings.app.IPHStaffAddress).replace('int', 'ext');
+            NPHStaffAddress = (ServerAddress + resSettings.settings.app.NPHStaffAddress).replace('int', 'ext');
+            taxaAddress = (ServerAddress + resSettings.settings.app.taxaAddress).replace('int', 'ext');
+            submitPHObsAddress = ServerAddress + resSettings.settings.app.submitPHObsAddress;
             break;
     }
-    authAddress = ServerAddress + resSettings.settings.app.authAddress;
-    ActivityAddress = ServerAddress + resSettings.settings.app.activityAddress;
-    refCodesAddress = ServerAddress + resSettings.settings.app.refCodesAddress;
-    BPHStaffAddress = ServerAddress + resSettings.settings.app.BPHStaffAddress;
-    IPHStaffAddress = ServerAddress + resSettings.settings.app.IPHStaffAddress;
-    NPHStaffAddress = ServerAddress + resSettings.settings.app.NPHStaffAddress;
-    taxaAddress = ServerAddress + resSettings.settings.app.taxaAddress;
-    submitPHObsAddress = ServerAddress + resSettings.settings.app.submitPHObsAddress;
+    return taxaAddress;
 }
 function clearCache() {
     db.transaction(function (tx) {
@@ -2629,7 +2498,7 @@ $(document).on('click', 'a.downloadMaps', function (e) {
         });
 });
 function fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit) {
-    window.requestFileSystem(window.PERSISTENT, 5 * 1024 * 1024, function (fs) {
+    window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory, function (fs) {
         var numtiles = Math.pow(2, zoom);
         var xhr = new XMLHttpRequest();
         var url = "http://mt1.google.com/vt/lyrs=y&x=" + i + "&y=" + j + "&z=" + zoom;
@@ -2637,14 +2506,14 @@ function fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit) {
         xhr.responseType = 'blob';
         xhr.onloadstart = function () {
             tiles++;
-            $('#mb6 .progText').text("File " + tiles + ": Download in progress ...");
-            $('.progress-bar').css('width', Math.round(tiles % 500) + '%').attr('aria-valuenow', Math.round(tiles % 500)).text(Math.round(tiles % 500) + '%');
+            $('#mb6 .progText').text("Download in progress ...");
+            $('.progress-bar').css('width', Math.round(tiles % 100) + '%').attr('aria-valuenow', Math.round(tiles % 100)).text(Math.round(tiles % 100) + '%');
             $('#mb6 .progress').removeClass('hide');
         };
         xhr.onloadend = function () {
             if (this.status === 200) {
                 var blob = new Blob([this.response], { type: "image/jpeg" });
-                fs.root.getDirectory("maps", { create: true, exclusive: false }, function (dir0Entry) {
+                fs.getDirectory("maps", { create: true, exclusive: false }, function (dir0Entry) {
                     dir0Entry.getDirectory(zoom.toString(), { create: true, exclusive: false }, function (dir2Entry) {
                         dir2Entry.getDirectory(i.toString(), { create: true, exclusive: false }, function (dir4Entry) {
                             dir4Entry.getFile(j + ".jpg", { create: true, exclusive: false }, function (fileEntry) {
@@ -2659,6 +2528,11 @@ function fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit) {
                                                 fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit);
                                             } else {
                                                 i++;
+                                                if (i > xlimit) {
+                                                    $('#modalProgress').modal('hide');
+                                                    $('#mb6 .progText').text("");
+                                                    return false;
+                                                }
                                                 j = ystart;
                                                 fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit);
                                             }

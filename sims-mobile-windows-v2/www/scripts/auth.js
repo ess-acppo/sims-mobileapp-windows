@@ -3,6 +3,7 @@ var text;
 var icon;
 var s;
 var authCode;
+var authURL;
 var curUser;
 /* Auth variables */
 
@@ -11,21 +12,22 @@ function initAuth() {
         .addEventListener('click', function () {
             var unameValue = document.querySelector('.auth-username').value;
             var pwdValue = document.querySelector('.auth-password').value;
+            authURL = fetchServerDetails($("#serverMode").val());
             s = document.querySelector('.auth-send .fa-spin');
             s.classList.remove('hide');
             text = document.querySelector('.auth-result .text');
             icon = document.querySelector('.auth-result .fa');
             if (statusElem.innerHTML === 'online') {
-                authenticate2(unameValue, pwdValue);
+                authenticate2(unameValue, pwdValue, authURL);
             }
             if (statusElem.innerHTML === 'offline') {
                 authenticate3(unameValue, pwdValue);
             }
         });
 }
-function authenticate2(x, y) {
+function authenticate2(x, y, authURL) {
     Zeep.submitURL({
-        from: authAddress,
+        from: authURL,
         to: btoa(x + ":" + y)
     }, function (e) {
         //console.log('auth success:');
@@ -164,14 +166,14 @@ $('#modalAuth').keypress(function (e) {
     if (e.which === 13) {
         var unameValue = document.querySelector('.auth-username').value;
         var pwdValue = document.querySelector('.auth-password').value;
-
+        authURL = fetchServerDetails($("#serverMode").val());
         s = document.querySelector('.auth-send .fa-spin');
         s.classList.remove('hide');
         text = document.querySelector('.auth-result .text');
         icon = document.querySelector('.auth-result .fa');
 
         if (statusElem.innerHTML === 'online') {
-            authenticate2(unameValue, pwdValue);
+            authenticate2(unameValue, pwdValue, authURL);
         }
         if (statusElem.innerHTML === 'offline') {
             authenticate3(unameValue, pwdValue);

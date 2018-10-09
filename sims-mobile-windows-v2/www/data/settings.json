@@ -47,7 +47,7 @@
       "devServerAddress": "https://online-dev.agriculture.gov.au/",
       "sitServerAddress": "https://online-sit.agriculture.gov.au/",
       "uatServerAddress": "https://online-uat.agriculture.gov.au/",
-      "prodServerAddress": "https://online-prod.agriculture.gov.au/",
+      "prodServerAddress": "https://online.agriculture.gov.au/",
       "authAddress": "ords-int/rest/sims/plant_health/taxa",
       "activityAddress": "ords-int/rest/sims/plant_health/activity",
       "refCodesAddress": "ords-int/rest/sims/plant_health/referenceCodes",
