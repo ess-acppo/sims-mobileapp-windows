@@ -118,43 +118,51 @@
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12 bg-target entotarget">
-        <div class="form-group col-md-3 col-sm-3 col-xs-12 hide">
-            <label>Target Taxon Id</label>
-            <input type="number" name="TargetTaxonId_O_N" class="input-sm form-control taxonIDET" placeholder="Target Taxon ID" min="1" max="99999999" maxlength="8" data-name="Target-Taxon ID" data-section="PlantObsTargetTab">
+        <div class="row col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group col-md-3 col-sm-3 col-xs-12 hide">
+                <label>Target Taxon Id</label>
+                <input type="number" name="TargetTaxonId_O_N" class="input-sm form-control taxonIDET" placeholder="Target Taxon ID" min="1" max="99999999" maxlength="8" data-name="Target-Taxon ID" data-section="PlantObsTargetTab">
+            </div>
+            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5 badge-target" data-original-title="1">1</span>
+                <label><span class="bold-red">*&nbsp;</span>Target Taxon Name</label>
+                <input type="text" name="TargetTaxonText_M_S" class="input-sm form-control taxonTextET" placeholder="Target Taxon Text" maxlength="50" data-name="Target-Taxon Text" data-section="PlantObsTargetTab">
+                <input type="text" class="form-control taxonHTextET hide" name="TargetTaxonTextH_M_S" data-name="Target-Taxon Text" data-section="PlantObsTargetTab">
+            </div>
+            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                <label>Target Count</label>
+                <input type="text" name="TargetCount_O_N" class="input-sm form-control" placeholder="Target Count" min="1" max="99999999" maxlength="8" data-name="Target-Count" data-section="PlantObsTargetTab">
+            </div>
         </div>
-        <div class="form-group col-md-6 col-sm-6 col-xs-12">
-            <span data-toggle="tooltip" title="" class="badge bg-gray-blue mxr-5 badge-target" data-original-title="1">1</span>
-            <label><span class="bold-red">*&nbsp;</span>Target Taxon Name</label>
-            <input type="text" name="TargetTaxonText_M_S" class="input-sm form-control taxonTextET" placeholder="Target Taxon Text" maxlength="50" data-name="Target-Taxon Text" data-section="PlantObsTargetTab">
-            <input type="text" class="form-control taxonHTextET hide" name="TargetTaxonTextH_M_S" data-name="Target-Taxon Text" data-section="PlantObsTargetTab">
+        <div class="row col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group col-md-3 col-sm-3 col-xs-12">
+                <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optA" value="A" data-code="A" data-validate="Y" maxlength="1" data-name="Target-Not Observed" data-section="PlantObsTargetTab">&nbsp;
+                <label>Not Observed</label>
+            </div>
+            <div class="form-group col-md-3 col-sm-3 col-xs-12">
+                <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optP" value="P" data-code="P" data-validate="Y" maxlength="1" data-name="Target-Present" data-section="PlantObsTargetTab">&nbsp;
+                <label>Present</label>
+            </div>
+            <div class="form-group col-md-3 col-sm-3 col-xs-12">
+                <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optS" value="S" data-code="S" data-validate="Y" maxlength="1" data-name="Target-Suspected" data-section="PlantObsTargetTab">&nbsp;
+                <label>Suspected</label>
+            </div>
+            <div class="form-group col-md-3 col-sm-3 col-xs-12">
+                <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optND" value="N" data-code="N" data-validate="Y" maxlength="1" data-name="Target-Not Done" data-section="PlantObsTargetTab">&nbsp;
+                <label>Not Done</label>
+            </div>
         </div>
-        <div class="form-group col-md-3 col-sm-3 col-xs-12">
-            <label>Target Count</label>
-            <input type="text" name="TargetCount_O_N" class="input-sm form-control" placeholder="Target Count" min="1" max="99999999" maxlength="8" data-name="Target-Count" data-section="PlantObsTargetTab">
+        <div class="row col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                <label>Comments</label>
+                <input type="text" name="CommentText_O_S" class="input-sm form-control" placeholder="Comments" maxlength="400" data-name="Target-Comments Text" data-section="PlantObsTargetTab">
+            </div>
         </div>
-        <div class="form-group col-md-3 col-sm-3 col-xs-12">
-            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optA" value="A" data-code="A" data-validate="Y" maxlength="1" data-name="Target-Not Observed" data-section="PlantObsTargetTab">&nbsp;
-            <label>Not Observed</label>
-        </div>
-        <div class="form-group col-md-3 col-sm-3 col-xs-12">
-            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optP" value="P" data-code="P" data-validate="Y" maxlength="1" data-name="Target-Present" data-section="PlantObsTargetTab">&nbsp;
-            <label>Present</label>
-        </div>
-        <div class="form-group col-md-3 col-sm-3 col-xs-12">
-            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optS" value="S" data-code="S" data-validate="Y" maxlength="1" data-name="Target-Suspected" data-section="PlantObsTargetTab">&nbsp;
-            <label>Suspected</label>
-        </div>
-        <div class="form-group col-md-3 col-sm-3 col-xs-3">
-            <input type="radio" class="minimal" name="TargetObservedCode_M_S" id="optND" value="N" data-code="N" data-validate="Y" maxlength="1" data-name="Target-Not Done" data-section="PlantObsTargetTab">&nbsp;
-            <label>Not Done</label>
-        </div>
-        <div class="form-group col-md-6 col-sm-6 col-xs-12">
-            <label>Comments</label>
-            <input type="text" name="CommentText_O_S" class="input-sm form-control" placeholder="Comments" maxlength="400" data-name="Target-Comments Text" data-section="PlantObsTargetTab">
-        </div>
-        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-            <button type="button" class="btn btn-md btn-default pull-right" data-action="addEntoTarget"><i class="fa fa-plus text-info"></i>&nbsp;Add Target</button>
-            <a href="#" class="btn btn-sm btn-danger" data-action="removeEntoTarget">Delete</a>
+        <div class="row col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <button type="button" class="btn btn-md btn-default pull-right" data-action="addEntoTarget"><i class="fa fa-plus text-info"></i>&nbsp;Add Target</button>
+                <a href="#" class="btn btn-sm btn-danger" data-action="removeEntoTarget">Delete</a>
+            </div>
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">

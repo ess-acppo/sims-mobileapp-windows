@@ -42,6 +42,8 @@ var curDiscipline;
 var resizeId;
 var firstLoad = 0;
 var numAttachments = 0;
+var numObsAttachments = 0;
+var numSampleAttachments = 0;
 var downerId;
 var downerTeam;
 var TILE_SIZE = 256;
@@ -148,7 +150,7 @@ google.maps.Polygon.prototype.Contains = function (point) {
         return (blue >= red);
 
     }
-}
+};
 function pad(str, max) {
     str = str.toString();
     return str.length < max ? pad("0" + str, max) : str;
@@ -602,6 +604,35 @@ function clearMarkers() {
     if (markerCluster) { markerCluster.clearMarkers(); }
     markers = [];
 }
+$(document).on('click', '.getCoords', function (e) {
+    var xlat = $('#form1').find('input.obslat');
+    var xlng = $('#form1').find('input.obslng');
+    var xdat = $('#form1').find('select.obsdat');
+    var xwkt = $('#form1').find('input[name^="ObservationWhereWktClob"]');
+    var siteID = Number($('#form1').find('select[name="SiteId_O_N"] option:selected').val());
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            if (siteID > 0 && siteID < 99999 && checkMapBoundsBySite(position, siteID)) {
+                xlat.val(position.coords.latitude.toFixed(5));
+                xlng.val(position.coords.longitude.toFixed(5));
+                xwkt.val("POINT (" + position.coords.longitude.toFixed(5) + " " + position.coords.latitude.toFixed(5) + ")");
+                xdat.val("WGS84");
+            }
+            if ((siteID === 0 || siteID === 99999) && checkMapBoundsByPos(position)) {
+                xlat.val(position.coords.latitude.toFixed(5));
+                xlng.val(position.coords.longitude.toFixed(5));
+                xwkt.val("POINT (" + position.coords.longitude.toFixed(5) + " " + position.coords.latitude.toFixed(5) + ")");
+                xdat.val("WGS84");
+            }
+        }, function () {
+            $.growl.error({ title: "", message: "GPS GetCurrentPosition Failed!", location: "tc", size: "large" });
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        $.growl.error({ title: "", message: "Geolocation Failed!", location: "tc", size: "large" });
+    }
+    e.preventDefault();
+});
 function checkMapBoundsByLoc(location) {
     var outofbounds = true;
     $.each(alltPs, function (key, value) {
@@ -615,9 +646,10 @@ function checkMapBoundsByLoc(location) {
     return true;
 }
 function checkMapBoundsByPos(position) {
+    var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     var outofbounds = true;
     $.each(alltPs, function (key, value) {
-        if (value.Contains(location)) {
+        if (value.Contains(pos)) {
             outofbounds = false;
         }
     });

@@ -47,14 +47,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-geolocation": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-geolocation@4.0.1"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-network-information": {
         "source": {
             "type": "registry",
@@ -83,6 +75,14 @@
         "source": {
             "type": "registry",
             "id": "cordova-plugin-zeep"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-geolocation": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-geolocation@4.0.1"
         },
         "is_top_level": true,
         "variables": {}
