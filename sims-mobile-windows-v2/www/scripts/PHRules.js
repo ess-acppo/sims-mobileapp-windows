@@ -1487,6 +1487,9 @@ function Iterate(data) {
                     if (fname === 'PrelimTaxonTextH') return true;
                     if (fname === 'HostTaxonTextH') return true;
                     //console.log(index + ' field cannot be NULL');
+                    if (fname === 'PlantStatisticType' && CountListFlag === 'List' && plantDisciplineCode === 'B') {
+                        return true;
+                    }
                     vError = 1;
                     vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
                     vFailed = true;

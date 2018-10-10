@@ -2530,7 +2530,7 @@ $(document).on('click', 'a.downloadMaps', function (e) {
         });
 });
 function fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit) {
-    window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory, function (fs) {
+    window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (fs) {
         var numtiles = Math.pow(2, zoom);
         var xhr = new XMLHttpRequest();
         var url = "http://mt1.google.com/vt/lyrs=y&x=" + i + "&y=" + j + "&z=" + zoom;
@@ -2571,7 +2571,7 @@ function fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit) {
                                         }
                                     };
                                     fileWriter.onerror = function (e) {
-                                        $.growl.error({ title: "", message: "Failed file read: " + e.toString(), location: "tc", size: "large" });
+                                        //$.growl.error({ title: "", message: "Failed file read: " + e.toString(), location: "tc", size: "large" });
                                     };
                                     fileWriter.write(blob);
                                     //$.growl.notice({ title: "", message: 'File saved to Local folder.', location: "tc", size: "large" });
