@@ -2547,7 +2547,7 @@ $(document).on('click', "#addEntoHost", function () {
 $(document).on('click', "[data-action=addEntoTarget]", function () {
     var Idx = numEntoTargets;
     var that = $(this).closest('.entotarget');
-    var that1 = $(entoTarget);
+    var that1 = $(entotarget);
     that1.find('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue'
