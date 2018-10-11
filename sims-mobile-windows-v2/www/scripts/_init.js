@@ -1959,6 +1959,11 @@ function fetchSettings() {
                 resSettings = JSON.parse(res.rows.item(0).settingsval);
                 //console.log('0-' + JSON.stringify(resSettings));
                 //fetchServerDetails($("#serverMode").val());
+                AppMode = resSettings.settings.app.appMode;
+                settings.innerHTML = AppMode;
+                downerId = resSettings.settings.device.ownerId;
+                downerTeam = resSettings.settings.device.ownerTeam;
+                debugMode = resSettings.settings.device.debugMode;
             }
             else {
                 $.ajax({
