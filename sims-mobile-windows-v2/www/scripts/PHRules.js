@@ -18,7 +18,7 @@ var vErrDescription = [];
 var vFailed = false;
 var attachmentFlag = 0;
 var plantDisciplineCode;
-var CountListFlag = 0;
+var CountListFlag;
 var HostStatCountFlag = 0;
 var HostStatAreaFlag = 0;
 var PlantTargetObservedCodeFlag = 0;
@@ -1548,7 +1548,6 @@ function Iterate(data) {
     } else { return { "vError": 0, "vErrDescription": "" }; }
 }
 function Iterate2(data) {
-    var plantDisciplineCode;
     var modData = JSON.parse(JSON.stringify(data));
     //if (modData && modData.status_M_N) { delete modData.status_M_N; }
     $.each(modData, function (index, value) {
@@ -1701,6 +1700,9 @@ function Iterate2(data) {
                     if (fname === 'TargetTaxonTextH') return true;
                     if (fname === 'PrelimTaxonTextH') return true;
                     if (fname === 'HostTaxonTextH') return true;
+                    if (fname === 'PlantStatisticType' && CountListFlag === 'List' && plantDisciplineCode === 'B') {
+                        return true;
+                    }
                     //console.log(index + ' field cannot be NULL');
                     vError = 1;
                     vErrDescription.push($('[name="' + index + '"]').data("name") + " field cannot be empty.");
@@ -3790,11 +3792,12 @@ function StartSyncPH() {
             vError = 0;
             vErrDescription = [];
             vFailed = false;
-            CountListFlag = 0;
+            CountListFlag = '';
             HostStatCountFlag = 0;
             HostStatAreaFlag = 0;
             PlantPreservationOtherFlag = 0;
             PlantTargetObservedCodeFlag = 0;
+            plantDisciplineCode = "";
             var rowid = value.id_M_N;
             var result = Iterate2(value);
             if (result.vError === 0) {

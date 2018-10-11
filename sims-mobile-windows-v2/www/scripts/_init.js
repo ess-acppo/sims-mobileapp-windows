@@ -1080,7 +1080,7 @@ $(document).on('click', '#Submit2', function (e) {
     vErrDescription = [];
     vFailed = false;
     attachmentFlag = 0;
-    CountListFlag = 0;
+    CountListFlag = '';
     HostStatCountFlag = 0;
     HostStatAreaFlag = 0;
     PlantPreservationOtherFlag = 0;
@@ -1215,9 +1215,11 @@ $(document).on('click', '#SaveSettingsExit', function (e) {
     resSettings.settings.device.ownerName = $('#form3').find('select[id="deviceOwner"]').text();
     if ($('#form3').find('input[id="debugMode"]').val() === 'Y') {
         resSettings.settings.device.debugMode = 1;
+        debugMode = 1;
     }
     if ($('#form3').find('input[id="debugMode"]').val() === 'N') {
         resSettings.settings.device.debugMode = 0;
+        debugMode = 0;
     }
     resSettings.settings.device.samplePrefix = $('#form3').find('input[name="samplePrefix"]').val();
     resSettings.settings.device.sampleStartNumber = $('#form3').find('input[name="sampleStartNum"]').val();
@@ -2502,27 +2504,26 @@ $(document).on('click', 'a.downloadBaseMaps', function (e) {
     var filename;
     var filenum = 0;
     t0 = performance.now();
-    $('#modalProgress').modal();
-    $('#mb6 .progText').text("Download in progress ...");
-    $('#mb6 .progress').removeClass('hide');
-    $('#mb6 .progTime').text(new Date().toString());
+    $('#modalDownload').modal();
+    $('#mb8 .progText').text("Download in progress ...");
+    $('#mb8 .progress').removeClass('hide');
+    $('#mb8 .progTime').text(new Date().toString());
     getFileandExtractWin(url, mapset, 1, numfiles);
 });
 $(document).on('click', 'a.downloadMaps', function (e) {
     var str = $('#curActivities').val();
     if (str === "0") { return true; }
-    $('#modalProgress').modal();
-    $('#mb6 .progText').text("Download in progress ...");
-    $('#mb6 .progress').removeClass('hide');
+    $('#modalDownload').modal();
+    $('#mb8 .progText').text("Download in progress ...");
+    $('#mb8 .progress').removeClass('hide');
     $.when(getCurrentActivityTiles(str, 10)).then(getCurrentActivityTiles(str, 11)).then(getCurrentActivityTiles(str, 12))
         .then(getCurrentActivityTiles(str, 13)).then(getCurrentActivityTiles(str, 14))
-        .then(getCurrentActivityTiles(str, 15)).then(getCurrentActivityTiles(str, 16)).then(function () {
+        .then(getCurrentActivityTiles(str, 15)).then(getCurrentActivityTiles(str, 16)).done(function () {
             resSettings.settings.mapSets[0].lastDownloadDate = new Date().toString();
             db.transaction(function (tx) {
                 tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
                     $('#form3').find('label.mapNotes').text("Last downloaded on:" + new Date().toString());
-                    $('#modalProgress').modal('hide');
-                    $.growl.notice({ title: "", message: "Download complete", location: "bc", size: "small" });
+                    //$('#modalProgress').modal('hide');
                 });
             }, function (err) {
                 $.growl({ title: "", message: "An error occured while updating mapsets. " + err.message, location: "tc", size: "large" });
@@ -2538,9 +2539,9 @@ function fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit) {
         xhr.responseType = 'blob';
         xhr.onloadstart = function () {
             tiles++;
-            $('#mb6 .progText').text("Download in progress ...");
-            $('.progress-bar').css('width', Math.round(tiles % 100) + '%').attr('aria-valuenow', Math.round(tiles % 100)).text(Math.round(tiles % 100) + '%');
-            $('#mb6 .progress').removeClass('hide');
+            $('#mb8 .progText').text("File " + tiles + ": Download in progress ...");
+            $('#mb8 .progress-bar').css('width', Math.round(tiles % 100) + '%').attr('aria-valuenow', Math.round(tiles % 100)).text(Math.round(tiles % 100) + '%');
+            $('#mb8 .progress').removeClass('hide');
         };
         xhr.onloadend = function () {
             if (this.status === 200) {
@@ -2560,14 +2561,18 @@ function fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit) {
                                                 fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit);
                                             } else {
                                                 i++;
-                                                if (i > xlimit) {
-                                                    $('#modalProgress').modal('hide');
-                                                    $('#mb6 .progText').text("");
-                                                    return false;
-                                                }
+                                                //if (i > xlimit) {
+                                                //    $('#modalProgress').modal('hide');
+                                                //    $('#mb6 .progText').text("");
+                                                //    return false;
+                                                //}
                                                 j = ystart;
                                                 fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit);
                                             }
+                                        } else {
+                                            $('#modalDownload').modal('hide');
+                                            $('#mb8 .progText').text("");
+                                            return false;
                                         }
                                     };
                                     fileWriter.onerror = function (e) {
@@ -2598,17 +2603,17 @@ function getFileandExtractWin(url, mapset, i, n) {
             //$('#modalProgress').modal();
             //t1 = performance.now();
             //t3 = t3 + Math.round((t1 - t0));
-            $('#mb6 .progText').text("File " + i + " out of " + n + ": Download in progress ...");
-            $('#mb6 .progress').removeClass('hide');
+            $('#mb8 .progText').text("File " + i + " out of " + n + ": Download in progress ...");
+            $('#mb8 .progress').removeClass('hide');
             //$('#mb6 .fa-clock-o').removeClass('hide');
         };
         xhr.onloadend = function () {
             if (this.status === 200) {
                 //t1 = performance.now();
                 //t3 = t3 + Math.round((t1 - t0));
-                $('#mb6 .progText').text("File " + i + " out of " + n + ": Download in progress ...");
-                $('.progress-bar').css('width', '70%').attr('aria-valuenow', 100).text('70%');
-                $('#mb6 .progress').removeClass('hide');
+                $('#mb8 .progText').text("File " + i + " out of " + n + ": Download in progress ...");
+                $('#mb8 .progress-bar').css('width', '70%').attr('aria-valuenow', 100).text('70%');
+                $('#mb8 .progress').removeClass('hide');
                 //$('#mb6 .fa-clock-o').removeClass('hide');
                 var blob = new Blob([this.response], { type: "octet/stream" });
                 fs.root.getFile(filename, { create: true, exclusive: false }, function (fileEntry) {
@@ -2624,7 +2629,7 @@ function getFileandExtractWin(url, mapset, i, n) {
                         }, function (err) {
                             $.growl({ title: "", message: "An error occured while updating mapsets. " + err.message, location: "tc", size: "large" });
                         });
-                        $('#modalProgress').modal('hide');
+                        $('#modalDownload').modal('hide');
                         $('#form3').find('label.mapBNotes').text("Last downloaded on:" + new Date().toString());
                         //initSettings();
                         //$('#mb6 .progTime').text("");
@@ -2655,7 +2660,7 @@ function processzipWin(zipSource, destination) {
         //console.log('unzip success!');
     }, function (e) {
         //console.log('unzip error: ', e);
-        $('#modalProgress').modal('hide');
+        $('#modalDownload').modal('hide');
         $.growl.error({ title: "", message: "Failed extracting zip file.", location: "tc", size: "large" });
     });
 }
@@ -2683,10 +2688,10 @@ function writeFileWin(fileEntry, filename, dataObj, i, n) {
             //processZip("ms-appdata:///local/PNG.zip", cordova.file.dataDirectory);
             t1 = performance.now();
             t3 = t3 + Math.round((t1 - t0));
-            $('#mb6 .progText').text("Extracting Zip file " + i + " out of " + n + ". This might take a while ...");
-            $('#mb6 .progress').removeClass('hide');
+            $('#mb8 .progText').text("Extracting Zip file " + i + " out of " + n + ". This might take a while ...");
+            $('#mb8 .progress').removeClass('hide');
             //$('#mb6 .fa-clock-o').removeClass('hide');
-            $('.progress-bar').css('width', Math.round(i / n * 100) + '%').attr('aria-valuenow', Math.round(i / n * 100)).text(Math.round(i / n * 100) + '%');
+            $('#mb8 .progress-bar').css('width', Math.round(i / n * 100) + '%').attr('aria-valuenow', Math.round(i / n * 100)).text(Math.round(i / n * 100) + '%');
             //setTimeout(processzipWin(fileEntry.toURL(), "maps/" + filename), 20000);
             setTimeout(processzipWin(fileEntry.toURL(), "maps"), 20000);
         };

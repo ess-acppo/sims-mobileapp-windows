@@ -130,17 +130,17 @@ html, body {
     z-index: 305;
 }
 
-#modalProgress {
+#modalProgress, #modalDownload {
     background-color: rgba(0,0,0,0.5);
 }
 
-    #modalProgress .modal-dialog {
+    #modalProgress .modal-dialog, #modalDownload .modal-dialog {
         width: 50%;
         z-index: 350;
         top: 20%;
     }
 
-    #modalProgress .modal-content {
+    #modalProgress .modal-content, #modalDownload .modal-content {
         z-index: 350;
         height: 120px;
         border: 0px;
@@ -1234,6 +1234,10 @@ div.dataTables_filter {
     padding-right: 0;
 }
 
+.mt-5 {
+    margin-top:5px;
+}
+
 text-center {
     text-align: center;
 }
@@ -1296,6 +1300,10 @@ text-right {
     }
 
     #modalProgress .modal-dialog {
+        width: 90%;
+    }
+
+    #modalDownload .modal-dialog {
         width: 90%;
     }
 }
