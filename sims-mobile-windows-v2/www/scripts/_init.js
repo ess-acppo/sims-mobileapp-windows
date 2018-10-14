@@ -2152,7 +2152,7 @@ function getMapBounds() {
         maxY = allLngs[allLngs.length - 1];
     }
 }
-function getCurrentActivityBounds(str, zoom) {
+function getCurrentActivityBounds(str) {
     if (Number(str) === 99999) { return true; }
     curLats = []; curLngs = [];
     var arr = ActivityData.activities.filter(function (el) {
@@ -2169,7 +2169,6 @@ function getCurrentActivityBounds(str, zoom) {
             }
         });
         if (curLats.length > 0 && curLngs.length > 0) {
-            var scale = 1 << zoom;
             cX = curLats[0];
             cY = curLngs[0];
             curLats.sort();
