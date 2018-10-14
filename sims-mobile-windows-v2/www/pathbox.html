@@ -8,7 +8,7 @@
         <a href="#" class="form-control btn btn-md btn-default text-arrows expand" data-action="expand"><i class="fa fa-arrow-down"></i></a>
         <a href="#" class="form-control btn btn-md btn-danger text-arrows-2 removePathHost"><i class="fa fa-remove"></i></a>
     </div>
-    <div class="row col-md-11 col-sm-10 col-xs-10 pl-0">
+    <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-3 col-sm-3 col-xs-12 hide">
             <label>Taxon ID</label>
             <input type="number" class="form-control taxonIDP" placeholder="Taxon ID" name="PlantTaxonId_O_N" min="1" max="99999999" maxlength="8" data-name="Host-Taxon ID">
@@ -65,24 +65,24 @@
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Latitude</label>
-            <input type="number" class="form-control pathlat" name="Latitude" placeholder="Latitude" data-name="Host-Latitude" data-section="PlantObsTab">
+            <input type="number" class="form-control pathlat" name="Latitude_O_N" placeholder="Latitude" data-name="Host-Latitude" data-section="PlantObsTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label>Longitude</label>
-            <input type="number" class="form-control pathlng" name="Longitude" placeholder="Longitude" data-name="Host-Longitude" data-section="PlantObsTab">
+            <input type="number" class="form-control pathlng" name="Longitude_O_N" placeholder="Longitude" data-name="Host-Longitude" data-section="PlantObsTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-3 col-sm-3 col-xs-12">
+        <div class="form-group col-md-3 col-sm-3 col-xs-6">
             <label>Datum</label>
             <select class="form-control pathdat" name="GpsDatumId_O_S" data-name="Host-Datum" data-section="PlantObsTab">
                 <option>WGS84</option>
                 <option>GDA94</option>
             </select>
         </div>
-        <div class="form-group col-md-3 col-sm-3 col-xs-12">
+        <div class="form-group col-md-3 col-sm-3 col-xs-6">
             <button class="btn btn-md btn-default getPathHostCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button>
         </div>
         <div class="form-group col-md-6 col-sm-6 col-xs-12 hide">

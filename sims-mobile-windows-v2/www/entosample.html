@@ -10,7 +10,7 @@
             <a href="#" class="form-control btn btn-md btn-danger text-arrows-2 removeEntoSample"><i class="fa fa-remove"></i></a>
         </div>
     </div>
-    <div class="row col-md-11 col-sm-10 col-xs-10 pl-0">
+    <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="text" class="form-control nextid" placeholder="Sample Field ID" name="SampleFieldLabelText_M_S" data-name="Sample-Field Label" data-section="PlantSampleTab">
         </div>
@@ -43,24 +43,24 @@
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Latitude </label>
-            <input type="number" class="form-control samplelat" placeholder="Latitude" name="Latitude" data-name="Sample-Latitude" data-section="PlantSampleTab">
+            <input type="number" class="form-control samplelat" placeholder="Latitude" name="Latitude_M_N" data-name="Sample-Latitude" data-section="PlantSampleTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <label><span class="bold-red">*&nbsp;</span>Longitude </label>
-            <input type="number" class="form-control samplelng" placeholder="Longitude" name="Longitude" data-name="Sample-Longitude" data-section="PlantSampleTab">
+            <input type="number" class="form-control samplelng" placeholder="Longitude" name="Longitude_M_N" data-name="Sample-Longitude" data-section="PlantSampleTab">
         </div>
     </div>
     <div class="row col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group col-md-3 col-sm-3 col-xs-12">
+        <div class="form-group col-md-3 col-sm-3 col-xs-6">
             <label><span class="bold-red">*&nbsp;</span>Datum</label>
             <select class="form-control sampledat" name="GpsDatumId_M_S" data-name="Sample-Datum" data-section="PlantSampleTab">
                 <option>WGS84</option>
                 <option>GDA94</option>
             </select>
         </div>
-        <div class="form-group col-md-3 col-sm-3 col-xs-12">
+        <div class="form-group col-md-3 col-sm-3 col-xs-6">
             <button class="btn btn-md btn-default getSampleCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button>
         </div>
         <div class="form-group col-md-11 col-sm-11 col-xs-11 hide">
@@ -148,11 +148,16 @@
             <input type="checkbox" name="PlantPreservationTab-FT_O_S" class="minimal" value="FT" maxlength="2" data-name="Sample-Plant Preservation-FTA Card" data-section="PlantSampleTab">&nbsp;
             <label>FTA Card</label>
         </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
             <input type="checkbox" name="PlantPreservationTab-O_O_S" class="minimal" value="O" maxlength="2" data-name="Sample-Plant Preservation-Other" data-section="PlantSampleTab">&nbsp;
             <label>Other</label>
         </div>
+    </div>
+    <div class="row col-md-12 col-sm-12 col-xs-12">
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
+            <label>Plant Preservation-Other Comments</label>
             <input type="text" class="form-control" placeholder="Other Preservation Type" name="PlantPreservOtherText_O_S" maxlength="50" data-name="Sample-Plant Preservation Other Text" data-section="PlantSampleTab">
         </div>
     </div>

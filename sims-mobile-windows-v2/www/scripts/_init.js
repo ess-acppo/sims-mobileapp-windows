@@ -3,7 +3,6 @@ var mapPath;
 var emptyTilePath;
 var greenTilePath;
 var AppMode;
-var ServerMode;
 var debugMode;
 var ServerAddress;
 var devServerAddress;
@@ -1087,6 +1086,14 @@ $(document).on('click', '#Submit2', function (e) {
     PlantTargetObservedCodeFlag = 0;
     var obj = objectifyPHFormforSave(form1);
     //console.log(JSON.stringify(obj));
+
+    var preVal = preValidate();
+    if (preVal.vError !== 0) {
+        rowsFailedErr.push(preVal.vErrDescription);
+        $.growl.error({ title: "", message: rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" });
+        return false;
+    }
+
     var result = Iterate(obj);
     if (result.vError === 0) {
         //console.log(JSON.stringify(SubmitRecord(objectifyPHFormforSubmit(obj))));
@@ -1153,7 +1160,7 @@ $(document).on('click', '#settings', function (e) {
     }).complete(function (e) {
         setTimeout(function (e) {
             loadActivityData();
-            getStaffData(resSettings.settings.device.ownerTeam);
+            $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData(resSettings.settings.device.ownerTeam))).val(resSettings.settings.device.ownerId);
         }, 300);
         $('#mb5').find('#appMode').val(AppMode);
         //var arr = resSettings.settings.mapSets.filter(function (el) {
@@ -1166,15 +1173,14 @@ $(document).on('click', '#settings', function (e) {
         if (resSettings.settings.device.ownerTeam) { $('#form3').find('select[id="doTeam"]').val(resSettings.settings.device.ownerTeam); }
         if (resSettings.settings.device.debugMode === 0) {
             $('#form3').find('input[id="debugMode"]').iCheck('uncheck');
+            $('#showPayloads').addClass('hide');
         }
         if (resSettings.settings.device.debugMode === 1) {
             $('#form3').find('input[id="debugMode"]').iCheck('check');
+            $('#showPayloads').removeClass('hide');
         }
-        $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(staffDataFull));
-        if (resSettings.settings.device.ownerId) { $('#form3').find('select[id="deviceOwner"]').val(resSettings.settings.device.ownerId); }
         $('#form3').find('input[name="samplePrefix"]').val(resSettings.settings.device.samplePrefix);
         $('#form3').find('input[name="sampleCurrNum"]').val(resSettings.settings.device.currentSampleNumber);
-        //$('#form3').find('select[id="serverMode"]').val(resSettings.settings.app.serverMode);
     }).done(function () {
         $('#modalProgress').modal('hide');
         if (statusElem.innerHTML === 'online') {
@@ -1224,19 +1230,9 @@ $(document).on('click', '#SaveSettingsExit', function (e) {
     resSettings.settings.device.samplePrefix = $('#form3').find('input[name="samplePrefix"]').val();
     resSettings.settings.device.sampleStartNumber = $('#form3').find('input[name="sampleStartNum"]').val();
     resSettings.settings.device.currentSampleNumber = $('#form3').find('input[name="sampleCurrNum"]').val();
-    //resSettings.settings.app.serverMode = $('#form3').find('select[id="serverMode"]').val();
     /* Save to DB */
     db.transaction(function (tx) {
         tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
-            //if (resSettings.settings.app.serverMode !== $('#AppEnv').text()) {
-            //    clearCache();
-            //    $('#modalSettings').modal('hide');
-            //    $.growl.warning({ title: "", message: "Please restart the app for the settings to take effect. ", location: "tc", size: "large" });
-            //} else {
-            //    $.when(fetchSettings()).then(initSettings()).done(function () {
-            //        $('#modalSettings').modal('hide');
-            //    });
-            //}
             $.when(fetchSettings()).then(initSettings()).done(function () {
                 $('#modalSettings').modal('hide');
             });
@@ -1474,7 +1470,7 @@ $(document).on('click', 'a.btnSync', function (e) {
         }
     });
 });
-$(document).on('click', '.showPayloads', function (e) {
+$(document).on('click', '#showPayloads', function (e) {
     if (debugMode === 1) {
         $.confirm({
             title: 'Activity Data',
@@ -1499,25 +1495,7 @@ $(document).on('click', '.showPayloads', function (e) {
                                                 content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadTD">' + JSON.stringify(taxaData) + '</textarea></div>',
                                                 columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
                                                 buttons: {
-                                                    Ok: function () {
-                                                        $.confirm({
-                                                            title: 'Settings',
-                                                            content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadRS">' + JSON.stringify(resSettings) + '</textarea></div>',
-                                                            columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-                                                            buttons: {
-                                                                Ok: function () { },
-                                                                copy: {
-                                                                    text: 'Copy', // With spaces and symbols
-                                                                    action: function () {
-                                                                        var copytext = this.$content.find("#PayloadRS");
-                                                                        copytext.select();
-                                                                        document.execCommand("copy");
-                                                                        return false;
-                                                                    }
-                                                                }
-                                                            }
-                                                        });
-                                                    },
+                                                    Ok: function () {},
                                                     copy: {
                                                         text: 'Copy', // With spaces and symbols
                                                         action: function () {
@@ -1957,8 +1935,6 @@ function fetchSettings() {
             //This is not the first load
             if (res.rows && res.rows.length > 0) {
                 resSettings = JSON.parse(res.rows.item(0).settingsval);
-                //console.log('0-' + JSON.stringify(resSettings));
-                //fetchServerDetails($("#serverMode").val());
                 AppMode = resSettings.settings.app.appMode;
                 settings.innerHTML = AppMode;
                 downerId = resSettings.settings.device.ownerId;
@@ -1993,7 +1969,6 @@ function fetchSettings() {
                         }, function (err) {
                             $.growl.error({ title: "", message: "An error occured while updating settings to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
                         });
-                        //fetchServerDetails($("#serverMode").val());
                     },
                     failure: function () {
                         $.growl.error({ title: "", message: "Error loading settings!", location: "tc", size: "large", fixed: "true" });
@@ -2009,7 +1984,6 @@ function fetchSettings() {
 function fetchServerDetails(serverMode) {
     AppMode = resSettings.settings.app.appMode;
     settings.innerHTML = AppMode;
-    //ServerMode = resSettings.settings.app.serverMode;
     appEnv.innerHTML = serverMode;
     downerId = resSettings.settings.device.ownerId;
     downerTeam = resSettings.settings.device.ownerTeam;
@@ -2065,6 +2039,19 @@ function fetchServerDetails(serverMode) {
             break;
     }
     return taxaAddress;
+}
+function updateSettings(serverMode) {
+    if (serverMode !== resSettings.settings.app.serverMode) {
+        resSettings.settings.app.serverMode = serverMode;
+        db.transaction(function (tx) {
+            tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
+                //Updated serverMode to current.
+                $.growl.notice({ title: "", message: "Syncing app cache ... ", location: "bc", size: "small" });
+            });
+        }, function (err) {
+            $.growl.error({ title: "", message: "An error occured while updating settings. " + err.message, location: "tc", size: "large" });
+        });
+    }
 }
 function clearCache() {
     db.transaction(function (tx) {

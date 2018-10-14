@@ -5,6 +5,7 @@ var s;
 var authCode;
 var authURL;
 var curUser;
+var ServMode;
 /* Auth variables */
 
 function initAuth() {
@@ -13,6 +14,7 @@ function initAuth() {
             var unameValue = document.querySelector('.auth-username').value;
             var pwdValue = document.querySelector('.auth-password').value;
             authURL = fetchServerDetails($("#serverMode").val());
+            ServMode = $("#serverMode").val();
             s = document.querySelector('.auth-send .fa-spin');
             s.classList.remove('hide');
             text = document.querySelector('.auth-result .text');
@@ -37,7 +39,7 @@ function authenticate2(x, y, authURL) {
         text.innerHTML = 'Login success!';
         derive_key(x, y);
         authCode = "Basic " + btoa(x + ":" + y);
-        initSettings();
+        $.when(updateSettings(ServMode)).then(clearCache()).done(initSettings());
         $('.auth-username').attr('disabled', false);
         $('.auth-username').removeClass('disabled');
         $('.auth-password').attr('disabled', false);
@@ -167,6 +169,7 @@ $('#modalAuth').keypress(function (e) {
         var unameValue = document.querySelector('.auth-username').value;
         var pwdValue = document.querySelector('.auth-password').value;
         authURL = fetchServerDetails($("#serverMode").val());
+        ServMode = $("#serverMode").val();
         s = document.querySelector('.auth-send .fa-spin');
         s.classList.remove('hide');
         text = document.querySelector('.auth-result .text');
