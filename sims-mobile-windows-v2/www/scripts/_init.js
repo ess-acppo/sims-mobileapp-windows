@@ -1940,6 +1940,7 @@ function fetchSettings() {
                 downerId = resSettings.settings.device.ownerId;
                 downerTeam = resSettings.settings.device.ownerTeam;
                 debugMode = resSettings.settings.device.debugMode;
+                $("#serverMode").val(resSettings.settings.app.serverMode);
             }
             else {
                 $.ajax({
@@ -1969,6 +1970,12 @@ function fetchSettings() {
                         }, function (err) {
                             $.growl.error({ title: "", message: "An error occured while updating settings to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
                         });
+                        AppMode = resSettings.settings.app.appMode;
+                        settings.innerHTML = AppMode;
+                        downerId = resSettings.settings.device.ownerId;
+                        downerTeam = resSettings.settings.device.ownerTeam;
+                        debugMode = resSettings.settings.device.debugMode;
+                        $("#serverMode").val(resSettings.settings.app.serverMode);
                     },
                     failure: function () {
                         $.growl.error({ title: "", message: "Error loading settings!", location: "tc", size: "large", fixed: "true" });
