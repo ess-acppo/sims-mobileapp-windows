@@ -43,18 +43,18 @@
     },
     "app": {
       "appMode": "PH",
-      "serverMode": "UAT",
+      "serverMode": "PROD",
       "devServerAddress": "https://online-dev.agriculture.gov.au/",
       "sitServerAddress": "https://online-sit.agriculture.gov.au/",
       "uatServerAddress": "https://online-uat.agriculture.gov.au/",
       "prodServerAddress": "https://online.agriculture.gov.au/",
-      "authAddress": "ords-int/rest/sims/plant_health/taxa",
-      "activityAddress": "ords-int/rest/sims/plant_health/activity",
-      "refCodesAddress": "ords-int/rest/sims/plant_health/referenceCodes",
-      "BPHStaffAddress": "ords-int/rest/sims/common/program/BPH/team",
-      "IPHStaffAddress": "ords-int/rest/sims/common/program/IPH/team",
-      "NPHStaffAddress": "ords-int/rest/sims/common/program/NPH/team",
-      "taxaAddress": "ords-int/rest/sims/plant_health/taxa",
+      "authAddress": "ords-ext/rest/sims/plant_health/taxa",
+      "activityAddress": "ords-ext/rest/sims/plant_health/activity",
+      "refCodesAddress": "ords-ext/rest/sims/plant_health/referenceCodes",
+      "BPHStaffAddress": "ords-ext/rest/sims/common/program/BPH/team",
+      "IPHStaffAddress": "ords-ext/rest/sims/common/program/IPH/team",
+      "NPHStaffAddress": "ords-ext/rest/sims/common/program/NPH/team",
+      "taxaAddress": "ords-ext/rest/sims/plant_health/taxa",
       "submitPHObsAddress": "psd.comr.svl/PlantHealthService/1.0/createPlantHealthObservation"
     }
   }
