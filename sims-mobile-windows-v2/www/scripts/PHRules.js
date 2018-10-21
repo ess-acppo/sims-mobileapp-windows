@@ -3173,14 +3173,14 @@ $(document).on('click', '.getSampleCoords', function (e) {
             if (siteID > 0 && siteID < 99999 && checkMapBoundsBySite(position, siteID)) {
                 xlat.val(position.coords.latitude.toFixed(5));
                 xlng.val(position.coords.longitude.toFixed(5));
-                if (position.coords.altitude) { Math.round(xalt.val(position.coords.altitude)); }
+                if (position.coords.altitude) { xalt.val(Math.round(position.coords.altitude)); }
                 xwkt.val("POINT (" + position.coords.longitude.toFixed(5) + " " + position.coords.latitude.toFixed(5) + ")");
                 xdat.val("WGS84");
             }
             if ((siteID === 0 || siteID === 99999) && checkMapBoundsByPos(position)) {
                 xlat.val(position.coords.latitude.toFixed(5));
                 xlng.val(position.coords.longitude.toFixed(5));
-                if (position.coords.altitude) { Math.round(xalt.val(position.coords.altitude)); }
+                if (position.coords.altitude) { xalt.val(Math.round(position.coords.altitude)); }
                 xwkt.val("POINT (" + position.coords.longitude.toFixed(5) + " " + position.coords.latitude.toFixed(5) + ")");
                 xdat.val("WGS84");
             }
