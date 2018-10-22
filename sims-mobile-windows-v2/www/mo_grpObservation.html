@@ -26,6 +26,10 @@
                 <div class="tab-pane active" id="tab_0">
                     <div class="row col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group col-md-3 col-sm-3 col-xs-3 hide">
+                            <label>Discipline</label>
+                            <input type="text" class="form-control" value="G" name="AnimalDisciplineCode_M_S" data-name="Animal Discipline Code" data-section="Observation" />
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-3 hide">
                             <label>Submitting Staff ID</label>
                             <input type="number" class="form-control" name="submittedBy_M_N" data-name="Submitting Staff ID" data-section="Observation" />
                         </div>
@@ -33,30 +37,26 @@
                             <label><span class="bold-red">*&nbsp;</span>Activity</label>
                             <select class="form-control" name="activityId_M_N" data-name="SurvActivity ID" id="SurvActivityIdAH" data-section="Observation"></select>
                         </div>
-                        <div class="form-group col-md-3 col-sm-3 col-xs-3 hide">
-                            <label>Discipline</label>
-                            <input type="text" class="form-control" value="G" name="AnimalDisciplineCode_M_S" data-name="Animal Discipline Code" data-section="Observation" />
-                        </div>
                     </div>
                     <div class="row col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <label><span class="bold-red">*</span>Animal Type</label>
-                            <select class="form-control" name="animalType_M_S" data-name="Animal Type" data-section="Observation" >
-                                <option selected>Wild</option>
-                                <option>Managed</option>
+                            <select class="form-control" name="managementType_M_S" data-name="Animal Type" data-section="Observation">
+                                <option value="W">Wild</option>
+                                <option value="M">Managed</option>
                             </select>
                         </div>
                     </div>
                     <div class="row col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <label><span class="bold-red">*</span>Common Name</label>
-                            <select class="form-control" name="commonName_M_S" id="commonName" data-name="Species Common Name" data-section="Observation" ></select>
+                            <select class="form-control" name="commonName_M_S" id="commonName" data-name="Species Common Name" data-section="Observation"></select>
                         </div>
                     </div>
                     <div class="row col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <label><span class="bold-red">*</span>Taxon</label>
-                            <select class="form-control" name="taxon_M_S" id="taxon" data-name="Species Taxon" data-section="Observation" >
+                            <select class="form-control" name="taxon_M_S" id="taxon" data-name="Species Taxon" data-section="Observation">
                                 <option value="NONE">- select -</option>
                             </select>
                         </div>
@@ -64,7 +64,7 @@
                     <div class="row col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <label><span class="bold-red">*</span>Total Number in Group</label>
-                            <input type="number" class="form-control" placeholder="0" name="groupNum_M_N" data-name="Total Number in Group" data-section="Observation" >
+                            <input type="number" class="form-control" placeholder="0" name="totalNumber_M_N" data-name="Total Number in Group" data-section="Observation">
                         </div>
                     </div>
                 </div>
@@ -80,6 +80,16 @@
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <label><span class="bold-red">*</span>Observer</label>
                             <select class="form-control" name="ObservationStaffId_M_N_0_1" data-name="Observation Staff ID" id="ObservationStaffId" data-section="Observation"></select>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12 ripple">
+                            <input type="checkbox" class="minimal" name="externalObserverFlag_O_S_0_1" data-name="External Observer Flag" data-section="Observation"><label>&nbsp;External Observer</label>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control hide" placeholder="External Observer" name="externalObserver_O_S_0_1" data-name="External Observer" data-section="Observation">
                         </div>
                     </div>
                     <div class="row col-md-12 col-sm-12 col-xs-12">
@@ -119,13 +129,13 @@
                     </div>
                     <div class="row col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group col-md-4 col-sm-4 col-xs-12 ripple">
-                            <input type="radio" class="minimal" name="obsProximity_M_S_0_1" data-code="Aerial" data-validate="Y" value="Aerial" data-name="Observation Proximity" data-section="Observation" >&nbsp;<label>Aerial</label>
+                            <input type="radio" class="minimal" name="obsProximity_M_S_0_1" data-code="A" data-validate="Y" value="A" data-name="Observation Proximity" data-section="Observation">&nbsp;<label>Aerial</label>
                         </div>
                         <div class="form-group col-md-4 col-sm-4 col-xs-12 ripple">
-                            <input type="radio" class="minimal" name="obsProximity_M_S_0_1" data-code="Ground (distant)" data-validate="Y" value="Ground (distant)" data-name="Observation Proximity" data-section="Observation" >&nbsp;<label>Ground (distant)</label>
+                            <input type="radio" class="minimal" name="obsProximity_M_S_0_1" data-code="GD" data-validate="Y" value="GD" data-name="Observation Proximity" data-section="Observation">&nbsp;<label>Ground (distant)</label>
                         </div>
                         <div class="form-group col-md-4 col-sm-4 col-xs-12 ripple">
-                            <input type="radio" class="minimal" name="obsProximity_M_S_0_1" data-code="Ground (close)" data-validate="Y" value="Ground (close)" data-name="Observation Proximity" data-section="Observation" >&nbsp;<label>Ground (close)</label>
+                            <input type="radio" class="minimal" name="obsProximity_M_S_0_1" data-code="GC" data-validate="Y" value="GC" data-name="Observation Proximity" data-section="Observation">&nbsp;<label>Ground (close)</label>
                         </div>
                     </div>
                 </div>
@@ -135,7 +145,7 @@
                             <label><span class="bold-red">*</span><b>Age Class >></b></label>
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                            <label><b>Gender (Optional) >></b></label>
+                            <label><b>Gender >></b></label>
                         </div>
                     </div>
                     <div class="row col-md-12 col-sm-12 col-xs-12 dynarow">
@@ -143,19 +153,19 @@
                             <label>Adult</label>
                         </div>
                         <div class="form-group col-md-1 col-sm-1 col-xs-6">
-                            <input type="number" class="form-control" placeholder="0" name="adultNumber_M_N_0_2" data-name="Number of Adult Animals" data-section="Observation" >
+                            <input type="number" class="form-control percentCal" placeholder="0" name="adultNumber_M_N_0_2" data-name="Number of Adult Animals" data-section="Observation">
                         </div>
                         <div class="form-group col-md-1 col-sm-1 col-xs-6">
-                            <input type="number" class="form-control" placeholder="0%" name="adultPercent_M_N_0_2" data-name="Percentage of Adult Animals" data-section="Observation" >
+                            <input type="number" class="form-control targetPcnt" placeholder="0%" name="adultPercent_O_N_0_2" data-name="Percentage of Adult Animals" data-section="Observation">
                         </div>
                         <div class="form-group col-md-4 col-sm-4 col-xs-12">
                             <label>Male</label>
                         </div>
                         <div class="form-group col-md-1 col-sm-1 col-xs-6">
-                            <input type="number" class="form-control" placeholder="0" name="maleNumber_M_N_0_2" data-name="Number of Male Animals" data-section="Observation" >
+                            <input type="number" class="form-control percentCal" placeholder="0" name="maleNumber_M_N_0_2" data-name="Number of Male Animals" data-section="Observation">
                         </div>
                         <div class="form-group col-md-1 col-sm-1 col-xs-6">
-                            <input type="number" class="form-control" placeholder="0%" name="malePercent_M_N_0_2" data-name="Percentage of Male Animals" data-section="Observation" >
+                            <input type="number" class="form-control targetPcnt" placeholder="0%" name="malePercent_O_N_0_2" data-name="Percentage of Male Animals" data-section="Observation">
                         </div>
                     </div>
                     <div class="row col-md-12 col-sm-12 col-xs-12 dynarow">
@@ -163,19 +173,19 @@
                             <label>Juvenile</label>
                         </div>
                         <div class="form-group col-md-1 col-sm-1 col-xs-6">
-                            <input type="number" class="form-control" placeholder="0" name="juvNumber_M_N_0_2" data-name="Number of Juvenile Animals" data-section="Observation" >
+                            <input type="number" class="form-control percentCal" placeholder="0" name="juvNumber_M_N_0_2" data-name="Number of Juvenile Animals" data-section="Observation">
                         </div>
                         <div class="form-group col-md-1 col-sm-1 col-xs-6">
-                            <input type="number" class="form-control" placeholder="0%" name="juvPercent_M_N_0_2" data-name="Perccentage of Juvenile Animals" data-section="Observation" >
+                            <input type="number" class="form-control targetPcnt" placeholder="0%" name="juvPercent_O_N_0_2" data-name="Perccentage of Juvenile Animals" data-section="Observation">
                         </div>
                         <div class="form-group col-md-4 col-sm-4 col-xs-12">
                             <label>Female</label>
                         </div>
                         <div class="form-group col-md-1 col-sm-1 col-xs-6">
-                            <input type="number" class="form-control" placeholder="0" name="femaleNumber_M_N_0_2" data-name="Number of Female Animals" data-section="Observation" >
+                            <input type="number" class="form-control percentCal" placeholder="0" name="femaleNumber_M_N_0_2" data-name="Number of Female Animals" data-section="Observation">
                         </div>
                         <div class="form-group col-md-1 col-sm-1 col-xs-6">
-                            <input type="number" class="form-control" placeholder="0%" name="femalePercent_M_N_0_2" data-name="Percentage of Female Animals" data-section="Observation" >
+                            <input type="number" class="form-control targetPcnt" placeholder="0%" name="femalePercent_O_N_0_2" data-name="Percentage of Female Animals" data-section="Observation">
                         </div>
                     </div>
                     <div class="row col-md-12 col-sm-12 col-xs-12 dynarow">
@@ -183,19 +193,39 @@
                             <label>Unknown</label>
                         </div>
                         <div class="form-group col-md-1 col-sm-1 col-xs-6">
-                            <input type="number" class="form-control" placeholder="0" name="aunkNumber_M_N_0_2" data-name="Number of Animals of Unknown AgeClass" data-section="Observation" >
+                            <input type="number" class="form-control percentCal" placeholder="0" name="aunkNumber_M_N_0_2" data-name="Number of Animals of Unknown AgeClass" data-section="Observation">
                         </div>
                         <div class="form-group col-md-1 col-sm-1 col-xs-6">
-                            <input type="number" class="form-control" placeholder="0" name="aunkPercent_M_N_0_2" data-name="Percentage of Animals of Unknown AgeClass" data-section="Observation" >
+                            <input type="number" class="form-control targetPcnt" placeholder="0" name="aunkPercent_O_N_0_2" data-name="Percentage of Animals of Unknown AgeClass" data-section="Observation">
                         </div>
                         <div class="form-group col-md-4 col-sm-4 col-xs-12">
                             <label>Unknown</label>
                         </div>
                         <div class="form-group col-md-1 col-sm-1 col-xs-6">
-                            <input type="number" class="form-control" placeholder="0" name="gunkNumber_M_N_0_2" data-name="Number of Animals of Unknown Gender" data-section="Observation" >
+                            <input type="number" class="form-control percentCal" placeholder="0" name="gunkNumber_M_N_0_2" data-name="Number of Animals of Unknown Gender" data-section="Observation">
                         </div>
                         <div class="form-group col-md-1 col-sm-1 col-xs-6">
-                            <input type="number" class="form-control" placeholder="0" name="gunkpercent_M_N_0_2" data-name="Percentage of Animals of Unknown Gender" data-section="Observation" >
+                            <input type="number" class="form-control targetPcnt" placeholder="0" name="gunkpercent_O_N_0_2" data-name="Percentage of Animals of Unknown Gender" data-section="Observation">
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12 dynarow">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label><span class="bold-red">*</span>Do any animals have wounds?</label>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6 ripple">
+                            <input type="radio" class="minimal" name="woundsPresentG_M_S_0_2" value="Y" data-code="Y" data-validate="Y" data-name="Wounds Present Flag" data-section="Observation">&nbsp;<label>Yes</label>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6 ripple">
+                            <input type="radio" class="minimal" name="woundsPresentG_M_S_0_2" value="N" data-code="N" data-validate="Y" data-name="Wounds Present Flag" data-section="Observation">&nbsp;<label>No</label>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12 woundedAnimals hide">
+                            <label>Number of animals with wounds</label>
+                        </div>
+                        <div class="form-group col-md-1 col-sm-1 col-xs-3 woundedAnimals hide">
+                            <input type="number" class="form-control percentCal" placeholder="0" name="woundsCount_M_N_0_2" data-name="Numbers of Animals with wounds" data-section="Observation">
+                        </div>
+                        <div class="form-group col-md-1 col-sm-1 col-xs-3 woundedAnimals hide">
+                            <input type="number" class="form-control targetPcnt" placeholder="0" name="woundspercent_O_N_0_2" data-name="Percentage of Animals with wounds" data-section="Observation">
                         </div>
                     </div>
                     <div class="row col-md-12 col-sm-12 col-xs-12">
@@ -203,11 +233,11 @@
                             <label><span class="bold-red">*</span>Are there any obvious clinical syndromes?</label>
                         </div>
                         <div class="form-group col-md-3 col-sm-3 col-xs-6 ripple">
-                            <input type="radio" class="minimal" name="optSyndromes_M_S_0_2" data-code="Y" data-validate="Y" value="Y" data-name="Syndromes Flag" data-section="Observation" >&nbsp;
+                            <input type="radio" class="minimal" name="optSyndromes_M_S_0_2" data-code="Y" data-validate="Y" value="Y" data-name="Syndromes Flag" data-section="Observation">&nbsp;
                             <label>Yes</label>
                         </div>
                         <div class="form-group col-md-3 col-sm-3 col-xs-6 ripple">
-                            <input type="radio" class="minimal" name="optSyndromes_M_S_0_2" data-code="N" data-validate="Y" value="N" data-name="Syndromes Flag" data-section="Observation" >&nbsp;
+                            <input type="radio" class="minimal" name="optSyndromes_M_S_0_2" data-code="N" data-validate="Y" value="N" data-name="Syndromes Flag" data-section="Observation">&nbsp;
                             <label>No</label>
                         </div>
                     </div>
@@ -216,10 +246,10 @@
                             <h4 class="box-title">Syndromes</h4>
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                            <select class="form-control" name="Syndromes" id="lstSyndromes"  data-name="List of Syndromes" data-section="Observation" ></select>
+                            <select class="form-control" name="Syndromes" id="lstSyndromes" data-name="List of Syndromes" data-section="Observation"></select>
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                            <button type="button" class="btn btn-md btn-info" id="addSyndrome"><i class="fa fa-plus"></i>&nbsp;Add Syndrome</button>
+                            <button type="button" class="btn btn-md btn-info" id="addGSyndrome"><i class="fa fa-plus"></i>&nbsp;Add Syndrome</button>
                         </div>
                         <div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="addedSyndromes">
                         </div>
@@ -227,7 +257,7 @@
                     <div class="row col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group col-md-12 col-sm-12 col-xs-12">
                             <label>Additional Observations</label>
-                            <textarea class="form-control" rows="6" name="additionalObservations_O_S_0_2" style="height:80px;" data-name="Additional Observations" data-section="Observation" maxlength="400" ></textarea>
+                            <textarea class="form-control" rows="6" name="additionalObservations_O_S_0_2" style="height:80px;" data-name="Additional Observations" data-section="Observation" maxlength="400"></textarea>
                         </div>
                     </div>
                 </div>

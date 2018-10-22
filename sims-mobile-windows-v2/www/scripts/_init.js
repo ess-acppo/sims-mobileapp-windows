@@ -1463,6 +1463,7 @@ $(document).on('click', '#settings', function (e) {
         }
         $('#form3').find('input[name="samplePrefix"]').val(resSettings.settings.device.samplePrefix);
         $('#form3').find('input[name="sampleCurrNum"]').val(resSettings.settings.device.currentSampleNumber);
+        $('#form3').find('input[name="AnimalCurrNum"]').val(resSettings.settings.device.currentAnimalNumber);
     }).done(function () {
         $('#modalProgress').modal('hide');
         if (statusElem.innerHTML === 'online') {
@@ -1512,6 +1513,7 @@ $(document).on('click', '#SaveSettingsExit', function (e) {
     resSettings.settings.device.samplePrefix = $('#form3').find('input[name="samplePrefix"]').val();
     resSettings.settings.device.sampleStartNumber = $('#form3').find('input[name="sampleStartNum"]').val();
     resSettings.settings.device.currentSampleNumber = $('#form3').find('input[name="sampleCurrNum"]').val();
+    resSettings.settings.device.currentAnimalNumber = $('#form3').find('input[name="AnimalCurrNum"]').val();
     /* Save to DB */
     db.transaction(function (tx) {
         tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
