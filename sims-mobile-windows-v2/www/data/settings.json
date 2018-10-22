@@ -36,6 +36,8 @@
       "samplePrefix": "XX",
       "sampleStartNumber": 0,
       "currentSampleNumber": 0,
+      "animalPrefix": "XX",
+      "currentAnimalNumber": 0,
       "debugMode": 0
     },
     "auth": {
@@ -43,19 +45,25 @@
     },
     "app": {
       "appMode": "PH",
-      "serverMode": "PROD",
+      "serverMode": "DEV",
       "devServerAddress": "https://online-dev.agriculture.gov.au/",
       "sitServerAddress": "https://online-sit.agriculture.gov.au/",
       "uatServerAddress": "https://online-uat.agriculture.gov.au/",
       "prodServerAddress": "https://online.agriculture.gov.au/",
-      "authAddress": "ords-ext/rest/sims/plant_health/taxa",
+      "authAddress": "ords-ext/rest/sims/plant_health/referenceCodes",
+      "authAddressAH": "ords-ext/rest/sims/animal/referenceCodes",
       "activityAddress": "ords-ext/rest/sims/plant_health/activity",
+      "activityAddressAH": "ords-ext/rest/sims/animal/feralActivity",
       "refCodesAddress": "ords-ext/rest/sims/plant_health/referenceCodes",
+      "refCodesAddressAH": "ords-ext/rest/sims/animal/referenceCodes",
+      "speciesTaxonSyndromSamplesAddress": "ords-ext/rest/sims/animal/speciesTaxonSyndromeSamples/NAF",
       "BPHStaffAddress": "ords-ext/rest/sims/common/program/BPH/team",
       "IPHStaffAddress": "ords-ext/rest/sims/common/program/IPH/team",
       "NPHStaffAddress": "ords-ext/rest/sims/common/program/NPH/team",
+      "NAFStaffAddress": "ords-ext/rest/sims/common/program/NAF/team",
       "taxaAddress": "ords-ext/rest/sims/plant_health/taxa",
-      "submitPHObsAddress": "psd.comr.svl/PlantHealthService/1.0/createPlantHealthObservation"
+      "submitPHObsAddress": "psd.comr.svl/PlantHealthService/1.0/createPlantHealthObservation",
+      "submitAHObsAddress": "psd.comr.svl/AnimalHealthService/1.0/createFeralAnimalObservation"
     }
   }
 }

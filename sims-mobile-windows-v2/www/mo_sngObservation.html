@@ -1,533 +1,362 @@
 ﻿<form role="form" id="form1">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                    <li class="active first middle super-slim">
-                        <a href="#tab_7" data-toggle="tab"><i class="fa fa-male fa-2x"></i></a>
+    <div class="row col-md-12 col-sm-12 col-xs-12 pl-0">
+        <div class="nav-tabs-custom">
+            <div class="scroller scroller-left"><i class="fa fa-angle-left"></i></div>
+            <div class="scroller scroller-right"><i class="fa fa-angle-right"></i></div>
+            <div class="tabs-wrapper">
+                <ul class="nav nav-tabs list" role="tablist" id="tabList">
+                    <li class="active ripple">
+                        <a href="#tab_0" id="tab0" data-toggle="tab"><i class="fa fa-hand-lizard-o mxr-5"></i>Animal Details</a>
                     </li>
-                    <li class="middle super-slim">
-                        <a href="#tab_1" data-toggle="tab"><i class="fa fa-search fa-2x"></i></a>
+                    <li class="ripple">
+                        <a href="#tab_1" id="tab1" data-toggle="tab"><i class="fa fa-search mxr-5"></i>Observation Common</a>
                     </li>
-                    <li class="middle super-slim">
-                        <a href="#tab_0" data-toggle="tab"><i class="fa fa-hand-lizard-o fa-2x"></i></a>
+                    <li class="ripple">
+                        <a href="#tab_2" id="tab2" data-toggle="tab"><i class="fa fa-snowflake-o mxr-5"></i>Condition</a>
                     </li>
-                    <li class="middle super-slim">
-                        <a href="#tab_2" data-toggle="tab"><i class="fa fa-snowflake-o fa-2x"></i></a>
+                    <li class="ripple">
+                        <a href="#tab_3" id="tab3" data-toggle="tab">
+                            <i class="fa fa-thermometer-4 mxr-5"></i>Samples
+                            <span data-toggle="tooltip" class="badge" data-original-title="3" id="numSamples"></span>
+                        </a>
                     </li>
-                    <li class="middle super-slim hide" id="tabPM">
-                        <a href="#tab_5" data-toggle="tab"><i class="fa fa-eye fa-2x"></i></a>
+                    <li class="ripple hide" id="tabPM">
+                        <a href="#tab_5" id="tab5" data-toggle="tab"><i class="fa fa-eye mxr-5"></i>Post Mortem</a>
                     </li>
-                    <li class="middle super-slim">
-                        <a href="#tab_3" data-toggle="tab"><i class="fa fa-thermometer-4 fa-2x"></i></a>
-                    </li>
-                    <li class="middle super-slim">
-                        <a href="#tab_4" data-toggle="tab"><i class="fa fa-flask fa-2x"></i></a>
-                    </li>
-                    <li class="last super-slim">
-                        <a href="#tab_6" data-toggle="tab"><i class="fa fa-paperclip fa-2x"></i></a>
+                    <li class="ripple">
+                        <a href="#tab_6" id="tab6" data-toggle="tab">
+                            <i class="fa fa-paperclip mxr-5"></i>Attachments
+                            <span data-toggle="tooltip" class="badge" data-original-title="3" id="numAttachments"></span>
+                        </a>
                     </li>
                 </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="tab_7">
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <small class="pull-right" id="perfTime"></small>
-                                <h4>Owner Details</h4>
-                            </div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_0">
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-3 col-sm-3 col-xs-3 hide">
+                            <label>Submitting Staff ID</label>
+                            <input type="number" class="form-control" name="submittedBy_M_N" data-name="Submitting Staff ID" data-section="Observation" />
                         </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <label><span class="bold-red">*</span>Activity</label>
-                                <select class="form-control" name="surveillanceActivity" id="surveillanceActivity"></select>
-                            </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label><span class="bold-red">*&nbsp;</span>Activity</label>
+                            <select class="form-control" name="activityId_M_N" data-name="SurvActivity ID" id="SurvActivityIdAH" data-section="Observation"></select>
                         </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <label><span class="bold-red">*</span>Site</label>
-                                <select class="form-control" name="siteCommunity" id="siteCommunity">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <label><span class="bold-red">*</span>Owner Name</label>
-                                <input type="text" class="form-control" placeholder="Owner" name="owner">
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <label>Address</label>
-                                <input type="text" class="form-control" placeholder="Address" name="address">
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <label>Telephone</label>
-                                <input class="form-control" placeholder="Telephone" type="tel" name="comments">
-                            </div>
-                        </div>
-                        <!--<div class="row col-md-12 sims">
-                            <hr />
-                            <div class="form-group col-sm-6">
-                                <h4>Geo Tracking</h4>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-sm-6">
-                                <div data-role="fieldcontain" class="ui-hide-label">
-                                    <input class="hide" type="text" name="track_id" id="track_id" readonly placeholder="Track ID" />
-                                    <textarea class="form-control hide" rows="6" name="trackfile" id="trackfile">None</textarea>
-                                </div>
-                                <p id="startTracking_status"></p>
-                                <button type="button" class="btn btn-circle btn-lg btn-success" id="startTracking_start"><i class="fa fa-play"></i></button>
-                                <button type="button" class="btn btn-circle btn-lg btn-success" id="startTracking_stop"><i class="fa fa-stop"></i></button>
-                                <button type="button" class="btn btn-circle btn-lg btn-success" id="track_info"><i class="fa fa-map"></i></button>
-                                <p id="startTracking_debug"></p>
-                            </div>
-                        </div>-->
-                        <!--<div class="row col-md-12 sims">
-                            <hr />
-                            <div class="form-group col-sm-4">
-                                <h4>Timer</h4>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-sm-6">
-                                <div class="timer well timerblack"></div>
-                                <button type="button" class="btn btn-circle btn-lg btn-info" id="timerstart"><i class="fa fa-play"></i></button>
-                                <button type="button" class="btn btn-circle btn-lg btn-info" id="timerstop"><i class="fa fa-stop"></i></button>
-                                <button type="button" class="btn btn-circle btn-lg btn-info" id="timerrestart"><i class="fa fa-forward"></i></button>
-                            </div>
-                        </div>-->
-                        <!-- Commented after feedback from Angel Shen on 12/12/2017-->
-                        <!--<div class="row col-md-12 sims">
-                            <div class="form-group col-sm-5">
-                                <label>Species to be observed in the household:</label>
-                                <button type="button" class="btn btn-md btn-info pull-right" id="addSpecies"><i class="fa fa-plus"></i>Add Species</button>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims speciesFound">
-                            <div class="form-group col-sm-5">
-                                <select class="form-control" name="lstSpecies" id="lstSpecies">
-                                    <option selected>Cattle</option>
-                                    <option>Dogs</option>
-                                    <option>Goats</option>
-                                    <option>Pigs</option>
-                                    <option>Sheep</option>
-                                </select>
-                            </div>
-                        </div>-->
-                    </div>
-                    <div class="tab-pane" id="tab_0">
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <h4>Animal Details</h4>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <label>Animal Number</label>
-                                <input type="text" class="form-control nextid" placeholder="Animal Number" readonly name="animalNumber">
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <label><span class="bold-red">*</span>Common Name</label>
-                                <select class="form-control" name="commonName" id="commonName"></select>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <label><span class="bold-red">*</span>Taxon</label>
-                                <select class="form-control" name="taxon" id="taxon">
-                                    <option>- None -</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <label>Animal Name</label>
-                                <input type="text" class="form-control" placeholder="Animal Name" name="animalName">
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <label>Microchip Id</label>
-                                <input type="text" class="form-control" placeholder="Microchip Id" name="microchipID">
-                            </div>
-                            <div class="form-group col-xs-12">
-                                <label>Animal Color</label>
-                                <select class="form-control" name="animalColor">
-                                    <option>- None -</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-xs-12">
-                                <label>Markings</label>
-                                <select class="form-control" name="markings">
-                                    <option>- None -</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-xs-12">
-                                <label>Tattoo</label>
-                                <select class="form-control" name="tattoo">
-                                    <option>- None -</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- Commented after feedback from Angel Shen on 12/12/2017-->
-                        <!--<div class="row col-md-12 sims">
-                            <div class="form-group col-sm-3 bg-gray-blue">
-                                <input type='checkbox' class="minimal" name='obNR' id="obNR">
-                                <label>Flagged for continuous surveillance activites</label>
-                            </div>
-                        </div>-->
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <label><span class="bold-red">*</span>Gender</label>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims indentLeft">
-                            <div class="form-group col-xs-3 bg-gray-blue">
-                                <input type="radio" class="minimal" name="gender" value="Male"><label>Male</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-blue">
-                                <input type="radio" class="minimal" name="gender" value="Female"><label>Female</label>
-                            </div>
-                            <div class="form-group col-xs-4 bg-gray-blue">
-                                <input type="radio" class="minimal" name="gender" value="Unknown"><label>Unknown</label>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <label><span class="bold-red">*</span>Age (y:m)</label>
-                                <input type="text" class="form-control" placeholder="(y:m)" name="age">
-                            </div>
-                            <div class="form-group col-xs-12">
-                                <label>Date of Birth</label>
-                                <input type="text" class="form-control datetimepickerL" placeholder="Date" readonly name="dob">
-                                <i class="fa fa-calendar form-control-feedback"></i>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-sm-10">
-                                <label class="label-y">Animal Notes</label>
-                                <textarea class="form-control" rows="6" name="animNotes" style="height:60px;"></textarea>
-                            </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-3 hide">
+                            <label>Discipline</label>
+                            <input type="text" class="form-control" value="SF" name="AnimalDisciplineCode_M_S" data-name="Animal Discipline Code" data-section="Observation" />
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab_1">
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <h4>Observation Common</h4>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <label><span class="bold-red">*</span>Observation Date</label>
-                                <input type="text" class="form-control datetimepicker" placeholder="Date" name="sDate">
-                                <i class="fa fa-calendar form-control-feedback"></i>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <label><span class="bold-red">*</span>Observer</label>
-                                <select class="form-control" name="userName" id="userName"></select>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims indentLeft">
-                            <div class="form-group col-xs-6 bg-gray-blue">
-                                <input type="checkbox" class="minimal" name="extObs"><label>External Observer</label>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <input type="text" class="form-control hide" placeholder="External Observer" name="extObserver">
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <label><span class="bold-red">*</span>Latitude</label>
-                                <input type="text" class="form-control" placeholder="Latitude" name="latitude">
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-10">
-                                <label><span class="bold-red">*</span>Longitude</label>
-                                <input type="text" class="form-control" placeholder="Longitude" name="longitude">
-                            </div>
-                            <div class="form-group col-xs-2">
-                                <i class="fa fa-map-marker fa-2x text-info getGPS"></i>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <label><span class="bold-red">*</span>Datum</label>
-                                <select class="form-control" name="datum">
-                                    <option>WGS84</option>
-                                    <option>GDA94</option>
-                                </select>
-                            </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label>Animal Number</label>
+                            <input type="text" class="form-control nextid" name="animalNumber_M_S" placeholder="Animal Number" data-name="Animal Number" data-section="Observation" >
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab_2">
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <h4>Animal Condition</h4>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <i class="fa fa-info-circle fa-2x pull-right" id="bsInfo"></i>
-                                <label><span class="bold-red">*</span>Body Condition Score</label>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims indentLeft body_condition_score">
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-5">
-                                <label><span class="bold-red">*</span>Are wounds present?</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-blue">
-                                <input type="radio" class="minimal" name="optWounds" value="Yes"><label>Yes</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-blue">
-                                <input type="radio" class="minimal" name="optWounds" value="No"><label>No</label>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims addMaggotSamples hide">
-                            <div class="form-group col-xs-5">
-                                <label><span class="bold-red">*</span>Are maggots present?</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-blue">
-                                <input type="radio" class="minimal" name="optMaggots" value="Yes"><label>Yes</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-blue">
-                                <input type="radio" class="minimal" name="optMaggots" value="No"><label>No</label>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims maggotSamplePlus">
-                            <div class="form-group col-sm-12">
-                                <button type="button" class="btn btn-md btn-info pull-right hide" id="addMaggotSample"><i class="fa fa-plus"></i> Add Maggot Sample</button>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims defSyndromes">
-                            <div class="form-group col-sm-12">
-                                <i class="fa fa-eye-slash fa-2x pull-right text-danger" id="noSyndromes"></i>
-                                <h4 class="box-title">Syndromes</h4>
-                                <label>Indicate if any of the following syndromes were found to be present:</label>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-sm-12">
-                                <h4 class="box-title">Added Syndromes</h4>
-                                <label>Additional Syndromes can be added from the list below:</label>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims addedSyndrome">
-                            <div class="form-group col-xs-10">
-                                <select class="form-control" name="lstSyndromes" id="lstSyndromes"></select>
-                            </div>
-                            <div class="form-group col-xs-2">
-                                <i class="fa fa-plus fa-2x pull-right text-danger addSyndrome"></i>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-sm-12">
-                                <label>Additional Observations</label>
-                                <textarea class="form-control" rows="6" name="addlObsrvns" style="height:100px;"></textarea>
-                            </div>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-5">
-                                <label><span class="bold-red">*</span>Post Mortem Conducted</label>
-                            </div>
-                            <div class="form-group col-xs-3 indentLeft bg-gray-blue">
-                                <input type="radio" class="minimal" name="pmConducted" value="Yes"><label>Yes</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-blue">
-                                <input type="radio" class="minimal" name="pmConducted" value="No"><label>No</label>
-                            </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label><span class="bold-red">*</span>Common Name</label>
+                            <select class="form-control" name="commonName_M_S" id="commonName" data-name="Species Common Name" data-section="Observation" ></select>
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab_5">
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-sm-12">
-                                <i class="fa fa-eye-slash fa-2x text-danger pull-right" id="btnNAD"></i>
-                                <i class="fa fa-image fa-2x text-info pull-right"></i>&nbsp;
-                            </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label><span class="bold-red">*</span>Taxon</label>
+                            <select class="form-control" name="taxon_M_S" id="taxon" data-name="Species Taxon" data-section="Observation" >
+                                <option value="NONE">- select -</option>
+                            </select>
                         </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-12">
-                                <h4>Body Systems</h4>
-                            </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label><span class="bold-red">*</span>Gender</label>
                         </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-4">
-                                <label>Integument</label>
-                            </div>
-                            <div class="form-group col-xs-3 indentLeft bg-gray-blue">
-                                <input type="radio" class="minimal" name="optINT" value="Yes"><label>Yes</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-blue">
-                                <input type="radio" class="minimal" name="optINT" value="No"><label>No</label>
-                            </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6 ripple">
+                            <input type="radio" class="minimal" name="gender_M_S" value="Male" data-code="Male" data-validate="Y" data-name="Animal Gender" data-section="Observation" >&nbsp;<label>Male</label>
                         </div>
-                        <!--<div class="row col-md-12 sims indentLeft hide" id="divINT">
-                            <div class="form-group col-xs-4 bg-gray-liteblue">
-                                <input type="checkbox" name="CC" class="minimal"><label>Coat Condition</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-liteblue">
-                                <input type="checkbox" name="CC" class="minimal"><label>Skin</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-liteblue">
-                                <input type="checkbox" name="CC" class="minimal"><label>Hooves</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-liteblue">
-                                <input type="checkbox" name="CC" class="minimal"><label>Coronet</label>
-                            </div>
-                            <div class="form-group col-xs-4 bg-gray-liteblue">
-                                <input type="checkbox" name="CC" class="minimal"><label>Interdigital Space</label>
-                            </div>
-                        </div>-->
-                        <div class="form-group col-sm-12">
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6 ripple">
+                            <input type="radio" class="minimal" name="gender_M_S" value="Female" data-code="Female" data-validate="Y" data-name="Animal Gender" data-section="Observation" >&nbsp;<label>Female</label>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label><span class="bold-red">*</span>Age Class</label>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6 ripple">
+                            <input type="radio" class="minimal" name="ageClass_M_S" value="Adult" data-code="Adult" data-validate="Y" data-name="Animal AgeClass" data-section="Observation" >&nbsp;<label>Adult</label>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6 ripple">
+                            <input type="radio" class="minimal" name="ageClass_M_S" value="Juvenile" data-code="Juvenile" data-validate="Y" data-name="Animal AgeClass" data-section="Observation" >&nbsp;<label>Juvenile</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab_1">
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label><span class="bold-red">*</span>Observation Date</label>
+                            <input type="datetime-local" class="form-control" placeholder="Date" name="dateTime_M_D_0_1" step="1" data-name="Observation DateTime" data-section="Observation">
+                            <i class="fa fa-calendar form-control-feedback"></i>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label><span class="bold-red">*</span>Observer</label>
+                            <select class="form-control" name="ObservationStaffId_M_N_0_1" data-name="Observation Staff ID" id="ObservationStaffId" data-section="Observation"></select>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12 ripple">
+                            <input type="checkbox" class="minimal" name="externalObserverFlag_O_S_0_1" data-name="External Observer Flag" data-section="Observation" ><label>&nbsp;External Observer</label>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control hide" placeholder="External Observer" name="externalObserver_O_S_0_1" data-name="External Observer" data-section="Observation" >
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label><span class="bold-red">*&nbsp;</span>Latitude</label>
+                            <input type="number" class="form-control obslat" placeholder="Latitude" name="Latitude_M_N_0_1" data-name="Observation Latitude" data-section="Observation">
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label><span class="bold-red">*&nbsp;</span>Longitude</label>
+                            <input type="number" class="form-control obslng" placeholder="Longitude" name="Longitude_M_N_0_1" data-name="Observation Longitude" data-section="Observation">
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                            <label><span class="bold-red">*&nbsp;</span>Datum</label>
+                            <select class="form-control obsdat" name="ObservWhereGpsDatumId_M_S_0_1" data-name="Observation Datum" data-section="Observation">
+                                <option>WGS84</option>
+                                <option>GDA94</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                            <button class="btn btn-md btn-default getCoords"><i class="fa fa-map-marker text-info"></i>&nbsp;Get Coordinates</button>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12 hide">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label><span class="bold-red">*&nbsp;</span>Point WKT</label>
+                            <input type="text" class="form-control" name="ObservationWhereWktClob_M_S_0_1" data-name="Observation LatLon" data-section="Observation">
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab_2">
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <i class="fa fa-info-circle fa-2x text-info pull-right" id="bsInfo"></i>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label><span class="bold-red">*</span>Body Condition Score</label>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12 dynarow body_condition_score">
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label><span class="bold-red">*</span>Are wounds present?</label>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6 ripple">
+                            <input type="radio" class="minimal" name="woundsPresent_M_S_0_2" value="Y" data-code="Y" data-validate="Y" data-name="Wounds Present Flag" data-section="Observation" >&nbsp;<label>Yes</label>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6 ripple">
+                            <input type="radio" class="minimal" name="woundsPresent_M_S_0_2" value="N" data-code="N" data-validate="Y" data-name="Wounds Present Flag" data-section="Observation" >&nbsp;<label>No</label>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12 addMaggotSamples hide">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label><span class="bold-red">*</span>Are maggots present?</label>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12 addMaggotSamples hide">
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6 ripple">
+                            <input type="radio" class="minimal" name="maggotsPresent_M_S_0_2" value="Y" data-code="Y" data-validate="Y" data-name="Maggots Present Flag" data-section="Observation" >&nbsp;<label>Yes</label>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6 ripple">
+                            <input type="radio" class="minimal" name="maggotsPresent_M_S_0_2" value="N" data-code="N" data-validate="Y" data-name="Maggots Present Flag" data-section="Observation" >&nbsp;<label>No</label>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <button type="button" class="btn btn-md btn-info pull-right hide" id="addMaggotSample"><i class="fa fa-plus"></i>&nbsp;Add Maggot Sample</button>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="maggotSamples">
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12 dynarow">
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <h4 class="box-title">Syndromes</h4>
+                            <label>Indicate if any of the following syndromes were found to be present:</label>
+                        </div>
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <button type="button" class="btn btn-md btn-info pull-right" id="noSyndromes"><i class="fa fa-eye-slash"></i>&nbsp;No Syndromes Found</button>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="defSyndromes">
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12 dynarow">
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <h4 class="box-title">Added Syndromes</h4>
+                            <label>Additional Syndromes can be added from the list below:</label>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control" name="Syndromes" id="lstSyndromes" data-name="Syndromes List" data-section="Observation" ></select>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <button type="button" class="btn btn-md btn-info pull-right" id="addSyndrome"><i class="fa fa-plus"></i>&nbsp;Add Syndrome</button>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="addedSyndromes">
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                            <label>Additional Observations</label>
+                            <textarea class="form-control" rows="6" name="additionalObservations_O_S_0_2" style="height:80px;" data-name="Additional Observations" data-section="Observation" maxlength="400" ></textarea>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label><span class="bold-red">*</span>Post Mortem Conducted</label>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6 ripple">
+                            <input type="radio" class="minimal" name="postMortemConducted_M_S_0_2" value="Y" data-code="Y" data-validate="Y" data-name="PostMortem Conducted Flag" data-section="Observation" >&nbsp;<label>Yes</label>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6 ripple">
+                            <input type="radio" class="minimal" name="postMortemConducted_M_S_0_2" value="N" data-code="N" data-validate="Y" data-name="PostMortem Conducted Flag" data-section="Observation" >&nbsp;<label>No</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab_3">
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12 text-center">
+                            <button type="button" class="btn btn-md btn-default" id="addAnimalSample"><i class="fa fa-plus"></i>&nbsp;Add Sample</button>
+                            <button type="button" class="btn btn-md btn-default hide" id="addPreSelectedSample"><i class="fa fa-thermometer"></i>Pre-Selected</button>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="samples">
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab_5">
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <h4>Body Systems</h4>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <button type="button" class="btn btn-md btn-info pull-right" id="btnNAD"><i class="fa fa-eye-slash"></i>&nbsp;Nothing Abnormal Detected</button>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12 dynarow">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label>Integument</label>
+                            <input type="hidden" name="BodySystemCodeIN" value="IN" />
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                            <input type="radio" class="minimal" name="IntegumentFlag_M_S_0_5" value="Y" data-code="Y" data-validate="Y" data-name="Integument Flag" data-section="Observation" >&nbsp;<label>Yes</label>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                            <input type="radio" class="minimal" name="IntegumentFlag_M_S_0_5" value="N" data-code="N" data-validate="Y" data-name="Integument Flag" data-section="Observation" >&nbsp;<label>No</label>
+                        </div>
+                        <div class="form-group col-md-12 col-sm-12 col-sm-12">
                             <label>Gross Findings</label>
-                            <textarea class="form-control" rows="3" name="INTFindings" style="height:50px;" placeholder="Gross Findings"></textarea>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-4">
-                                <label>Head / Neck</label>
-                            </div>
-                            <div class="form-group col-xs-3 indentLeft bg-gray-blue">
-                                <input type="radio" class="minimal" name="optNEC" value="Yes"><label>Yes</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-blue">
-                                <input type="radio" class="minimal" name="optNEC" value="No"><label>No</label>
-                            </div>
-                        </div>
-                        <!--<div class="row col-md-12 sims indentLeft hide" id="divNEC">
-                            <div class="form-group col-xs-3 bg-gray-liteblue">
-                                <input type="checkbox" name="CC" class="minimal"><label>Brain</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-liteblue">
-                                <input type="checkbox" name="CC" class="minimal"><label>Neck</label>
-                            </div>
-                        </div>-->
-                        <div class="form-group col-sm-12">
-                            <label>Gross Findings</label>
-                            <textarea class="form-control" rows="3" name="NECFindings" style="height:50px;" placeholder="Gross Findings"></textarea>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-4">
-                                <label>Thorax</label>
-                            </div>
-                            <div class="form-group col-xs-3 indentLeft bg-gray-blue">
-                                <input type="radio" class="minimal" name="optTHO" value="Yes"><label>Yes</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-blue">
-                                <input type="radio" class="minimal" name="optTHO" value="No"><label>No</label>
-                            </div>
-                        </div>
-                        <!--<div class="row col-md-12 sims indentLeft hide" id="divTHO">
-                            <div class="form-group col-xs-3 bg-gray-blue">
-                                <input type="checkbox" name="CC" class="minimal"><label>Trachea</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-blue">
-                                <input type="checkbox" name="CC" class="minimal"><label>Lung</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-blue">
-                                <input type="checkbox" name="CC" class="minimal"><label>Heart</label>
-                            </div>
-                        </div>-->
-                        <div class="form-group col-sm-12">
-                            <label>Gross Findings</label>
-                            <textarea class="form-control" rows="3" name="THOFindings" style="height:50px;" placeholder="Gross Findings"></textarea>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-4">
-                                <label>Abdomen</label>
-                            </div>
-                            <div class="form-group col-xs-3 indentLeft bg-gray-blue">
-                                <input type="radio" class="minimal" name="optABD" value="Yes"><label>Yes</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-blue">
-                                <input type="radio" class="minimal" name="optABD" value="No"><label>No</label>
-                            </div>
-                        </div>
-                        <!--<div class="row col-md-12 sims indentLeft hide" id="divABD">
-                            <div class="form-group col-xs-3 bg-gray-liteblue">
-                                <input type="checkbox" name="CC" class="minimal"><label>Liver</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-liteblue">
-                                <input type="checkbox" name="CC" class="minimal"><label>Intestines</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-liteblue">
-                                <input type="checkbox" name="CC" class="minimal"><label>Abomasum</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-liteblue">
-                                <input type="checkbox" name="CC" class="minimal"><label>Kidneys</label>
-                            </div>
-                        </div>-->
-                        <div class="form-group col-sm-12">
-                            <label>Gross Findings</label>
-                            <textarea class="form-control" rows="3" name="ABDFindings" style="height:50px;" placeholder="Gross Findings"></textarea>
-                        </div>
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-xs-4">
-                                <label>Musculoskeletal</label>
-                            </div>
-                            <div class="form-group col-xs-3 indentLeft bg-gray-blue">
-                                <input type="radio" class="minimal" name="optMUS" value="Yes"><label>Yes</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-blue">
-                                <input type="radio" class="minimal" name="optMUS" value="No"><label>No</label>
-                            </div>
-                        </div>
-                        <!--<div class="row col-md-12 sims indentLeft hide" id="divMUS">
-                            <div class="form-group col-xs-3 bg-gray-liteblue">
-                                <input type="checkbox" name="CC" class="minimal"><label>Muscle</label>
-                            </div>
-                            <div class="form-group col-xs-3 bg-gray-liteblue">
-                                <input type="checkbox" name="CC" class="minimal"><label>Skeleton</label>
-                            </div>
-                        </div>-->
-                        <div class="form-group col-sm-12">
-                            <label>Gross Findings</label>
-                            <textarea class="form-control" rows="3" name="MUSFindings" style="height:50px;" placeholder="Gross Findings"></textarea>
+                            <textarea class="form-control" rows="3" name="IntGrossFindings_O_S_0_5" style="height:60px;" placeholder="Gross Findings" data-name="Integument Gross Findings" data-section="Observation" maxlength="400" ></textarea>
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab_3">
-                        <div class="row col-md-12 sims samples">
-                            <div class="form-group col-sm-12">
-                                <i class="fa fa-plus fa-2x pull-right text-danger" id="addSample"></i>&nbsp;
-                                <a href="#" class="btn btn-md btn-info pull-right hide" id="addPreSelectedSample"><i class="fa fa-thermometer pull-right"></i>Pre-Selected</a>
-                                <h4>Samples</h4>
-                            </div>
+
+                    <div class="row col-md-12 col-sm-12 col-xs-12 dynarow">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label>Head / Neck</label>
+                            <input type="hidden" name="BodySystemCodeHN" value="HN" />
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                            <input type="radio" class="minimal" name="HeadNeckFlag_M_S_0_5" value="Y" data-code="Y" data-validate="Y" data-name="HeadNeck Flag" data-section="Observation" >&nbsp;<label>Yes</label>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                            <input type="radio" class="minimal" name="HeadNeckFlag_M_S_0_5" value="N" data-code="N" data-validate="Y" data-name="HeadNeck Flag" data-section="Observation" >&nbsp;<label>No</label>
+                        </div>
+                        <div class="form-group col-md-12 col-sm-12 col-sm-12">
+                            <label>Gross Findings</label>
+                            <textarea class="form-control" rows="3" name="HeadNeckGrossFindings_O_S_0_5" style="height:60px;" placeholder="Gross Findings" data-name="HeadNeck Gross Findings" data-section="Observation" maxlength="400" ></textarea>
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab_4">
-                        <div class="row col-md-12 sims fieldtests">
-                            <div class="form-group col-sm-12">
-                                <i class="fa fa-plus fa-2x pull-right text-danger" id="addFieldTest"></i>&nbsp;
-                                <a href="#" class="btn btn-md btn-info pull-right hide" id="addPreSelectedFieldTest"><i class="fa fa-flask pull-right"></i>Pre-Selected</a>
-                                <h4>Field Tests</h4>
-                            </div>
+
+                    <div class="row col-md-12 col-sm-12 col-xs-12 dynarow">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label>Thorax</label>
+                            <input type="hidden" name="BodySystemCodeTH" value="TH" />
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                            <input type="radio" class="minimal" name="ThoraxFlag_M_S_0_5" value="Y" data-code="Y" data-validate="Y" data-name="Thorax Flag" data-section="Observation" >&nbsp;<label>Yes</label>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                            <input type="radio" class="minimal" name="ThoraxFlag_M_S_0_5" value="N" data-code="N" data-validate="Y" data-name="Thorax Flag" data-section="Observation" >&nbsp;<label>No</label>
+                        </div>
+                        <div class="form-group col-md-12 col-sm-12 col-sm-12">
+                            <label>Gross Findings</label>
+                            <textarea class="form-control" rows="3" name="ThoraxGrossFindings_O_S_0_5" style="height:60px;" placeholder="Gross Findings" data-name="Thorax Gross Findings" data-section="Observation" maxlength="400" ></textarea>
                         </div>
                     </div>
-                    <div class="tab-pane" id="tab_6">
-                        <div class="row col-md-12 sims">
-                            <div class="form-group col-sm-12">
-                                <i class="fa fa-image fa-2x text-danger pull-right"></i>
-                                <h4>Attachments</h4>
-                            </div>
+
+                    <div class="row col-md-12 col-sm-12 col-xs-12 dynarow">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label>Abdomen</label>
+                            <input type="hidden" name="BodySystemCodeAB" value="AB" />
                         </div>
-                        <div class="row col-md-12 sims">
-                            <div class='form-group col-xs-12'>
-                                ID:<input type="text" name="id" readonly /><br />
-                                Status:<input type="text" name="status" readonly /><br />
-                                Type:<input type="text" name="obType" value="0" readonly />
-                                Discipline:<input type="text" name="discipline" value="S" readonly />
-                            </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                            <input type="radio" class="minimal" name="AbdomenFlag_M_S_0_5" value="Y" data-code="Y" data-validate="Y" data-name="Abdomen Flag" data-section="Observation" >&nbsp;<label>Yes</label>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                            <input type="radio" class="minimal" name="AbdomenFlag_M_S_0_5" value="N" data-code="N" data-validate="Y" data-name="Abdomen Flag" data-section="Observation" >&nbsp;<label>No</label>
+                        </div>
+                        <div class="form-group col-md-12 col-sm-12 col-sm-12">
+                            <label>Gross Findings</label>
+                            <textarea class="form-control" rows="3" name="AbdomenGrossFindings_O_S_0_5" style="height:60px;" placeholder="Gross Findings" data-name="Abdomen Gross Findings" data-section="Observation" maxlength="400" ></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row col-md-12 col-sm-12 col-xs-12 dynarow">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                            <label>Musculoskeletal</label>
+                            <input type="hidden" name="BodySystemCodeMU" value="MU" />
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                            <input type="radio" class="minimal" name="MuscSkeletalFlag_M_S_0_5" value="Y" data-code="Y" data-validate="Y" data-name="MusculoSkeletal Flag" data-section="Observation" >&nbsp;<label>Yes</label>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-6">
+                            <input type="radio" class="minimal" name="MuscSkeletalFlag_M_S_0_5" value="N" data-code="N" data-validate="Y" data-name="MusculoSkeletal Flag" data-section="Observation" >&nbsp;<label>No</label>
+                        </div>
+                        <div class="form-group col-md-12 col-sm-12 col-sm-12">
+                            <label>Gross Findings</label>
+                            <textarea class="form-control" rows="3" name="MuscSkeletalGrossFindings_O_S_0_5" style="height:60px;" placeholder="Gross Findings" data-name="MusculoSkeletal Gross Findings" data-section="Observation" maxlength="400" ></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane" id="tab_6">
+                    <div class="row col-md-12 col-sm-12 col-xs-12 pr-0 mxrm-5">
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12 text-center">
+                            <button type="button" class="btn btn-md btn-default" id="addAnimalAttachment"><i class="fa fa-plus"></i>&nbsp;Add Attachment</button>
+                        </div>
+                        <div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="attachments">
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12 hide">
+                        <div class="form-group col-md-3 col-sm-3 col-xs-3">
+                            <label>ID</label>
+                            <input type="number" class="form-control" name="id_M_N" data-name="Observation Row ID" data-section="Observation" />
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3 col-xs-3">
+                            <label>Status</label>
+                            <input type="number" class="form-control" name="status_M_N" data-name="Observation Status" data-section="Observation" />
                         </div>
                     </div>
                 </div>
@@ -536,34 +365,9 @@
     </div>
 </form>
 <script type="text/javascript" id="pageScript">
-    $('#mt').text('Single Domestic Animal');
-    $('#mt2').text('Single Domestic Animal');
-    $('.timer').countimer({
-        autoStart: false
-    });
-    $(document).on('click', '#timerstart', function () {
-        $('.timer').countimer('start');
-    })
-    $(document).on('click', '#timerstop', function () {
-        $('.timer').countimer('stop');
-    })
-    $(document).on('click', '#timerrestart', function () {
-        $('.timer').countimer('restart');
-    })
+    $('#mt').text('Single Feral Animal');
     $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue'
-    });
-    $('.datetimepicker').datetimepicker({
-        locale: "en-au",
-        format: "llll Z",
-        defaultDate: "1/1/2018",
-        sideBySide: true,
-        icons: {
-            time: "fa fa-clock-o",
-            date: "fa fa-calendar",
-            up: "fa fa-arrow-up",
-            down: "fa fa-arrow-down"
-        }
     });
 </script>

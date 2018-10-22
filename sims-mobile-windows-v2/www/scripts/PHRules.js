@@ -1058,12 +1058,12 @@ function objectifyPHFormforSave(formArray) {
                     if (fname.startsWith('PlantObsAttachmentD')) { continue; }
                     if (formArray[i]['value'] === "") { continue; }
                     //var x = fname.substr(fname.length - 1);
-                    var attachment = { "id": "", "sequenceNum": "", "type":"", "name": "", "description": "", "content": "" };
+                    var attachment = { "id": "", "sequenceNum": "", "type": "", "name": "", "description": "", "content": "" };
                     attachment.id = obsAttachment;
                     attachment.sequenceNum = obsAttachment;
                     attachment.sequenceNum = obsAttachment;
                     attachment.type = "image/jpeg";
-                    attachment.name = $('#PlantObsAttachmentD_M_S_' + fnum + '_' + ftype).val().replace(' ','_') + '.jpg';
+                    attachment.name = $('#PlantObsAttachmentD_M_S_' + fnum + '_' + ftype).val().replace(' ', '_') + '.jpg';
                     attachment.description = $('#PlantObsAttachmentD_M_S_' + fnum + '_' + ftype).val();
                     attachment.content = formArray[i]['value'];
                     vPlantObsTab.attachments.attachment.push(attachment);
@@ -1086,7 +1086,7 @@ function objectifyPHFormforSave(formArray) {
                 }
                 vPlantObsTargetTab[formArray[i]['name']] = formArray[i]['value'];
                 continue;
-            }           
+            }
             if (ftype === 'T' && fname === 'CommentText') {
                 vPlantObsTargetTab[formArray[i]['name']] = formArray[i]['value'];
                 vPlantObsTab.PlantObsTargetTab.push(vPlantObsTargetTab);
@@ -1135,7 +1135,7 @@ function objectifyPHFormforSave(formArray) {
                     var vEntoLifeStgTab = fname.split("-")[1];
                     vPlantSampleTab.EntoLifeStgTab.push(vEntoLifeStgTab);
                     continue;
-                } 
+                }
                 if (fname.startsWith('PlantSampleAttachment')) {
                     if (fname.startsWith('PlantSampleAttachmentD')) { continue; }
                     if (formArray[i]['value'] === "") { continue; }
@@ -1151,7 +1151,7 @@ function objectifyPHFormforSave(formArray) {
                     vPlantSampleTab.attachments.attachment.push(attachment);
                     sampleAttachment++;
                     continue;
-                }                
+                }
                 if (fNSD === 'N') {
                     vPlantSampleTab[formArray[i]['name']] = Number(formArray[i]['value']);
                 }
@@ -1282,7 +1282,7 @@ function objectifyPHFormforSubmit(data) {//serialize data function
                 delete item.EntoPestLevelCode;
             }
             if (item.CollectedAltitudeNo === 0) { delete item.CollectedAltitudeNo; }
-            });
+        });
     }
     $.each(jsonData.PlantObsTab, function (i, item) {
         delete item.CountList;
@@ -1412,8 +1412,8 @@ function Iterate(data) {
                 //if (vPlantPreservation === 'O') { PlantPreservationOtherFlag = 1; }
             }
             if (index === 'attachment') {
-                attachmentFlag = 1;             
-            } 
+                attachmentFlag = 1;
+            }
             //if (index === 'PlantSampleTab' && value.length === 0) {
             //    vError = 1;
             //    vErrDescription.push('Minimum one Sample expected.You can Save & Exit instead.');
@@ -1502,16 +1502,16 @@ function Iterate(data) {
                 }
                 if (fname === 'TargetObservedCode' && ftype === "T" && $('input[name="' + index + '"]:checked').val() === "N") {
                     PlantTargetObservedCodeFlag = 1;
-                } 
+                }
                 if (fname === 'TargetObservedCode' && ftype === "T" && $('input[name="' + index + '"]:checked').val() === "N" && value === "N") {
                     PlantTargetObservedCodeFlag = 1;
-                } 
+                }
                 if (fname === 'TargetObservedCode' && ftype === "T" && $('input[name="' + index + '"]:checked').length === 0 && value === "N") {
                     vError = 1;
                     vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
                     vFailed = true;
                     return false;
-                } 
+                }
 
                 if (fname === 'CommentText' && ftype === "T" && value === "" && PlantTargetObservedCodeFlag === 1) {
                     vError = 1;
@@ -1588,10 +1588,10 @@ function Iterate(data) {
                     if (fname === 'PlantTaxonId') return true;
                     if (fname === 'TargetTaxonId') return true;
                     if (fname === 'PrelimTaxonId') return true;
-                    if (fname === 'HostTaxonId') return true; 
+                    if (fname === 'HostTaxonId') return true;
                     if (fname === 'CollectedAltitudeNo') return true;
                     if (fname === 'HostIdentifiedUserId') return true;
-                    if (fname === 'WaypointNumber' && $('input[name="'+ index +'"]').val() === "") return true;
+                    if (fname === 'WaypointNumber' && $('input[name="' + index + '"]').val() === "") return true;
                     if (fname === 'WaypointNumber' && ($('input[name="' + index + '"]').val() !== "") && (value < 1 || value > 99999)) {
                         vError = 1;
                         vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Invalid Waypoint Number.");
@@ -1630,7 +1630,7 @@ function Iterate2(data) {
             }
             if (index === 'attachment') {
                 attachmentFlag = 1;
-            } 
+            }
             //if (index === 'PlantSampleTab' && value.length === 0) {
             //    vError = 1;
             //    vErrDescription.push('Minimum one Sample expected.You can Save & Exit instead.');
@@ -2461,6 +2461,15 @@ function getStaffData(str) {
                 staffDataFull = staffDataFull + option1;
             });
             break;
+        case "NAF":
+            staffDataFull = "";
+            $.each(staffDataNAF.staffs.staff, function (key, val) {
+                var option1 = '<option';
+                option1 = option1 + ' value="' + val.id + '">';
+                option1 = option1 + val.displayName + "</option>";
+                staffDataFull = staffDataFull + option1;
+            });
+            break;
     }
     return staffDataFull;
 }
@@ -2853,16 +2862,16 @@ $(document).on('click', '#addBotanySample', function (e) {
     //that.find('select[name^="HostIdentifiedUserId"]').find('option').remove().end().append($(staffData));
     that.find('input').each(function () {
         $(this).attr('name', $(this).attr('name') + '_' + bsamples + '_S');
-    })
+    });
     that.find('img').each(function () {
         $(this).attr('name', $(this).attr('name') + '_' + bsamples + '_S');
-    })
+    });
     that.find('select').each(function () {
         $(this).attr('name', $(this).attr('name') + '_' + bsamples + '_S');
-    })
+    });
     that.find('textarea').each(function () {
         $(this).attr('name', $(this).attr('name') + '_' + bsamples + '_S');
-    })
+    });
     that.find("input[name^='CollectedSampleCount']").val('1');
     that.find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');
     that.find("input[type='radio'].minimal").iCheck('uncheck');
@@ -3194,6 +3203,7 @@ $(document).on('click', '.getSampleCoords', function (e) {
     e.preventDefault();
 });
 $(document).on('click', 'img.pp', function () {
+    $.growl.notice({ title: "", message: "Loading Camera ...", location: "bc", size: "small" });
     var that = $(this);
     var ppname = that.attr("name");
     var inpname = that.attr("name").substr(1, that.attr("name").length - 1);
@@ -3300,7 +3310,7 @@ $(document).on('focus', 'select[name="SiteId_O_N"]', function (e) {
         if (curDiscipline === "P" && numPathHosts === 0 && psamples === 0) {
             loadSiteData(str);
             return;
-        } 
+        }
         $.confirm({
             title: 'Confirm Remove!',
             content: 'Your observations for the currently selected Site will be erased. Do you want to continue?',
@@ -3353,10 +3363,10 @@ $(document).on('focus', 'select[name="SiteId_O_N"]', function (e) {
             }
         });
     });
-$(document).on('focus', 'select[name="SurvActivityId_M_N"]', function (e) {
+$(document).on('focus', '#SurvActivityIdPH', function (e) {
     lastSurvActValue = $(this).val();
 })
-    .on('change', 'select[name="SurvActivityId_M_N"]', function (e) {
+    .on('change', '#SurvActivityIdPH', function (e) {
         var that = $(this);
         var str = that.val();
         if (that.val() === "0") return;
@@ -3407,7 +3417,7 @@ $(document).on('focus', 'select[name="SurvActivityId_M_N"]', function (e) {
                 }
             }
         });
-});
+    });
 $(document).on('blur', 'input.obslat', function (e) {
     var xlat = $('#form1').find('input.obslat');
     var xlng = $('#form1').find('input.obslng');
@@ -3783,16 +3793,16 @@ function StartSyncPH() {
     var rowsSuccess = [];
     var logstr = "";
     var arr = results.observations.filter(function (el) {
-        return (el.status_M_N === 1);
+        return (el.status_M_N === 1 && (el.PlantDisciplineCode_M_S === 'P' || el.PlantDisciplineCode_M_S === 'E' || el.PlantDisciplineCode_M_S === 'B'));
     });
     if (arr && arr.length === 0) {
         $.growl.notice({ title: "", message: "No records to Sync.", location: "bc", size: "small" });
-        setTimeout(EnableFormPH(), 1000);
+        setTimeout(EnableFormPH(), 300);
         return false;
     }
     else {
         $.each(results.observations, function (index, value) {
-            if (value.status_M_N === 0) { return true; }
+            if (value.status_M_N === 0 || value.AnimalDisciplineCode_M_S === 'SF' || value.AnimalDisciplineCode_M_S === 'G') { return true; }
             vError = 0;
             vErrDescription = [];
             vFailed = false;
@@ -3865,7 +3875,7 @@ function StartSyncPH() {
             }
             else {
                 rowsFailed.push(rowid);
-                rowsFailedErr.push(result.vErrDescription);
+                rowsFailedErr.push("#" + rowid + ": " + result.vErrDescription);
                 success = false;
                 return false;
             }
@@ -3886,7 +3896,8 @@ function StartSyncPH() {
                 $.growl.error({ title: "", message: "An error occured while updating records to database. " + err.message, location: "tc", size: "large" });
             });
         }
-        else if (success === false) { $.growl.error({ title: "", message: rowsFailed.join(',') + "<br/>" + rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" }); }
+        //else if (success === false) { $.growl.error({ title: "", message: rowsFailed.join(',') + "<br/>" + rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" }); }
+        else if (success === false) { $.growl.error({ title: "", message: rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" }); }
         syncPHRefCodes();
         syncActivityData();
         syncBPHstaffData();
@@ -3896,7 +3907,12 @@ function StartSyncPH() {
         table.destroy();
         loadData();
         clearMarkers();
-        loadMapMarkers();
+        if (AppMode === "PH") {
+            loadMapMarkers;
+        }
+        if (AppMode === "AH") {
+            loadMapMarkersAH();
+        }
         if (infoWindow) {
             infoWindow.close();
         }

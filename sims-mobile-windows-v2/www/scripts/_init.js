@@ -11,12 +11,17 @@ var uatServerAddress;
 var prodServerAddress;
 var authAddress;
 var ActivityAddress;
+var ActivityAddressAH;
 var refCodesAddress;
+var refCodesAddressAH;
 var BPHStaffAddress;
 var IPHStaffAddress;
 var NPHStaffAddress;
+var NAFStaffAddress;
 var taxaAddress;
 var submitPHObsAddress;
+var submitAHObsAddress;
+var speciesTaxonSyndromSamplesAddress;
 var infoWindow;
 var zoomlevel = document.getElementById('zoomlevel');
 var settings = document.getElementById('AppMode');
@@ -65,11 +70,12 @@ var staffData;
 var staffDataNPH;
 var staffDataBPH;
 var staffDataIPH;
+var staffDataNAF;
 var staffDataS;
 var staffDataFull;
-var track_id = '';      
-var watch_id = null;    
-var tracking_data = []; 
+var track_id = '';
+var watch_id = null;
+var tracking_data = [];
 var elementc;
 var mapc;
 var trackCoords;
@@ -352,103 +358,173 @@ function checkPermissions() {
     }
 }
 function initSettings() {
-    //$('#mb6 .progText').text("Loading App Defaults ...");
-    $.growl.notice({ title: "", message: "Loading ...", location: "bc", size: "small" });
-    //Loading PH reference codes
-    db.transaction(function (tx) {
-        tx.executeSql("SELECT * FROM phrefcodes WHERE id = ?", [1], function (tx, res) {
-            //This is not the first load
-            if (res.rows && res.rows.length > 0) {
-                PHRefCodes = JSON.parse(res.rows.item(0).settingsval);
-                loadPHRefCodes();
-            }
-            else {
-                //This is the first load
-                syncPHRefCodes();
-                loadPHRefCodes();
-            }
-        });
-    }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while loading PH RefenceCodes. ", location: "tc", size: "large", fixed: "true" });
-    });
-    //Loading taxa data
-    db.transaction(function (tx) {
-        tx.executeSql("SELECT * FROM taxadata WHERE id = ?", [1], function (tx, res) {
-            //This is not the first load
-            if (res.rows && res.rows.length > 0) {
-                taxaData = JSON.parse(res.rows.item(0).settingsval);
-            }
-            else {
-                //This is the first load
-                syncTaxaData();
-            }
-        });
-    }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while loading Taxa Data. ", location: "tc", size: "large", fixed: "true" });
-    });
-    //Loading Activity Data
-    db.transaction(function (tx) {
-        tx.executeSql("SELECT * FROM activitydata WHERE id = ?", [1], function (tx, res) {
-            //This is not the first load
-            if (res.rows && res.rows.length > 0) {
-                ActivityData = JSON.parse(res.rows.item(0).settingsval);
-                //siteData = ActivityData.activities[0].sites;
-                //programId = ActivityData.activities[0].programId;
-                loadActivityData();
-            }
-            else {
-                //This is the first load
-                syncActivityData();
-                loadActivityData();
-            }
-        });
-    }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while loading Activity Data. " + err.message, location: "tc", size: "large", fixed: "true" });
-    });
-    //Loading Staff Data
-    db.transaction(function (tx) {
-        tx.executeSql("SELECT * FROM staffdata WHERE settingstext = ?", ['BPHstaff'], function (tx, res) {
-            //This is not the first load
-            if (res.rows && res.rows.length > 0) {
-                staffDataBPH = JSON.parse(res.rows.item(0).settingsval);
-            }
-            else {
-                //This is the first load
-                syncBPHstaffData();
-            }
-        });
-    }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while loading BPH Staff Data. " + err.message, location: "tc", size: "large", fixed: "true" });
-    });
-    db.transaction(function (tx) {
-        tx.executeSql("SELECT * FROM staffdata WHERE settingstext = ?", ['IPHstaff'], function (tx, res) {
-            //This is not the first load
-            if (res.rows && res.rows.length > 0) {
-                staffDataIPH = JSON.parse(res.rows.item(0).settingsval);
-            }
-            else {
-                //This is the first load
-                syncIPHstaffData();
-            }
-        });
-    }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while loading IPH Staff Data. " + err.message, location: "tc", size: "large", fixed: "true" });
-    });
-    db.transaction(function (tx) {
-        tx.executeSql("SELECT * FROM staffdata WHERE settingstext = ?", ['NPHstaff'], function (tx, res) {
-            //This is not the first load
-            if (res.rows && res.rows.length > 0) {
-                staffDataNPH = JSON.parse(res.rows.item(0).settingsval);
-            }
-            else {
-                //This is the first load
-                syncNPHstaffData();
-            }
-        });
-    }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while loading NPH Staff Data. " + err.message, location: "tc", size: "large", fixed: "true" });
-    });
+    switch (AppMode) {
+        case "PH":
+            //$('#mb6 .progText').text("Loading App Defaults ...");
+            //$.growl.notice({ title: "", message: "Loading ...", location: "bc", size: "small" });
+            //Loading PH reference codes
+            db.transaction(function (tx) {
+                tx.executeSql("SELECT * FROM phrefcodes WHERE id = ?", [1], function (tx, res) {
+                    //This is not the first load
+                    if (res.rows && res.rows.length > 0) {
+                        PHRefCodes = JSON.parse(res.rows.item(0).settingsval);
+                        loadPHRefCodes();
+                    }
+                    else {
+                        //This is the first load
+                        syncPHRefCodes();
+                        loadPHRefCodes();
+                    }
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while loading PH ReferenceCodes. ", location: "tc", size: "large", fixed: "true" });
+            });
+            //Loading taxa data
+            //$.growl.notice({ title: "", message: "Loading PH Taxa ...", location: "bc", size: "small" });
+            db.transaction(function (tx) {
+                tx.executeSql("SELECT * FROM taxadata WHERE id = ?", [1], function (tx, res) {
+                    //This is not the first load
+                    if (res.rows && res.rows.length > 0) {
+                        taxaData = JSON.parse(res.rows.item(0).settingsval);
+                    }
+                    else {
+                        //This is the first load
+                        syncTaxaData();
+                    }
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while loading Taxa Data. ", location: "tc", size: "large", fixed: "true" });
+            });
+            //Loading Activity Data
+            //$.growl.notice({ title: "", message: "Loading Activity Data ...", location: "bc", size: "small" });
+            db.transaction(function (tx) {
+                tx.executeSql("SELECT * FROM activitydata WHERE id = ?", [1], function (tx, res) {
+                    //This is not the first load
+                    if (res.rows && res.rows.length > 0) {
+                        ActivityData = JSON.parse(res.rows.item(0).settingsval);
+                        //siteData = ActivityData.activities[0].sites;
+                        //programId = ActivityData.activities[0].programId;
+                        loadActivityData();
+                    }
+                    else {
+                        //This is the first load
+                        syncActivityData();
+                        loadActivityData();
+                    }
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while loading PH Activity Data. " + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            //Loading Staff Data
+            //$.growl.notice({ title: "", message: "Loading PH Staff Data ...", location: "bc", size: "small" });
+            db.transaction(function (tx) {
+                tx.executeSql("SELECT * FROM staffdata WHERE settingstext = ?", ['BPHstaff'], function (tx, res) {
+                    //This is not the first load
+                    if (res.rows && res.rows.length > 0) {
+                        staffDataBPH = JSON.parse(res.rows.item(0).settingsval);
+                    }
+                    else {
+                        //This is the first load
+                        syncBPHstaffData();
+                    }
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while loading BPH Staff Data. " + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            db.transaction(function (tx) {
+                tx.executeSql("SELECT * FROM staffdata WHERE settingstext = ?", ['IPHstaff'], function (tx, res) {
+                    //This is not the first load
+                    if (res.rows && res.rows.length > 0) {
+                        staffDataIPH = JSON.parse(res.rows.item(0).settingsval);
+                    }
+                    else {
+                        //This is the first load
+                        syncIPHstaffData();
+                    }
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while loading IPH Staff Data. " + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            db.transaction(function (tx) {
+                tx.executeSql("SELECT * FROM staffdata WHERE settingstext = ?", ['NPHstaff'], function (tx, res) {
+                    //This is not the first load
+                    if (res.rows && res.rows.length > 0) {
+                        staffDataNPH = JSON.parse(res.rows.item(0).settingsval);
+                    }
+                    else {
+                        //This is the first load
+                        syncNPHstaffData();
+                    }
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while loading NPH Staff Data. " + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            break;
+        case "AH":
+            //Loading PH reference codes
+            db.transaction(function (tx) {
+                tx.executeSql("SELECT * FROM ahrefcodes WHERE id = ?", [1], function (tx, res) {
+                    //This is not the first load
+                    if (res.rows && res.rows.length > 0) {
+                        AHRefCodes = JSON.parse(res.rows.item(0).settingsval);
+                    }
+                    else {
+                        //This is the first load
+                        syncAHRefCodes();
+                    }
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while loading AH ReferenceCodes." + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            db.transaction(function (tx) {
+                tx.executeSql("SELECT * FROM ahrefcodes WHERE id = ?", [2], function (tx, res) {
+                    //This is not the first load
+                    if (res.rows && res.rows.length > 0) {
+                        speciesTaxonSyndromSamples = JSON.parse(res.rows.item(0).settingsval);
+                        defaultSpecies = JSON.parse(res.rows.item(0).settingsval);
+                    }
+                    else {
+                        //This is the first load
+                        syncspeciesTaxonSyndromSamples();
+                    }
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while loading AH ReferenceCodes2." + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            db.transaction(function (tx) {
+                tx.executeSql("SELECT * FROM activitydataAH WHERE id = ?", [1], function (tx, res) {
+                    //This is not the first load
+                    if (res.rows && res.rows.length > 0) {
+                        ActivityDataAH = JSON.parse(res.rows.item(0).settingsval);
+                    }
+                    else {
+                        //This is the first load
+                        syncActivityDataAH();
+                    }
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while loading AH Activity Data. " + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            //Loading Staff Data
+            //$.growl.notice({ title: "", message: "Loading PH Staff Data ...", location: "bc", size: "small" });
+            db.transaction(function (tx) {
+                tx.executeSql("SELECT * FROM staffdataAH WHERE settingstext = ?", ['NAFstaff'], function (tx, res) {
+                    //This is not the first load
+                    if (res.rows && res.rows.length > 0) {
+                        staffDataNAF = JSON.parse(res.rows.item(0).settingsval);
+                    }
+                    else {
+                        //This is the first load
+                        syncNAFstaffData();
+                    }
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while loading BPH Staff Data. " + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            break;
+    }
     //Loading maps and Markers
+    //$.growl.notice({ title: "", message: "Loading Maps ...", location: "bc", size: "small" });
     db.transaction(function (tx) {
         tx.executeSql("SELECT * FROM observations WHERE id = ?", [1], function (tx, res) {
             //This is not the first load
@@ -483,7 +559,12 @@ function initSettings() {
             map = new google.maps.Map(document.getElementById("map"), mapOptions); map.mapTypes.set('xx', mymap); map.setMapTypeId('xx');
             if (res.rows && res.rows.length > 0) {
                 clearMarkers();
-                loadMapMarkers();
+                if (AppMode === "PH") {
+                    loadMapMarkers;
+                }
+                if (AppMode === "AH") {
+                    loadMapMarkersAH();
+                }
                 google.maps.event.addListener(map, 'click', function (event) {
                     placeMarker(event.latLng);
                 });
@@ -529,7 +610,12 @@ function initSettings() {
                             $.growl.error({ title: "", message: "An error occured while loading observations to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
                         });
                         clearMarkers();
-                        loadMapMarkers();
+                        if (AppMode === "PH") {
+                            loadMapMarkers;
+                        }
+                        if (AppMode === "AH") {
+                            loadMapMarkersAH();
+                        }
                         google.maps.event.addListener(map, 'click', function (event) {
                             placeMarker(event.latLng);
                         });
@@ -540,7 +626,7 @@ function initSettings() {
                 });
             }
             loadstaffData();
-            loadSitePolygons();
+            if (AppMode === "PH") { loadSitePolygons(); }
             if ($("#modalProgress").data('bs.modal') && $("#modalProgress").data('bs.modal').isShown) { $('#modalProgress').modal('hide'); }
         });
     }, function (err) {
@@ -552,43 +638,100 @@ function loadMapMarkers() {
         tx.executeSql("SELECT * FROM observations WHERE id = ?", [1], function (tx, res) {
             if (res.rows && res.rows.length > 0) {
                 results = JSON.parse(res.rows.item(0).data);
-                for (var i = 0; i < results.observations.length; i++) {
-                    if (results.observations[i].ObservationWhereWktClob_M_S && results.observations[i].ObservationWhereWktClob_M_S !== '') {
-                        var wkt = new Wkt.Wkt();
-                        wkt.read(results.observations[i].ObservationWhereWktClob_M_S);
-                        wkt.toObject();
-                        var latLng = new google.maps.LatLng(wkt.toJson().coordinates[1], wkt.toJson().coordinates[0]);
-                        var ti = results.observations[i].id_M_N.toString().trim() + "/" + results.observations[i].PlantDisciplineCode_M_S.toString().trim();
-                        var marker = new google.maps.Marker({
-                            position: latLng,
-                            map: map,
-                            title: ti
-                        });
-                        markers.push(marker);
-                        google.maps.event.addListener(marker, 'click', function () {
-                            curIdx = this.title.split("/")[0];
-                            var curD = "'" + this.title.split("/")[1].toString().trim() + "'";
-                            curLat = this.getPosition().lat();
-                            curLng = this.getPosition().lng();
-                            //curAlt = this.getPosition().altitude();
-                            if (infoWindow) {
-                                infoWindow.close();
+                if (results.observations && results.observations.length > 0) {
+                    for (var i = 0; i < results.observations.length; i++) {
+                        if (results.observations[i].ObservationWhereWktClob_M_S && results.observations[i].ObservationWhereWktClob_M_S !== '') {
+                            var wkt = new Wkt.Wkt();
+                            wkt.read(results.observations[i].ObservationWhereWktClob_M_S);
+                            wkt.toObject();
+                            var latLng = new google.maps.LatLng(wkt.toJson().coordinates[1], wkt.toJson().coordinates[0]);
+                            if (results.observations[i].PlantDisciplineCode_M_S) {
+                                var ti = results.observations[i].id_M_N.toString().trim() + "/" + results.observations[i].PlantDisciplineCode_M_S.toString().trim();
+                                var marker = new google.maps.Marker({
+                                    position: latLng,
+                                    map: map,
+                                    title: ti
+                                });
+                                markers.push(marker);
+                                google.maps.event.addListener(marker, 'click', function () {
+                                    curIdx = this.title.split("/")[0];
+                                    var curD = "'" + this.title.split("/")[1].toString().trim() + "'";
+                                    curLat = this.getPosition().lat();
+                                    curLng = this.getPosition().lng();
+                                    //curAlt = this.getPosition().altitude();
+                                    if (infoWindow) {
+                                        infoWindow.close();
+                                    }
+                                    infoWindow = new google.maps.InfoWindow({
+                                        content: '<div id="content"><h4>Observation ' + this.title + '</h4><div id="bodyContent">' +
+                                        '<i class="fa fa-pencil fa-2x text-info" onclick="launchModal(' + curIdx + ',' + curD + ')"></i><label class="text-info">Edit</label></div></div>'
+                                    });
+                                    infoWindow.setPosition(this.position);
+                                    infoWindow.open(map);
+                                    map.setCenter(this.position);
+                                });
                             }
-                            infoWindow = new google.maps.InfoWindow({
-                                content: '<div id="content"><h4>Observation ' + this.title + '</h4><div id="bodyContent">' +
-                                '<i class="fa fa-pencil fa-2x text-info" onclick="launchModal(' + curIdx + ',' + curD + ')"></i><label class="text-info">Edit</label></div></div>'
-                            });
-                            infoWindow.setPosition(this.position);
-                            infoWindow.open(map);
-                            map.setCenter(this.position);
-                        });
+                        }
                     }
+                    var mcOptions = { gridSize: 50, maxZoom: 9, imagePath: 'mapfiles/markers2/m' };
+                    markerCluster = new MarkerClusterer(map, markers, mcOptions);
+                    google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
+                        map.setCenter(cluster.getCenter());
+                    });
                 }
-                var mcOptions = { gridSize: 50, maxZoom: 9, imagePath: 'mapfiles/markers2/m' };
-                markerCluster = new MarkerClusterer(map, markers, mcOptions);
-                google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
-                    map.setCenter(cluster.getCenter());
-                });
+                //if ($("#modalProgress").data('bs.modal').isShown) { $('#modalProgress').modal('hide'); }
+            }
+        });
+    }, function (err) {
+        $.growl.error({ title: "", message: "An error occured while retrieving observations. " + err.message, location: "tc", size: "large" });
+    });
+}
+function loadMapMarkersAH() {
+    db.readTransaction(function (tx) {
+        tx.executeSql("SELECT * FROM observations WHERE id = ?", [1], function (tx, res) {
+            if (res.rows && res.rows.length > 0) {
+                results = JSON.parse(res.rows.item(0).data);
+                if (results.observations && results.observations.length > 0) {
+                    for (var i = 0; i < results.observations.length; i++) {
+                        if (results.observations[i].ObservationWhereWktClob_M_S_0_1 && results.observations[i].ObservationWhereWktClob_M_S_0_1 !== '') {
+                            var wkt = new Wkt.Wkt();
+                            wkt.read(results.observations[i].ObservationWhereWktClob_M_S_0_1);
+                            wkt.toObject();
+                            var latLng = new google.maps.LatLng(wkt.toJson().coordinates[1], wkt.toJson().coordinates[0]);
+                            if (results.observations[i].AnimalDisciplineCode_M_S) {
+                                var ti = results.observations[i].id_M_N.toString().trim() + "/" + results.observations[i].AnimalDisciplineCode_M_S.toString().trim();
+                                var marker = new google.maps.Marker({
+                                    position: latLng,
+                                    map: map,
+                                    title: ti
+                                });
+                                markers.push(marker);
+                                google.maps.event.addListener(marker, 'click', function () {
+                                    curIdx = this.title.split("/")[0];
+                                    var curD = "'" + this.title.split("/")[1].toString().trim() + "'";
+                                    curLat = this.getPosition().lat();
+                                    curLng = this.getPosition().lng();
+                                    //curAlt = this.getPosition().altitude();
+                                    if (infoWindow) {
+                                        infoWindow.close();
+                                    }
+                                    infoWindow = new google.maps.InfoWindow({
+                                        content: '<div id="content"><h4>Observation ' + this.title + '</h4><div id="bodyContent">' +
+                                        '<i class="fa fa-pencil fa-2x text-info" onclick="launchModal(' + curIdx + ',' + curD + ')"></i><label class="text-info">Edit</label></div></div>'
+                                    });
+                                    infoWindow.setPosition(this.position);
+                                    infoWindow.open(map);
+                                    map.setCenter(this.position);
+                                });
+                            }
+                        }
+                    }
+                    var mcOptions = { gridSize: 50, maxZoom: 9, imagePath: 'mapfiles/markers2/m' };
+                    markerCluster = new MarkerClusterer(map, markers, mcOptions);
+                    google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
+                        map.setCenter(cluster.getCenter());
+                    });
+                }
                 //if ($("#modalProgress").data('bs.modal').isShown) { $('#modalProgress').modal('hide'); }
             }
         });
@@ -718,7 +861,7 @@ function placeMarker(location) {
     curLng = newMarker.getPosition().lng();
     curWkt = "POINT (" + curLng.toFixed(5) + " " + curLat.toFixed(5) + ")";
     //curAlt = newMarker.getPosition().altitude();
-    if (!checkMapBoundsByLoc(location)) {
+    if (AppMode === "PH" && !checkMapBoundsByLoc(location)) {
         newMarker.setMap(null);
     }
     else {
@@ -746,7 +889,17 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 function myLoc() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-            if (checkMapBoundsByPos(position)) {
+            if (AppMode === "PH" && checkMapBoundsByPos(position)) {
+                var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                map.setZoom(9);
+                map.setCenter(pos);
+                $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue'
+                });
+                placeMarker(pos);
+            }
+            if (AppMode === "AH") {
                 var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 map.setZoom(9);
                 map.setCenter(pos);
@@ -805,11 +958,11 @@ function launchModal(e, f) {
         return (el.id_M_N === e);
     });
     switch (f) {
-        case 0:
-            loadModal('mo_sngObservation');
+        case 'SF':
+            loadModalAH('mo_sngObservation');
             break;
-        case 1:
-            loadModal('mo_grpObservation');
+        case 'G':
+            loadModalAH('mo_grpObservation');
             break;
         case 'B':
             loadModal('mo_BotObservation');
@@ -827,94 +980,48 @@ function loadData() {
     var data;
     var tab;
     switch (AppMode) {
-        //case "IAH":
-        //    data = jQuery.grep(results.observations, function (n, i) {
-        //        return (n.PlantDisciplineCode === 'S');
-        //    });
-        //    table = $('#srchTable').DataTable({
-        //        "data": data,
-        //        "columns": [
-        //            { "data": "surveillanceActivity" },
-        //            { "data": "commonName" },
-        //            {
-        //                "data": "sDate",
-        //                "render": function (data, type, row, meta) {
-        //                    return moment(data).format("DD/MM/YYYY");
-        //                }
-        //            },
-        //            { "data": "latitude" },
-        //            { "data": "longitude" },
-        //            { "data": "datum" },
-        //            { "data": "id" },
-        //            {
-        //                "data": "status",
-        //                "render": function (data, type, row, meta) {
-        //                    if (data === 0) return "Saved";
-        //                    if (data === 1) return "Submitted";
-        //                }
-        //            },
-        //            {
-        //                "data": "discipline",
-        //                "render": function (data, type, row, meta) {
-        //                    if (data === 'S') return "Single";
-        //                    if (data === 'G') return "Group";
-        //                    if (data === 'B') return "Botany";
-        //                    if (data === 'E') return "Entomology";
-        //                    if (data === 'P') return "Pathology";
-        //                }
-        //            }
-        //        ],
-        //        "paging": true,
-        //        "lengthChange": false,
-        //        "searching": true,
-        //        "ordering": true,
-        //        "info": false
-        //    });
-        //    break;
-        //case "AH":
-        //    data = jQuery.grep(results.observations, function (n, i) {
-        //        return (n.PlantDisciplineCode === 'S' || n.PlantDisciplineCode === 'G');
-        //    });
-        //    table = $('#srchTable').DataTable({
-        //        "data": data,
-        //        "columns": [
-        //            { "data": "surveillanceActivity" },
-        //            { "data": "commonName" },
-        //            {
-        //                "data": "sDate",
-        //                "render": function (data, type, row, meta) {
-        //                    return moment(data).format("DD/MM/YYYY");
-        //                }
-        //            },
-        //            { "data": "latitude" },
-        //            { "data": "longitude" },
-        //            { "data": "datum" },
-        //            { "data": "id" },
-        //            {
-        //                "data": "status",
-        //                "render": function (data, type, row, meta) {
-        //                    if (data === 0) return "Saved";
-        //                    if (data === 1) return "Submitted";
-        //                }
-        //            },
-        //            {
-        //                "data": "discipline",
-        //                "render": function (data, type, row, meta) {
-        //                    if (data === 'S') return "Single";
-        //                    if (data === 'G') return "Group";
-        //                    if (data === 'B') return "Botany";
-        //                    if (data === 'E') return "Entomology";
-        //                    if (data === 'P') return "Pathology";
-        //                }
-        //            }
-        //        ],
-        //        "paging": true,
-        //        "lengthChange": false,
-        //        "searching": true,
-        //        "ordering": true,
-        //        "info": false
-        //    });
-        //    break;
+        case "AH":
+            data = jQuery.grep(results.observations, function (n, i) {
+                return (n.AnimalDisciplineCode_M_S === 'SF' || n.AnimalDisciplineCode_M_S === 'G');
+            });
+            table = $('#srchAHTable').DataTable({
+                "data": data,
+                "columns": [
+                    { "data": "id_M_N" },
+                    {
+                        "data": "AnimalDisciplineCode_M_S",
+                        "render": function (data, type, row, meta) {
+                            if (data === 'SF') return "Single Feral";
+                            if (data === 'G') return "Group";
+                        }
+                    },
+                    {
+                        "data": "activityId_M_N"
+                    },
+                    { "data": "commonName_M_S" },
+                    {
+                        "data": "dateTime_M_D_0_1",
+                        "render": function (data, type, row, meta) {
+                            return moment(data).format("YYYY-MM-DD HH:MM:SS");
+                        }
+                    },
+                    { "data": "ObservationWhereWktClob_M_S_0_1" },
+                    { "data": "ObservWhereGpsDatumId_M_S_0_1" },
+                    {
+                        "data": "status_M_N",
+                        "render": function (data, type, row, meta) {
+                            if (data === 0) return "Saved";
+                            if (data === 1) return "Submitted";
+                        }
+                    }
+                ],
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": false
+            });
+            break;
         case "PH":
             data = jQuery.grep(results.observations, function (n, i) {
                 return (n.PlantDisciplineCode_M_S === 'P' || n.PlantDisciplineCode_M_S === 'E' || n.PlantDisciplineCode_M_S === 'B');
@@ -985,95 +1092,196 @@ function objectifyForm(formArray) {//serialize data function
     return returnArray;
 }
 $(document).on('click', '#Save', function (e) {
-    //var obj1 = JSON.stringify(objectifyForm(form1));
-    var obj = objectifyPHFormforSave(form1);
-    obj.status_M_N = 0;
-    if (debugMode === 1) {
-        $.confirm({
-            title: 'Payload Saved!',
-            content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
-            columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-            buttons: {
-                ok: function () { },
-                copy: {
-                    text: 'Copy', // With spaces and symbols
-                    action: function () {
-                        var copytext = this.$content.find("#Payload");
-                        copytext.select();
-                        document.execCommand("copy");
-                        return false;
+    var obj;
+    switch (AppMode) {
+        case "PH":
+            //var obj1 = JSON.stringify(objectifyForm(form1));
+            obj = objectifyPHFormforSave(form1);
+            obj.status_M_N = 0;
+            if (debugMode === 1) {
+                $.confirm({
+                    title: 'Payload Saved!',
+                    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
+                    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                    buttons: {
+                        ok: function () { },
+                        copy: {
+                            text: 'Copy', // With spaces and symbols
+                            action: function () {
+                                var copytext = this.$content.find("#Payload");
+                                copytext.select();
+                                document.execCommand("copy");
+                                return false;
+                            }
+                        }
                     }
-                }
+                });
             }
-        });
+            if (curIdx > 0) {
+                results.observations[curPos] = obj;
+            }
+            else {
+                //console.log(JSON.stringify(obj));
+                results.observations.push(obj);
+                curIdx = obj.id_M_N;
+                curPos = results.observations.length - 1;
+            }
+            db.transaction(function (tx) {
+                tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
+                    //alert("Dataset updated.");
+                    $.growl({ title: "", message: "Your changes have been saved!", location: "bc", size: "small" });
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while updating row to DB. " + err.message, location: "tc", size: "large" });
+            });
+            //$('#modalForm').modal('hide');
+            //clearMarkers();
+            //loadMapMarkers();
+            //if (infoWindow) {
+            //    infoWindow.close();
+            //}
+            break;
+        case "AH":
+            obj = objectifyAHFormforSave(form1);
+            obj.status_M_N = 0;
+            if (debugMode === 1) {
+                $.confirm({
+                    title: 'Payload Saved!',
+                    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
+                    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                    buttons: {
+                        ok: function () { },
+                        copy: {
+                            text: 'Copy', // With spaces and symbols
+                            action: function () {
+                                var copytext = this.$content.find("#Payload");
+                                copytext.select();
+                                document.execCommand("copy");
+                                return false;
+                            }
+                        }
+                    }
+                });
+            }
+            if (curIdx > 0) {
+                results.observations[curPos] = obj;
+            }
+            else {
+                //console.log(JSON.stringify(obj));
+                results.observations.push(obj);
+                curIdx = obj.id_M_N;
+                curPos = results.observations.length - 1;
+            }
+            db.transaction(function (tx) {
+                tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
+                    //alert("Dataset updated.");
+                    $.growl({ title: "", message: "Your changes have been saved!", location: "bc", size: "small" });
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while updating row to DB. " + err.message, location: "tc", size: "large" });
+            });
+            //$('#modalForm').modal('hide');
+            //clearMarkers();
+            //loadMapMarkers();
+            //if (infoWindow) {
+            //    infoWindow.close();
+            //}
+            break;
     }
-    if (curIdx > 0) {
-        results.observations[curPos] = obj;
-    }
-    else {
-        //console.log(JSON.stringify(obj));
-        results.observations.push(obj);
-        curIdx = obj.id_M_N;
-        curPos = results.observations.length - 1;
-    }
-    db.transaction(function (tx) {
-        tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
-            //alert("Dataset updated.");
-            $.growl({ title: "", message: "Your changes have been saved!", location: "bc", size: "small" });
-        });
-    }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while updating row to DB. " + err.message, location: "tc", size: "large" });
-    });
-    //$('#modalForm').modal('hide');
-    //clearMarkers();
-    //loadMapMarkers();
-    //if (infoWindow) {
-    //    infoWindow.close();
-    //}
+
 });
 $(document).on('click', '#SaveExit', function (e) {
-    //var obj1 = JSON.stringify(objectifyForm(form1));
-    var obj = objectifyPHFormforSave(form1);
-    obj.status_M_N = 0;
-    if (debugMode === 1) {
-        $.confirm({
-            title: 'Payload Saved!',
-            content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
-            columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-            buttons: {
-                ok: function () { },
-                copy: {
-                    text: 'Copy', // With spaces and symbols
-                    action: function () {
-                        var copytext = this.$content.find("#Payload");
-                        copytext.select();
-                        document.execCommand("copy");
-                        return false;
+    var obj;
+    switch (AppMode) {
+        case "PH":
+            //var obj1 = JSON.stringify(objectifyForm(form1));
+            obj = objectifyPHFormforSave(form1);
+            obj.status_M_N = 0;
+            if (debugMode === 1) {
+                $.confirm({
+                    title: 'Payload Saved!',
+                    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
+                    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                    buttons: {
+                        ok: function () { },
+                        copy: {
+                            text: 'Copy', // With spaces and symbols
+                            action: function () {
+                                var copytext = this.$content.find("#Payload");
+                                copytext.select();
+                                document.execCommand("copy");
+                                return false;
+                            }
+                        }
                     }
-                }
+                });
             }
-        });
+            if (curIdx > 0) {
+                results.observations[curPos] = obj;
+            }
+            else {
+                //console.log(JSON.stringify(obj));
+                results.observations.push(obj);
+                curIdx = obj.id_M_N;
+                //curIdx = results.observations.length;
+            }
+            db.transaction(function (tx) {
+                tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
+                    //alert("Dataset updated.");
+                    $.growl({ title: "", message: "Your changes have been saved!", location: "bc", size: "small" });
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while updating row to DB. " + err.message, location: "tc", size: "large" });
+            });
+            $('#modalForm').modal('hide');
+            break;
+        case "AH":
+            //var obj1 = JSON.stringify(objectifyAHFormforSave(form1));
+            //console.log(obj1);
+            obj = objectifyAHFormforSave(form1);
+            obj.status_M_N = 0;
+            if (debugMode === 1) {
+                $.confirm({
+                    title: 'Payload Saved!',
+                    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
+                    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                    buttons: {
+                        ok: function () { },
+                        copy: {
+                            text: 'Copy', // With spaces and symbols
+                            action: function () {
+                                var copytext = this.$content.find("#Payload");
+                                copytext.select();
+                                document.execCommand("copy");
+                                return false;
+                            }
+                        }
+                    }
+                });
+            }
+            if (curIdx > 0) {
+                results.observations[curPos] = obj;
+            }
+            else {
+                //console.log(JSON.stringify(obj));
+                results.observations.push(obj);
+                curIdx = obj.id_M_N;
+                //curIdx = results.observations.length;
+            }
+            db.transaction(function (tx) {
+                tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
+                    //alert("Dataset updated.");
+                    $.growl({ title: "", message: "Your changes have been saved!", location: "bc", size: "small" });
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while updating row to DB. " + err.message, location: "tc", size: "large" });
+            });
+            $('#modalForm').modal('hide');
+            break;
     }
-    if (curIdx > 0) {
-        results.observations[curPos] = obj;
-    }
-    else {
-        //console.log(JSON.stringify(obj));
-        results.observations.push(obj);
-        curIdx = obj.id_M_N;
-        //curIdx = results.observations.length;
-    }
-    db.transaction(function (tx) {
-        tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
-            //alert("Dataset updated.");
-            $.growl({ title: "", message: "Your changes have been saved!", location: "bc", size: "small" });
-        });
-    }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while updating row to DB. " + err.message, location: "tc", size: "large" });
-    });
-    $('#modalForm').modal('hide');
 });
 $(document).on('click', '#Submit2', function (e) {
+    var obj;
     var rowsFailedErr = [];
     vError = 0;
     vErrDescription = [];
@@ -1084,64 +1292,122 @@ $(document).on('click', '#Submit2', function (e) {
     HostStatAreaFlag = 0;
     PlantPreservationOtherFlag = 0;
     PlantTargetObservedCodeFlag = 0;
-    var obj = objectifyPHFormforSave(form1);
-    //console.log(JSON.stringify(obj));
-
-    var preVal = preValidate();
-    if (preVal.vError !== 0) {
-        rowsFailedErr.push(preVal.vErrDescription);
-        $.growl.error({ title: "", message: rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" });
-        return false;
-    }
-
-    var result = Iterate(obj);
-    if (result.vError === 0) {
-        //console.log(JSON.stringify(SubmitRecord(objectifyPHFormforSubmit(obj))));
-        obj.status_M_N = 1;
-        if (debugMode === 1) {
-            $.confirm({
-                title: 'Payload marked for Submit!',
-                content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
-                columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-                buttons: {
-                    ok: function () { },
-                    copy: {
-                        text: 'Copy', // With spaces and symbols
-                        action: function () {
-                            var copytext = this.$content.find("#Payload");
-                            copytext.select();
-                            document.execCommand("copy");
-                            return false;
+    var result;
+    var preVal;
+    switch (AppMode) {
+        case "PH":
+            obj = objectifyPHFormforSave(form1);
+            //console.log(JSON.stringify(obj));
+            preVal = preValidate();
+            if (preVal.vError !== 0) {
+                rowsFailedErr.push(preVal.vErrDescription);
+                $.growl.error({ title: "", message: rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" });
+                return false;
+            }
+            result = Iterate(obj);
+            if (result.vError === 0) {
+                //console.log(JSON.stringify(SubmitRecord(objectifyPHFormforSubmit(obj))));
+                obj.status_M_N = 1;
+                if (debugMode === 1) {
+                    $.confirm({
+                        title: 'Payload marked for Submit!',
+                        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
+                        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                        buttons: {
+                            ok: function () { },
+                            copy: {
+                                text: 'Copy', // With spaces and symbols
+                                action: function () {
+                                    var copytext = this.$content.find("#Payload");
+                                    copytext.select();
+                                    document.execCommand("copy");
+                                    return false;
+                                }
+                            }
                         }
-                    }
+                    });
                 }
-            });
-        }
-        if (curIdx > 0) {
-            results.observations[curPos] = obj;
-        }
-        else {
-            results.observations.push(obj);
-            curIdx = obj.id_M_N;
-            //curIdx = results.observations.length;
-        }
-        db.transaction(function (tx) {
-            tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
-                $.growl.notice({ title: "", message: "Observation marked for Sync.", location: "bc", size: "small" });
-            });
-        }, function (err) {
-            $.growl.error({ title: "", message: "An error occured while saving row to DB. " + err.message, location: "tc", size: "large" });
-        });
-        $('#modalForm').modal('hide');
-        //clearMarkers();
-        //loadMapMarkers();
-        //if (infoWindow) {
-        //    infoWindow.close();
-        //}
-    }
-    else {
-        rowsFailedErr.push(result.vErrDescription);
-        $.growl.error({ title: "", message: rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" });
+                if (curIdx > 0) {
+                    results.observations[curPos] = obj;
+                }
+                else {
+                    results.observations.push(obj);
+                    curIdx = obj.id_M_N;
+                    //curIdx = results.observations.length;
+                }
+                db.transaction(function (tx) {
+                    tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
+                        $.growl.notice({ title: "", message: "Observation marked for Sync.", location: "bc", size: "small" });
+                    });
+                }, function (err) {
+                    $.growl.error({ title: "", message: "An error occured while saving row to DB. " + err.message, location: "tc", size: "large" });
+                });
+                $('#modalForm').modal('hide');
+                //clearMarkers();
+                //loadMapMarkers();
+                //if (infoWindow) {
+                //    infoWindow.close();
+                //}
+            }
+            else {
+                rowsFailedErr.push(result.vErrDescription);
+                $.growl.error({ title: "", message: rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" });
+            }
+            break;
+        case "AH":
+            obj = objectifyAHFormforSave(form1);
+            console.log(JSON.stringify(obj));
+            preVal = preValidateAH();
+            if (preVal.vError !== 0) {
+                rowsFailedErr.push(preVal.vErrDescription);
+                $.growl.error({ title: "", message: rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" });
+                return false;
+            }
+            result = IterateAH(obj);
+            if (result.vError === 0) {
+                //console.log(JSON.stringify(SubmitRecord(objectifyPHFormforSubmit(obj))));
+                obj.status_M_N = 1;
+                if (debugMode === 1) {
+                    $.confirm({
+                        title: 'Payload marked for Submit!',
+                        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
+                        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                        buttons: {
+                            ok: function () { },
+                            copy: {
+                                text: 'Copy', // With spaces and symbols
+                                action: function () {
+                                    var copytext = this.$content.find("#Payload");
+                                    copytext.select();
+                                    document.execCommand("copy");
+                                    return false;
+                                }
+                            }
+                        }
+                    });
+                }
+                if (curIdx > 0) {
+                    results.observations[curPos] = obj;
+                }
+                else {
+                    results.observations.push(obj);
+                    curIdx = obj.id_M_N;
+                    //curIdx = results.observations.length;
+                }
+                db.transaction(function (tx) {
+                    tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
+                        $.growl.notice({ title: "", message: "Observation marked for Sync.", location: "bc", size: "small" });
+                    });
+                }, function (err) {
+                    $.growl.error({ title: "", message: "An error occured while saving row to DB. " + err.message, location: "tc", size: "large" });
+                });
+                $('#modalForm').modal('hide');
+            }
+            else {
+                rowsFailedErr.push(result.vErrDescription);
+                $.growl.error({ title: "", message: rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" });
+            }
+            break;
     }
 });
 $(document).on('click', '#settings', function (e) {
@@ -1159,8 +1425,24 @@ $(document).on('click', '#settings', function (e) {
         }
     }).complete(function (e) {
         setTimeout(function (e) {
-            loadActivityData();
-            $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData(resSettings.settings.device.ownerTeam))).val(resSettings.settings.device.ownerId);
+            if (AppMode === "PH") {
+                $("#curActivities").find('option').remove().end().append($('<option value="0">- select -</option>'));
+                $.each(ActivityData.activities, function (key, val) {
+                    if (val.programId === downerTeam) {
+                        var option = $('<option />');
+                        option.attr('value', val.activityId).text(val.activityName);
+                        $("#curActivities").append(option);
+                    }
+                });
+                $(".activityMaps").removeClass('hide');
+                $('#form3').find('select[id="doTeam"]').find('option').remove().end().append("<option value=NPH>NPH</option><option value=BPH>BPH</option><option value=IPH>IPH</option>");
+                $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData(resSettings.settings.device.ownerTeam))).val(resSettings.settings.device.ownerId);
+            }
+            if (AppMode === "AH") {
+                $(".activityMaps").addClass('hide');
+                $('#form3').find('select[id="doTeam"]').find('option').remove().end().append("<option value=NAF>NAF</option>");
+                $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData("NAF"))).val(resSettings.settings.device.ownerId);
+            }
         }, 300);
         $('#mb5').find('#appMode').val(AppMode);
         //var arr = resSettings.settings.mapSets.filter(function (el) {
@@ -1265,7 +1547,12 @@ $(document).on('click', '#Delete', function (e) {
                 //table.destroy();
                 //loadData();
                 clearMarkers();
-                loadMapMarkers();
+                if (AppMode === "PH") {
+                    loadMapMarkers;
+                }
+                if (AppMode === "AH") {
+                    loadMapMarkersAH();
+                }
                 if (infoWindow) {
                     infoWindow.close();
                 }
@@ -1323,8 +1610,49 @@ $(document).on('click', '#srchPHTable tbody tr', function () {
             $('#modalProgress').modal('hide');
         });
 });
+$(document).on('click', '#srchAHTable tbody tr', function () {
+    if ($(this).hasClass('selected')) {
+        $(this).removeClass('selected');
+    }
+    else {
+        table.$('tr.selected').removeClass('selected');
+        $(this).addClass('selected');
+    }
+    var d = table.row(this).data();
+    curIdx = d.id_M_N;
+    curDiscipline = d.AnimalDisciplineCode_M_S;
+    curPos = table.row(this).index();
+    $.ajax({
+        url: "",
+        beforeSend: function (xhr) {
+            $('#modalProgress').modal();
+            $('#mb6 .progText').text("Loading ...");
+            $('#mb6 .progress').addClass('hide');
+            $('#mb6 .fa-clock-o').addClass('hide');
+        }
+
+    }).complete(function (data) {
+        switch (curDiscipline) {
+            case "SF":
+                loadModalAH('mo_sngObservation');
+                break;
+            case "G":
+                loadModalAH('mo_grpObservation');
+                break;
+        }
+        //var zi = $('#modalPHGrid').css('z-index');
+        //$('#modalForm').css('z-index', zi + 100);
+        $('#modalAHGrid').modal('hide');
+        $('#modalForm').modal();
+    }).done(function () {
+        $('#modalProgress').modal('hide');
+    });
+});
 $(document).on('click', '#SyncPH', function (event) {
     $.when(setTimeout(DisableFormPH(), 1000));
+});
+$(document).on('click', '#SyncAH', function (event) {
+    $.when(setTimeout(DisableFormAH(), 1000));
 });
 $(document).on('shown.bs.modal', '#modalPHGrid', function () {
     loadPHRefCodes();
@@ -1338,12 +1666,19 @@ $(document).on('shown.bs.modal', '#modalPHGrid', function () {
         $('#SyncPH').addClass('hide');
     }
 });
+$(document).on('shown.bs.modal', '#modalAHGrid', function () {
+    loadActivityDataAH();
+    //loadAHDefaults();
+    loadData();
+    if (statusElem.innerHTML === 'online') {
+        $('#SyncAH').removeClass('hide');
+    }
+    if (statusElem.innerHTML === 'offline') {
+        $('#SyncAH').addClass('hide');
+    }
+});
 $(document).on('hidden.bs.modal', '#modalPHGrid', function () {
     table.destroy();
-});
-$(document).on('shown.bs.modal', '#modalAHGrid', function () {
-    loadAHDefaults();
-    loadData();
 });
 $(document).on('hidden.bs.modal', '#modalAHGrid', function () {
     table.destroy();
@@ -1353,7 +1688,12 @@ $(document).on('hidden.bs.modal', '#modalForm', function () {
     //loadAHDefaults();
     //loadData();
     clearMarkers();
-    loadMapMarkers();
+    if (AppMode === "PH") {
+        loadMapMarkers;
+    }
+    if (AppMode === "AH") {
+        loadMapMarkersAH();
+    }
 });
 $(document).on('click', 'a.btnResetData', function (e) {
     $.confirm({
@@ -1371,10 +1711,10 @@ $(document).on('click', 'a.btnResetData', function (e) {
                         var mm = today.getMonth() + 1; //January is 0!
                         var yyyy = today.getFullYear();
                         if (dd < 10) {
-                            dd = '0' + dd
+                            dd = '0' + dd;
                         }
                         if (mm < 10) {
-                            mm = '0' + mm
+                            mm = '0' + mm;
                         }
                         today = dd.toString() + '/' + mm.toString() + '/' + yyyy.toString();
                         db.transaction(function (tx) {
@@ -1393,43 +1733,12 @@ $(document).on('click', 'a.btnResetData', function (e) {
                         });
                         clearMarkers();
                         results = JSON.parse(data);
-                        for (var i = 0; i < results.observations.length; i++) {
-                            if (results.observations[i].ObservationWhereWktClob_M_S && results.observations[i].ObservationWhereWktClob_M_S !== '') {
-                                var wkt = new Wkt.Wkt();
-                                wkt.read(results.observations[i].ObservationWhereWktClob_M_S);
-                                wkt.toObject();
-                                var latLng = new google.maps.LatLng(wkt.toJson().coordinates[1], wkt.toJson().coordinates[0]);
-                                var ti = results.observations[i].id_M_N.toString().trim() + "/" + results.observations[i].PlantDisciplineCode_M_S.toString().trim();
-                                var marker = new google.maps.Marker({
-                                    position: latLng,
-                                    map: map,
-                                    title: ti
-                                });
-                                markers.push(marker);
-                                google.maps.event.addListener(marker, 'click', function () {
-                                    curIdx = this.title.split("/")[0];
-                                    var curD = "'" + this.title.split("/")[1].toString().trim() + "'";
-                                    curLat = this.getPosition().lat();
-                                    curLng = this.getPosition().lng();
-                                    //curAlt = this.getPosition().altitude();
-                                    if (infoWindow) {
-                                        infoWindow.close();
-                                    }
-                                    infoWindow = new google.maps.InfoWindow({
-                                        content: '<div id="content"><h4>Observation ' + this.title + '</h4><div id="bodyContent">' +
-                                        '<i class="fa fa-pencil fa-2x text-info" onclick="launchModal(' + curIdx + ',' + curD + ')"></i><label class="text-info">Edit</label></div></div>'
-                                    });
-                                    infoWindow.setPosition(this.position);
-                                    infoWindow.open(map);
-                                    map.setCenter(this.position);
-                                });
-                            }
+                        if (AppMode === "PH") {
+                            loadMapMarkers;
                         }
-                        var mcOptions = { gridSize: 50, maxZoom: 9, imagePath: 'mapfiles/markers2/m' };
-                        markerCluster = new MarkerClusterer(map, markers, mcOptions);
-                        google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
-                            map.setCenter(cluster.getCenter());
-                        });
+                        if (AppMode === "AH") {
+                            loadMapMarkersAH();
+                        }
                         db.transaction(function (tx) {
                             tx.executeSql("UPDATE observations SET data = ?,filedt = ? WHERE id = ?", [JSON.stringify(results), today, 1], function (tx, res) {
                                 //alert("Dataset updated.");
@@ -1453,16 +1762,18 @@ $(document).on('click', 'a.btnResetData', function (e) {
 $(document).on('click', 'a.btnSync', function (e) {
     $.confirm({
         title: 'Confirm Data Sync!',
-        content: 'Do you want to sync application data with the Server?<br/>Note that Observations will not be Synced!',
+        content: 'Do you want to sync application data with the Server?<br/>Note: <b>Observations will not be Synced.</b>',
         buttons: {
             Ok: function () {
-                syncPHRefCodes();
-                syncActivityData();
-                syncBPHstaffData();
-                syncIPHstaffData();
-                syncNPHstaffData();
-                syncTaxaData();
-                $.growl.notice({ title: "", message: "Sync Complete!.", location: "bc", size: "small" });
+                $.when(clearCache()).then(fetchSettings()).then(initSettings()).done(function () {
+                    $.growl.notice({ title: "", message: "Sync Complete!.", location: "bc", size: "small" });
+                });
+                //syncPHRefCodes();
+                //syncActivityData();
+                //syncBPHstaffData();
+                //syncIPHstaffData();
+                //syncNPHstaffData();
+                //syncTaxaData();
             },
             cancel: function () {
                 //close
@@ -1472,77 +1783,136 @@ $(document).on('click', 'a.btnSync', function (e) {
 });
 $(document).on('click', '#showPayloads', function (e) {
     if (debugMode === 1) {
-        $.confirm({
-            title: 'Activity Data',
-            content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadAD">' + JSON.stringify(ActivityData) + '</textarea></div>',
-            columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-            buttons: {
-                Ok: function () {
-                    $.confirm({
-                        title: 'PHRefCodes Data',
-                        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadPHRC">' + JSON.stringify(PHRefCodes) + '</textarea></div>',
-                        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-                        buttons: {
-                            Ok: function () {
-                                $.confirm({
-                                    title: 'Staff Data',
-                                    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadSD">' + JSON.stringify(staffDataBPH) + JSON.stringify(staffDataIPH) + JSON.stringify(staffDataNPH) + '</textarea></div>',
-                                    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-                                    buttons: {
-                                        Ok: function () {
-                                            $.confirm({
-                                                title: 'Taxa Data',
-                                                content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadTD">' + JSON.stringify(taxaData) + '</textarea></div>',
-                                                columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-                                                buttons: {
-                                                    Ok: function () {},
-                                                    copy: {
-                                                        text: 'Copy', // With spaces and symbols
-                                                        action: function () {
-                                                            var copytext = this.$content.find("#PayloadTD");
-                                                            copytext.select();
-                                                            document.execCommand("copy");
-                                                            return false;
+        switch (AppMode) {
+            case "PH":
+                $.confirm({
+                    title: 'Activity',
+                    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadAD">' + JSON.stringify(ActivityData) + '</textarea></div>',
+                    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                    buttons: {
+                        Ok: function () {
+                            $.confirm({
+                                title: 'RefCodes',
+                                content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadPHRC">' + JSON.stringify(PHRefCodes) + '</textarea></div>',
+                                columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                                buttons: {
+                                    Ok: function () {
+                                        $.confirm({
+                                            title: 'Staff',
+                                            content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadSD">' + JSON.stringify(staffDataBPH) + JSON.stringify(staffDataIPH) + JSON.stringify(staffDataNPH) + '</textarea></div>',
+                                            columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                                            buttons: {
+                                                Ok: function () {
+                                                    $.confirm({
+                                                        title: 'Taxa Data',
+                                                        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadTD">' + JSON.stringify(taxaData) + '</textarea></div>',
+                                                        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                                                        buttons: {
+                                                            Ok: function () { },
+                                                            copy: {
+                                                                text: 'Copy', // With spaces and symbols
+                                                                action: function () {
+                                                                    var copytext = this.$content.find("#PayloadTD");
+                                                                    copytext.select();
+                                                                    document.execCommand("copy");
+                                                                    return false;
+                                                                }
+                                                            }
                                                         }
+                                                    });
+                                                },
+                                                copy: {
+                                                    text: 'Copy', // With spaces and symbols
+                                                    action: function () {
+                                                        var copytext = this.$content.find("#PayloadSD");
+                                                        copytext.select();
+                                                        document.execCommand("copy");
+                                                        return false;
                                                     }
                                                 }
-                                            });
-                                        },
-                                        copy: {
-                                            text: 'Copy', // With spaces and symbols
-                                            action: function () {
-                                                var copytext = this.$content.find("#PayloadSD");
-                                                copytext.select();
-                                                document.execCommand("copy");
-                                                return false;
                                             }
+                                        });
+                                    },
+                                    copy: {
+                                        text: 'Copy', // With spaces and symbols
+                                        action: function () {
+                                            var copytext = this.$content.find("#PayloadPHRC");
+                                            copytext.select();
+                                            document.execCommand("copy");
+                                            return false;
                                         }
                                     }
-                                });
-                            },
-                            copy: {
-                                text: 'Copy', // With spaces and symbols
-                                action: function () {
-                                    var copytext = this.$content.find("#PayloadPHRC");
-                                    copytext.select();
-                                    document.execCommand("copy");
-                                    return false;
                                 }
+                            });
+                        },
+                        copy: {
+                            text: 'Copy', // With spaces and symbols
+                            action: function () {
+                                var copytext = this.$content.find("#PayloadAD");
+                                copytext.select();
+                                document.execCommand("copy");
+                                return false;
                             }
                         }
-                    });
-                },
-                copy: {
-                    text: 'Copy', // With spaces and symbols
-                    action: function () {
-                        var copytext = this.$content.find("#PayloadAD");
-                        copytext.select();
-                        document.execCommand("copy");
-                        return false;
                     }
-                }
-            }
-        });
+                });
+                break;
+            case "AH":
+                $.confirm({
+                    title: 'Activity',
+                    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadAD">' + JSON.stringify(ActivityDataAH) + '</textarea></div>',
+                    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                    buttons: {
+                        Ok: function () {
+                            $.confirm({
+                                title: 'Reference Codes',
+                                content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadAHRC">' + JSON.stringify(AHRefCodes) + '</textarea></div>',
+                                columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                                buttons: {
+                                    Ok: function () {
+                                        $.confirm({
+                                            title: 'Staff',
+                                            content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="PayloadSD">' + JSON.stringify(staffDataNAF) + '</textarea></div>',
+                                            columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+                                            buttons: {
+                                                Ok: function () { },
+                                                copy: {
+                                                    text: 'Copy', // With spaces and symbols
+                                                    action: function () {
+                                                        var copytext = this.$content.find("#PayloadSD");
+                                                        copytext.select();
+                                                        document.execCommand("copy");
+                                                        return false;
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    },
+                                    copy: {
+                                        text: 'Copy', // With spaces and symbols
+                                        action: function () {
+                                            var copytext = this.$content.find("#PayloadAHRC");
+                                            copytext.select();
+                                            document.execCommand("copy");
+                                            return false;
+                                        }
+                                    }
+                                }
+                            });
+                        },
+                        copy: {
+                            text: 'Copy', // With spaces and symbols
+                            action: function () {
+                                var copytext = this.$content.find("#PayloadAD");
+                                copytext.select();
+                                document.execCommand("copy");
+                                return false;
+                            }
+                        }
+                    }
+                });
+                break;
+        }
     }
 });
 $(document).on('click', '.obsForm', function (e) {
@@ -1563,12 +1933,29 @@ $(document).on('click', '#showFormPH', function (e) {
         $('#modalPHMenu').modal('hide');
     }
 });
+$(document).on('click', '#showFormAH', function (e) {
+    var zi;
+    curDiscipline = $('input[type=radio][name="optObs"]:checked').attr('data-discipline');
+    var formName = $("input[name='optObs']:checked").val();
+    if (formName) {
+        zi = $('#modalAHMenu').css('z-index');
+        $('#modalForm').css('z-index', zi + 100);
+        loadModalAH(formName);
+        $('#modalForm').modal();
+        $('#modalAHMenu').modal('hide');
+    }
+});
 $(document).on('hidden.bs.modal', '#modalForm', function () {
     if (newMarker && (curIdx === -1 || curIdx === -2)) {
         newMarker.setMap(null);
     }
 });
 $(document).on('hidden.bs.modal', '#modalPHMenu', function () {
+    if (newMarker && (curIdx === -1 || curIdx === -2)) {
+        newMarker.setMap(null);
+    }
+});
+$(document).on('hidden.bs.modal', '#modalAHMenu', function () {
     if (newMarker && (curIdx === -1 || curIdx === -2)) {
         newMarker.setMap(null);
     }
@@ -1670,14 +2057,6 @@ function loadActivityData() {
             var option = $('<option />');
             option.attr('value', val.activityId).text(val.activityName);
             $("#form1").find('select[name="SurvActivityId_M_N"]').append(option);
-        }
-    });
-    $("#curActivities").find('option').remove().end().append($('<option value="0">- select -</option>'));
-    $.each(ActivityData.activities, function (key, val) {
-        if (val.programId === downerTeam) {
-            var option = $('<option />');
-            option.attr('value', val.activityId).text(val.activityName);
-            $("#curActivities").append(option);
         }
     });
     $("#form1").find('select[name="SiteId_O_N"]').find('option').remove().end().append($('<option value="0">- select -</option>'));
@@ -1844,15 +2223,56 @@ function syncIPHstaffData() {
         $.growl.error({ title: "", message: "An error occurred while fetching IPH StaffData. " + response.responseText, location: "tc", size: "large", fixed: "true" });
     });
 }
+function syncNAFstaffData() {
+    var NAFsettings = {
+        "async": false,
+        "crossDomain": true,
+        "url": NAFStaffAddress,
+        "method": "GET",
+        "beforeSend": function () {
+            //$.growl.notice({ title: "", message: "Syncing IPH Staff Data ...", location: "bc", size: "small" });
+        },
+        "headers": {
+            "authorization": authCode,
+            "cache-control": "no-cache"
+        }
+    };
+    $.ajax(NAFsettings).done(function (data) {
+        staffDataNAF = xmlToJson(data);
+        db.transaction(function (tx) {
+            tx.executeSql("DELETE FROM staffdataAH WHERE id = ?", [1], function (tx, res) {
+                //alert("Rows deleted.");
+            });
+        }, function (err) {
+            $.growl.error({ title: "", message: "An error occured while deleting NAF StaffData from database. " + err.message, location: "tc", size: "large", fixed: "true" });
+        });
+        db.transaction(function (tx) {
+            tx.executeSql("INSERT INTO staffdataAH (id, settingstext, settingsval) VALUES (?,?,?)", [1, 'NAFstaff', JSON.stringify(staffDataNAF)], function (tx, res) {
+                //alert("Row inserted.");
+            });
+        }, function (err) {
+            $.growl.error({ title: "", message: "An error occured while updating NAF StaffData to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
+        });
+        db.transaction(function (tx) {
+            tx.executeSql("UPDATE staffdataAH SET settingsval = ? WHERE id = ?", [JSON.stringify(staffDataNAF), 1], function (tx, res) {
+                //alert("Dataset updated.");
+            });
+        }, function (err) {
+            $.growl.error({ title: "", message: "An error occured while updating NAF StaffData to DB. " + err.message, location: "tc", size: "large", fixed: "true" });
+        });
+    }).fail(function (response) {
+        $.growl.error({ title: "", message: "An error occurred while fetching NAF StaffData. " + response.responseText, location: "tc", size: "large", fixed: "true" });
+    });
+}
 function loadstaffData() {
     // Loading StaffData for device Owner //
-    staffDataFull = '<option value="0">- select -</option>';
-    $.each(staffDataNPH.staffs.staff, function (key, val) {
-        var option1 = '<option';
-        option1 = option1 + ' value="' + val.id + '">';
-        option1 = option1 + val.displayName + "</option>";
-        staffDataFull = staffDataFull + option1;
-    });
+    //staffDataFull = '<option value="0">- select -</option>';
+    //$.each(staffDataNPH.staffs.staff, function (key, val) {
+    //    var option1 = '<option';
+    //    option1 = option1 + ' value="' + val.id + '">';
+    //    option1 = option1 + val.displayName + "</option>";
+    //    staffDataFull = staffDataFull + option1;
+    //});
     // Loading StaffData per programID //
     if (programId && programId !== "") {
         switch (programId) {
@@ -1865,8 +2285,20 @@ function loadstaffData() {
             case "IPH":
                 staffDataS = staffDataIPH;
                 break;
+            case "NAF":
+                staffDataS = staffDataNAF;
+                break;
         }
-    } else { staffDataS = staffDataNPH; }
+    } else {
+        switch (AppMode) {
+            case "PH":
+                staffDataS = staffDataNPH;
+                break;
+            case "AH":
+                staffDataS = staffDataNAF;
+                break;
+        }
+    }
     staffData = '<option value="0">- select -</option>';
     $.each(staffDataS.staffs.staff, function (key, val) {
         var option1 = '<option';
@@ -1874,7 +2306,7 @@ function loadstaffData() {
         option1 = option1 + val.displayName + "</option>";
         staffData = staffData + option1;
     });
-    $("#form1").find('select[name="ObservationStaffId_M_N"]').find('option').remove().end().append($(staffData));
+    $("#form1").find('select[name^="ObservationStaffId_M_N"]').find('option').remove().end().append($(staffData));
 }
 function loadSitePolygons() {
     allLats = [];
@@ -1941,6 +2373,7 @@ function fetchSettings() {
                 downerTeam = resSettings.settings.device.ownerTeam;
                 debugMode = resSettings.settings.device.debugMode;
                 $("#serverMode").val(resSettings.settings.app.serverMode);
+                $("#appMode2").val(resSettings.settings.app.appMode);
             }
             else {
                 $.ajax({
@@ -1976,6 +2409,7 @@ function fetchSettings() {
                         downerTeam = resSettings.settings.device.ownerTeam;
                         debugMode = resSettings.settings.device.debugMode;
                         $("#serverMode").val(resSettings.settings.app.serverMode);
+                        $("#appMode2").val(resSettings.settings.app.appMode);
                     },
                     failure: function () {
                         $.growl.error({ title: "", message: "Error loading settings!", location: "tc", size: "large", fixed: "true" });
@@ -1988,7 +2422,7 @@ function fetchSettings() {
         $.growl.error({ title: "", message: "An error occured fetching app settings. " + err.message, location: "tc", size: "large", fixed: "true" });
     });
 }
-function fetchServerDetails(serverMode) {
+function fetchServerDetails(serverMode, appMode) {
     AppMode = resSettings.settings.app.appMode;
     settings.innerHTML = AppMode;
     appEnv.innerHTML = serverMode;
@@ -1999,57 +2433,110 @@ function fetchServerDetails(serverMode) {
     sitServerAddress = resSettings.settings.app.sitServerAddress;
     uatServerAddress = resSettings.settings.app.uatServerAddress;
     prodServerAddress = resSettings.settings.app.prodServerAddress;
-    switch (serverMode) {
-        case "DEV":
-            ServerAddress = devServerAddress;
-            authAddress = ServerAddress + resSettings.settings.app.authAddress;
-            ActivityAddress = ServerAddress + resSettings.settings.app.activityAddress;
-            refCodesAddress = ServerAddress + resSettings.settings.app.refCodesAddress;
-            BPHStaffAddress = ServerAddress + resSettings.settings.app.BPHStaffAddress;
-            IPHStaffAddress = ServerAddress + resSettings.settings.app.IPHStaffAddress;
-            NPHStaffAddress = ServerAddress + resSettings.settings.app.NPHStaffAddress;
-            taxaAddress = ServerAddress + resSettings.settings.app.taxaAddress;
-            submitPHObsAddress = ServerAddress + resSettings.settings.app.submitPHObsAddress;
+    switch (appMode) {
+        case "PH":
+            switch (serverMode) {
+                case "DEV":
+                    ServerAddress = devServerAddress;
+                    authAddress = ServerAddress + resSettings.settings.app.authAddress;
+                    ActivityAddress = ServerAddress + resSettings.settings.app.activityAddress;
+                    refCodesAddress = ServerAddress + resSettings.settings.app.refCodesAddress;
+                    BPHStaffAddress = ServerAddress + resSettings.settings.app.BPHStaffAddress;
+                    IPHStaffAddress = ServerAddress + resSettings.settings.app.IPHStaffAddress;
+                    NPHStaffAddress = ServerAddress + resSettings.settings.app.NPHStaffAddress;
+                    taxaAddress = ServerAddress + resSettings.settings.app.taxaAddress;
+                    submitPHObsAddress = ServerAddress + resSettings.settings.app.submitPHObsAddress;
+                    break;
+                case "SIT":
+                    ServerAddress = sitServerAddress;
+                    authAddress = ServerAddress + resSettings.settings.app.authAddress;
+                    ActivityAddress = ServerAddress + resSettings.settings.app.activityAddress;
+                    refCodesAddress = ServerAddress + resSettings.settings.app.refCodesAddress;
+                    BPHStaffAddress = ServerAddress + resSettings.settings.app.BPHStaffAddress;
+                    IPHStaffAddress = ServerAddress + resSettings.settings.app.IPHStaffAddress;
+                    NPHStaffAddress = ServerAddress + resSettings.settings.app.NPHStaffAddress;
+                    taxaAddress = ServerAddress + resSettings.settings.app.taxaAddress;
+                    submitPHObsAddress = ServerAddress + resSettings.settings.app.submitPHObsAddress;
+                    break;
+                case "UAT":
+                    ServerAddress = uatServerAddress;
+                    authAddress = ServerAddress + resSettings.settings.app.authAddress;
+                    ActivityAddress = ServerAddress + resSettings.settings.app.activityAddress;
+                    refCodesAddress = ServerAddress + resSettings.settings.app.refCodesAddress;
+                    BPHStaffAddress = ServerAddress + resSettings.settings.app.BPHStaffAddress;
+                    IPHStaffAddress = ServerAddress + resSettings.settings.app.IPHStaffAddress;
+                    NPHStaffAddress = ServerAddress + resSettings.settings.app.NPHStaffAddress;
+                    taxaAddress = ServerAddress + resSettings.settings.app.taxaAddress;
+                    submitPHObsAddress = ServerAddress + resSettings.settings.app.submitPHObsAddress;
+                    break;
+                case "PROD":
+                    ServerAddress = prodServerAddress;
+                    authAddress = ServerAddress + resSettings.settings.app.authAddress;
+                    ActivityAddress = ServerAddress + resSettings.settings.app.activityAddress;
+                    refCodesAddress = ServerAddress + resSettings.settings.app.refCodesAddress;
+                    BPHStaffAddress = ServerAddress + resSettings.settings.app.BPHStaffAddress;
+                    IPHStaffAddress = ServerAddress + resSettings.settings.app.IPHStaffAddress;
+                    NPHStaffAddress = ServerAddress + resSettings.settings.app.NPHStaffAddress;
+                    taxaAddress = ServerAddress + resSettings.settings.app.taxaAddress;
+                    submitPHObsAddress = ServerAddress + resSettings.settings.app.submitPHObsAddress;
+                    break;
+            }
             break;
-        case "SIT":
-            ServerAddress = sitServerAddress;
-            authAddress = ServerAddress + resSettings.settings.app.authAddress;
-            ActivityAddress = ServerAddress + resSettings.settings.app.activityAddress;
-            refCodesAddress = ServerAddress + resSettings.settings.app.refCodesAddress;
-            BPHStaffAddress = ServerAddress + resSettings.settings.app.BPHStaffAddress;
-            IPHStaffAddress = ServerAddress + resSettings.settings.app.IPHStaffAddress;
-            NPHStaffAddress = ServerAddress + resSettings.settings.app.NPHStaffAddress;
-            taxaAddress = ServerAddress + resSettings.settings.app.taxaAddress;
-            submitPHObsAddress = ServerAddress + resSettings.settings.app.submitPHObsAddress;
-            break;
-        case "UAT":
-            ServerAddress = uatServerAddress;
-            authAddress = ServerAddress + resSettings.settings.app.authAddress;
-            ActivityAddress = ServerAddress + resSettings.settings.app.activityAddress;
-            refCodesAddress = ServerAddress + resSettings.settings.app.refCodesAddress;
-            BPHStaffAddress = ServerAddress + resSettings.settings.app.BPHStaffAddress;
-            IPHStaffAddress = ServerAddress + resSettings.settings.app.IPHStaffAddress;
-            NPHStaffAddress = ServerAddress + resSettings.settings.app.NPHStaffAddress;
-            taxaAddress = ServerAddress + resSettings.settings.app.taxaAddress;
-            submitPHObsAddress = ServerAddress + resSettings.settings.app.submitPHObsAddress;
-            break;
-        case "PROD":
-            ServerAddress = prodServerAddress;
-            authAddress = ServerAddress + resSettings.settings.app.authAddress;
-            ActivityAddress = ServerAddress + resSettings.settings.app.activityAddress;
-            refCodesAddress = ServerAddress + resSettings.settings.app.refCodesAddress;
-            BPHStaffAddress = ServerAddress + resSettings.settings.app.BPHStaffAddress;
-            IPHStaffAddress = ServerAddress + resSettings.settings.app.IPHStaffAddress;
-            NPHStaffAddress = ServerAddress + resSettings.settings.app.NPHStaffAddress;
-            taxaAddress = ServerAddress + resSettings.settings.app.taxaAddress;
-            submitPHObsAddress = ServerAddress + resSettings.settings.app.submitPHObsAddress;
+        case "AH":
+            switch (serverMode) {
+                case "DEV":
+                    ServerAddress = devServerAddress;
+                    authAddress = ServerAddress + resSettings.settings.app.authAddressAH;
+                    ActivityAddressAH = ServerAddress + resSettings.settings.app.activityAddressAH;
+                    refCodesAddressAH = ServerAddress + resSettings.settings.app.refCodesAddressAH;
+                    NAFStaffAddress = ServerAddress + resSettings.settings.app.NAFStaffAddress;
+                    speciesTaxonSyndromSamplesAddress = ServerAddress + resSettings.settings.app.speciesTaxonSyndromSamplesAddress;
+                    submitAHObsAddress = ServerAddress + resSettings.settings.app.submitAHObsAddress;
+                    break;
+                case "SIT":
+                    ServerAddress = sitServerAddress;
+                    authAddress = ServerAddress + resSettings.settings.app.authAddressAH;
+                    ActivityAddressAH = ServerAddress + resSettings.settings.app.activityAddressAH;
+                    refCodesAddressAH = ServerAddress + resSettings.settings.app.refCodesAddressAH;
+                    NAFStaffAddress = ServerAddress + resSettings.settings.app.NAFStaffAddress;
+                    speciesTaxonSyndromSamplesAddress = ServerAddress + resSettings.settings.app.speciesTaxonSyndromSamplesAddress;
+                    submitAHObsAddress = ServerAddress + resSettings.settings.app.submitAHObsAddress;
+                    break;
+                case "UAT":
+                    ServerAddress = uatServerAddress;
+                    authAddress = ServerAddress + resSettings.settings.app.authAddressAH;
+                    ActivityAddressAH = ServerAddress + resSettings.settings.app.activityAddressAH;
+                    refCodesAddressAH = ServerAddress + resSettings.settings.app.refCodesAddressAH;
+                    NAFStaffAddress = ServerAddress + resSettings.settings.app.NAFStaffAddress;
+                    speciesTaxonSyndromSamplesAddress = ServerAddress + resSettings.settings.app.speciesTaxonSyndromSamplesAddress;
+                    submitAHObsAddress = ServerAddress + resSettings.settings.app.submitAHObsAddress;
+                    break;
+                case "PROD":
+                    ServerAddress = prodServerAddress;
+                    authAddress = ServerAddress + resSettings.settings.app.authAddressAH;
+                    ActivityAddressAH = ServerAddress + resSettings.settings.app.activityAddressAH;
+                    refCodesAddressAH = ServerAddress + resSettings.settings.app.refCodesAddressAH;
+                    NAFStaffAddress = ServerAddress + resSettings.settings.app.NAFStaffAddress;
+                    speciesTaxonSyndromSamplesAddress = ServerAddress + resSettings.settings.app.speciesTaxonSyndromSamplesAddress;
+                    submitAHObsAddress = ServerAddress + resSettings.settings.app.submitAHObsAddress;
+                    break;
+            }
             break;
     }
-    return taxaAddress;
+    return authAddress;
 }
-function updateSettings(serverMode) {
+function updateSettings(serverMode, appMode) {
+    var changeFlag = 0;
     if (serverMode !== resSettings.settings.app.serverMode) {
         resSettings.settings.app.serverMode = serverMode;
+        changeFlag = 1;
+    }
+    if (appMode !== resSettings.settings.app.appMode) {
+        resSettings.settings.app.appMode = appMode;
+        AppMode = appMode;
+        changeFlag = 1;
+    }
+    if (changeFlag === 1) {
         db.transaction(function (tx) {
             tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
                 //Updated serverMode to current.
@@ -2060,55 +2547,85 @@ function updateSettings(serverMode) {
         });
     }
 }
-function clearCache() {
-    db.transaction(function (tx) {
-        tx.executeSql("DELETE FROM activitydata", [], function (tx, res) {
-            //alert("Rows deleted.");
-            ActivityData = "";
-        });
-    }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while deleting ActivityData from DB. " + err.message, location: "tc", size: "large", fixed: "true" });
-    });
-    db.transaction(function (tx) {
-        tx.executeSql("DELETE FROM phrefcodes", [], function (tx, res) {
-            //alert("Rows deleted.");
-            PHRefCodes = "";
-        });
-    }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while deleting PHRefCodes from DB. " + err.message, location: "tc", size: "large", fixed: "true" });
-    });
-    db.transaction(function (tx) {
-        tx.executeSql("DELETE FROM staffdata WHERE id = ?", [1], function (tx, res) {
-            //alert("Rows deleted.");
-            staffDataNPH = "";
-        });
-    }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while deleting NPH StaffData from database. " + err.message, location: "tc", size: "large", fixed: "true" });
-    });
-    db.transaction(function (tx) {
-        tx.executeSql("DELETE FROM staffdata WHERE id = ?", [2], function (tx, res) {
-            //alert("Rows deleted.");
-            staffDataBPH = "";
-        });
-    }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while deleting BPH StaffData from database. " + err.message, location: "tc", size: "large", fixed: "true" });
-    });
-    db.transaction(function (tx) {
-        tx.executeSql("DELETE FROM staffdata WHERE id = ?", [3], function (tx, res) {
-            //alert("Rows deleted.");
-            staffDataIPH = "";
-        });
-    }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while deleting IPH StaffData from database. " + err.message, location: "tc", size: "large", fixed: "true" });
-    });
-    db.transaction(function (tx) {
-        tx.executeSql("DELETE FROM taxadata", [], function (tx, res) {
-            //alert("Rows deleted.");
-            taxaData = "";
-        });
-    }, function (err) {
-        $.growl.error({ title: "", message: "An error occured while deleting Taxa Data from database. " + err.message, location: "tc", size: "large", fixed: "true" });
-    });
+function clearCache(appMode) {
+    switch (appMode) {
+        case "PH":
+            db.transaction(function (tx) {
+                tx.executeSql("DELETE FROM activitydata", [], function (tx, res) {
+                    //alert("Rows deleted.");
+                    ActivityData = "";
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while deleting ActivityData from DB. " + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            db.transaction(function (tx) {
+                tx.executeSql("DELETE FROM phrefcodes", [], function (tx, res) {
+                    //alert("Rows deleted.");
+                    PHRefCodes = "";
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while deleting PHRefCodes from DB. " + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            db.transaction(function (tx) {
+                tx.executeSql("DELETE FROM staffdata WHERE id = ?", [1], function (tx, res) {
+                    //alert("Rows deleted.");
+                    staffDataNPH = "";
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while deleting NPH StaffData from database. " + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            db.transaction(function (tx) {
+                tx.executeSql("DELETE FROM staffdata WHERE id = ?", [2], function (tx, res) {
+                    //alert("Rows deleted.");
+                    staffDataBPH = "";
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while deleting BPH StaffData from database. " + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            db.transaction(function (tx) {
+                tx.executeSql("DELETE FROM staffdata WHERE id = ?", [3], function (tx, res) {
+                    //alert("Rows deleted.");
+                    staffDataIPH = "";
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while deleting IPH StaffData from database. " + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            db.transaction(function (tx) {
+                tx.executeSql("DELETE FROM taxadata", [], function (tx, res) {
+                    //alert("Rows deleted.");
+                    taxaData = "";
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while deleting Taxa Data from database. " + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            break;
+        case "AH":
+            db.transaction(function (tx) {
+                tx.executeSql("DELETE FROM activitydataAH", [], function (tx, res) {
+                    //alert("Rows deleted.");
+                    ActivityDataAH = "";
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while deleting ActivityData from DB. " + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            db.transaction(function (tx) {
+                tx.executeSql("DELETE FROM ahrefcodes", [], function (tx, res) {
+                    //alert("Rows deleted.");
+                    AHRefCodes = "";
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while deleting PHRefCodes from DB. " + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            db.transaction(function (tx) {
+                tx.executeSql("DELETE FROM staffdataAH", [], function (tx, res) {
+                    //alert("Rows deleted.");
+                    staffdataAH = "";
+                });
+            }, function (err) {
+                $.growl.error({ title: "", message: "An error occured while deleting StaffData from DB. " + err.message, location: "tc", size: "large", fixed: "true" });
+            });
+            break;
+    }
 }
 function getCurrentActivityTiles(str, zoom) {
     if (Number(str) === 99999) { return true; }
@@ -2199,6 +2716,10 @@ function initLoad() {
         tx.executeSql("CREATE TABLE IF NOT EXISTS activitydata (id integer primary key, settingstext text, settingsval text default '{}')");
         tx.executeSql("CREATE TABLE IF NOT EXISTS staffdata (id integer primary key, settingstext text, settingsval text default '{}')");
         tx.executeSql("CREATE TABLE IF NOT EXISTS taxadata (id integer primary key, settingstext text, settingsval text default '{}')");
+        tx.executeSql("CREATE TABLE IF NOT EXISTS ahrefcodes (id integer primary key, settingstext text, settingsval text default '{}')");
+        tx.executeSql("CREATE TABLE IF NOT EXISTS activitydataAH (id integer primary key, settingstext text, settingsval text default '{}')");
+        tx.executeSql("CREATE TABLE IF NOT EXISTS staffdataAH (id integer primary key, settingstext text, settingsval text default '{}')");
+        tx.executeSql("CREATE TABLE IF NOT EXISTS seqnum (id integer primary key, attrname text, attrval int default 0)");
     }, function (err) {
         $.growl.error({ title: "", message: "An error occurred while initializing the DB. " + err.message, location: "tc", size: "large" });
     });

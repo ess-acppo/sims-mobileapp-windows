@@ -80,7 +80,7 @@ html, body {
     /*margin-right: 20px;*/
 }
 
-#modalPHMenu .modal-body {
+#modalPHMenu .modal-body, #modalAHMenu .modal-body {
     height: 900px;
     /*padding: 25px;*/
     overflow-x: hidden;
@@ -109,7 +109,7 @@ html, body {
     z-index: 205;
 }
 
-#modalAHGrid .modal-dialog, #modalPHGrid .modal-dialog, #modalPHMenu .modal-dialog, #modalSettings .modal-dialog {
+#modalAHGrid .modal-dialog, #modalPHGrid .modal-dialog, #modalPHMenu .modal-dialog, #modalAHMenu .modal-dialog, #modalSettings .modal-dialog {
     margin: 1% auto;
     z-index: 102;
 }
@@ -173,7 +173,7 @@ html, body {
     overflow-y: hidden;
 }
 
-.sample, .PlantAttachment, .PlantObsAttachment, .PlantSampleAttachment {
+.sample, .maggotSample, .PlantAttachment, .AnimalAttachment, .PlantObsAttachment, .PlantSampleAttachment, .fieldtest {
     margin: 5px;
     border: 1px solid #ddd;
     border-radius: 2px;
@@ -1085,7 +1085,8 @@ div.dataTables_filter {
     border-radius: 3px;
     border: 2px solid #eee;
     margin: 0.05rem;
-    padding-right: 14px;
+    padding-right: 7px;
+    padding-left:7px;
     padding-top: 8px;
     margin-bottom: 8px;
 }
@@ -1235,7 +1236,7 @@ div.dataTables_filter {
 }
 
 .mt-5 {
-    margin-top:5px;
+    margin-top: 5px;
 }
 
 text-center {
@@ -1255,6 +1256,12 @@ text-right {
     #modalAuth .modal-dialog {
         width: 50%;
         margin: 4% auto;
+    }
+
+    #loading {
+        margin-top: 20%;
+        margin-left: 47%;
+        color: #ddd;
     }
 }
 
@@ -1306,6 +1313,12 @@ text-right {
     #modalDownload .modal-dialog {
         width: 90%;
     }
+
+    #loading {
+        margin-top: 45%;
+        margin-left: 42%;
+        color: #ddd;
+    }
 }
 
 label.mapNotes, label.mapBNotes {
@@ -1314,8 +1327,61 @@ label.mapNotes, label.mapBNotes {
     text-decoration: none;
 }
 
-.btnError {
+.btnError, .btnErrorAH {
     margin-left: 8px;
     margin-bottom: 8px;
     float: right;
+}
+
+.tabs-wrapper {
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 5px;
+    height: 50px;
+}
+
+#tabList {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    min-width: 3000px;
+    margin-left: 12px;
+    margin-top: 0px;
+}
+
+    #tabList li {
+        display: table-cell;
+        position: relative;
+        text-align: center;
+        cursor: grab;
+        cursor: -webkit-grab;
+        color: #efefef;
+        vertical-align: middle;
+    }
+
+.scroller {
+    text-align: center;
+    cursor: pointer;
+    padding: 7px;
+    padding-top: 11px;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #fff;
+}
+
+.scroller-right {
+    float: right;
+    background-color: #ddd;
+    padding: 8px;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.scroller-left {
+    float: left;
+    background-color: #ddd;
+    padding: 8px;
+    font-weight: 700;
+    font-size: 2rem;
 }

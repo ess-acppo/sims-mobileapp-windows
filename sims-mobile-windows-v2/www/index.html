@@ -81,9 +81,8 @@
                                     <th>Id</th>
                                     <th>Discipline</th>
                                     <th>SurveillanceActivity</th>
-                                    <th>Site</th>
+                                    <th>Common</th>
                                     <th>Date</th>
-                                    <th>Waypoint</th>
                                     <th>Location</th>
                                     <th>Datum</th>
                                     <th>Status</th>
@@ -96,6 +95,41 @@
                     <button type="button" class="btn btn-md ripple btn-default" id="newObservationAH"><i class="fa fa-plus"></i>&nbsp;New</button>
                     <button type="button" class="btn btn-md ripple btn-default" id="DownloadAH"><i class="fa fa-download"></i>&nbsp;Download</button>
                     <button type="button" class="btn btn-md ripple btn-warning" id="SyncAH"><i class="fa fa-refresh"></i>&nbsp;Sync</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="modalAHMenu" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-remove text-default"></i></span></button>
+                    <span class="modal-title" id="mt3">Choose a Form</span><br />
+                    <small class="text-info esfatitle"><b>ESFA</b> - Enterprise Surveillance Field App</small>
+                    <div class="overlay hide">
+                        <center><b>Loading ...</b></center>
+                    </div>
+                </div>
+                <div class="modal-body" id="mb3">
+                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm ripple">
+                        <div class="form-group col-md-2 col-sm-2 col-xs-2 text-right">
+                            <input type="radio" class="minimal" value="mo_sngObservation" name="optObs" data-id="0" data-discipline="SF">
+                        </div>
+                        <div class="form-group col-md-10 col-sm-10 col-xs-10">
+                            <h4>Single Feral Animal Observation</h4>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm ripple">
+                        <div class="form-group col-md-2 col-sm-2 col-xs-2 text-right">
+                            <input type="radio" class="minimal" value="mo_grpObservation" name="optObs" data-id="1" data-discipline="G">
+                        </div>
+                        <div class="form-group col-md-10 col-sm-10 col-xs-10">
+                            <h4>Group Observation</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="padding-bottom:20px;">
+                    <button type="button" id="showFormAH" class="btn btn-md ripple btn-default"><i class="fa fa-check"></i>&nbsp;Done</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -154,78 +188,6 @@
                 <div class="modal-footer" style="padding-bottom:20px;">
                     <a href="#" class="text-info pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
                     <button type="button" id="zoomlevel2" class="btn btn-md ripple btn-default"><i class="fa fa-search-plus fa-2x"></i></button>&nbsp;&nbsp;&nbsp;
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    <div class="modal" tabindex="-1" role="dialog" id="modalAHMenu" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-remove text-default"></i></span></button>
-                    <span class="modal-title" id="mt3">Choose a Form</span><br />
-                    <small class="text-info esfatitle"><b>ESFA</b> - Enterprise Surveillance Field App</small>
-                    <div class="overlay hide">
-                        <center><b>Loading ...</b></center>
-                    </div>
-                </div>
-                <div class="modal-body" id="mb3">
-                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm ripple">
-                        <div class="form-group col-md-2 col-sm-2 col-xs-2">
-                            <input type="radio" class="minimal" value="mo_sngObservation" name="optObs" data-id="0" data-discipline="S">
-                        </div>
-                        <div class="form-group col-md-10 col-sm-10 col-xs-10">
-                            <h5>Single Opportunisitic Observation (IAH)</h5>
-                        </div>
-                    </div>
-                    <!--<div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm ripple">
-                        <div class="form-group col-md-2">
-                            <input type="radio" class="minimal" value="mo_grpObservation" name="optObs" data-id="1">
-                        </div>
-                        <div class="form-group col-md-10">
-                            <label>Group Observation</label>
-                        </div>
-                    </div>-->
-                </div>
-                <div class="modal-footer" style="padding-bottom:20px;">
-                    <a href="#" class="text-info pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
-                    <button type="button" id="showForm" class="btn btn-md ripple btn-default"><i class="fa fa-check fa-2x"></i></button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    <div class="modal" tabindex="-1" role="dialog" id="modalAHMenu" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-remove text-default"></i></span></button>
-                    <span class="modal-title" id="mt3">Choose a Form</span><br />
-                    <small class="text-info esfatitle"><b>ESFA</b> - Enterprise Surveillance Field App</small>
-                    <div class="overlay hide">
-                        <center><b>Loading ...</b></center>
-                    </div>
-                </div>
-                <div class="modal-body" id="mb3">
-                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm ripple">
-                        <div class="form-group col-md-2 col-sm-2 col-xs-2">
-                            <input type="radio" class="minimal" value="mo_sngObservation" name="optObs" data-id="0" data-discipline="S">
-                        </div>
-                        <div class="form-group col-md-10 col-sm-10 col-xs-10">
-                            <h5>Single Domestic Observation</h5>
-                        </div>
-                    </div>
-                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm ripple">
-                        <div class="form-group col-md-2 col-sm-2 col-xs-2">
-                            <input type="radio" class="minimal" value="mo_grpObservation" name="optObs" data-id="1" data-discipline="G">
-                        </div>
-                        <div class="form-group col-md-10 col-sm-10 col-xs-10">
-                            <h5>Group Observation</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer" style="padding-bottom:20px;">
-                    <a href="#" class="text-info pull-left" data-dismiss="modal" aria-label="Close">Cancel</a>
-                    <button type="button" id="showFormAH" class="btn btn-md ripple btn-default"><i class="fa fa-check fa-2x"></i></button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -393,10 +355,10 @@
                                         </div>
                                         <div class="tab-pane" id="tab_1">
                                             <div class="row col-md-12 col-sm-12 col-xs-12">
-                                                <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                                <div class="form-group col-md-3 col-sm-3 col-xs-3">
                                                     &nbsp;
                                                 </div>
-                                                <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                                <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                                     <label>Server</label>
                                                     <select class="form-control" id="serverMode">
                                                         <option value=PROD>Production</option>
@@ -405,7 +367,22 @@
                                                         <option value=DEV>Development</option>
                                                     </select>
                                                 </div>
-                                                <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                                                <div class="form-group col-md-3 col-sm-3 col-xs-3">
+                                                    &nbsp;
+                                                </div>
+                                            </div>
+                                            <div class="row col-md-12 col-sm-12 col-xs-12">
+                                                <div class="form-group col-md-3 col-sm-3 col-xs-3">
+                                                    &nbsp;
+                                                </div>
+                                                <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                                    <label>Mode</label>
+                                                    <select class="form-control pull-right" id="appMode2">
+                                                        <option value=PH>Plant Health (PH)</option>
+                                                        <option value=AH>Animal Health (PH)</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-3 col-sm-3 col-xs-3">
                                                     &nbsp;
                                                 </div>
                                             </div>
@@ -474,7 +451,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body" id="mb6">
-                    <div class="row col-md-12 col-sm-12 col-xs-12 mt-5">
+                    <div class="row col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group col-md-3 col-sm-3 col-xs-3 text-center">
                             <i class="fa fa-circle-o-notch fa-3x fa-spin text-info"></i>
                         </div>
@@ -496,7 +473,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    <div id="map"></div>
+    <div id="map"><i class="fa fa-circle-o-notch fa-4x fa-spin" id="loading"></i></div>
     <div class="topButton">
         <button type="button" id="settings" class="btn btn-circle btn-lg ripple"><i class="fa fa-cog fa-2x"></i></button>
         <button type="button" id="CSV" class="btn btn-circle btn-lg ripple" onclick="downloadCSV()"><i class="fa fa-tasks fa-2x"></i></button>
@@ -517,7 +494,7 @@
     <script type="text/javascript" src="scripts/fastclick.js"></script>
     <script type="text/javascript" src="mapapi.js"></script>
     <script type="text/javascript" src="scripts/markerclusterer.js"></script>
-    <!--<script type="text/javascript" src="scripts/AHRules.js"></script>-->
+    <script type="text/javascript" src="scripts/AHRules.js"></script>
     <script type="text/javascript" src="scripts/PHRules.js"></script>
     <script type="text/javascript" src="scripts/_init.js"></script>
     <!--<script type="text/javascript" src="scripts/geotracker.js"></script>-->

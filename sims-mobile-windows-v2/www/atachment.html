@@ -36,3 +36,62 @@
         <i class="fa fa-remove text-info fa-2x removePlantAttachment" style="cursor:pointer;"></i>
     </div>
 </div>
+
+<div class="row col-md-12 col-sm-12 col-xs-12 AnimalAttachment pl-0 pr-0 collapsed">
+    <div class="form-group col-md-2 col-sm-2 col-xs-2">
+        <img class="pp pull-right" src="images/plant.png" name="iAnimalAttachment_M_S">
+    </div>
+    <div class="form-group col-md-7 col-sm-8 col-xs-8">
+        <input type="text" class="form-control" name="AnimalAttachmentD_M_S" value="">
+        <textarea class="form-control hide" name="AnimalAttachment_M_S" rows="5" cols="5"></textarea>
+    </div>
+    <div class="form-group col-md-2 col-sm-1 col-xs-1">
+        <i class="fa fa-remove text-info fa-2x removeAnimalAttachment" style="cursor:pointer;"></i>
+    </div>
+</div>
+
+<div class="form-group col-md-3 col-sm-3 col-xs-12 ripple">
+    <input type="radio" class="minimal" name="bodyConditionScore_M_N_0_2" value="0" data-code="0" data-validate="Y" data-name="Body Condition Score" >&nbsp;
+    <label class="bcstext"></label>
+</div>
+
+<div class="row col-md-12 col-sm-12 col-xs-12 dynarow defSyndromeX">
+    <div class="form-group col-md-3 col-sm-3 col-xs-3 hide">
+        <label>Code</label>
+        <input type="text" class="form-control" name="SyndromeCode_M_S" readonly value="" data-name="Syndrome Code" >
+    </div>
+    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        <label>Syndrome Text</label>
+        <input type="text" class="form-control" name="SyndromeText_M_S" readonly value="" data-name="Syndrome Text" >
+    </div>
+    <div class="form-group col-md-3 col-sm-3 col-xs-6 ripple">
+        <input type="radio" class="minimal" name="SyndromeFlag_M_S" data-code="Y" data-validate="Y" value="Y" data-name="Syndrome Yes/No Flag" >&nbsp;
+        <label>Yes</label>
+    </div>
+    <div class="form-group col-md-3 col-sm-3 col-xs-6 ripple">
+        <input type="radio" class="minimal" name="SyndromeFlag_M_S" data-code="N" data-validate="Y" value="N" data-name="Syndrome Yes/No Flag" >&nbsp;
+        <label>No</label>
+    </div>
+    <div class="form-group col-md-12 col-sm-12 col-xs-12 defSyndComments hide">
+        <label><span class="bold-red">*</span>Comments</label>
+        <input type="text" class="form-control" placeholder="Syndrome Comments" name="SyndromeComments_O_S" data-name="Syndrome Comments" >
+    </div>
+</div>
+
+<div class="row col-md-12 col-sm-12 col-xs-12 dynarow syndromeX">
+    <div class="form-group col-md-2 col-sm-2 col-xs-2 hide">
+        <label>Code</label>
+        <input type="text" class="form-control" name="XSyndromeCode_M_S" readonly value="" data-name="Syndrome Code" >
+    </div>
+    <div class="form-group col-md-10 col-sm-10 col-xs-10">
+        <label>Syndrome Text</label>
+        <input type="text" class="form-control" name="XSyndromeText_M_S" readonly value="" data-name="Syndrome Text" >
+    </div>
+    <div class="form-group col-md-2 col-sm-2 col-xs-2">
+        <a href="#" class="form-control btn btn-md btn-danger text-arrows removeSyndrome"><i class="fa fa-remove"></i></a>
+    </div>
+    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        <label><span class="bold-red">*</span>Comments</label>
+        <input type="text" class="form-control" placeholder="Syndrome Comments" name="XSyndromeComments_O_S" data-name="Syndrome Comments" >
+    </div>
+</div>
