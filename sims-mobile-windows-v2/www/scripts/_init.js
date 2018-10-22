@@ -353,7 +353,7 @@ function checkPermissions() {
 }
 function initSettings() {
     //$('#mb6 .progText').text("Loading App Defaults ...");
-    $.growl.notice({ title: "", message: "Loading ...", location: "bc", size: "small" });
+    //$.growl.notice({ title: "", message: "Loading ...", location: "bc", size: "small" });
     //Loading PH reference codes
     db.transaction(function (tx) {
         tx.executeSql("SELECT * FROM phrefcodes WHERE id = ?", [1], function (tx, res) {
