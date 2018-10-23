@@ -391,6 +391,23 @@ function initSettings() {
                         //This is the first load
                         syncTaxaData();
                     }
+                    taxaBotEnt = { "taxaBotEnt": [] };
+                    taxaBotEnt.taxaBotEnt = taxaData.taxaBotany;
+                    var result1 = { "id": 0, "name": "" };
+                    var obj1 = taxaData.taxaEntomology;
+                    $.each(obj1, function (key, value) {
+                        result1 = { "id": value.id, "name": value.name };
+                        taxaBotEnt.taxaBotEnt.push(result1);
+                    });
+
+                    taxaBotPath = { "taxaBotPath": [] };
+                    taxaBotPath.taxaBotPath = taxaData.taxaBotany;
+                    var result2 = { "id": 0, "name": "" };
+                    var obj2 = taxaData.taxaPathology;
+                    $.each(obj2, function (key, value) {
+                        result2 = { "id": value.id, "name": value.name };
+                        taxaBotPath.taxaBotPath.push(result2);
+                    });
                 });
             }, function (err) {
                 $.growl.error({ title: "", message: "An error occured while loading Taxa Data. ", location: "tc", size: "large", fixed: "true" });
@@ -1426,6 +1443,7 @@ $(document).on('click', '#settings', function (e) {
     }).complete(function (e) {
         setTimeout(function (e) {
             if (AppMode === "PH") {
+                $(".AnimalCurrNumber").addClass('hide');
                 $("#curActivities").find('option').remove().end().append($('<option value="0">- select -</option>'));
                 $.each(ActivityData.activities, function (key, val) {
                     if (val.programId === downerTeam) {
@@ -1439,6 +1457,7 @@ $(document).on('click', '#settings', function (e) {
                 $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData(resSettings.settings.device.ownerTeam))).val(resSettings.settings.device.ownerId);
             }
             if (AppMode === "AH") {
+                $(".SampleCurrNumber").addClass('hide');
                 $(".activityMaps").addClass('hide');
                 $('#form3').find('select[id="doTeam"]').find('option').remove().end().append("<option value=NAF>NAF</option>");
                 $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData("NAF"))).val(resSettings.settings.device.ownerId);

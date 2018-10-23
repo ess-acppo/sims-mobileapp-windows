@@ -27,6 +27,8 @@ var PHRefCodes;
 var ActivityData;
 var programId;
 var taxaData;
+var taxaBotEnt;
+var taxaBotPath;
 var t0 = 0, t1 = 0, t3 = 0;
 var lastSiteValue;
 var lastSurvActValue;
@@ -1945,7 +1947,7 @@ function BindAutoCompleteBS(e) {
 }
 function BindAutoCompleteES(e) {
     var options = {
-        data: taxaData.taxaEntomology,
+        data: taxaBotEnt.taxaBotEnt,
         getValue: "name",
         list: {
             match: {
@@ -1963,7 +1965,7 @@ function BindAutoCompleteES(e) {
 }
 function BindAutoCompleteHES(e) {
     var options = {
-        data: taxaData.taxaEntomology,
+        data: taxaBotEnt.taxaBotEnt,
         getValue: "name",
         list: {
             match: {
@@ -1981,7 +1983,7 @@ function BindAutoCompleteHES(e) {
 }
 function BindAutoCompletePS(e) {
     var options = {
-        data: taxaData.taxaPathology,
+        data: taxaBotPath.taxaBotPath,
         getValue: "name",
         list: {
             match: {
@@ -1999,7 +2001,7 @@ function BindAutoCompletePS(e) {
 }
 function BindAutoCompleteHPS(e) {
     var options = {
-        data: taxaData.taxaPathology,
+        data: taxaBotPath.taxaBotPath,
         getValue: "name",
         list: {
             match: {
