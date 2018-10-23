@@ -63,7 +63,8 @@
       "NAFStaffAddress": "ords-ext/rest/sims/common/program/NAF/team",
       "taxaAddress": "ords-ext/rest/sims/plant_health/taxa",
       "submitPHObsAddress": "psd.comr.svl/PlantHealthService/1.0/createPlantHealthObservation",
-      "submitAHObsAddress": "psd.comr.svl/AnimalHealthService/1.0/createFeralAnimalObservation"
+      "submitAHFAObsAddress": "psd.comr.svl/AnimalHealthService/1.0/createFeralAnimalObservation",
+      "submitAHGObsAddress": "psd.comr.svl/AnimalHealthService/1.0/createAnimalGroupObservation"
     }
   }
 }

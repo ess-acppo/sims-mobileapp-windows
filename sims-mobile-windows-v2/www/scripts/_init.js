@@ -21,6 +21,8 @@ var NAFStaffAddress;
 var taxaAddress;
 var submitPHObsAddress;
 var submitAHObsAddress;
+var submitAHFAObsAddress;
+var submitAHGObsAddress;
 var speciesTaxonSyndromSamplesAddress;
 var infoWindow;
 var zoomlevel = document.getElementById('zoomlevel');
@@ -2512,7 +2514,8 @@ function fetchServerDetails(serverMode, appMode) {
                     refCodesAddressAH = ServerAddress + resSettings.settings.app.refCodesAddressAH;
                     NAFStaffAddress = ServerAddress + resSettings.settings.app.NAFStaffAddress;
                     speciesTaxonSyndromSamplesAddress = ServerAddress + resSettings.settings.app.speciesTaxonSyndromSamplesAddress;
-                    submitAHObsAddress = ServerAddress + resSettings.settings.app.submitAHObsAddress;
+                    submitAHFAObsAddress = ServerAddress + resSettings.settings.app.submitAHFAObsAddress;
+                    submitAHGObsAddress = ServerAddress + resSettings.settings.app.submitAHGObsAddress;
                     break;
                 case "SIT":
                     ServerAddress = sitServerAddress;
@@ -2521,7 +2524,8 @@ function fetchServerDetails(serverMode, appMode) {
                     refCodesAddressAH = ServerAddress + resSettings.settings.app.refCodesAddressAH;
                     NAFStaffAddress = ServerAddress + resSettings.settings.app.NAFStaffAddress;
                     speciesTaxonSyndromSamplesAddress = ServerAddress + resSettings.settings.app.speciesTaxonSyndromSamplesAddress;
-                    submitAHObsAddress = ServerAddress + resSettings.settings.app.submitAHObsAddress;
+                    submitAHFAObsAddress = ServerAddress + resSettings.settings.app.submitAHFAObsAddress;
+                    submitAHGObsAddress = ServerAddress + resSettings.settings.app.submitAHGObsAddress;
                     break;
                 case "UAT":
                     ServerAddress = uatServerAddress;
@@ -2530,7 +2534,8 @@ function fetchServerDetails(serverMode, appMode) {
                     refCodesAddressAH = ServerAddress + resSettings.settings.app.refCodesAddressAH;
                     NAFStaffAddress = ServerAddress + resSettings.settings.app.NAFStaffAddress;
                     speciesTaxonSyndromSamplesAddress = ServerAddress + resSettings.settings.app.speciesTaxonSyndromSamplesAddress;
-                    submitAHObsAddress = ServerAddress + resSettings.settings.app.submitAHObsAddress;
+                    submitAHFAObsAddress = ServerAddress + resSettings.settings.app.submitAHFAObsAddress;
+                    submitAHGObsAddress = ServerAddress + resSettings.settings.app.submitAHGObsAddress;
                     break;
                 case "PROD":
                     ServerAddress = prodServerAddress;
@@ -2539,7 +2544,8 @@ function fetchServerDetails(serverMode, appMode) {
                     refCodesAddressAH = ServerAddress + resSettings.settings.app.refCodesAddressAH;
                     NAFStaffAddress = ServerAddress + resSettings.settings.app.NAFStaffAddress;
                     speciesTaxonSyndromSamplesAddress = ServerAddress + resSettings.settings.app.speciesTaxonSyndromSamplesAddress;
-                    submitAHObsAddress = ServerAddress + resSettings.settings.app.submitAHObsAddress;
+                    submitAHFAObsAddress = ServerAddress + resSettings.settings.app.submitAHFAObsAddress;
+                    submitAHGObsAddress = ServerAddress + resSettings.settings.app.submitAHGObsAddress;
                     break;
             }
             break;
