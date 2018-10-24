@@ -1319,6 +1319,10 @@ text-right {
         margin-left: 42%;
         color: #ddd;
     }
+    #mb {
+        padding: 0px;
+        padding-top: 10px;
+    }
 }
 
 label.mapNotes, label.mapBNotes {
