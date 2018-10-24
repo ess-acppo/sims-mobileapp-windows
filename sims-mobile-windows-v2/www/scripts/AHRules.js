@@ -294,6 +294,7 @@ $(document).on('change', 'select[id="commonName"]', function () {
             possibleSamples = arr[0].possibleSamples;
             sampleTypes = '<option value="NONE">- select -</option>';
             $.each(arr[0].possibleSamples, function (key, val) {
+                if (val.sampleTypeCode === 'M') return true;
                 var option = '<option';
                 option = option + ' value="' + val.sampleTypeCode + '">';
                 option = option + val.sampleTypeName + "</option>";
@@ -312,7 +313,7 @@ $(document).on('change', 'select[id="commonName"]', function () {
                 that2.find("select[name='PSampleType_M_S']").val(val.sampleTypeCode);
                 that2.find("select[name='PSampleType_M_S'] :not(option[value='" + val.sampleTypeCode + "'])").remove();
                 that2.find('.badge').text(samples);
-                //that2.find("input[name='sampleId']").val($("#form1").find('input[type="text"][name="animalNumber"]').val());
+                that2.find("input[name='PSampleFieldLabelText_M_S']").val($("#form1").find('input[type="text"][name="animalNumber_M_S"]').val());
                 that2.find('input').each(function () {
                     $(this).attr('name', $(this).attr('name') + '_' + samples + '_S');
                 });
@@ -343,7 +344,7 @@ $(document).on('change', 'select[id="commonName"]', function () {
                 });
                 divTestTypes.find("input[type='checkbox'].minimal:not([value='Y'])").val("N");
                 that2.addClass('preSelectedSample');
-                that2.addClass('hide');
+                //that2.addClass('hide');
                 that2.find("input[type='checkbox']").iCheck({
                     checkboxClass: 'icheckbox_square-blue',
                     radioClass: 'iradio_square-blue'
@@ -352,7 +353,7 @@ $(document).on('change', 'select[id="commonName"]', function () {
                     checkboxClass: 'icheckbox_square-blue',
                     radioClass: 'iradio_square-blue'
                 });
-                $('#addPreSelectedSample').removeClass('hide');
+                //$('#addPreSelectedSample').removeClass('hide');
                 $('#samples').append(that2);
             });
             //$('.fieldtest').remove(); //Clear all Field Tests
@@ -596,6 +597,7 @@ function loadCommonNameData(d, e) {
         possibleSamples = arr[0].possibleSamples;
         sampleTypes = '<option value="NONE">- select -</option>';
         $.each(arr[0].possibleSamples, function (key, val) {
+            if (val.sampleTypeCode === 'M') return true;
             var option = '<option';
             option = option + ' value="' + val.sampleTypeCode + '">';
             option = option + val.sampleTypeName + "</option>";
@@ -616,7 +618,7 @@ function loadCommonNameData(d, e) {
             that2.find("select[name='PSampleType_M_S']").val(val.sampleTypeCode);
             that2.find("select[name='PSampleType_M_S'] :not(option[value='" + val.sampleTypeCode + "'])").remove();
             that2.find('.badge').text(samples);
-            //that2.find("input[name='sampleId']").val($("#form1").find('input[type="text"][name="animalNumber"]').val());
+            that2.find("input[name='PSampleFieldLabelText_M_S']").val($("#form1").find('input[type="text"][name="animalNumber_M_S"]').val());
             that2.find('input').each(function () {
                 $(this).attr('name', $(this).attr('name') + '_' + samples + '_S');
             });
@@ -647,7 +649,7 @@ function loadCommonNameData(d, e) {
             });
             divTestTypes.find("input[type='checkbox'].minimal:not([value='Y'])").val("N");
             that2.addClass('preSelectedSample');
-            that2.addClass('hide');
+            //that2.addClass('hide');
             that2.find("input[type='checkbox']").iCheck({
                 checkboxClass: 'icheckbox_square-blue',
                 radioClass: 'iradio_square-blue'
@@ -656,7 +658,7 @@ function loadCommonNameData(d, e) {
                 checkboxClass: 'icheckbox_square-blue',
                 radioClass: 'iradio_square-blue'
             });
-            $('#addPreSelectedSample').removeClass('hide');
+            //$('#addPreSelectedSample').removeClass('hide');
             $('#samples').append(that2);
         });
         //$('.fieldtest').remove(); //Clear all Field Tests
@@ -1001,21 +1003,11 @@ $(document).on('click', '.removeMaggotSample', function (e) {
     });
 });
 $(document).on('click', '#btnNAD', function (e) {
-    $(':radio[name^=IntegumentFlag_M_S]').eq(1).iCheck('check');
-    //$(':radio[name=IntegumentFlag_M_S]').eq(1).val("N");
-    $(':radio[name^=HeadNeckFlag_M_S]').eq(1).iCheck('check');
-    //$(':radio[name=HeadNeckFlag_M_S]').eq(1).val("N");
-    $(':radio[name^=ThoraxFlag_M_S]').eq(1).iCheck('check');
-    //$(':radio[name=ThoraxFlag_M_S]').eq(1).val("N");
-    $(':radio[name^=AbdomenFlag_M_S]').eq(1).iCheck('check');
-    //$(':radio[name=AbdomenFlag_M_S]').eq(1).val("N");
-    $(':radio[name^=MuscSkeletalFlag_M_S]').eq(1).iCheck('check');
-    //$(':radio[name=MuscSkeletalFlag_M_S]').eq(1).val("N");
-    //$('#divINT').addClass('hide');
-    //$('#divNEC').addClass('hide');
-    //$('#divTHO').addClass('hide');
-    //$('#divABD').addClass('hide');
-    //$('#divMUS').addClass('hide');
+    $(':radio[name^=INFlag_M_S]').eq(1).iCheck('check');
+    $(':radio[name^=HNFlag_M_S]').eq(1).iCheck('check');
+    $(':radio[name^=THFlag_M_S]').eq(1).iCheck('check');
+    $(':radio[name^=ABFlag_M_S]').eq(1).iCheck('check');
+    $(':radio[name^=MUFlag_M_S]').eq(1).iCheck('check');
 });
 $(document).on('blur', 'input[type=text][name="age"]', function (e) {
     var age = $(this).val();
@@ -1028,8 +1020,8 @@ $(document).on('blur', 'input[type=text][name="age"]', function (e) {
     var dobD = today.getDate();
     var dobM = 12 - mn + 1;
     var dobY = today.getFullYear() - yr - 1;
-    if (dobD < 10) { dobD = '0' + dobD };
-    if (dobM < 10) { dobM = '0' + dobM };
+    if (dobD < 10) { dobD = '0' + dobD; }
+    if (dobM < 10) { dobM = '0' + dobM; }
     $('input[type=text][name="dob"]').val(dobD.toString() + "/" + dobM.toString() + "/" + dobY.toString());
 });
 $(document).on('click', '#bsInfo', function () {
@@ -1259,19 +1251,19 @@ function loadModalAH(pagename) {
                             reAdjust();
                         }
                     }
-                    if (key.startsWith("IntegumentFlag_M_S") && value !== "") {
+                    if (key.startsWith("INFlag_M_S") && value !== "") {
                         $('#form1').find("input[type='radio'][name='" + key + "'][value='" + value + "']").iCheck('check');
                     }
-                    if (key.startsWith("HeadNeckFlag_M_S") && value !== "") {
+                    if (key.startsWith("HNFlag_M_S") && value !== "") {
                         $('#form1').find("input[type='radio'][name='" + key + "'][value='" + value + "']").iCheck('check');
                     }
-                    if (key.startsWith("ThoraxFlag_M_S") && value !== "") {
+                    if (key.startsWith("THFlag_M_S") && value !== "") {
                         $('#form1').find("input[type='radio'][name='" + key + "'][value='" + value + "']").iCheck('check');
                     }
-                    if (key.startsWith("AbdomenFlag_M_S") && value !== "") {
+                    if (key.startsWith("ABFlag_M_S") && value !== "") {
                         $('#form1').find("input[type='radio'][name='" + key + "'][value='" + value + "']").iCheck('check');
                     }
-                    if (key.startsWith("MuscSkeletalFlag_M_S") && value !== "") {
+                    if (key.startsWith("MUFlag_M_S") && value !== "") {
                         $('#form1').find("input[type='radio'][name='" + key + "'][value='" + value + "']").iCheck('check');
                     }
                     if (key.startsWith("PFieldTestResult") && value !== "") {
@@ -1602,7 +1594,7 @@ function packageAHFormforSubmit(data) {
             if (fname === 'gender') { observation['gender'] = value; return true; }
             if (fname === 'ageClass') { observation['ageClass'] = value; return true; }
             if (fname === 'dateTime') { observation['dateTime'] = value; return true; }
-            if (fname === 'ObservationStaffId') { observation['observer'] = {"id": value }; return true; }
+            if (fname === 'ObservationStaffId') { observation['observer'] = { "id": value }; return true; }
 
             /* group animal stuff */
             if (fname === 'managementType') { observation['managementType'] = value; return true; }
@@ -1753,43 +1745,43 @@ function packageAHFormforSubmit(data) {
                 postMortemBodySystem[0]['bodySystemCde'] = value;
                 return true;
             }
-            if (fname === 'IntegumentFlag') {
+            if (fname === 'INFlag') {
                 postMortemBodySystem[0]['abnormalDetection'] = value;
                 return true;
             }
-            if (fname === 'IntGrossFindings') {
+            if (fname === 'INGrossFindings') {
                 postMortemBodySystem[0]['grossFindings'] = value;
                 postMortem.postMortemBodySystems.push(postMortemBodySystem);
                 return true;
             }
-            if (fname === 'HeadNeckFlag') {
+            if (fname === 'HNFlag') {
                 postMortemBodySystem[0]['abnormalDetection'] = value;
                 return true;
             }
-            if (fname === 'HeadNeckGrossFindings') {
+            if (fname === 'HNFindings') {
                 postMortemBodySystem[0]['grossFindings'] = value;
                 postMortem.postMortemBodySystems.push(postMortemBodySystem);
                 return true;
             }
-            if (fname === 'ThoraxFlag') {
+            if (fname === 'THFlag') {
                 postMortemBodySystem[0]['abnormalDetection'] = value;
                 return true;
             }
-            if (fname === 'ThoraxGrossFindings') {
+            if (fname === 'THGrossFindings') {
                 postMortemBodySystem[0]['grossFindings'] = value;
                 postMortem.postMortemBodySystems.push(postMortemBodySystem);
                 return true;
             }
-            if (fname === 'AbdomenFlag') {
+            if (fname === 'ABFlag') {
                 postMortemBodySystem[0]['abnormalDetection'] = value;
                 return true;
             }
-            if (fname === 'AbdomenGrossFindings') {
+            if (fname === 'ABGrossFindings') {
                 postMortemBodySystem[0]['grossFindings'] = value;
                 postMortem.postMortemBodySystems.push(postMortemBodySystem);
                 return true;
             }
-            if (fname === 'MuscSkeletalFlag') {
+            if (fname === 'MUFlag') {
                 postMortemBodySystem[0]['abnormalDetection'] = value;
                 return true;
             }
@@ -1922,7 +1914,7 @@ function packageAHFormforSubmit(data) {
         delete observation.samples;
         if (observation.attachments && observation.attachments.attachment.length === 0) { delete observation.attachments; }
         animalGroupObservations.animalGroupObservation.push(observation);
-        return animalGroupObservations;
+        return observation;
     }
     //return feralAnimalObservations;
 }
@@ -1957,6 +1949,8 @@ function preValidateAH() {
         var ftype = v.name.split("_")[4];
         if (v.value === "" || v.value === 0) {
             if (fname === 'status') return true;
+            if (fname === 'aunkNumber') return true;
+            if (fname === 'gunkNumber') return true;
             vError = 1;
             vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnErrorAH' data-j='" + v.name + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + v.name + '"]').data("name") + " field cannot be empty.");
             vFailed = true;
@@ -1985,11 +1979,36 @@ function preValidateAH() {
             return false;
         }
     });
+    var strManFields = $("#form1").find('input[name*="_M_S"]');
+    $.each(strManFields, function (index, v) {
+        var fname = v.name.split("_")[0];
+        var fMOC = v.name.split("_")[1];
+        var fNSD = v.name.split("_")[2];
+        var fnum = v.name.split("_")[3];
+        var ftype = v.name.split("_")[4];
+        if (v.value === "") {
+            if (fname === 'status') return true;
+            vError = 1;
+            vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnErrorAH' data-j='" + v.name + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + v.name + '"]').data("name") + " field cannot be empty.");
+            vFailed = true;
+            return false;
+        }
+        if ($("[name='" + v.name + "']").is(':radio') && $("[name='" + v.name + "']:checked").length === 0) {
+            vError = 1;
+            vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnErrorAH' data-j='" + v.name + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + v.name + '"]').data("name") + " field cannot be empty.");
+            vFailed = true;
+            return false;
+        }
+    });
     if (vFailed === true) {
         return { "vError": vError, "vErrDescription": vErrDescription.join('<br/>') };
     } else { return { "vError": 0, "vErrDescription": "" }; }
 }
 function IterateAH(data) {
+    var externalObsFlag = 0;
+    var bodysystem = "";
+    var bodysystemX = "";
+    var bodysystemFlag = 0;
     var modData = JSON.parse(JSON.stringify(data));
     //if (modData && modData.status_M_N) { delete modData.status_M_N; }
     $.each(modData, function (index, value) {
@@ -2012,6 +2031,33 @@ function IterateAH(data) {
                 vFailed = true;
                 return false;
             }
+            if (fname === 'externalObserverFlag' && value === 'Y') {
+                externalObsFlag = 1; return true;
+            }
+            if (fname.startsWith('BodySystemCode')) {
+                bodysystem = value;
+                bodysystemX = value + 'Flag';
+                return true;
+            }
+            if (fname === 'externalObserver' && value === '' && externalObsFlag === 1) {
+                vError = 1;
+                vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
+                vFailed = true;
+                return false;
+            }
+            if (fname === bodysystemX && value === 'Y') {
+                bodysystemFlag = 1; return true;
+            }
+            if (fname === bodysystemX && value === 'N') {
+                bodysystemFlag = 0; return true;
+            }
+            if (fname === bodysystem + 'GrossFindings' && value === '' && bodysystemFlag === 1) {
+                vError = 1;
+                vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
+                vFailed = true;
+                bodysystemFlag = 0;
+                return false;
+            }
             if (fMOC === 'M' && fNSD === 'S' && (value === '' || value === 'NONE')) {
                 vError = 1;
                 vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
@@ -2026,6 +2072,8 @@ function IterateAH(data) {
             }
             if (fMOC === 'M' && fNSD === 'N' && value === 0) {
                 if (fname === 'status') return true;
+                if (fname === 'aunkNumber') return true;
+                if (fname === 'gunkNumber') return true;
                 vError = 1;
                 vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
                 vFailed = true;
@@ -2044,6 +2092,10 @@ function IterateAH(data) {
     } else { return { "vError": 0, "vErrDescription": "" }; }
 }
 function Iterate2AH(data) {
+    var externalObsFlag = 0;
+    var bodysystem = "";
+    var bodysystemX = "";
+    var bodysystemFlag = 0;
     var modData = JSON.parse(JSON.stringify(data));
     //if (modData && modData.status_M_N) { delete modData.status_M_N; }
     $.each(modData, function (index, value) {
@@ -2066,6 +2118,33 @@ function Iterate2AH(data) {
                 vFailed = true;
                 return false;
             }
+            if (fname === 'externalObserverFlag' && value === 'Y') {
+                externalObsFlag = 1; return true;
+            }
+            if (fname.startsWith('BodySystemCode')) {
+                bodysystem = value;
+                bodysystemX = value + 'Flag';
+                return true;
+            }
+            if (fname === 'externalObserver' && value === '' && externalObsFlag === 1) {
+                vError = 1;
+                vErrDescription.push($('[name="' + index + '"]').data("name") + " field cannot be empty.");
+                vFailed = true;
+                return false;
+            }
+            if (fname === bodysystemX && value === 'Y') {
+                bodysystemFlag = 1; return true;
+            }
+            if (fname === bodysystemX && value === 'N') {
+                bodysystemFlag = 0; return true;
+            }
+            if (fname === bodysystem + 'GrossFindings' && value === '' && bodysystemFlag === 1) {
+                vError = 1;
+                vErrDescription.push($('[name="' + index + '"]').data("name") + " field cannot be empty.");
+                vFailed = true;
+                bodysystemFlag = 0;
+                return false;
+            }
             if (fMOC === 'M' && fNSD === 'S' && (value === '' || value === 'NONE')) {
                 vError = 1;
                 vErrDescription.push($('[name="' + index + '"]') + " field cannot be empty.");
@@ -2080,6 +2159,8 @@ function Iterate2AH(data) {
             }
             if (fMOC === 'M' && fNSD === 'N' && value === 0) {
                 if (fname === 'status') return true;
+                if (fname === 'aunkNumber') return true;
+                if (fname === 'gunkNumber') return true;
                 vError = 1;
                 vErrDescription.push($('[name="' + index + '"]') + " field cannot be empty.");
                 vFailed = true;

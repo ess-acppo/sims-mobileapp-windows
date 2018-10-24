@@ -154,7 +154,6 @@
                 </div>
                 <div class="tab-pane" id="tab_2">
                     <div class="row col-md-12 col-sm-12 col-xs-12">
-                        <i class="fa fa-info-circle fa-2x text-info pull-right" id="bsInfo"></i>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <label><span class="bold-red">*</span>Body Condition Score</label>
                         </div>
@@ -243,7 +242,7 @@
                     <div class="row col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group col-md-12 col-sm-12 col-xs-12 text-center">
                             <button type="button" class="btn btn-md btn-default" id="addAnimalSample"><i class="fa fa-plus"></i>&nbsp;Add Sample</button>
-                            <button type="button" class="btn btn-md btn-default hide" id="addPreSelectedSample"><i class="fa fa-thermometer"></i>Pre-Selected</button>
+                            <!--<button type="button" class="btn btn-md btn-default hide" id="addPreSelectedSample"><i class="fa fa-thermometer"></i>Pre-Selected</button>-->
                         </div>
                     </div>
                     <div class="row col-md-12 col-sm-12 col-xs-12 pr-0" id="samples">
@@ -251,6 +250,7 @@
                 </div>
                 <div class="tab-pane" id="tab_5">
                     <div class="row col-md-12 col-sm-12 col-xs-12">
+                        <i class="fa fa-info-circle fa-2x text-info pull-right" id="bsInfo"></i>
                         <div class="form-group col-md-6 col-sm-6 col-xs-12">
                             <h4>Body Systems</h4>
                         </div>
@@ -264,14 +264,14 @@
                             <input type="hidden" name="BodySystemCodeIN" value="IN" />
                         </div>
                         <div class="form-group col-md-3 col-sm-3 col-xs-6">
-                            <input type="radio" class="minimal" name="IntegumentFlag_M_S_0_5" value="Y" data-code="Y" data-validate="Y" data-name="Integument Flag" data-section="Observation">&nbsp;<label>Yes</label>
+                            <input type="radio" class="minimal" name="INFlag_M_S_0_5" value="Y" data-code="Y" data-validate="Y" data-name="Integument Flag" data-section="Observation">&nbsp;<label>Yes</label>
                         </div>
                         <div class="form-group col-md-3 col-sm-3 col-xs-6">
-                            <input type="radio" class="minimal" name="IntegumentFlag_M_S_0_5" value="N" data-code="N" data-validate="Y" data-name="Integument Flag" data-section="Observation">&nbsp;<label>No</label>
+                            <input type="radio" class="minimal" name="INFlag_M_S_0_5" value="N" data-code="N" data-validate="Y" data-name="Integument Flag" data-section="Observation">&nbsp;<label>No</label>
                         </div>
                         <div class="form-group col-md-12 col-sm-12 col-sm-12">
                             <label>Gross Findings</label>
-                            <textarea class="form-control" rows="3" name="IntGrossFindings_O_S_0_5" style="height:60px;" placeholder="Gross Findings" data-name="Integument Gross Findings" data-section="Observation" maxlength="400"></textarea>
+                            <textarea class="form-control" rows="3" name="INGrossFindings_O_S_0_5" style="height:60px;" placeholder="Gross Findings" data-name="Integument Gross Findings" data-section="Observation" maxlength="400"></textarea>
                         </div>
                     </div>
 
@@ -281,14 +281,14 @@
                             <input type="hidden" name="BodySystemCodeHN" value="HN" />
                         </div>
                         <div class="form-group col-md-3 col-sm-3 col-xs-6">
-                            <input type="radio" class="minimal" name="HeadNeckFlag_M_S_0_5" value="Y" data-code="Y" data-validate="Y" data-name="HeadNeck Flag" data-section="Observation">&nbsp;<label>Yes</label>
+                            <input type="radio" class="minimal" name="HNFlag_M_S_0_5" value="Y" data-code="Y" data-validate="Y" data-name="HeadNeck Flag" data-section="Observation">&nbsp;<label>Yes</label>
                         </div>
                         <div class="form-group col-md-3 col-sm-3 col-xs-6">
-                            <input type="radio" class="minimal" name="HeadNeckFlag_M_S_0_5" value="N" data-code="N" data-validate="Y" data-name="HeadNeck Flag" data-section="Observation">&nbsp;<label>No</label>
+                            <input type="radio" class="minimal" name="HNFlag_M_S_0_5" value="N" data-code="N" data-validate="Y" data-name="HeadNeck Flag" data-section="Observation">&nbsp;<label>No</label>
                         </div>
                         <div class="form-group col-md-12 col-sm-12 col-sm-12">
                             <label>Gross Findings</label>
-                            <textarea class="form-control" rows="3" name="HeadNeckGrossFindings_O_S_0_5" style="height:60px;" placeholder="Gross Findings" data-name="HeadNeck Gross Findings" data-section="Observation" maxlength="400"></textarea>
+                            <textarea class="form-control" rows="3" name="HNGrossFindings_O_S_0_5" style="height:60px;" placeholder="Gross Findings" data-name="HeadNeck Gross Findings" data-section="Observation" maxlength="400"></textarea>
                         </div>
                     </div>
 
@@ -298,14 +298,14 @@
                             <input type="hidden" name="BodySystemCodeTH" value="TH" />
                         </div>
                         <div class="form-group col-md-3 col-sm-3 col-xs-6">
-                            <input type="radio" class="minimal" name="ThoraxFlag_M_S_0_5" value="Y" data-code="Y" data-validate="Y" data-name="Thorax Flag" data-section="Observation">&nbsp;<label>Yes</label>
+                            <input type="radio" class="minimal" name="THFlag_M_S_0_5" value="Y" data-code="Y" data-validate="Y" data-name="Thorax Flag" data-section="Observation">&nbsp;<label>Yes</label>
                         </div>
                         <div class="form-group col-md-3 col-sm-3 col-xs-6">
-                            <input type="radio" class="minimal" name="ThoraxFlag_M_S_0_5" value="N" data-code="N" data-validate="Y" data-name="Thorax Flag" data-section="Observation">&nbsp;<label>No</label>
+                            <input type="radio" class="minimal" name="THFlag_M_S_0_5" value="N" data-code="N" data-validate="Y" data-name="Thorax Flag" data-section="Observation">&nbsp;<label>No</label>
                         </div>
                         <div class="form-group col-md-12 col-sm-12 col-sm-12">
                             <label>Gross Findings</label>
-                            <textarea class="form-control" rows="3" name="ThoraxGrossFindings_O_S_0_5" style="height:60px;" placeholder="Gross Findings" data-name="Thorax Gross Findings" data-section="Observation" maxlength="400"></textarea>
+                            <textarea class="form-control" rows="3" name="THGrossFindings_O_S_0_5" style="height:60px;" placeholder="Gross Findings" data-name="Thorax Gross Findings" data-section="Observation" maxlength="400"></textarea>
                         </div>
                     </div>
 
@@ -315,14 +315,14 @@
                             <input type="hidden" name="BodySystemCodeAB" value="AB" />
                         </div>
                         <div class="form-group col-md-3 col-sm-3 col-xs-6">
-                            <input type="radio" class="minimal" name="AbdomenFlag_M_S_0_5" value="Y" data-code="Y" data-validate="Y" data-name="Abdomen Flag" data-section="Observation">&nbsp;<label>Yes</label>
+                            <input type="radio" class="minimal" name="ABFlag_M_S_0_5" value="Y" data-code="Y" data-validate="Y" data-name="Abdomen Flag" data-section="Observation">&nbsp;<label>Yes</label>
                         </div>
                         <div class="form-group col-md-3 col-sm-3 col-xs-6">
-                            <input type="radio" class="minimal" name="AbdomenFlag_M_S_0_5" value="N" data-code="N" data-validate="Y" data-name="Abdomen Flag" data-section="Observation">&nbsp;<label>No</label>
+                            <input type="radio" class="minimal" name="ABFlag_M_S_0_5" value="N" data-code="N" data-validate="Y" data-name="Abdomen Flag" data-section="Observation">&nbsp;<label>No</label>
                         </div>
                         <div class="form-group col-md-12 col-sm-12 col-sm-12">
                             <label>Gross Findings</label>
-                            <textarea class="form-control" rows="3" name="AbdomenGrossFindings_O_S_0_5" style="height:60px;" placeholder="Gross Findings" data-name="Abdomen Gross Findings" data-section="Observation" maxlength="400"></textarea>
+                            <textarea class="form-control" rows="3" name="ABGrossFindings_O_S_0_5" style="height:60px;" placeholder="Gross Findings" data-name="Abdomen Gross Findings" data-section="Observation" maxlength="400"></textarea>
                         </div>
                     </div>
 
@@ -332,14 +332,14 @@
                             <input type="hidden" name="BodySystemCodeMU" value="MU" />
                         </div>
                         <div class="form-group col-md-3 col-sm-3 col-xs-6">
-                            <input type="radio" class="minimal" name="MuscSkeletalFlag_M_S_0_5" value="Y" data-code="Y" data-validate="Y" data-name="MusculoSkeletal Flag" data-section="Observation">&nbsp;<label>Yes</label>
+                            <input type="radio" class="minimal" name="MUFlag_M_S_0_5" value="Y" data-code="Y" data-validate="Y" data-name="MusculoSkeletal Flag" data-section="Observation">&nbsp;<label>Yes</label>
                         </div>
                         <div class="form-group col-md-3 col-sm-3 col-xs-6">
-                            <input type="radio" class="minimal" name="MuscSkeletalFlag_M_S_0_5" value="N" data-code="N" data-validate="Y" data-name="MusculoSkeletal Flag" data-section="Observation">&nbsp;<label>No</label>
+                            <input type="radio" class="minimal" name="MUFlag_M_S_0_5" value="N" data-code="N" data-validate="Y" data-name="MusculoSkeletal Flag" data-section="Observation">&nbsp;<label>No</label>
                         </div>
                         <div class="form-group col-md-12 col-sm-12 col-sm-12">
                             <label>Gross Findings</label>
-                            <textarea class="form-control" rows="3" name="MuscSkeletalGrossFindings_O_S_0_5" style="height:60px;" placeholder="Gross Findings" data-name="MusculoSkeletal Gross Findings" data-section="Observation" maxlength="400"></textarea>
+                            <textarea class="form-control" rows="3" name="MUGrossFindings_O_S_0_5" style="height:60px;" placeholder="Gross Findings" data-name="MusculoSkeletal Gross Findings" data-section="Observation" maxlength="400"></textarea>
                         </div>
                     </div>
 
