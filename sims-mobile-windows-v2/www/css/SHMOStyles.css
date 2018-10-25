@@ -1389,3 +1389,7 @@ label.mapNotes, label.mapBNotes {
     font-weight: 700;
     font-size: 2rem;
 }
+
+[class*=col-].input-group {
+    float: left;
+}
