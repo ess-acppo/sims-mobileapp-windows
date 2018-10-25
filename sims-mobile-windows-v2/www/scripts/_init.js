@@ -1394,6 +1394,7 @@ $(document).on('click', 'a.btnResetData', function (e) {
                             mm = '0' + mm
                         }
                         today = dd.toString() + '/' + mm.toString() + '/' + yyyy.toString();
+                        results = JSON.parse(data);
                         db.transaction(function (tx) {
                             tx.executeSql("DELETE FROM observations", [], function (tx, res) {
                                 //alert("Rows deleted.");
@@ -1407,9 +1408,15 @@ $(document).on('click', 'a.btnResetData', function (e) {
                             });
                         }, function (err) {
                             $.growl.error({ title: "", message: "An error occured while inserting row to DB. " + err.message, location: "tc", size: "large" });
+                            });
+                        db.transaction(function (tx) {
+                            tx.executeSql("UPDATE observations SET data = ?,filedt = ? WHERE id = ?", [JSON.stringify(results), today, 1], function (tx, res) {
+                                //alert("Dataset updated.");
+                            });
+                        }, function (err) {
+                            $.growl.error({ title: "", message: "An error occured while updating data to DB. " + err.message, location: "tc", size: "large" });
                         });
                         clearMarkers();
-                        results = JSON.parse(data);
                         for (var i = 0; i < results.observations.length; i++) {
                             if (results.observations[i].ObservationWhereWktClob_M_S && results.observations[i].ObservationWhereWktClob_M_S !== '') {
                                 var wkt = new Wkt.Wkt();
@@ -1446,13 +1453,6 @@ $(document).on('click', 'a.btnResetData', function (e) {
                         markerCluster = new MarkerClusterer(map, markers, mcOptions);
                         google.maps.event.addListener(markerCluster, 'clusterclick', function (cluster) {
                             map.setCenter(cluster.getCenter());
-                        });
-                        db.transaction(function (tx) {
-                            tx.executeSql("UPDATE observations SET data = ?,filedt = ? WHERE id = ?", [JSON.stringify(results), today, 1], function (tx, res) {
-                                //alert("Dataset updated.");
-                            });
-                        }, function (err) {
-                            $.growl.error({ title: "", message: "An error occured while updating data to DB. " + err.message, location: "tc", size: "large" });
                         });
                         $.growl.notice({ title: "", message: "Data reset complete!", location: "bc", size: "small" });
                     },
