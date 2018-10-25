@@ -1015,9 +1015,25 @@ function loadData() {
                         }
                     },
                     {
-                        "data": "activityId_M_N"
+                        "data": "activityId_M_N",
+                        "render": function (data, type, row, meta) {
+                            return getSurvActivityAH(data);
+                        }
                     },
-                    { "data": "commonName_M_S" },
+                    {
+                        "data": "commonName_M_S",
+                        "render": function (data, type, row, meta) {
+                            return getCommonName(data);
+                        }
+                    },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            if (data["animalNumber_M_S"])
+                            { return data["animalNumber_M_S"] * 1; }
+                            else { return "-"; }
+                        }
+                    },
                     {
                         "data": "dateTime_M_D_0_1",
                         "render": function (data, type, row, meta) {
@@ -1101,6 +1117,9 @@ function loadData() {
 $(document).on('click', '#DownloadPH', function (event) {
     exportObservationsToCSV();
 });
+$(document).on('click', '#DownloadAH', function (event) {
+    exportObservationsToCSV();
+});
 function objectifyForm(formArray) {//serialize data function
     var returnArray = {};
     for (var i = 0; i < formArray.length; i++) {
@@ -1117,25 +1136,25 @@ $(document).on('click', '#Save', function (e) {
             //var obj1 = JSON.stringify(objectifyForm(form1));
             obj = objectifyPHFormforSave(form1);
             obj.status_M_N = 0;
-            if (debugMode === 1) {
-                $.confirm({
-                    title: 'Payload Saved!',
-                    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
-                    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-                    buttons: {
-                        ok: function () { },
-                        copy: {
-                            text: 'Copy', // With spaces and symbols
-                            action: function () {
-                                var copytext = this.$content.find("#Payload");
-                                copytext.select();
-                                document.execCommand("copy");
-                                return false;
-                            }
-                        }
-                    }
-                });
-            }
+            //if (debugMode === 1) {
+            //    $.confirm({
+            //        title: 'Payload Saved!',
+            //        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
+            //        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+            //        buttons: {
+            //            ok: function () { },
+            //            copy: {
+            //                text: 'Copy', // With spaces and symbols
+            //                action: function () {
+            //                    var copytext = this.$content.find("#Payload");
+            //                    copytext.select();
+            //                    document.execCommand("copy");
+            //                    return false;
+            //                }
+            //            }
+            //        }
+            //    });
+            //}
             if (curIdx > 0) {
                 results.observations[curPos] = obj;
             }
@@ -1163,25 +1182,25 @@ $(document).on('click', '#Save', function (e) {
         case "AH":
             obj = objectifyAHFormforSave(form1);
             obj.status_M_N = 0;
-            if (debugMode === 1) {
-                $.confirm({
-                    title: 'Payload Saved!',
-                    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
-                    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-                    buttons: {
-                        ok: function () { },
-                        copy: {
-                            text: 'Copy', // With spaces and symbols
-                            action: function () {
-                                var copytext = this.$content.find("#Payload");
-                                copytext.select();
-                                document.execCommand("copy");
-                                return false;
-                            }
-                        }
-                    }
-                });
-            }
+            //if (debugMode === 1) {
+            //    $.confirm({
+            //        title: 'Payload Saved!',
+            //        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
+            //        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+            //        buttons: {
+            //            ok: function () { },
+            //            copy: {
+            //                text: 'Copy', // With spaces and symbols
+            //                action: function () {
+            //                    var copytext = this.$content.find("#Payload");
+            //                    copytext.select();
+            //                    document.execCommand("copy");
+            //                    return false;
+            //                }
+            //            }
+            //        }
+            //    });
+            //}
             if (curIdx > 0) {
                 results.observations[curPos] = obj;
             }
@@ -1216,25 +1235,25 @@ $(document).on('click', '#SaveExit', function (e) {
             //var obj1 = JSON.stringify(objectifyForm(form1));
             obj = objectifyPHFormforSave(form1);
             obj.status_M_N = 0;
-            if (debugMode === 1) {
-                $.confirm({
-                    title: 'Payload Saved!',
-                    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
-                    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-                    buttons: {
-                        ok: function () { },
-                        copy: {
-                            text: 'Copy', // With spaces and symbols
-                            action: function () {
-                                var copytext = this.$content.find("#Payload");
-                                copytext.select();
-                                document.execCommand("copy");
-                                return false;
-                            }
-                        }
-                    }
-                });
-            }
+            //if (debugMode === 1) {
+            //    $.confirm({
+            //        title: 'Payload Saved!',
+            //        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
+            //        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+            //        buttons: {
+            //            ok: function () { },
+            //            copy: {
+            //                text: 'Copy', // With spaces and symbols
+            //                action: function () {
+            //                    var copytext = this.$content.find("#Payload");
+            //                    copytext.select();
+            //                    document.execCommand("copy");
+            //                    return false;
+            //                }
+            //            }
+            //        }
+            //    });
+            //}
             if (curIdx > 0) {
                 results.observations[curPos] = obj;
             }
@@ -1259,25 +1278,25 @@ $(document).on('click', '#SaveExit', function (e) {
             //console.log(obj1);
             obj = objectifyAHFormforSave(form1);
             obj.status_M_N = 0;
-            if (debugMode === 1) {
-                $.confirm({
-                    title: 'Payload Saved!',
-                    content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
-                    columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
-                    buttons: {
-                        ok: function () { },
-                        copy: {
-                            text: 'Copy', // With spaces and symbols
-                            action: function () {
-                                var copytext = this.$content.find("#Payload");
-                                copytext.select();
-                                document.execCommand("copy");
-                                return false;
-                            }
-                        }
-                    }
-                });
-            }
+            //if (debugMode === 1) {
+            //    $.confirm({
+            //        title: 'Payload Saved!',
+            //        content: '<div class="form-group">' + '<textarea class="form-control" rows="10" cols="50" id="Payload">' + JSON.stringify(obj) + '</textarea></div>',
+            //        columnClass: 'col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-1 col-xs-10 col-xs-offset-1',
+            //        buttons: {
+            //            ok: function () { },
+            //            copy: {
+            //                text: 'Copy', // With spaces and symbols
+            //                action: function () {
+            //                    var copytext = this.$content.find("#Payload");
+            //                    copytext.select();
+            //                    document.execCommand("copy");
+            //                    return false;
+            //                }
+            //            }
+            //        }
+            //    });
+            //}
             if (curIdx > 0) {
                 results.observations[curPos] = obj;
             }
@@ -1740,6 +1759,7 @@ $(document).on('click', 'a.btnResetData', function (e) {
                             mm = '0' + mm;
                         }
                         today = dd.toString() + '/' + mm.toString() + '/' + yyyy.toString();
+                        results = JSON.parse(data);
                         db.transaction(function (tx) {
                             tx.executeSql("DELETE FROM observations", [], function (tx, res) {
                                 //alert("Rows deleted.");
@@ -1753,21 +1773,23 @@ $(document).on('click', 'a.btnResetData', function (e) {
                             });
                         }, function (err) {
                             $.growl.error({ title: "", message: "An error occured while inserting row to DB. " + err.message, location: "tc", size: "large" });
-                        });
-                        clearMarkers();
-                        results = JSON.parse(data);
-                        if (AppMode === "PH") {
-                            loadMapMarkers;
-                        }
-                        if (AppMode === "AH") {
-                            loadMapMarkersAH();
-                        }
+                            });
                         db.transaction(function (tx) {
                             tx.executeSql("UPDATE observations SET data = ?,filedt = ? WHERE id = ?", [JSON.stringify(results), today, 1], function (tx, res) {
                                 //alert("Dataset updated.");
                             });
                         }, function (err) {
                             $.growl.error({ title: "", message: "An error occured while updating data to DB. " + err.message, location: "tc", size: "large" });
+                        });
+                        clearMarkers();
+                        if (AppMode === "PH") {
+                            loadMapMarkers;
+                        }
+                        if (AppMode === "AH") {
+                            loadMapMarkersAH();
+                        }
+                        google.maps.event.addListener(map, 'click', function (event) {
+                            placeMarker(event.latLng);
                         });
                         $.growl.notice({ title: "", message: "Data reset complete!", location: "bc", size: "small" });
                     },
@@ -1995,6 +2017,11 @@ $(document).on('click', '#newObservationPH', function () {
     curIdx = -2;
     $('#modalPHGrid').modal('hide');
     $('#modalPHMenu').modal();
+});
+$(document).on('click', '#newObservationAH', function () {
+    curIdx = -2;
+    $('#modalAHGrid').modal('hide');
+    $('#modalAHMenu').modal();
 });
 $(document).on('click', 'a.btnBackupData', function (e) {
     backupDatabase();
@@ -2371,6 +2398,18 @@ function getSurvActivity(id) {
         return (el.activityId === id);
     });
     if (arr && arr.length > 0) { return arr[0].activityName; } else { return ""; }
+}
+function getSurvActivityAH(id) {
+    var arr = ActivityDataAH.activities.filter(function (el) {
+        return (el.activityId === id);
+    });
+    if (arr && arr.length > 0) { return arr[0].activityName; } else { return ""; }
+}
+function getCommonName(id) {
+    var arr = speciesTaxonSyndromSamples.species.filter(function (el) {
+        return (el.speciesCode === id);
+    });
+    if (arr && arr.length > 0) { return arr[0].speciesName; } else { return ""; }
 }
 function getSite(ActivityId, id) {
     var arr = ActivityData.activities.filter(function (el) {
@@ -2772,7 +2811,20 @@ function initLoad() {
     //OTP functionality ends -----------------
 }
 function exportObservationsToCSV() {
-    var flatJSON = results.observations.map(record => flatten(record, {}, ''));
+    var data;
+    switch (AppMode) {
+        case "PH":
+            data = jQuery.grep(results.observations, function (n, i) {
+                return (n.PlantDisciplineCode_M_S === 'P' || n.PlantDisciplineCode_M_S === 'E' || n.PlantDisciplineCode_M_S === 'B');
+            });
+            break;
+        case "AH":
+            data = jQuery.grep(results.observations, function (n, i) {
+                return (n.AnimalDisciplineCode_M_S === 'SF' || n.AnimalDisciplineCode_M_S === 'G');
+            });
+            break;
+    }
+    var flatJSON = data.map(record => flatten(record, {}, ''));
     var csv = JSON.stringify(flatJSON);
     csv = csv.replace(/_O_N_\d_T/g, '').replace(/_M_S_\d_T/g, '').replace(/_O_S_\d_T/g, '').replace(/_M_N_\d_H/g, '').replace(/_M_S_\d_H/g, '').replace(/_O_S_\d_H/g, '').replace(/_O_N_\d_H/g, '');
     csv = csv.replace(/_M_S_\d_S/g, '').replace(/_O_N_\d_S/g, '').replace(/_M_S_\d_S/g, '').replace(/_M_D_\d_S/g, '').replace(/_O_S_\d_S/g, '');
