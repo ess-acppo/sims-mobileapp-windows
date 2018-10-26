@@ -80,7 +80,7 @@ html, body {
     /*margin-right: 20px;*/
 }
 
-#modalPHMenu .modal-body, #modalAHMenu .modal-body {
+#modalPHMenu .modal-body {
     height: 900px;
     /*padding: 25px;*/
     overflow-x: hidden;
@@ -155,6 +155,10 @@ html, body {
 #mb {
     margin-right: 5px;
     margin-left: 5px;
+}
+
+#mb6 .progText {
+    font-size: 1.8rem;
 }
 
 .modal-body {
@@ -1086,7 +1090,7 @@ div.dataTables_filter {
     border: 2px solid #eee;
     margin: 0.05rem;
     padding-right: 7px;
-    padding-left:7px;
+    padding-left: 7px;
     padding-top: 8px;
     margin-bottom: 8px;
 }
@@ -1319,6 +1323,7 @@ text-right {
         margin-left: 42%;
         color: #ddd;
     }
+
     #mb {
         padding: 0px;
         padding-top: 10px;

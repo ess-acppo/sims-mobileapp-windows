@@ -1670,7 +1670,7 @@ function packageAHFormforSubmit(data) {
                 observation['woundCountChoice'] = woundCountChoice;
                 return true;
             }
-            if (fname === 'woundspercent') { return true; }
+            if (fname === 'woundsPercent') { return true; }
             /* group animal stuff */
 
             if (fname === 'externalObserverFlag' && value === 'Y') {
@@ -1946,46 +1946,8 @@ function objectifyAHFormforSubmit(data) {//serialize data function
     return jsonData;
 }
 function preValidateAH() {
-    var numManFields = $("#form1").find('input[type="number"][name*="_M_N"]');
-    $.each(numManFields, function (index, v) {
-        var fname = v.name.split("_")[0];
-        var fMOC = v.name.split("_")[1];
-        var fNSD = v.name.split("_")[2];
-        var fnum = v.name.split("_")[3];
-        var ftype = v.name.split("_")[4];
-        if (v.value === "" || v.value === 0) {
-            if (fname === 'status') return true;
-            if (fname === 'aunkNumber') return true;
-            if (fname === 'gunkNumber') return true;
-            vError = 1;
-            vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnErrorAH' data-j='" + v.name + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + v.name + '"]').data("name") + " field cannot be empty.");
-            vFailed = true;
-            return false;
-        }
-        if ($.isNumeric(v.value) === false || v.value === "" || v.value === 0) {
-            if (fname === 'status') return true;
-            vError = 1;
-            vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnErrorAH' data-j='" + v.name + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + v.name + '"]').data("name") + " field should be numeric.");
-            vFailed = true;
-            return false;
-        }
-    });
-    var numOptFields = $("#form1").find('input[type="number"][name*="_O_N"]');
-    $.each(numOptFields, function (index, v) {
-        var fname = v.name.split("_")[0];
-        var fMOC = v.name.split("_")[1];
-        var fNSD = v.name.split("_")[2];
-        var fnum = v.name.split("_")[3];
-        var ftype = v.name.split("_")[4];
-        if (v.value === 0 || v.value === "") return true;
-        if ($.isNumeric(v.value) === false) {
-            vError = 1;
-            vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnErrorAH' data-j='" + v.name + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + v.name + '"]').data("name") + " field should be numeric.");
-            vFailed = true;
-            return false;
-        }
-    });
-    var strManFields = $("#form1").find('input[name*="_M_S"]');
+    var woundsFlag = 0;
+    var strManFields = $("#form1").find('select[name*="_M_S"],input[name*="_M_S"]');
     $.each(strManFields, function (index, v) {
         var fname = v.name.split("_")[0];
         var fMOC = v.name.split("_")[1];
@@ -2006,6 +1968,53 @@ function preValidateAH() {
             return false;
         }
     });
+    var numManFields = $("#form1").find('input[type="number"][name*="_M_N"]');
+    $.each(numManFields, function (index, v) {
+        var fname = v.name.split("_")[0];
+        var fMOC = v.name.split("_")[1];
+        var fNSD = v.name.split("_")[2];
+        var fnum = v.name.split("_")[3];
+        var ftype = v.name.split("_")[4];
+        if (fname === 'woundsPresentG' && v.value === 'Y') {
+            woundsFlag = 1; return true;
+        }
+        if (fname === 'woundsPresentG' && v.value === 'N' || v.value === '') {
+            woundsFlag = 0; return true;
+        }
+        if (v.value === "" || v.value === 0) {
+            if (fname === 'status') return true;
+            if (fname === 'aunkNumber') return true;
+            if (fname === 'gunkNumber') return true;
+            if (fname === 'woundsCount' && woundsFlag === 0) return true;
+            if (fname === 'woundsPercent' && woundsFlag === 0) return true;
+            vError = 1;
+            vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnErrorAH' data-j='" + v.name + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + v.name + '"]').data("name") + " field cannot be empty.");
+            vFailed = true;
+            return false;
+        }
+        if ($.isNumeric(v.value) === false || v.value === "" || v.value === 0) {
+            if (fname === 'status') return true;
+            vError = 1;
+            vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnErrorAH' data-j='" + v.name + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + v.name + '"]').data("name") + " field should be numeric.");
+            vFailed = true;
+            return false;
+        }
+    });
+    var numOptFields = $("#form1").find('input[type="number"][name*="_O_N"]');
+    $.each(numOptFields, function (index, v) {
+        var fname = v.name.split("_")[0];
+        var fMOC = v.name.split("_")[1];
+        var fNSD = v.name.split("_")[2];
+        var fnum = v.name.split("_")[3];
+        var ftype = v.name.split("_")[4];
+        if (v.value === "") return true;
+        if ($.isNumeric(v.value) === false) {
+            vError = 1;
+            vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnErrorAH' data-j='" + v.name + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + v.name + '"]').data("name") + " field should be numeric.");
+            vFailed = true;
+            return false;
+        }
+    });
     if (vFailed === true) {
         return { "vError": vError, "vErrDescription": vErrDescription.join('<br/>') };
     } else { return { "vError": 0, "vErrDescription": "" }; }
@@ -2016,6 +2025,14 @@ function IterateAH(data) {
     var bodysystemX = "";
     var bodysystemFlag = 0;
     var woundsFlag = 0;
+    var adults = 0;
+    var juveniles = 0;
+    var acUnknown = 0;
+    var males = 0;
+    var females = 0;
+    var gUnknown = 0;
+    var totNumber = 0;
+    var syndromeFlag = 0;
     var modData = JSON.parse(JSON.stringify(data));
     //if (modData && modData.status_M_N) { delete modData.status_M_N; }
     $.each(modData, function (index, value) {
@@ -2055,6 +2072,9 @@ function IterateAH(data) {
             if (fname === 'woundsPresentG' && value === 'Y') {
                 woundsFlag = 1; return true;
             }
+            if (fname === 'woundsPresentG' && value === 'N' || value === '') {
+                woundsFlag = 0; return true;
+            }
             if (fname.startsWith('BodySystemCode')) {
                 bodysystem = value;
                 bodysystemX = value + 'Flag';
@@ -2079,6 +2099,104 @@ function IterateAH(data) {
                 bodysystemFlag = 0;
                 return false;
             }
+            if (fname === 'totalNumber') {
+                totNumber = value;
+                if (value.toString().indexOf(".") !== -1 || value < 0) {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field value is not valid.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'adultNumber') {
+                adults = value;
+                if (value.toString().indexOf(".") !== -1 || value < 0) {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field value is not valid.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'juvNumber') {
+                juveniles = value;
+                if (value.toString().indexOf(".") !== -1 || value < 0) {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field value is not valid.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'aunkNumber') {
+                acUnknown = value;
+                if (value.toString().indexOf(".") !== -1 || value < 0) {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field value is not valid.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'maleNumber') {
+                males = value;
+                if (value.toString().indexOf(".") !== -1 || value < 0) {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field value is not valid.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'femaleNumber') {
+                females = value;
+                if (value.toString().indexOf(".") !== -1 || value < 0) {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field value is not valid.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'gunkNumber') {
+                gUnknown = value;
+                if (value.toString().indexOf(".") !== -1 || value < 0) {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field value is not valid.");
+                    vFailed = true;
+                    return false;
+                }
+                if (adults + juveniles + acUnknown !== totNumber) {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='adultNumber_M_N_0_2' data-k='2' data-l='0'>Go</a>Age Class numbers do not match up.");
+                    vFailed = true;
+                    return false;
+                }
+                if (adults + juveniles + acUnknown < 0) {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='adultNumber_M_N_0_2' data-k='2' data-l='0'>Go</a>Invalid Age Class values.");
+                    vFailed = true;
+                    return false;
+                }
+                if (females + males + gUnknown !== totNumber) {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='maleNumber_M_N_0_2' data-k='2' data-l='0'>Go</a>Gender field numbers do not match up.");
+                    vFailed = true;
+                    return false;
+                }
+                if (females + males + gUnknown < 0) {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='maleNumber_M_N_0_2' data-k='2' data-l='0'>Go</a>Invalid Gender field values.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'optSyndromes' && value === 'Y') {
+                syndromeFlag = 1; return true;
+            }
+            if (fname === 'status') {
+                if ($('.syndromeY').length === 0 && syndromeFlag === 1) {
+                    vError = 1;
+                    vErrDescription.push("Minimum one syndrome expected.");
+                    vFailed = true;
+                    return false;
+                }
+            }
             if (fMOC === 'M' && fNSD === 'S' && (value === '' || value === 'NONE')) {
                 vError = 1;
                 vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
@@ -2096,12 +2214,20 @@ function IterateAH(data) {
                 if (fname === 'aunkNumber') return true;
                 if (fname === 'gunkNumber') return true;
                 if (fname === 'woundsCount' && woundsFlag === 0) return true; 
+                if (fname === 'woundsPercent' && woundsFlag === 0) return true;
+                if (fname === 'woundsCount' && value > totNumber) {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " cannot be greater than total number of animals.");
+                    vFailed = true;
+                    return false;
+                }
                 vError = 1;
                 vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
                 vFailed = true;
                 return false;
             }
-            if (fMOC === 'O' && fNSD === 'N' && value === 0) {
+            if (fMOC === 'O' && fNSD === 'N' && value === '') {
+                if (fname === 'woundsPercent' && woundsFlag === 0) return true; 
                 vError = 1;
                 vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
                 vFailed = true;
@@ -2119,6 +2245,13 @@ function Iterate2AH(data) {
     var bodysystemX = "";
     var bodysystemFlag = 0;
     var woundsFlag = 0;
+    var adults = 0;
+    var juveniles = 0;
+    var acUnknown = 0;
+    var males = 0;
+    var females = 0;
+    var gUnknown = 0;
+    var totNumber = 0;
     var modData = JSON.parse(JSON.stringify(data));
     //if (modData && modData.status_M_N) { delete modData.status_M_N; }
     $.each(modData, function (index, value) {
@@ -2158,6 +2291,9 @@ function Iterate2AH(data) {
             if (fname === 'woundsPresentG' && value === 'Y') {
                 woundsFlag = 1; return true;
             }
+            if (fname === 'woundsPresentG' && value === 'N' || value === '') {
+                woundsFlag = 0; return true;
+            }
             if (fname.startsWith('BodySystemCode')) {
                 bodysystem = value;
                 bodysystemX = value + 'Flag';
@@ -2165,7 +2301,7 @@ function Iterate2AH(data) {
             }
             if (fname === 'externalObserver' && value === '' && externalObsFlag === 1) {
                 vError = 1;
-                vErrDescription.push($('[name="' + index + '"]').data("name") + " field cannot be empty.");
+                vErrDescription.push($('[name="' + index + '"]') + " field cannot be empty.");
                 vFailed = true;
                 return false;
             }
@@ -2177,10 +2313,100 @@ function Iterate2AH(data) {
             }
             if (fname === bodysystem + 'GrossFindings' && value === '' && bodysystemFlag === 1) {
                 vError = 1;
-                vErrDescription.push($('[name="' + index + '"]').data("name") + " field cannot be empty.");
+                vErrDescription.push($('[name="' + index + '"]') + " field cannot be empty.");
                 vFailed = true;
                 bodysystemFlag = 0;
                 return false;
+            }
+            if (fname === 'totalNumber') {
+                totNumber = value;
+                if (value.toString().indexOf(".") !== -1 || value < 0) {
+                    vError = 1;
+                    vErrDescription.push($('[name="' + index + '"]') + " field value is not valid.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'adultNumber') {
+                adults = value;
+                if (value.toString().indexOf(".") !== -1 || value < 0) {
+                    vError = 1;
+                    vErrDescription.push($('[name="' + index + '"]') + " field value is not valid.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'juvNumber') {
+                juveniles = value;
+                if (value.toString().indexOf(".") !== -1 || value < 0) {
+                    vError = 1;
+                    vErrDescription.push($('[name="' + index + '"]') + " field value is not valid.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'aunkNumber') {
+                acUnknown = value;
+                if (value.toString().indexOf(".") !== -1 || value < 0) {
+                    vError = 1;
+                    vErrDescription.push($('[name="' + index + '"]') + " field value is not valid.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'maleNumber') {
+                males = value;
+                if (value.toString().indexOf(".") !== -1 || value < 0) {
+                    vError = 1;
+                    vErrDescription.push($('[name="' + index + '"]') + " field value is not valid.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'femaleNumber') {
+                females = value;
+                if (value.toString().indexOf(".") !== -1 || value < 0) {
+                    vError = 1;
+                    vErrDescription.push($('[name="' + index + '"]') + " field value is not valid.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'gunkNumber') {
+                gUnknown = value;
+                if (value.toString().indexOf(".") !== -1 || value < 0) {
+                    vError = 1;
+                    vErrDescription.push($('[name="' + index + '"]') + " field value is not valid.");
+                    vFailed = true;
+                    return false;
+                }
+                if (adults + juveniles + acUnknown !== totNumber) {
+                    vError = 1;
+                    vErrDescription.push("Age Class numbers do not match up.");
+                    vFailed = true;
+                    return false;
+                }
+                if (adults + juveniles + acUnknown < 0) {
+                    vError = 1;
+                    vErrDescription.push("Invalid Age Class values.");
+                    vFailed = true;
+                    return false;
+                }
+                if (females + males + gUnknown !== totNumber) {
+                    vError = 1;
+                    vErrDescription.push("Gender field numbers do not match up.");
+                    vFailed = true;
+                    return false;
+                }
+                if (females + males + gUnknown < 0) {
+                    vError = 1;
+                    vErrDescription.push("Invalid Gender field values.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'optSyndromes' && value === 'Y') {
+                syndromeFlag = 1; return true;
             }
             if (fMOC === 'M' && fNSD === 'S' && (value === '' || value === 'NONE')) {
                 vError = 1;
@@ -2199,12 +2425,20 @@ function Iterate2AH(data) {
                 if (fname === 'aunkNumber') return true;
                 if (fname === 'gunkNumber') return true;
                 if (fname === 'woundsCount' && woundsFlag === 0) return true; 
+                if (fname === 'woundsPercent' && woundsFlag === 0) return true; 
+                if (fname === 'woundsCount' && value > totNumber) {
+                    vError = 1;
+                    vErrDescription.push($('[name="' + index + '"]') + " cannot be greater than total number of animals.");
+                    vFailed = true;
+                    return false;
+                }
                 vError = 1;
                 vErrDescription.push($('[name="' + index + '"]') + " field cannot be empty.");
                 vFailed = true;
                 return false;
             }
-            if (fMOC === 'O' && fNSD === 'N' && value === 0) {
+            if (fMOC === 'O' && fNSD === 'N' && value === '') {
+                if (fname === 'woundsPercent' && woundsFlag === 0) return true; 
                 vError = 1;
                 vErrDescription.push($('[name="' + index + '"]') + " field cannot be empty.");
                 vFailed = true;
@@ -2375,7 +2609,7 @@ function StartSyncAH() {
             });
         }
         //else if (success === false) { $.growl.error({ title: "", message: rowsFailed.join(',') + "<br/>" + rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" }); }
-        else if (success === false) { $.growl.error({ title: "", message: rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" }); }
+        else if (success === false) { $.growl.error({ title: "Errors", message: rowsFailedErr.join('<br/>'), location: "tc", size: "large", fixed: "true" }); }
         syncActivityDataAH();
         loadActivityDataAH();
         //loadAHDefaults();
