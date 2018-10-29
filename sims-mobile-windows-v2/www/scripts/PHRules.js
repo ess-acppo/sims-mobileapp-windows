@@ -1486,7 +1486,7 @@ function Iterate(data) {
                     wkt.toObject();
                     if (wkt.toJson().coordinates[1] < -180 || wkt.toJson().coordinates[1] > 180 || wkt.toJson().coordinates[0] < -180 || wkt.toJson().coordinates[0] > 180) {
                         vError = 1;
-                        vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Invalid Latitude/Longitude Value in the Observation.");
+                        vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='Latitude_M_N' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Invalid Latitude/Longitude Value in the Observation.");
                         vFailed = true;
                         return false;
                     }
@@ -1497,7 +1497,7 @@ function Iterate(data) {
                     wkt.toObject();
                     if (wkt.toJson().coordinates[1] < -180 || wkt.toJson().coordinates[1] > 180 || wkt.toJson().coordinates[0] < -180 || wkt.toJson().coordinates[0] > 180) {
                         vError = 1;
-                        vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Invalid Latitude/Longitude Value in the Observation.");
+                        vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnError' data-j='Latitude_O_N_" + fnum + "_" + ftype + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>Invalid Latitude/Longitude Value in the Observation.");
                         vFailed = true;
                         return false;
                     }

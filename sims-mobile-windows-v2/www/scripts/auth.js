@@ -41,7 +41,7 @@ function authenticate2(x, y, authURL) {
         text.innerHTML = 'Login success!';
         derive_key(x, y);
         authCode = "Basic " + btoa(x + ":" + y);
-        $.when(updateSettings(ServMode, AppMode2)).then(clearCache()).then(fetchSettings()).done(initSettings());
+        $.when(updateSettings(ServMode, AppMode2)).then(clearCache(AppMode2)).then(fetchSettings()).done(initSettings());
         $('.auth-username').attr('disabled', false);
         $('.auth-username').removeClass('disabled');
         $('.auth-password').attr('disabled', false);

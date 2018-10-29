@@ -1394,7 +1394,7 @@ $(document).on('click', '#Submit2', function (e) {
             break;
         case "AH":
             obj = objectifyAHFormforSave(form1);
-            //console.log(JSON.stringify(obj));
+            console.log(JSON.stringify(obj));
             preVal = preValidateAH();
             if (preVal.vError !== 0) {
                 rowsFailedErr.push(preVal.vErrDescription);
@@ -1474,7 +1474,7 @@ $(document).on('click', '#settings', function (e) {
                     }
                 });
                 $(".activityMaps").removeClass('hide');
-                $('#form3').find('select[id="doTeam"]').find('option').remove().end().append("<option value=NPH>NPH</option><option value=BPH>BPH</option><option value=IPH>IPH</option>");
+                $('#form3').find('select[id="doTeam"]').find('option').remove().end().append("<option value=NONE>- select -</option><option value=NPH>NPH</option><option value=BPH>BPH</option><option value=IPH>IPH</option>");
                 $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData(resSettings.settings.device.ownerTeam))).val(resSettings.settings.device.ownerId);
             }
             if (AppMode === "AH") {
@@ -1581,23 +1581,21 @@ $(document).on('click', '#Delete', function (e) {
                 db.transaction(function (tx) {
                     tx.executeSql("UPDATE observations SET data = ? WHERE id = ?", [JSON.stringify(results), 1], function (tx, res) {
                         //alert("Dataset updated.");
+                        $('#modalForm').modal('hide');
+                        //clearMarkers();
+                        //if (AppMode === "PH") {
+                        //    loadMapMarkers;
+                        //}
+                        //if (AppMode === "AH") {
+                        //    loadMapMarkersAH();
+                        //}
+                        if (infoWindow) {
+                            infoWindow.close();
+                        }
                     });
                 }, function (err) {
                     $.growl.error({ title: "", message: "An error occured while updating row to DB. " + err.message, location: "tc", size: "large" });
                 });
-                $('#modalForm').modal('hide');
-                //table.destroy();
-                //loadData();
-                clearMarkers();
-                if (AppMode === "PH") {
-                    loadMapMarkers;
-                }
-                if (AppMode === "AH") {
-                    loadMapMarkersAH();
-                }
-                if (infoWindow) {
-                    infoWindow.close();
-                }
             },
             cancel: function () {
                 //close
@@ -1810,7 +1808,7 @@ $(document).on('click', 'a.btnSync', function (e) {
         content: 'Do you want to sync application data with the Server?<br/>Note: <b>Observations will not be Synced.</b>',
         buttons: {
             Ok: function () {
-                $.when(clearCache()).then(fetchSettings()).then(initSettings()).done(function () {
+                $.when(clearCache(AppMode)).then(fetchSettings()).then(initSettings()).done(function () {
                     $.growl.notice({ title: "", message: "Sync Complete!.", location: "bc", size: "small" });
                 });
                 //syncPHRefCodes();

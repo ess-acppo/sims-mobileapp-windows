@@ -80,7 +80,7 @@ html, body {
     /*margin-right: 20px;*/
 }
 
-#modalPHMenu .modal-body {
+#modalPHMenu .modal-body, #modalAHMenu .modal-body {
     height: 900px;
     /*padding: 25px;*/
     overflow-x: hidden;
@@ -1305,6 +1305,12 @@ text-right {
         margin: 4% auto;
     }
 
+    .growl.growl-large {
+        width: 96%;
+        padding: 5px;
+        margin: 5px;
+    }
+
     .btn-circle.btn-lg {
         font-size: 1.5rem;
         margin-right: 10px;
@@ -1338,8 +1344,20 @@ label.mapNotes, label.mapBNotes {
 
 .btnError, .btnErrorAH {
     margin-left: 8px;
-    margin-bottom: 8px;
-    float: right;
+    margin-bottom: 6px;
+    margin-right: 5px;
+}
+
+.growl.growl-large {
+    width: 400px;
+    padding: 15px;
+    margin: 15px;
+}
+
+.growl .growl-message {
+    font-size: 14px;
+    line-height: 18px;
+    text-align: left;
 }
 
 .tabs-wrapper {
@@ -1397,4 +1415,8 @@ label.mapNotes, label.mapBNotes {
 
 [class*=col-].input-group {
     float: left;
+}
+
+#bsInfo {
+    cursor: pointer;
 }
