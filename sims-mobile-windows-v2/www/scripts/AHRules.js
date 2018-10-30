@@ -325,7 +325,7 @@ $(document).on('change', 'select[id="commonName"]', function () {
                     that2.find("select[name='PSampleType_M_S']").val(val.sampleTypeCode);
                     that2.find("select[name='PSampleType_M_S'] :not(option[value='" + val.sampleTypeCode + "'])").remove();
                     that2.find('.badge').text(samples);
-                    that2.find("input[name='PSampleFieldLabelText_M_S']").val($("#form1").find('input[type="text"][name="animalNumber_M_S"]').val());
+                    that2.find("input[name='PSampleFieldLabelText_M_S']").val($("#form1").find('input[type="number"][name="animalNumber_M_N"]').val());
                     that2.find('input').each(function () {
                         $(this).attr('name', $(this).attr('name') + '_' + samples + '_S');
                     });
@@ -441,7 +441,6 @@ $(document).on('change', 'select.sampleType', function () {
             var count = 0;
             $.each(arr[0].testFors, function (key, val) {
                 count++;
-                //Raj! Change the fieldnames as per sample# here
                 var option = '<div class="form-group col-md-6 col-sm-6 col-xs-6"><input type="checkbox" class="minimal" data-name="Sample - Test Type" name="TestFor_M_S_' + samples + '_' + val.testForCode + '" value="' + val.testForCode + '">&nbsp;<label>' + val.testForName + '</label></div>';
                 nxtTF.append($(option));
             });
@@ -472,7 +471,6 @@ function loadPathogens(e, f) {
         var count = 0;
         $.each(arr[0].testFors, function (key, val) {
             count++;
-            //Raj! Change the fieldnames as per sample# here
             var option = '<div class="form-group col-md-6 col-sm-6 col-xs-6"><input type="checkbox" class="minimal" data-name="Sample - Test Type" name="TestFor_M_S_' + samples + '_' + val.testForCode + '" value="' + val.testForCode + '">&nbsp;<label>' + val.testForName + '</label></div>';
             nxtTF.append($(option));
         });
@@ -558,71 +556,58 @@ function loadCommonNameData(d, e) {
         var arr = jQuery.grep(speciesTaxonSyndromSamples.species, function (n, i) {
             return (n.speciesCode === str);
         });
-
         //Load Taxa for selected species
-        if (arr[0].taxa.length > 1) {
-            $("#form1").find('#taxon').find('option').remove().end().append('<option value="NONE">- select -</option>');
-        }
-        else {
-            $("#form1").find('#taxon').find('option').remove().end();
-        }
-        //console.time('Taxa');
-        $.each(arr[0].taxa, function (key, val) {
-            var option;
-            if (val.id === e) {
-                option = $('<option />');
-            } else { option = $('<option selected />'); }
-            option.attr('value', val.id).text(val.name);
-            $("#form1").find('#taxon').append(option);
-        });
-        //console.timeEnd('Taxa');
-        //Load default syndromes for selected species
-        //console.time('Syndromes 1');
-        $('.defSyndromeX').remove();
-        //console.timeEnd('Syndromes 1');
-        //console.time('Syndromes 2');
-        for (var x = 0; x < arr[0].requiredSyndromes.length; x++) {
-            var idx = Number(arr[0].requiredSyndromes[x]);
-            var cidx = arr[0].requiredSyndromes[x];
-            syndromes = syndromes + 1;
-            var that = $(defSyndrome);
-            that.find('input[name^="SyndromeText_M_S"]').val(syndromesData[idx - 1].desc);
-            that.find('input[name^="SyndromeCode_M_S"]').val(syndromesData[idx - 1].code);
-            that.find('input[name^="SyndromeText_M_S"]').attr("name", "SyndromeText_M_S_" + syndromes + "_2");
-            that.find("input[name^='SyndromeCode_M_S']").attr("name", "SyndromeCode_M_S_" + syndromes + "_2");
-            that.find("input[name^='SyndromeFlag_M_S']").attr("name", "SyndromeFlag_M_S_" + syndromes + "_2");
-            that.find("input[name^='SyndromeComments_O_S']").attr("name", "SyndromeComments_O_S_" + syndromes + "_2");
-            that.find("input[name^='EndofSyndrome_O_S']").attr("name", "EndofSyndrome_O_S_" + syndromes + "_2");
-            $('#defSyndromes').append(that);
-            that.find("input[type='checkbox']").iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue'
+        if (arr[0]) {
+            if (arr[0].taxa.length > 1) {
+                $("#form1").find('#taxon').find('option').remove().end().append('<option value="NONE">- select -</option>');
+            }
+            else {
+                $("#form1").find('#taxon').find('option').remove().end();
+            }
+            $.each(arr[0].taxa, function (key, val) {
+                var option;
+                if (val.id === e) {
+                    option = $('<option />');
+                } else { option = $('<option selected />'); }
+                option.attr('value', val.id).text(val.name);
+                $("#form1").find('#taxon').append(option);
             });
-            that.find("input[type='radio']").iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue'
+            $('.defSyndromeX').remove();
+            for (var x = 0; x < arr[0].requiredSyndromes.length; x++) {
+                var idx = Number(arr[0].requiredSyndromes[x]);
+                var cidx = arr[0].requiredSyndromes[x];
+                syndromes = syndromes + 1;
+                var that = $(defSyndrome);
+                that.find('input[name^="SyndromeText_M_S"]').val(syndromesData[idx - 1].desc);
+                that.find('input[name^="SyndromeCode_M_S"]').val(syndromesData[idx - 1].code);
+                that.find('input[name^="SyndromeText_M_S"]').attr("name", "SyndromeText_M_S_" + syndromes + "_2");
+                that.find("input[name^='SyndromeCode_M_S']").attr("name", "SyndromeCode_M_S_" + syndromes + "_2");
+                that.find("input[name^='SyndromeFlag_M_S']").attr("name", "SyndromeFlag_M_S_" + syndromes + "_2");
+                that.find("input[name^='SyndromeComments_O_S']").attr("name", "SyndromeComments_O_S_" + syndromes + "_2");
+                that.find("input[name^='EndofSyndrome_O_S']").attr("name", "EndofSyndrome_O_S_" + syndromes + "_2");
+                $('#defSyndromes').append(that);
+                that.find("input[type='checkbox']").iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue'
+                });
+                that.find("input[type='radio']").iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue'
+                });
+                $('#lstSyndromes option[value="' + cidx + '"]').remove();
+            }
+            possibleSamples = arr[0].possibleSamples;
+            sampleTypes = '<option value="NONE">- select -</option>';
+            $.each(arr[0].possibleSamples, function (key, val) {
+                if (val.sampleTypeCode === 'M') return true;
+                var option = '<option';
+                option = option + ' value="' + val.sampleTypeCode + '">';
+                option = option + val.sampleTypeName + "</option>";
+                sampleTypes = sampleTypes + option;
             });
-            $('#lstSyndromes option[value="' + cidx + '"]').remove();
-        };
-        //console.timeEnd('Syndromes 2');
-        //Prepare sample types for selected species for later load 
-        //console.time('Species');
-        possibleSamples = arr[0].possibleSamples;
-        sampleTypes = '<option value="NONE">- select -</option>';
-        $.each(arr[0].possibleSamples, function (key, val) {
-            if (val.sampleTypeCode === 'M') return true;
-            var option = '<option';
-            option = option + ' value="' + val.sampleTypeCode + '">';
-            option = option + val.sampleTypeName + "</option>";
-            sampleTypes = sampleTypes + option;
-        });
-        //console.timeEnd('Species');
-        //fetch defaults
         //var def = jQuery.grep(defaultSpecies, function (n, i) {
         //    return (n.speciesCode === str);
         //});
-        //Load default samples to the dropdownlist
-        //console.time('Samples');
         //$('.sample').remove(); //Clear all Samples
         //if (def && def.length > 0) {
         //    $.each(def[0].collectSamples, function (key, val) { //For each default Sample
@@ -632,7 +617,7 @@ function loadCommonNameData(d, e) {
         //        that2.find("select[name='PSampleType_M_S']").val(val.sampleTypeCode);
         //        that2.find("select[name='PSampleType_M_S'] :not(option[value='" + val.sampleTypeCode + "'])").remove();
         //        that2.find('.badge').text(samples);
-        //        that2.find("input[name='PSampleFieldLabelText_M_S']").val($("#form1").find('input[type="text"][name="animalNumber_M_S"]').val());
+        //        that2.find("input[name='PSampleFieldLabelText_M_S']").val($("#form1").find('input[type="number"][name="animalNumber_M_N"]').val());
         //        that2.find('input').each(function () {
         //            $(this).attr('name', $(this).attr('name') + '_' + samples + '_S');
         //        });
@@ -676,7 +661,6 @@ function loadCommonNameData(d, e) {
         //        $('#samples').append(that2);
         //    });
         //    //$('.fieldtest').remove(); //Clear all Field Tests
-        //    //Load default fieldtests
         //    //$.each(def[0].fieldTests, function (key, val) { //For each default Field Test
         //    //    fieldTests = fieldTests + 1;
         //    //    var that3 = $(preFieldtest);
@@ -718,6 +702,7 @@ function loadCommonNameData(d, e) {
         //    //    $('#fieldtests').append(that3);
         //    //});    
         //}
+        }
     }
 }
 $(document).on('ifChecked', '.defSyndromeX input[type="radio"].minimal', function (event) {
@@ -736,7 +721,7 @@ function getNextAnimalID(e) {
     db.transaction(function (tx) {
         tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
             //$("#form1").find('input[type="text"].nextid').last().val(e + pad(nextID.toString(), 6));
-            $("#form1").find('input[type="text"].nextid').last().val(nextID.toString());
+            $("#form1").find('input[type="number"].nextid').last().val(nextID);
         });
     }, function (err) {
         $.growl.error({ title: "", message: "An error occured while incrementing ID. " + err.message, location: "tc", size: "large" });
@@ -853,7 +838,7 @@ $(document).on('click', '#addFieldTest', function (e) {
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue'
     });
-    that.find("input[name='FieldTestID_M_N']").val($("#form1").find('input[type="text"][name="animalNumber_M_S"]').val());
+    that.find("input[name='FieldTestID_M_N']").val($("#form1").find('input[type="number"][name="animalNumber_M_N"]').val());
     that.find('select[name="FieldTests_M_S"]').find('option').remove().end().append($(defFieldTests));
     that.find("input[name='InvalidFlag_M_S']").val("N");
     that.find('.badge').text(fieldTests);
@@ -875,7 +860,7 @@ $(document).on('click', '#addPreSelectedFieldTest', function (e) {
     fieldTests = fieldTests + 1;
     $('#addPreSelectedFieldTest').addClass('hide');
     $('.preSelectedFieldTest').removeClass('hide');
-    $('.preSelectedFieldTest').find("input[name^='PFieldTestID_M_N']").val($("#form1").find('input[type="text"][name="animalNumber_M_S"]').val());
+    $('.preSelectedFieldTest').find("input[name^='PFieldTestID_M_N']").val($("#form1").find('input[type="number"][name="animalNumber_M_N"]').val());
 });
 $(document).on('click', '.removeFieldTest', function (e) {
     var x = $(this);
@@ -936,7 +921,7 @@ $(document).on('click', '#addAnimalSample', function (e) {
     });
     that.find('.badge').text(samples);
     that.find('select[name^="SampleType_M_S"]').find('option').remove().end().append($(sampleTypes));
-    that.find("input[name^='SampleFieldLabelText']").val($("#form1").find('input[type="text"][name="animalNumber_M_S"]').val());
+    that.find("input[name^='SampleFieldLabelText']").val($("#form1").find('input[type="number"][name="animalNumber_M_N"]').val());
     $('#samples').append(that);
     $('#numSamples').text(samples);
 });
@@ -944,7 +929,7 @@ $(document).on('click', '#addPreSelectedSample', function (e) {
     //samples = samples + 1;
     //$('#addPreSelectedSample').addClass('hide');
     //$('.preSelectedSample').removeClass('hide');
-    //$('.preSelectedSample').find("input[name^='PSampleFieldLabelText']").val($("#form1").find('input[type="text"][name="animalNumber_M_S"]').val());
+    //$('.preSelectedSample').find("input[name^='PSampleFieldLabelText']").val($("#form1").find('input[type="number"][name="animalNumber_M_N"]').val());
     //$('#numSamples').text(samples);
     samples = samples + 1;
     //var nextID = getNextID('SAMPLE');
@@ -971,7 +956,7 @@ $(document).on('click', '#addPreSelectedSample', function (e) {
     });
     that.find('.badge').text(samples);
     that.find('select[name^="PSampleType_M_S"]').find('option').remove().end().append($(sampleTypes));
-    that.find("input[name^='PSampleFieldLabelText']").val($("#form1").find('input[type="text"][name="animalNumber_M_S"]').val());
+    that.find("input[name^='PSampleFieldLabelText']").val($("#form1").find('input[type="number"][name="animalNumber_M_N"]').val());
     $('#samples').append(that);
     $('#numSamples').text(samples);
 });
@@ -1012,7 +997,7 @@ $(document).on('click', '.removePreSample', function (e) {
 $(document).on('click', '#addMaggotSample', function (e) {
     samples = samples + 1;
     var that = $(maggotSample);
-    that.find("input[name='MSampleFieldLabelText_M_S_0_S']").val($("#form1").find('input[type="text"][name="animalNumber_M_S"]').val());
+    that.find("input[name='MSampleFieldLabelText_M_S_0_S']").val($("#form1").find('input[type="number"][name="animalNumber_M_N"]').val());
     that.find("input[type='checkbox']").iCheck({
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue'
@@ -1384,7 +1369,7 @@ function loadModalAH(pagename) {
                 $('#form1').find("input[type='number'][name^='submittedBy_M_N']").val(resSettings.settings.device.ownerId);
                 $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
                 $('#form1').find("input[type='number'][name='status_M_N']").val("0");
-                $('#form1').find("input[type='text'][name='animalNumber_M_S']").val(getNextAnimalID(resSettings.settings.device.animalPrefix));
+                $('#form1').find("input[type='number'][name='animalNumber_M_N']").val(getNextAnimalID(resSettings.settings.device.animalPrefix));
                 $('#form1').find("input[type='text'][name='AnimalDisciplineCode_M_S']").val(curDiscipline);
                 $('.nextid').text('');
             }
@@ -1503,6 +1488,9 @@ $(document).on('focus', "#SurvActivityIdAH", function (e) {
                     $('#addedSyndromes').empty();
                     $('#numSamples').text("");
                     $('#numAttachments').text("");
+                    $('#form1').find("input[type=text],input[type=date],input[type=number], textarea").val("");
+                    $('#form1').find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');
+                    $('#form1').find("input[type='radio'].minimal").iCheck('uncheck');
                     refreshActivityDataAH(str);
                     $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
                 },
@@ -2245,6 +2233,14 @@ function IterateAH(data) {
                 bodysystemFlag = 0;
                 return false;
             }
+            if (fname === 'animalNumber') {
+                if (value.toString().indexOf(".") !== -1 || value < 0) {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field value is not valid.");
+                    vFailed = true;
+                    return false;
+                }
+            }
             if (fname === 'totalNumber') {
                 totNumber = value;
                 if (value.toString().indexOf(".") !== -1 || value < 0) {
@@ -2511,6 +2507,14 @@ function Iterate2AH(data) {
                 vFailed = true;
                 bodysystemFlag = 0;
                 return false;
+            }
+            if (fname === 'animalNumber') {
+                if (value.toString().indexOf(".") !== -1 || value < 0) {
+                    vError = 1;
+                    vErrDescription.push($('[name="' + index + '"]') + " field value is not valid.");
+                    vFailed = true;
+                    return false;
+                }
             }
             if (fname === 'totalNumber') {
                 totNumber = value;
@@ -2840,7 +2844,7 @@ function StartSyncAH() {
         loadData();
         clearMarkers();
         if (AppMode === "PH") {
-            loadMapMarkers;
+            loadMapMarkers();
         }
         if (AppMode === "AH") {
             loadMapMarkersAH();
@@ -2936,6 +2940,16 @@ $(document).on('blur', 'input.totalNumber', function (e) {
         $("input[name='gunkPercent_O_N_0_2']").val(Math.round(Number($("input[name='gunkNumber_M_N_0_2']").val()) / Number(that.val()) * 100));
         $("input[name='woundsPercent_O_N_0_2']").val(Math.round(Number($("input[name='woundsCount_M_N_0_2']").val()) / Number(that.val()) * 100));
         $("input[name^='YSyndromesPercent_O_N']").val(Math.round(Number($("input[name^='YSyndromesCount_M_N']").val()) / Number(totalNum) * 100));
+    }
+});
+$(document).on('blur', 'input.animalNumber', function (e) {
+    var that = $(this);
+    if (that.val() > 0) {
+        $("#form1").find("input[name^='PSampleFieldLabelText']").val(that.val());
+        $("#form1").find("input[name^='FieldTestID']").val(that.val());
+        $("#form1").find("input[name^='PFieldTestID']").val(that.val());
+        $("#form1").find("input[name^='SampleFieldLabelText']").val(that.val());
+        $("#form1").find("input[name^='MSampleFieldLabelText']").val(that.val());
     }
 });
 

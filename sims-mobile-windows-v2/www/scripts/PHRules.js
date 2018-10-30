@@ -2829,6 +2829,30 @@ $(document).on('click', "[data-action=collapse]", function () {
     x.css("background-color", "#f5f5f5");
 });
 $(document).on('click', '#addBotanySample', function (e) {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    var hh = today.getHours();
+    var mi = today.getMinutes();
+    var ss = today.getSeconds();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    if (hh < 10) {
+        hh = '0' + hh;
+    }
+    if (mi < 10) {
+        mi = '0' + mi;
+    }
+    if (ss < 10) {
+        ss = '0' + ss;
+    }
+    today = yyyy.toString() + '-' + mm.toString() + '-' + dd.toString() + 'T' + hh.toString() + ':' + mi.toString() + ':' + ss.toString();
+
     if (bsamples > 0) {
         var sampleLat = $('div.sample').last().find('input[name^="Latitude"]').val();
         var sampleLng = $('div.sample').last().find('input[name^="Longitude"]').val();
@@ -2875,6 +2899,7 @@ $(document).on('click', '#addBotanySample', function (e) {
         $(this).attr('name', $(this).attr('name') + '_' + bsamples + '_S');
     });
     that.find("input[name^='CollectedSampleCount']").val('1');
+    that.find("input[name^='CollectedDatetime']").val(today);
     that.find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');
     that.find("input[type='radio'].minimal").iCheck('uncheck');
     that.find("input.nextid").val(getNextID(resSettings.settings.device.samplePrefix));
@@ -2901,6 +2926,30 @@ $(document).on('click', '.removeBotSample', function (e) {
     });
 });
 $(document).on('click', '#addEntoSample', function (e) {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    var hh = today.getHours();
+    var mi = today.getMinutes();
+    var ss = today.getSeconds();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    if (hh < 10) {
+        hh = '0' + hh;
+    }
+    if (mi < 10) {
+        mi = '0' + mi;
+    }
+    if (ss < 10) {
+        ss = '0' + ss;
+    }
+    today = yyyy.toString() + '-' + mm.toString() + '-' + dd.toString() + 'T' + hh.toString() + ':' + mi.toString() + ':' + ss.toString();
+
     if (esamples > 0) {
         var sampleLat = $('div.sample').last().find('input[name^="Latitude"]').val();
         var sampleLng = $('div.sample').last().find('input[name^="Longitude"]').val();
@@ -2951,6 +3000,7 @@ $(document).on('click', '#addEntoSample', function (e) {
         $(this).attr('name', $(this).attr('name') + '_' + esamples + '_S');
     });
     that.find("input[name^='CollectedSampleCount']").val('1');
+    that.find("input[name^='CollectedDatetime']").val(today);
     that.find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');
     that.find("input[type='radio'].minimal").iCheck('uncheck');
     that.find("input.nextid").val(getNextID(resSettings.settings.device.samplePrefix));
@@ -2978,6 +3028,30 @@ $(document).on('click', '.removeEntoSample', function (e) {
     });
 });
 $(document).on('click', '#addPathSample', function (e) {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    var hh = today.getHours();
+    var mi = today.getMinutes();
+    var ss = today.getSeconds();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    if (hh < 10) {
+        hh = '0' + hh;
+    }
+    if (mi < 10) {
+        mi = '0' + mi;
+    }
+    if (ss < 10) {
+        ss = '0' + ss;
+    }
+    today = yyyy.toString() + '-' + mm.toString() + '-' + dd.toString() + 'T' + hh.toString() + ':' + mi.toString() + ':' + ss.toString();
+
     if (psamples > 0) {
         var sampleLat = $('div.sample').last().find('input[name^="Latitude"]').val();
         var sampleLng = $('div.sample').last().find('input[name^="Longitude"]').val();
@@ -3026,6 +3100,7 @@ $(document).on('click', '#addPathSample', function (e) {
         $(this).attr('name', $(this).attr('name') + '_' + psamples + '_S');
     });
     that.find("input[name^='CollectedSampleCount']").val('1');
+    that.find("input[name^='CollectedDatetime']").val(today);
     that.find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');
     that.find("input[type='radio'].minimal").iCheck('uncheck');
     that.find("input.nextid").val(getNextID(resSettings.settings.device.samplePrefix));
@@ -3424,81 +3499,81 @@ $(document).on('blur', 'input.obslat', function (e) {
     var xlat = $('#form1').find('input.obslat');
     var xlng = $('#form1').find('input.obslng');
     var xwkt = $('#form1').find('input[name^="ObservationWhereWktClob"]');
-    var xdat = $('#form1').find('select.obsdat');
+    //var xdat = $('#form1').find('select.obsdat');
     xwkt.val("POINT (" + Number(xlng.val()).toFixed(5) + " " + Number(xlat.val()).toFixed(5) + ")");
-    xdat.val("WGS84");
+    //xdat.val("WGS84");
 });
 $(document).on('blur', 'input.obslng', function (e) {
     var xlat = $('#form1').find('input.obslat');
     var xlng = $('#form1').find('input.obslng');
     var xwkt = $('#form1').find('input[name^="ObservationWhereWktClob"]');
-    var xdat = $('#form1').find('select.obsdat');
+    //var xdat = $('#form1').find('select.obsdat');
     xwkt.val("POINT (" + Number(xlng.val()).toFixed(5) + " " + Number(xlat.val()).toFixed(5) + ")");
-    xdat.val("WGS84");
+    //xdat.val("WGS84");
 });
 $(document).on('blur', 'input.samplelat', function (e) {
     var xlat = $(this).closest('.sample').find('input.samplelat');
     var xlng = $(this).closest('.sample').find('input.samplelng');
     var xwkt = $(this).closest('.sample').find('input[name^="SamplePointWktClob"]');
-    var xdat = $(this).closest('.sample').find('input.sampledat');
+    //var xdat = $(this).closest('.sample').find('input.sampledat');
     xwkt.val("POINT (" + Number(xlng.val()).toFixed(5) + " " + Number(xlat.val()).toFixed(5) + ")");
-    xdat.val("WGS84");
+    //xdat.val("WGS84");
 });
 $(document).on('blur', 'input.samplelng', function (e) {
     var xlat = $(this).closest('.sample').find('input.samplelat');
     var xlng = $(this).closest('.sample').find('input.samplelng');
     var xwkt = $(this).closest('.sample').find('input[name^="SamplePointWktClob"]');
-    var xdat = $(this).closest('.sample').find('input.sampledat');
+    //var xdat = $(this).closest('.sample').find('input.sampledat');
     xwkt.val("POINT (" + Number(xlng.val()).toFixed(5) + " " + Number(xlat.val()).toFixed(5) + ")");
-    xdat.val("WGS84");
+    //xdat.val("WGS84");
 });
 $(document).on('blur', 'input.entolat', function (e) {
     var xlat = $(this).closest('.entobox').find('input.entolat');
     var xlng = $(this).closest('.entobox').find('input.entolng');
     var xwkt = $(this).closest('.entobox').find('input[name^="LocationPointWktClob"]');
-    var xdat = $(this).closest('.entobox').find('select.entodat');
+    //var xdat = $(this).closest('.entobox').find('select.entodat');
     xwkt.val("POINT (" + Number(xlng.val()).toFixed(5) + " " + Number(xlat.val()).toFixed(5) + ")");
-    xdat.val("WGS84");
+    //xdat.val("WGS84");
 });
 $(document).on('blur', 'input.entolng', function (e) {
     var xlat = $(this).closest('.entobox').find('input.entolat');
     var xlng = $(this).closest('.entobox').find('input.entolng');
     var xwkt = $(this).closest('.entobox').find('input[name^="LocationPointWktClob"]');
-    var xdat = $(this).closest('.entobox').find('select.entodat');
+    //var xdat = $(this).closest('.entobox').find('select.entodat');
     xwkt.val("POINT (" + Number(xlng.val()).toFixed(5) + " " + Number(xlat.val()).toFixed(5) + ")");
-    xdat.val("WGS84");
+    //xdat.val("WGS84");
 });
 $(document).on('blur', 'input.pathlat', function (e) {
     var xlat = $(this).closest('.pathbox').find('input.pathlat');
     var xlng = $(this).closest('.pathbox').find('input.pathlng');
     var xwkt = $(this).closest('.pathbox').find('input[name^="LocationPointWktClob"]');
-    var xdat = $(this).closest('.pathbox').find('select.pathdat');
+    //var xdat = $(this).closest('.pathbox').find('select.pathdat');
     xwkt.val("POINT (" + Number(xlng.val()).toFixed(5) + " " + Number(xlat.val()).toFixed(5) + ")");
-    xdat.val("WGS84");
+    //xdat.val("WGS84");
 });
 $(document).on('blur', 'input.pathlng', function (e) {
     var xlat = $(this).closest('.pathbox').find('input.pathlat');
     var xlng = $(this).closest('.pathbox').find('input.pathlng');
     var xwkt = $(this).closest('.pathbox').find('input[name^="LocationPointWktClob"]');
-    var xdat = $(this).closest('.pathbox').find('select.pathdat');
+    //var xdat = $(this).closest('.pathbox').find('select.pathdat');
     xwkt.val("POINT (" + Number(xlng.val()).toFixed(5) + " " + Number(xlat.val()).toFixed(5) + ")");
-    xdat.val("WGS84");
+    //xdat.val("WGS84");
 });
 $(document).on('blur', 'input.hostweedlat', function (e) {
     var xlat = $(this).closest('.hostweed').find('input.hostweedlat');
     var xlng = $(this).closest('.hostweed').find('input.hostweedlng');
     var xwkt = $(this).closest('.hostweed').find('input[name^="LocationPointWktClob"]');
-    var xdat = $(this).closest('.hostweed').find('select.hostweeddat');
+    //var xdat = $(this).closest('.hostweed').find('select.hostweeddat');
     xwkt.val("POINT (" + Number(xlng.val()).toFixed(5) + " " + Number(xlat.val()).toFixed(5) + ")");
-    xdat.val("WGS84");
+    //xdat.val("WGS84");
 });
 $(document).on('blur', 'input.hostweedlng', function (e) {
     var xlat = $(this).closest('.hostweed').find('input.hostweedlat');
     var xlng = $(this).closest('.hostweed').find('input.hostweedlng');
     var xwkt = $(this).closest('.hostweed').find('input[name^="LocationPointWktClob"]');
-    var xdat = $(this).closest('.hostweed').find('select.hostweeddat');
+    //var xdat = $(this).closest('.hostweed').find('select.hostweeddat');
     xwkt.val("POINT (" + Number(xlng.val()).toFixed(5) + " " + Number(xlat.val()).toFixed(5) + ")");
-    xdat.val("WGS84");
+    //xdat.val("WGS84");
 });
 $(document).on('click', "#addPlantObsAttachment", function () {
     var Idx = numObsAttachments;
@@ -3910,7 +3985,7 @@ function StartSyncPH() {
         loadData();
         clearMarkers();
         if (AppMode === "PH") {
-            loadMapMarkers;
+            loadMapMarkers();
         }
         if (AppMode === "AH") {
             loadMapMarkersAH();

@@ -1267,6 +1267,12 @@ text-right {
         margin-left: 47%;
         color: #ddd;
     }
+
+    .growl.growl-large {
+        width: 400px;
+        padding: 15px;
+        margin: 15px;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -1346,12 +1352,6 @@ label.mapNotes, label.mapBNotes {
     margin-left: 8px;
     margin-bottom: 6px;
     margin-right: 5px;
-}
-
-.growl.growl-large {
-    width: 400px;
-    padding: 15px;
-    margin: 15px;
 }
 
 .growl .growl-message {

@@ -579,9 +579,15 @@ function initSettings() {
             if (res.rows && res.rows.length > 0) {
                 clearMarkers();
                 if (AppMode === "PH") {
-                    loadMapMarkers;
+                    if (!results) {
+                        results = { "observations": [] };
+                    }
+                    loadMapMarkers();
                 }
                 if (AppMode === "AH") {
+                    //if (!results) {
+                    //    results = { "observations": [] };
+                    //}
                     loadMapMarkersAH();
                 }
                 google.maps.event.addListener(map, 'click', function (event) {
@@ -630,7 +636,7 @@ function initSettings() {
                         });
                         clearMarkers();
                         if (AppMode === "PH") {
-                            loadMapMarkers;
+                            loadMapMarkers();
                         }
                         if (AppMode === "AH") {
                             loadMapMarkersAH();
@@ -1029,8 +1035,8 @@ function loadData() {
                     {
                         "data": null,
                         "render": function (data, type, row) {
-                            if (data["animalNumber_M_S"])
-                            { return data["animalNumber_M_S"] * 1; }
+                            if (data["animalNumber_M_N"])
+                            { return data["animalNumber_M_N"] * 1; }
                             else { return "-"; }
                         }
                     },
@@ -1475,13 +1481,24 @@ $(document).on('click', '#settings', function (e) {
                 });
                 $(".activityMaps").removeClass('hide');
                 $('#form3').find('select[id="doTeam"]').find('option').remove().end().append("<option value=NONE>- select -</option><option value=NPH>NPH</option><option value=BPH>BPH</option><option value=IPH>IPH</option>");
-                $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData(resSettings.settings.device.ownerTeam))).val(resSettings.settings.device.ownerId);
+                if (resSettings.settings.device.ownerTeam === "NAF") {
+                    $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append("<option value=NONE>- select -</option>");
+                } else {
+                    $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData(resSettings.settings.device.ownerTeam))).val(resSettings.settings.device.ownerId);
+                    if (resSettings.settings.device.ownerTeam) { $('#form3').find('select[id="doTeam"]').val(resSettings.settings.device.ownerTeam); }
+                }
             }
             if (AppMode === "AH") {
                 $(".SampleCurrNumber").addClass('hide');
                 $(".activityMaps").addClass('hide');
-                $('#form3').find('select[id="doTeam"]').find('option').remove().end().append("<option value=NAF>NAF</option>");
-                $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData("NAF"))).val(resSettings.settings.device.ownerId);
+                $('#form3').find('select[id="doTeam"]').find('option').remove().end().append("<option value=NONE>- select -</option><option value=NAF>NAF</option>");
+                if (resSettings.settings.device.ownerTeam !== "NAF") {
+                    $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append("<option value=NONE>- select -</option>");
+                } else {
+                    $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData(resSettings.settings.device.ownerTeam))).val(resSettings.settings.device.ownerId);
+                    if (resSettings.settings.device.ownerTeam) { $('#form3').find('select[id="doTeam"]').val(resSettings.settings.device.ownerTeam); }
+                }
+                //$('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData("NAF"))).val(resSettings.settings.device.ownerId);
             }
         }, 300);
         $('#mb5').find('#appMode').val(AppMode);
@@ -1492,7 +1509,6 @@ $(document).on('click', '#settings', function (e) {
         $('#form3').find('select[id="curActivities"]').val(resSettings.settings.mapSets[0].curActivity);
         $('#form3').find('label.mapNotes').eq(resSettings.settings.mapSets[0].mapsetID).text("Last downloaded on:" + resSettings.settings.mapSets[0].lastDownloadDate);
         $('#form3').find('label.mapBNotes').eq(resSettings.settings.mapSets[0].mapsetID).text("Last downloaded on:" + resSettings.settings.mapSets[0].lastDownloadBDate);
-        if (resSettings.settings.device.ownerTeam) { $('#form3').find('select[id="doTeam"]').val(resSettings.settings.device.ownerTeam); }
         if (resSettings.settings.device.debugMode === 0) {
             $('#form3').find('input[id="debugMode"]').iCheck('uncheck');
             $('#showPayloads').addClass('hide');
@@ -1584,7 +1600,7 @@ $(document).on('click', '#Delete', function (e) {
                         $('#modalForm').modal('hide');
                         //clearMarkers();
                         //if (AppMode === "PH") {
-                        //    loadMapMarkers;
+                        //    loadMapMarkers();
                         //}
                         //if (AppMode === "AH") {
                         //    loadMapMarkersAH();
@@ -1614,7 +1630,11 @@ $(document).on('click', '#srchPHTable tbody tr', function () {
     var d = table.row(this).data();
     curIdx = d.id_M_N;
     curDiscipline = d.PlantDisciplineCode_M_S;
-    curPos = table.row(this).index();
+    var arr = results.observations.filter(function (el, index) {
+        if (el.id_M_N === curIdx) { curPos = index; }
+        return (el.id_M_N === curIdx);
+    });
+    //curPos = table.row(this).index();
     $.ajax({
         url: "",
         beforeSend: function (xhr) {
@@ -1661,7 +1681,11 @@ $(document).on('click', '#srchAHTable tbody tr', function () {
     var d = table.row(this).data();
     curIdx = d.id_M_N;
     curDiscipline = d.AnimalDisciplineCode_M_S;
-    curPos = table.row(this).index();
+    var arr = results.observations.filter(function (el, index) {
+        if (el.id_M_N === curIdx) { curPos = index; }
+        return (el.id_M_N === curIdx);
+    });
+    //curPos = table.row(this).index();
     $.ajax({
         url: "",
         beforeSend: function (xhr) {
@@ -1729,7 +1753,7 @@ $(document).on('hidden.bs.modal', '#modalForm', function () {
     //loadData();
     clearMarkers();
     if (AppMode === "PH") {
-        loadMapMarkers;
+        loadMapMarkers();
     }
     if (AppMode === "AH") {
         loadMapMarkersAH();
@@ -1781,7 +1805,7 @@ $(document).on('click', 'a.btnResetData', function (e) {
                         });
                         clearMarkers();
                         if (AppMode === "PH") {
-                            loadMapMarkers;
+                            loadMapMarkers();
                         }
                         if (AppMode === "AH") {
                             loadMapMarkersAH();
