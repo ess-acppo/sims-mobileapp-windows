@@ -1479,6 +1479,7 @@ $(document).on('click', '#settings', function (e) {
                         $("#curActivities").append(option);
                     }
                 });
+                $('#form3').find('select[id="curActivities"]').val(resSettings.settings.mapSets[0].curActivity);
                 $(".activityMaps").removeClass('hide');
                 $('#form3').find('select[id="doTeam"]').find('option').remove().end().append("<option value=NONE>- select -</option><option value=NPH>NPH</option><option value=BPH>BPH</option><option value=IPH>IPH</option>");
                 if (resSettings.settings.device.ownerTeam === "NAF") {
@@ -1502,13 +1503,8 @@ $(document).on('click', '#settings', function (e) {
             }
         }, 300);
         $('#mb5').find('#appMode').val(AppMode);
-        //var arr = resSettings.settings.mapSets.filter(function (el) {
-        //    return (el.activeFlag === 1);
-        //});
-        //$('#form3').find('input[name="optMaps"][data-id="' + resSettings.settings.mapSets[0].mapsetID + '"]').iCheck('check');
-        $('#form3').find('select[id="curActivities"]').val(resSettings.settings.mapSets[0].curActivity);
-        $('#form3').find('label.mapNotes').eq(resSettings.settings.mapSets[0].mapsetID).text("Last downloaded on:" + resSettings.settings.mapSets[0].lastDownloadDate);
-        $('#form3').find('label.mapBNotes').eq(resSettings.settings.mapSets[0].mapsetID).text("Last downloaded on:" + resSettings.settings.mapSets[0].lastDownloadBDate);
+        $('#form3').find('label.mapNotes').text(resSettings.settings.mapSets[0].lastDownloadDate);
+        $('#form3').find('label.mapBNotes').text(resSettings.settings.mapSets[0].lastDownloadBDate);
         if (resSettings.settings.device.debugMode === 0) {
             $('#form3').find('input[id="debugMode"]').iCheck('uncheck');
             $('#showPayloads').addClass('hide');
@@ -1570,6 +1566,9 @@ $(document).on('click', '#SaveSettingsExit', function (e) {
     resSettings.settings.device.sampleStartNumber = $('#form3').find('input[name="sampleStartNum"]').val();
     resSettings.settings.device.currentSampleNumber = $('#form3').find('input[name="sampleCurrNum"]').val();
     resSettings.settings.device.currentAnimalNumber = $('#form3').find('input[name="AnimalCurrNum"]').val();
+    resSettings.settings.mapSets[0].lastDownloadDate = $('#form3').find('label.mapNotes').text();
+    resSettings.settings.mapSets[0].lastDownloadBDate = $('#form3').find('label.mapBNotes').text();
+    resSettings.settings.mapSets[0].curActivity = $('#form3').find('select[id="curActivities"]').val();
     /* Save to DB */
     db.transaction(function (tx) {
         tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
@@ -3142,7 +3141,7 @@ $(document).on('click', 'a.downloadMaps', function (e) {
             resSettings.settings.mapSets[0].lastDownloadDate = new Date().toString();
             db.transaction(function (tx) {
                 tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
-                    $('#form3').find('label.mapNotes').text("Last downloaded on:" + new Date().toString());
+                    $('#form3').find('label.mapNotes').text(new Date().toString());
                     //$('#modalProgress').modal('hide');
                 });
             }, function (err) {
@@ -3170,29 +3169,22 @@ function fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit) {
                     dir0Entry.getDirectory(zoom.toString(), { create: true, exclusive: false }, function (dir2Entry) {
                         dir2Entry.getDirectory(i.toString(), { create: true, exclusive: false }, function (dir4Entry) {
                             dir4Entry.getFile(j + ".jpg", { create: true, exclusive: false }, function (fileEntry) {
-                                //console.log("fileEntry is file?" + fileEntry.isFile.toString());
                                 fileEntry.createWriter(function (fileWriter) {
                                     fileWriter.onwriteend = function () {
-                                        //console.log("Successful file write...");
-                                        //readFile(fileEntry);
+                                        if (i > xlimit) {
+                                            $('#modalDownload').modal('hide');
+                                            $('#mb8 .progText').text("");
+                                            return false;
+                                        }
                                         if (i <= xlimit) {
                                             if (j <= ylimit) {
                                                 j++;
                                                 fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit);
                                             } else {
                                                 i++;
-                                                //if (i > xlimit) {
-                                                //    $('#modalProgress').modal('hide');
-                                                //    $('#mb6 .progText').text("");
-                                                //    return false;
-                                                //}
                                                 j = ystart;
                                                 fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit);
                                             }
-                                        } else {
-                                            $('#modalDownload').modal('hide');
-                                            $('#mb8 .progText').text("");
-                                            return false;
                                         }
                                     };
                                     fileWriter.onerror = function (e) {
@@ -3250,7 +3242,7 @@ function getFileandExtractWin(url, mapset, i, n) {
                             $.growl({ title: "", message: "An error occured while updating mapsets. " + err.message, location: "tc", size: "large" });
                         });
                         $('#modalDownload').modal('hide');
-                        $('#form3').find('label.mapBNotes').text("Last downloaded on:" + new Date().toString());
+                        $('#form3').find('label.mapBNotes').text(new Date().toString());
                         //initSettings();
                         //$('#mb6 .progTime').text("");
                         $.growl.notice({ title: "", message: "Download complete", location: "bc", size: "small" });
