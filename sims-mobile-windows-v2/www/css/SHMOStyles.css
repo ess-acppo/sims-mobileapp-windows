@@ -1235,7 +1235,7 @@ div.dataTables_filter {
 }
 
 .mt-5 {
-    margin-top:5px;
+    margin-top: 5px;
 }
 
 text-center {
@@ -1318,6 +1318,12 @@ text-right {
         margin-left: 42%;
         color: #ddd;
     }
+
+    .growl.growl-large {
+        width: 96%;
+        padding: 5px;
+        margin: 5px;
+    }
 }
 
 label.mapNotes, label.mapBNotes {
@@ -1327,7 +1333,19 @@ label.mapNotes, label.mapBNotes {
 }
 
 .btnError {
-    margin-left: 8px;
+    margin-right: 8px;
     margin-bottom: 8px;
-    float: right;
+    float: left;
+}
+
+.growl.growl-large {
+    width: 400px;
+    padding: 25px;
+    margin: 15px;
+}
+
+.growl .growl-message {
+    font-size: 14px;
+    line-height: 18px;
+    text-align: left;
 }
