@@ -2095,7 +2095,7 @@ function syncActivityData() {
         ActivityData = data;
         //siteData = data.activities[0].sites;
         //programId = data.activities[0].programId;
-        lastSurvActValue = data.activities[0].activityId;
+        if (data.activities && data.activities.length > 0) { lastSurvActValue = data.activities[0].activityId; }
         db.transaction(function (tx) {
             tx.executeSql("DELETE FROM activitydata", [], function (tx, res) {
                 //alert("Rows deleted.");
@@ -2400,7 +2400,7 @@ function loadSitePolygons() {
             var tP = new google.maps.Polygon({
                 map: map,
                 path: tC,
-                strokeColor: "#FF0000",
+                strokeColor: "#6AC1FF",
                 strokeOpacity: 1.0,
                 strokeWeight: 2,
                 fillOpacity: 0.0
