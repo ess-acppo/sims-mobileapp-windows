@@ -2731,9 +2731,12 @@ function clearCache(appMode) {
     }
 }
 function getCurrentActivityTiles(str, zoom) {
+    var AData;
+    if (AppMode === 'PH') { AData = ActivityData; }
+    if (AppMode === 'AH') { AData = ActivityDataAH; }
     if (Number(str) === 99999) { return true; }
     curLats = []; curLngs = [];
-    var arr = ActivityData.activities.filter(function (el) {
+    var arr = AData.activities.filter(function (el) {
         return (el.activityId === Number(str));
     });
     if (arr && arr.length > 0) {

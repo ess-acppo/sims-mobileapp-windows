@@ -373,6 +373,7 @@ $(document).on('change', 'select[id="commonName"]', function () {
                     });
                     //$('#addPreSelectedSample').removeClass('hide');
                     $('#samples').append(that2);
+                    $('#numSamples').text(samples);
                 });
                 //$('.fieldtest').remove(); //Clear all Field Tests
                 //Load default fieldtests
@@ -611,103 +612,104 @@ function loadCommonNameData(d, e) {
                 option = option + val.sampleTypeName + "</option>";
                 sampleTypes = sampleTypes + option;
             });
-        //var def = jQuery.grep(defaultSpecies, function (n, i) {
-        //    return (n.speciesCode === str);
-        //});
-        //$('.sample').remove(); //Clear all Samples
-        //if (def && def.length > 0) {
-        //    $.each(def[0].collectSamples, function (key, val) { //For each default Sample
-        //        samples = samples + 1;
-        //        var that2 = $(preAnimalSample);
-        //        that2.find('select[name="PSampleType_M_S"]').find('option').remove().end().append($(sampleTypes));
-        //        that2.find("select[name='PSampleType_M_S']").val(val.sampleTypeCode);
-        //        that2.find("select[name='PSampleType_M_S'] :not(option[value='" + val.sampleTypeCode + "'])").remove();
-        //        that2.find('.badge').text(samples);
-        //        that2.find("input[name='PSampleFieldLabelText_M_S']").val($("#form1").find('input[type="number"][name="animalNumber_M_N"]').val());
-        //        that2.find('input').each(function () {
-        //            $(this).attr('name', $(this).attr('name') + '_' + samples + '_S');
-        //        });
-        //        that2.find('img').each(function () {
-        //            $(this).attr('name', $(this).attr('name') + '_' + samples + '_S');
-        //        });
-        //        that2.find('select').each(function () {
-        //            $(this).attr('name', $(this).attr('name') + '_' + samples + '_S');
-        //        });
-        //        that2.find('textarea').each(function () {
-        //            $(this).attr('name', $(this).attr('name') + '_' + samples + '_S');
-        //        });
-        //        //Load default pathogens in the sample dropdownlist
-        //        var divTestTypes = that2.find(".testTypes");
-        //        var count = 0;
-        //        var arr1 = jQuery.grep(possibleSamples, function (n, i) {
-        //            return (n.sampleTypeCode === val.sampleTypeCode);
-        //        });
-        //        $.each(arr1[0].testFors, function (key2, val2) {
-        //            count++;
-        //            var option = '<div class="form-group col-md-6 col-sm-6 col-xs-6"><input type="checkbox" class="minimal" data-name="Sample - Test Type" name="PTestFor_M_S_' + samples + '_' + val2.testForCode + '">&nbsp;<label>' + val2.testForName + '</label></div>';
-        //            divTestTypes.append($(option));
-        //        });
-        //        //Check the default pathogens
-        //        $.each(val.testFors, function (key3, val3) {
-        //            divTestTypes.find('input[type="checkbox"][name="PTestFor_M_S_' + samples + '_' + val3 + '"].minimal').iCheck('check');
-        //            divTestTypes.find('input[type="checkbox"][name="PTestFor_M_S_' + samples + '_' + val3 + '"].minimal').val("Y");
-        //        });
-        //        divTestTypes.find("input[type='checkbox'].minimal:not([value='Y'])").val("N");
-        //        that2.addClass('preSelectedSample');
-        //        //that2.addClass('hide');
-        //        that2.find("input[type='checkbox']").iCheck({
-        //            checkboxClass: 'icheckbox_square-blue',
-        //            radioClass: 'iradio_square-blue'
-        //        });
-        //        that2.find("input[type='radio']").iCheck({
-        //            checkboxClass: 'icheckbox_square-blue',
-        //            radioClass: 'iradio_square-blue'
-        //        });
-        //        //$('#addPreSelectedSample').removeClass('hide');
-        //        $('#samples').append(that2);
-        //    });
-        //    //$('.fieldtest').remove(); //Clear all Field Tests
-        //    //$.each(def[0].fieldTests, function (key, val) { //For each default Field Test
-        //    //    fieldTests = fieldTests + 1;
-        //    //    var that3 = $(preFieldtest);
-        //    //    that3.find('select[name="PFieldTests_M_S"]').find('option').remove().end().append($(defFieldTests)).val(val.fieldTestCde);
-        //    //    //that3.find('select[name="PFieldTests_M_S"]:not([value^="' + val.fieldTestCde + '"])').remove();
-        //    //    that3.find("input[name='PInvalidFlag_M_S']").val("N");
-        //    //    that.find('.badge').text(fieldTests);
-        //    //    that3.find('input').each(function () {
-        //    //        $(this).attr('name', $(this).attr('name') + '_' + fieldTests + '_FT');
-        //    //    });
-        //    //    that3.find('img').each(function () {
-        //    //        $(this).attr('name', $(this).attr('name') + '_' + fieldTests + '_FT');
-        //    //    });
-        //    //    that3.find('select').each(function () {
-        //    //        $(this).attr('name', $(this).attr('name') + '_' + fieldTests + '_FT');
-        //    //    });
-        //    //    that3.find('textarea').each(function () {
-        //    //        $(this).attr('name', $(this).attr('name') + '_' + fieldTests + '_FT');
-        //    //    });
-        //    //    var selectFT = that3.find('.diseases');
-        //    //    var diseases = 0;
-        //    //    selectFT.empty();
-        //    //    $.each(val.diseases, function (key2, val2) {
-        //    //        diseases = diseases + 1;
-        //    //        var disease = '<div class="form-group col-md-12 col-sm-12 col-xs-12"><label>' + val2[0].diseaseName + '</label></div><div class="form-group col-md-5 col-sm-5 col-xs-5"><input type="radio" class="form-control minimal" name="PFieldTestResult_' + fieldTests + '_FT_' + val2[0].diseaseCde + '" data-code="Positive" data-validate="Y" value="Positive">&nbsp;<label>Positive</label></div><div class="form-group col-md-5 col-sm-5 col-xs-5"><input type="radio" class="form-control minimal" name="PFieldTestResult_' + fieldTests + '_FT_' + val2[0].diseaseCde + '" data-code="Negative" data-validate="Y" value="Negative">&nbsp;<label>Negative</label></div>';
-        //    //        selectFT.append($(disease));
-        //    //    });
-        //    //    that3.find("input[type='checkbox']").iCheck({
-        //    //        checkboxClass: 'icheckbox_square-blue',
-        //    //        radioClass: 'iradio_square-blue'
-        //    //    });
-        //    //    that3.find("input[type='radio']").iCheck({
-        //    //        checkboxClass: 'icheckbox_square-blue',
-        //    //        radioClass: 'iradio_square-blue'
-        //    //    });
-        //    //    that3.addClass('preSelectedFieldTest');
-        //    //    that3.addClass('hide');
-        //    //    $('#addPreSelectedFieldTest').removeClass('hide');
-        //    //    $('#fieldtests').append(that3);
-        //    //});    
-        //}
+        var def = jQuery.grep(defaultSpecies, function (n, i) {
+            return (n.speciesCode === str);
+        });
+        $('.sample').remove(); //Clear all Samples
+        if (def && def.length > 0) {
+            $.each(def[0].collectSamples, function (key, val) { //For each default Sample
+                samples = samples + 1;
+                var that2 = $(preAnimalSample);
+                that2.find('select[name="PSampleType_M_S"]').find('option').remove().end().append($(sampleTypes));
+                that2.find("select[name='PSampleType_M_S']").val(val.sampleTypeCode);
+                that2.find("select[name='PSampleType_M_S'] :not(option[value='" + val.sampleTypeCode + "'])").remove();
+                that2.find('.badge').text(samples);
+                that2.find("input[name='PSampleFieldLabelText_M_S']").val($("#form1").find('input[type="number"][name="animalNumber_M_N"]').val());
+                that2.find('input').each(function () {
+                    $(this).attr('name', $(this).attr('name') + '_' + samples + '_S');
+                });
+                that2.find('img').each(function () {
+                    $(this).attr('name', $(this).attr('name') + '_' + samples + '_S');
+                });
+                that2.find('select').each(function () {
+                    $(this).attr('name', $(this).attr('name') + '_' + samples + '_S');
+                });
+                that2.find('textarea').each(function () {
+                    $(this).attr('name', $(this).attr('name') + '_' + samples + '_S');
+                });
+                //Load default pathogens in the sample dropdownlist
+                var divTestTypes = that2.find(".testTypes");
+                var count = 0;
+                var arr1 = jQuery.grep(possibleSamples, function (n, i) {
+                    return (n.sampleTypeCode === val.sampleTypeCode);
+                });
+                $.each(arr1[0].testFors, function (key2, val2) {
+                    count++;
+                    var option = '<div class="form-group col-md-6 col-sm-6 col-xs-6"><input type="checkbox" class="minimal" data-name="Sample - Test Type" name="PTestFor_M_S_' + samples + '_' + val2.testForCode + '">&nbsp;<label>' + val2.testForName + '</label></div>';
+                    divTestTypes.append($(option));
+                });
+                //Check the default pathogens
+                $.each(val.testFors, function (key3, val3) {
+                    divTestTypes.find('input[type="checkbox"][name="PTestFor_M_S_' + samples + '_' + val3 + '"].minimal').iCheck('check');
+                    divTestTypes.find('input[type="checkbox"][name="PTestFor_M_S_' + samples + '_' + val3 + '"].minimal').val("Y");
+                });
+                divTestTypes.find("input[type='checkbox'].minimal:not([value='Y'])").val("N");
+                that2.addClass('preSelectedSample');
+                //that2.addClass('hide');
+                that2.find("input[type='checkbox']").iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue'
+                });
+                that2.find("input[type='radio']").iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue'
+                });
+                //$('#addPreSelectedSample').removeClass('hide');
+                $('#samples').append(that2);
+                $('#numSamples').text(samples);
+            });
+            //$('.fieldtest').remove(); //Clear all Field Tests
+            //$.each(def[0].fieldTests, function (key, val) { //For each default Field Test
+            //    fieldTests = fieldTests + 1;
+            //    var that3 = $(preFieldtest);
+            //    that3.find('select[name="PFieldTests_M_S"]').find('option').remove().end().append($(defFieldTests)).val(val.fieldTestCde);
+            //    //that3.find('select[name="PFieldTests_M_S"]:not([value^="' + val.fieldTestCde + '"])').remove();
+            //    that3.find("input[name='PInvalidFlag_M_S']").val("N");
+            //    that.find('.badge').text(fieldTests);
+            //    that3.find('input').each(function () {
+            //        $(this).attr('name', $(this).attr('name') + '_' + fieldTests + '_FT');
+            //    });
+            //    that3.find('img').each(function () {
+            //        $(this).attr('name', $(this).attr('name') + '_' + fieldTests + '_FT');
+            //    });
+            //    that3.find('select').each(function () {
+            //        $(this).attr('name', $(this).attr('name') + '_' + fieldTests + '_FT');
+            //    });
+            //    that3.find('textarea').each(function () {
+            //        $(this).attr('name', $(this).attr('name') + '_' + fieldTests + '_FT');
+            //    });
+            //    var selectFT = that3.find('.diseases');
+            //    var diseases = 0;
+            //    selectFT.empty();
+            //    $.each(val.diseases, function (key2, val2) {
+            //        diseases = diseases + 1;
+            //        var disease = '<div class="form-group col-md-12 col-sm-12 col-xs-12"><label>' + val2[0].diseaseName + '</label></div><div class="form-group col-md-5 col-sm-5 col-xs-5"><input type="radio" class="form-control minimal" name="PFieldTestResult_' + fieldTests + '_FT_' + val2[0].diseaseCde + '" data-code="Positive" data-validate="Y" value="Positive">&nbsp;<label>Positive</label></div><div class="form-group col-md-5 col-sm-5 col-xs-5"><input type="radio" class="form-control minimal" name="PFieldTestResult_' + fieldTests + '_FT_' + val2[0].diseaseCde + '" data-code="Negative" data-validate="Y" value="Negative">&nbsp;<label>Negative</label></div>';
+            //        selectFT.append($(disease));
+            //    });
+            //    that3.find("input[type='checkbox']").iCheck({
+            //        checkboxClass: 'icheckbox_square-blue',
+            //        radioClass: 'iradio_square-blue'
+            //    });
+            //    that3.find("input[type='radio']").iCheck({
+            //        checkboxClass: 'icheckbox_square-blue',
+            //        radioClass: 'iradio_square-blue'
+            //    });
+            //    that3.addClass('preSelectedFieldTest');
+            //    that3.addClass('hide');
+            //    $('#addPreSelectedFieldTest').removeClass('hide');
+            //    $('#fieldtests').append(that3);
+            //});    
+        }
         }
     }
 }
@@ -1179,16 +1181,16 @@ function loadModalAH(pagename) {
                             $('#form1').find("input[type='text'][name='" + key + "']").val(value);
                         });
                     }
-                    if (key.startsWith("PSampleFieldLabelText_M_S") && value > 0) {
-                        $.ajax({
-                            url: "",
-                            beforeSend: function (xhr) {
-                                $('#addPreSelectedSample').trigger("click");
-                            }
-                        }).complete(function (e) {
-                            $('#form1').find("input[type='text'][name='" + key + "']").val(value);
-                        });
-                    }
+                    //if (key.startsWith("PSampleFieldLabelText_M_S") && value > 0) {
+                    //    $.ajax({
+                    //        url: "",
+                    //        beforeSend: function (xhr) {
+                    //            $('#addPreSelectedSample').trigger("click");
+                    //        }
+                    //    }).complete(function (e) {
+                    //        $('#form1').find("input[type='text'][name='" + key + "']").val(value);
+                    //    });
+                    //}
                     if (key.startsWith("SampleType_M_S") && value !== "") {
                         $.ajax({
                             url: "",
@@ -1382,6 +1384,7 @@ function loadModalAH(pagename) {
         }, 300);
     }).done(function () {
         reAdjust();
+        $('#numSamples').text(samples);
         $('#modalProgress').modal('hide');
         t1 = performance.now();
         $('#perfTime').html("<i class='fa fa-clock-o text-info'></i>&nbsp;" + Math.round((t1 - t0)) + " ms");
@@ -1478,7 +1481,16 @@ $(document).on('focus', "#SurvActivityIdAH", function (e) {
         var that = $(this);
         var str = that.val();
         if (that.val() === "0") return;
-        if (lastSurvActValue === "0") return;
+        if (curDiscipline === "SF" && samples === 0) {
+            refreshActivityDataAH(str);
+            $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
+            return;
+        }
+        if (curDiscipline === "G" && samples === 0) {
+            refreshActivityDataAH(str);
+            $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
+            return;
+        }
         $.confirm({
             title: 'Confirm Remove!',
             content: 'Your observations for the currently selected Activity will be erased. Do you want to continue?',
@@ -1632,6 +1644,7 @@ function packageAHFormforSubmit(data) {
     var attachmentCnt = 0;
     var syndromeCnt = 0;
     var discipline = "";
+    var PMFlag = 0;
     $.each(modData, function (index, value) {
         if (isNaN(index)) {
             var fname = index.split("_")[0];
@@ -1801,15 +1814,18 @@ function packageAHFormforSubmit(data) {
             }
             if (fname === 'postMortemConducted') {
                 postMortem.postMortemConducted = value;
+                if (value === 'Y') PMFlag = 1;
                 return true;
             }
             if (fname.startsWith('BodySystemCode')) {
-                PMBS = { "postMortemBodySystem": [{ "bodySystemCde": "", "abnormalDetection": "", "grossFindings": "" }] };
+                PMBS = { "postMortemBodySystem": [{ "bodySystemCde": "", "abnormalDetection": "N", "grossFindings": "" }] };
                 PMBS.postMortemBodySystem[0]['bodySystemCde'] = value;
                 return true;
             }
             if (fname === 'INFlag') {
-                PMBS.postMortemBodySystem[0]['abnormalDetection'] = value;
+                if (PMFlag === 1) {
+                    PMBS.postMortemBodySystem[0]['abnormalDetection'] = value;
+                } else { PMBS.postMortemBodySystem[0]['abnormalDetection'] = 'N'; }
                 return true;
             }
             if (fname === 'INGrossFindings') {
@@ -1818,7 +1834,9 @@ function packageAHFormforSubmit(data) {
                 return true;
             }
             if (fname === 'HNFlag') {
-                PMBS.postMortemBodySystem[0]['abnormalDetection'] = value;
+                if (PMFlag === 1) {
+                    PMBS.postMortemBodySystem[0]['abnormalDetection'] = value;
+                } else { PMBS.postMortemBodySystem[0]['abnormalDetection'] = 'N'; }
                 return true;
             }
             if (fname === 'HNFindings') {
@@ -1827,7 +1845,9 @@ function packageAHFormforSubmit(data) {
                 return true;
             }
             if (fname === 'THFlag') {
-                PMBS.postMortemBodySystem[0]['abnormalDetection'] = value;
+                if (PMFlag === 1) {
+                    PMBS.postMortemBodySystem[0]['abnormalDetection'] = value;
+                } else { PMBS.postMortemBodySystem[0]['abnormalDetection'] = 'N'; }
                 return true;
             }
             if (fname === 'THGrossFindings') {
@@ -1836,7 +1856,9 @@ function packageAHFormforSubmit(data) {
                 return true;
             }
             if (fname === 'ABFlag') {
-                PMBS.postMortemBodySystem[0]['abnormalDetection'] = value;
+                if (PMFlag === 1) {
+                    PMBS.postMortemBodySystem[0]['abnormalDetection'] = value;
+                } else { PMBS.postMortemBodySystem[0]['abnormalDetection'] = 'N'; }
                 return true;
             }
             if (fname === 'ABGrossFindings') {
@@ -1845,7 +1867,9 @@ function packageAHFormforSubmit(data) {
                 return true;
             }
             if (fname === 'MUFlag') {
-                PMBS.postMortemBodySystem[0]['abnormalDetection'] = value;
+                if (PMFlag === 1) {
+                    PMBS.postMortemBodySystem[0]['abnormalDetection'] = value;
+                } else { PMBS.postMortemBodySystem[0]['abnormalDetection'] = 'N'; }
                 return true;
             }
             if (fname === 'MUGrossFindings') {
@@ -1990,6 +2014,7 @@ function objectifyAHFormforSubmit(data) {//serialize data function
     var jsonData = JSON.parse(jsonStr);
     $.each(jsonData.feralAnimalObservation, function (i, item) {
         if (item.samples.sample.length === 0) { delete item.samples; }
+        if (item.postMortem.postMortemConducted === 'N') { delete item.postMortem.postMortemBodySystems; }
         if (item.attachments.attachment.length === 0) { delete item.attachments; }
         if (item.samples) {
             $.each(item.samples.sample, function (j, itemx) {
@@ -2058,7 +2083,7 @@ function preValidateAH() {
             vFailed = true;
             return false;
         }
-        if (fname === 'SyndromeFlag') return true;
+        //if (fname === 'SyndromeFlag') return true;
         if (fname === 'postMortemConducted' && $("[name='" + v.name + "']:checked").val() === 'Y') {
             postMortemFlag = 1;
             return true;
@@ -2947,7 +2972,7 @@ $(document).on('blur', 'input.totalNumber', function (e) {
         $("input[name='gunkNumber_M_N_0_2']").val(Number(that.val()) - Number($("input[name='maleNumber_M_N_0_2']").val()) - Number($("input[name='femaleNumber_M_N_0_2']").val()));
         $("input[name='gunkPercent_O_N_0_2']").val(Math.round(Number($("input[name='gunkNumber_M_N_0_2']").val()) / Number(that.val()) * 100));
         $("input[name='woundsPercent_O_N_0_2']").val(Math.round(Number($("input[name='woundsCount_M_N_0_2']").val()) / Number(that.val()) * 100));
-        $("input[name^='YSyndromesPercent_O_N']").val(Math.round(Number($("input[name^='YSyndromesCount_M_N']").val()) / Number(totalNum) * 100));
+        $("input[name^='YSyndromesPercent_O_N']").val(Math.round(Number($("input[name^='YSyndromesCount_M_N']").val()) / Number(that.val()) * 100));
     }
 });
 $(document).on('blur', 'input.animalNumber', function (e) {
