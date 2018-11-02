@@ -270,6 +270,9 @@ function flatten(object, addToList, prefix) {
                 if (key === "SurvActivityId_M_N") {
                     addToList[prefix + key] = getSurvActivity(object[key]);
                 }
+                if (key === "activityId_M_N") {
+                    addToList[prefix + key] = getSurvActivityAH(object[key]);
+                }
                 else if (key === "SiteId_O_N") {
                     addToList[prefix + key] = getSite(object["SurvActivityId_M_N"], object[key]);
                 }
@@ -585,9 +588,9 @@ function initSettings() {
                     loadMapMarkers();
                 }
                 if (AppMode === "AH") {
-                    //if (!results) {
-                    //    results = { "observations": [] };
-                    //}
+                    if (!results) {
+                        results = { "observations": [] };
+                    }
                     loadMapMarkersAH();
                 }
                 google.maps.event.addListener(map, 'click', function (event) {
@@ -651,7 +654,11 @@ function initSettings() {
                 });
             }
             loadstaffData();
-            if (AppMode === "PH") { loadSitePolygons(); }
+            loadSitePolygons();
+            if (cX && cY) {
+                var yLatLng = new google.maps.LatLng(cX, cY);
+                map.setCenter(yLatLng);
+            }
             if ($("#modalProgress").data('bs.modal') && $("#modalProgress").data('bs.modal').isShown) { $('#modalProgress').modal('hide'); }
         });
     }, function (err) {
@@ -886,7 +893,7 @@ function placeMarker(location) {
     curLng = newMarker.getPosition().lng();
     curWkt = "POINT (" + curLng.toFixed(5) + " " + curLat.toFixed(5) + ")";
     //curAlt = newMarker.getPosition().altitude();
-    if (AppMode === "PH" && !checkMapBoundsByLoc(location)) {
+    if (!checkMapBoundsByLoc(location)) {
         newMarker.setMap(null);
     }
     else {
@@ -1480,7 +1487,6 @@ $(document).on('click', '#settings', function (e) {
                     }
                 });
                 $('#form3').find('select[id="curActivities"]').val(resSettings.settings.mapSets[0].curActivity);
-                $(".activityMaps").removeClass('hide');
                 $('#form3').find('select[id="doTeam"]').find('option').remove().end().append("<option value=NONE>- select -</option><option value=NPH>NPH</option><option value=BPH>BPH</option><option value=IPH>IPH</option>");
                 if (resSettings.settings.device.ownerTeam === "NAF") {
                     $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append("<option value=NONE>- select -</option>");
@@ -1491,7 +1497,15 @@ $(document).on('click', '#settings', function (e) {
             }
             if (AppMode === "AH") {
                 $(".SampleCurrNumber").addClass('hide');
-                $(".activityMaps").addClass('hide');
+                $("#curActivities").find('option').remove().end().append($('<option value="0">- select -</option>'));
+                $.each(ActivityDataAH.activities, function (key, val) {
+                    if (val.programId === downerTeam) {
+                        var option = $('<option />');
+                        option.attr('value', val.activityId).text(val.activityName);
+                        $("#curActivities").append(option);
+                    }
+                });
+                $('#form3').find('select[id="curActivities"]').val(resSettings.settings.mapSets[0].curActivity);
                 $('#form3').find('select[id="doTeam"]').find('option').remove().end().append("<option value=NONE>- select -</option><option value=NAF>NAF</option>");
                 if (resSettings.settings.device.ownerTeam !== "NAF") {
                     $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append("<option value=NONE>- select -</option>");
@@ -1499,7 +1513,6 @@ $(document).on('click', '#settings', function (e) {
                     $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData(resSettings.settings.device.ownerTeam))).val(resSettings.settings.device.ownerId);
                     if (resSettings.settings.device.ownerTeam) { $('#form3').find('select[id="doTeam"]').val(resSettings.settings.device.ownerTeam); }
                 }
-                //$('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData("NAF"))).val(resSettings.settings.device.ownerId);
             }
         }, 300);
         $('#mb5').find('#appMode').val(AppMode);
@@ -2380,9 +2393,12 @@ function loadstaffData() {
     $("#form1").find('select[name^="ObservationStaffId_M_N"]').find('option').remove().end().append($(staffData));
 }
 function loadSitePolygons() {
+    var AData;
+    if (AppMode === 'PH') AData = ActivityData;
+    if (AppMode === 'AH') AData = ActivityDataAH;
     allLats = [];
     allLngs = [];
-    $.each(ActivityData.activities, function (key1, val1) {
+    $.each(AData.activities, function (key1, val1) {
         $.each(val1.sites, function (key, val) {
             if (val.id === 99999) { return true; }
             var wkt = new Wkt.Wkt();

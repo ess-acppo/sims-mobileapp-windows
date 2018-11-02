@@ -44,9 +44,9 @@ function syncActivityDataAH() {
         }
     };
     $.ajax(settings).done(function (data) {
-        ActivityDataAH = data;
-        //siteData = data.activities[0].sites;
+        ActivityDataAH = data;       
         if (data.activities && data.activities.length > 0) {
+            siteData = data.activities[0].sites;
             programId = data.activities[0].programId;
             defaultSpecies = data.activities[0].species;
             lastSurvActValue = data.activities[0].activityId;
@@ -88,13 +88,12 @@ function loadActivityDataAH() {
             $("#SurvActivityIdAH").append(option);
         }
     });
-    //$("#SiteIdAH").find('option').remove().end().append($('<option value="0">- select -</option>'));
-    //$.each(siteData, function (key, val) {
-    //    var option = $('<option />');
-    //    option.attr('value', val.id).text(val.name);
-    //    $("#form1").find('select[id="SiteIdAH"]').append(option);
-    //});
-    //$("#SiteIdAH").append($('<option value="99999">New Site</option>'));
+    $("#form1").find('select[name="SiteId_O_N"]').find('option').remove().end().append($('<option value="0">- select -</option>'));
+    $.each(siteData, function (key, val) {
+        var option = $('<option />');
+        option.attr('value', val.id).text(val.name);
+        $("#form1").find('select[name="SiteId_O_N"]').append(option);
+    });
 }
 function syncAHRefCodes() {
     var settings = {
@@ -205,7 +204,7 @@ function refreshActivityDataAH(str) {
         return (el.activityId === Number(str));
     });
     if (arr && arr.length > 0) {
-        //siteData = arr[0].sites;
+        siteData = arr[0].sites;
         programId = arr[0].programId;
         defaultSpecies = arr[0].species;
         lastSurvActValue = arr[0].activityId;
@@ -217,12 +216,19 @@ function refreshActivityDataAH(str) {
             $("#commonName").append(option);
         });
 
-        var options = "option[value='NONE']";
-        $.each(defaultSpecies, function (key, val) {
-            options = options + ",option[value='" + val.speciesCode + "']";
+        //var options = "option[value='NONE']";
+        //$.each(defaultSpecies, function (key, val) {
+        //    options = options + ",option[value='" + val.speciesCode + "']";
+        //});
+        //$("#commonName :not(" + options + ")").remove();
+
+        $("#form1").find('select[name="SiteId_O_N"]').find('option').remove().end().append($('<option value="0">- select -</option>'));
+        $.each(siteData, function (key, val) {
+            var option = $('<option />');
+            option.attr('value', val.id).text(val.name);
+            $("#form1").find('select[name="SiteId_O_N"]').append(option);
         });
-        $("#commonName :not(" + options + ")").remove();
-        //lastSiteValue = 0;
+
         //db.transaction(function (tx) {
         //    tx.executeSql("SELECT * FROM staffdataAH WHERE settingstext = ?", [programId + 'staff'], function (tx, res) {
         //        //This is not the first load
@@ -1488,9 +1494,6 @@ $(document).on('focus', "#SurvActivityIdAH", function (e) {
                     $('#addedSyndromes').empty();
                     $('#numSamples').text("");
                     $('#numAttachments').text("");
-                    $('#form1').find("input[type=text],input[type=date],input[type=number], textarea").val("");
-                    $('#form1').find("input[type='checkbox'].minimal").iCheck('uncheck').val('N');
-                    $('#form1').find("input[type='radio'].minimal").iCheck('uncheck');
                     refreshActivityDataAH(str);
                     $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
                 },
@@ -1505,12 +1508,15 @@ $(document).on('click', '.getAHCoords', function (e) {
     var xlng = $('#form1').find('input.obslng');
     var xdat = $('#form1').find('select.obsdat');
     var xwkt = $('#form1').find('input[name^="ObservationWhereWktClob"]');
+    var siteID = Number($('#form1').find('select[name="SiteId_O_N"] option:selected').val());
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-            xlat.val(position.coords.latitude.toFixed(5));
-            xlng.val(position.coords.longitude.toFixed(5));
-            xwkt.val("POINT (" + position.coords.longitude.toFixed(5) + " " + position.coords.latitude.toFixed(5) + ")");
-            xdat.val("WGS84");
+            if (siteID > 0 && checkMapBoundsBySite(position, siteID)) {
+                xlat.val(position.coords.latitude.toFixed(5));
+                xlng.val(position.coords.longitude.toFixed(5));
+                xwkt.val("POINT (" + position.coords.longitude.toFixed(5) + " " + position.coords.latitude.toFixed(5) + ")");
+                xdat.val("WGS84");
+            }
         }, function () {
             $.growl.error({ title: "", message: "GPS GetCurrentPosition Failed!", location: "tc", size: "large" });
         });
@@ -1591,7 +1597,7 @@ function objectifyAHFormforSave(formArray) {
 }
 function packageAHFormforSubmit(data) {
     var modData = JSON.parse(JSON.stringify(data));
-    var feralAnimalObservations = { "activityId": "", "submittedBy": "", "feralAnimalObservation": [] };
+    var feralAnimalObservations = { "activityId": "", "SiteId": "", "submittedBy": "", "feralAnimalObservation": [] };
     var animalGroupObservations = { "animalGroupObservation": [] };
     var observation = { "samples": { "sample": [] }, "attachments": { "attachment": [] } };
     var locationDatum = { "srsName": "", "wkt": "" };
@@ -1637,6 +1643,8 @@ function packageAHFormforSubmit(data) {
             if (fname === 'AnimalDisciplineCode') { discipline = value; return true; }
             if (fname === 'activityId' && discipline === "SF") { feralAnimalObservations.activityId = value; return true; }
             if (fname === 'activityId' && discipline === "G") { observation['activityId'] = value; return true; }
+            if (fname === 'SiteId' && discipline === "SF") { feralAnimalObservations.SiteId = value; return true; }
+            if (fname === 'SiteId' && discipline === "G") { observation['SiteId'] = value; return true; }
             if (fname === 'submittedBy' && discipline === "SF") { feralAnimalObservations.submittedBy = { "id": value.toString() }; return true; }
             if (fname === 'submittedBy' && discipline === "G") { observation['submittedBy'] = { "id": value.toString() }; return true; }
 
