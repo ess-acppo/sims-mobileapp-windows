@@ -89,11 +89,11 @@ function loadActivityDataAH() {
         }
     });
     $("#form1").find('select[name="SiteId_O_N"]').find('option').remove().end().append($('<option value="0">- select -</option>'));
-    $.each(siteData, function (key, val) {
-        var option = $('<option />');
-        option.attr('value', val.id).text(val.name);
-        $("#form1").find('select[name="SiteId_O_N"]').append(option);
-    });
+    //$.each(siteData, function (key, val) {
+    //    var option = $('<option />');
+    //    option.attr('value', val.id).text(val.name);
+    //    $("#form1").find('select[name="SiteId_O_N"]').append(option);
+    //});
 }
 function syncAHRefCodes() {
     var settings = {
@@ -215,12 +215,16 @@ function refreshActivityDataAH(str) {
             option.attr('value', val.speciesCode).text(val.speciesName);
             $("#commonName").append(option);
         });
-
-        //var options = "option[value='NONE']";
-        //$.each(defaultSpecies, function (key, val) {
-        //    options = options + ",option[value='" + val.speciesCode + "']";
-        //});
-        //$("#commonName :not(" + options + ")").remove();
+        var options = "option[value='NONE']";
+        $.each(defaultSpecies, function (key, val) {
+            options = options + ",option[value='" + val.speciesCode + "']";
+        });
+        $("#commonName :not(" + options + ")").remove();
+        $.each(speciesTaxonSyndromSamples.species, function (key, val) {
+            var option = $('<option />');
+            option.attr('value', val.speciesCode).text(val.speciesName);
+            if ($("#commonName option[value='" + val.speciesCode + "']").length === 0) { $("#commonName").append(option); }
+        });
 
         $("#form1").find('select[name="SiteId_O_N"]').find('option').remove().end().append($('<option value="0">- select -</option>'));
         $.each(siteData, function (key, val) {
@@ -228,29 +232,7 @@ function refreshActivityDataAH(str) {
             option.attr('value', val.id).text(val.name);
             $("#form1").find('select[name="SiteId_O_N"]').append(option);
         });
-
-        //db.transaction(function (tx) {
-        //    tx.executeSql("SELECT * FROM staffdataAH WHERE settingstext = ?", [programId + 'staff'], function (tx, res) {
-        //        //This is not the first load
-        //        if (res.rows && res.rows.length > 0) {
-        //            //alert(JSON.stringify(res.rows.item(0).settingsval));
-        //            staffDataS = JSON.parse(res.rows.item(0).settingsval);
-        //        }
-        //        else {
-        //            $.growl.error({ title: "", message: "No staff Data available for this Activity.", location: "tc", size: "large", fixed: "true" });
-        //        }
-        //    });
-        //}, function (err) {
-        //    $.growl.error({ title: "", message: "An error occured while loading staff Data. " + err.message, location: "tc", size: "large", fixed: "true" });
-        //});
     }
-    //$("#SiteIdAH").find('option').remove().end().append($('<option value="0">- select -</option>'));
-    //$.each(siteData, function (key, val) {
-    //    var option = $('<option />');
-    //    option.attr('value', val.id).text(val.name);
-    //    $("#SiteIdAH").append(option);
-    //});
-    //$("#SiteIdAH").append($('<option value="99999">New Site</option>'));
 }
 $(document).on('change', 'select[id="commonName"]', function () {
     var t0, t1;
@@ -352,7 +334,7 @@ $(document).on('change', 'select[id="commonName"]', function () {
                     });
                     $.each(arr1[0].testFors, function (key2, val2) {
                         count++;
-                        var option = '<div class="form-group col-md-6 col-sm-6 col-xs-6"><input type="checkbox" class="minimal" data-name="Preselected Sample - Test Type" name="PTestFor_M_S_' + samples + '_' + val2.testForCode + '" value="' + val2.testForCode + '">&nbsp;<label>' + val2.testForName + '</label></div>';
+                        var option = '<div class="form-group col-md-6 col-sm-6 col-xs-6"><input type="checkbox" class="minimal" data-name="Preselected Sample - Test Type" name="PTestFor_M_S_' + samples + '_' + val2.testForCode + '_' + val2.commentRequired + '" value="' + val2.testForCode + '">&nbsp;<label>' + val2.testForName + '</label></div>';
                         divTestTypes.append($(option));
                     });
                     //Check the default pathogens
@@ -448,7 +430,7 @@ $(document).on('change', 'select.sampleType', function () {
             var count = 0;
             $.each(arr[0].testFors, function (key, val) {
                 count++;
-                var option = '<div class="form-group col-md-6 col-sm-6 col-xs-6"><input type="checkbox" class="minimal" data-name="Sample - Test Type" name="TestFor_M_S_' + samples + '_' + val.testForCode + '" value="' + val.testForCode + '">&nbsp;<label>' + val.testForName + '</label></div>';
+                var option = '<div class="form-group col-md-6 col-sm-6 col-xs-6"><input type="checkbox" class="minimal" data-name="Sample - Test Type" name="TestFor_M_S_' + samples + '_' + val.testForCode + '_' + val.commentRequired + '" value="' + val.testForCode + '">&nbsp;<label>' + val.testForName + '</label></div>';
                 nxtTF.append($(option));
             });
             nxtTF.find("input[type='checkbox']").iCheck({
@@ -478,7 +460,7 @@ function loadPathogens(e, f) {
         var count = 0;
         $.each(arr[0].testFors, function (key, val) {
             count++;
-            var option = '<div class="form-group col-md-6 col-sm-6 col-xs-6"><input type="checkbox" class="minimal" data-name="Sample - Test Type" name="TestFor_M_S_' + samples + '_' + val.testForCode + '" value="' + val.testForCode + '">&nbsp;<label>' + val.testForName + '</label></div>';
+            var option = '<div class="form-group col-md-6 col-sm-6 col-xs-6"><input type="checkbox" class="minimal" data-name="Sample - Test Type" name="TestFor_M_S_' + samples + '_' + val.testForCode + '_' + val.commentRequired + '" value="' + val.testForCode + '_' + val.commentRequired + '">&nbsp;<label>' + val.testForName + '</label></div>';
             nxtTF.append($(option));
         });
         nxtTF.find("input[type='checkbox']").iCheck({
@@ -645,7 +627,7 @@ function loadCommonNameData(d, e) {
                 });
                 $.each(arr1[0].testFors, function (key2, val2) {
                     count++;
-                    var option = '<div class="form-group col-md-6 col-sm-6 col-xs-6"><input type="checkbox" class="minimal" data-name="Sample - Test Type" name="PTestFor_M_S_' + samples + '_' + val2.testForCode + '">&nbsp;<label>' + val2.testForName + '</label></div>';
+                    var option = '<div class="form-group col-md-6 col-sm-6 col-xs-6"><input type="checkbox" class="minimal" data-name="Sample - Test Type" name="PTestFor_M_S_' + samples + '_' + val2.testForCode + '_' + val2.commentRequired + '">&nbsp;<label>' + val2.testForName + '</label></div>';
                     divTestTypes.append($(option));
                 });
                 //Check the default pathogens
@@ -2390,6 +2372,40 @@ function IterateAH(data) {
                 if ($('.syndromeY').length === 0 && syndromeFlag === 1) {
                     vError = 1;
                     vErrDescription.push("Minimum one syndrome expected.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'SampleFieldLabelText') {
+                if ($("input[name*='TestFor_M_S_" + fnum + "_']:checked").length === 0) {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + "Minimum of one Pathogen/TestType should be selected per sample.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'TestFor') {
+                var commentsFlag = index.split("_")[5];
+                if (commentsFlag === 'Y' && $("textarea[name*='AdditionalComments_O_S_" + fnum + "_']").val() === '') {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + "Comments are mandatory for the selected Pathogen/TestType.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'PSampleFieldLabelText') {
+                if ($("input[name*='PTestFor_M_S_" + fnum + "_']:checked").length === 0) {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + "Minimum of one Pathogen/TestType should be selected per sample.");
+                    vFailed = true;
+                    return false;
+                }
+            }
+            if (fname === 'PTestFor') {
+                var commentsFlag = index.split("_")[5];
+                if (commentsFlag === 'Y' && $("textarea[name*='PAdditionalComments_O_S_" + fnum + "_']").val() === '') {
+                    vError = 1;
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + "Comments are mandatory for the selected Pathogen/TestType.");
                     vFailed = true;
                     return false;
                 }
