@@ -13,7 +13,7 @@
         document.addEventListener('resume', onResume.bind(this), false);
         FastClick.attach(document.body);
         var appVer = document.getElementById('AppVersion');
-        appVer.innerHTML = 'Version 1.2.8';
+        appVer.innerHTML = 'Version 1.2.9';
         document.addEventListener('deviceready', initLoad, false);
         document.addEventListener( 'resume', onResume.bind( this ), false );
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.

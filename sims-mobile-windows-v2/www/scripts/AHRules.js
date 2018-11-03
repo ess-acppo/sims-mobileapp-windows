@@ -632,8 +632,8 @@ function loadCommonNameData(d, e) {
                 });
                 //Check the default pathogens
                 $.each(val.testFors, function (key3, val3) {
-                    divTestTypes.find('input[type="checkbox"][name="PTestFor_M_S_' + samples + '_' + val3 + '"].minimal').iCheck('check');
-                    divTestTypes.find('input[type="checkbox"][name="PTestFor_M_S_' + samples + '_' + val3 + '"].minimal').val("Y");
+                    divTestTypes.find('input[type="checkbox"][name^="PTestFor_M_S_' + samples + '_' + val3 + '_"].minimal').iCheck('check');
+                    divTestTypes.find('input[type="checkbox"][name^="PTestFor_M_S_' + samples + '_' + val3 + '_"].minimal').val("Y");
                 });
                 divTestTypes.find("input[type='checkbox'].minimal:not([value='Y'])").val("N");
                 that2.addClass('preSelectedSample');
@@ -1997,6 +1997,7 @@ function objectifyAHFormforSubmit(data) {//serialize data function
     $.each(jsonData.feralAnimalObservation, function (i, item) {
         if (item.samples.sample.length === 0) { delete item.samples; }
         if (item.postMortem.postMortemConducted === 'N') { delete item.postMortem.postMortemBodySystems; }
+        if (item.animalCondition.wound.woundsPresent === 'N') { delete item.animalCondition.wound.maggotsPresent; }
         if (item.attachments.attachment.length === 0) { delete item.attachments; }
         if (item.samples) {
             $.each(item.samples.sample, function (j, itemx) {
@@ -2388,7 +2389,7 @@ function IterateAH(data) {
                 var commentsFlag = index.split("_")[5];
                 if (commentsFlag === 'Y' && $("textarea[name*='AdditionalComments_O_S_" + fnum + "_']").val() === '') {
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + "Comments are mandatory for the selected Pathogen/TestType.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='AdditionalComments_O_S_" + fnum + "_S' data-k='S' data-l='" + fnum + "'>Go</a>" + "Comments are mandatory for the selected Pathogen/TestType.");
                     vFailed = true;
                     return false;
                 }
@@ -2405,7 +2406,7 @@ function IterateAH(data) {
                 var commentsFlag = index.split("_")[5];
                 if (commentsFlag === 'Y' && $("textarea[name*='PAdditionalComments_O_S_" + fnum + "_']").val() === '') {
                     vError = 1;
-                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + "Comments are mandatory for the selected Pathogen/TestType.");
+                    vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='AdditionalComments_O_S_" + fnum + "_S' data-k='S' data-l='" + fnum + "'>Go</a>" + "Comments are mandatory for the selected Pathogen/TestType.");
                     vFailed = true;
                     return false;
                 }
