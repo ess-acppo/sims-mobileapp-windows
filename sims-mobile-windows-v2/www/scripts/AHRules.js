@@ -2963,22 +2963,20 @@ $(document).on('blur', 'input.percentCal', function (e) {
     var totalNum = $("#form1").find("input[name='totalNumber_M_N']").val();
     var pc = Math.round(Number(that.val()) / Number(totalNum) * 100);
     that.parent().next('div').find('.targetPcnt').val(pc);
-
-    var diff; var diff1;
-    diff = Number($("input[name='totalNumber_M_N']").val()) - Number($("input[name='maleNumber_M_N_0_2']").val()) - Number($("input[name='femaleNumber_M_N_0_2']").val());
-    diff1 = Number($("input[name='totalNumber_M_N']").val()) - Number($("input[name='adultNumber_M_N_0_2']").val()) - Number($("input[name='juvNumber_M_N_0_2']").val());
-    if (diff < 0 || diff1 < 0) {
-        $.growl.error({ title: "", message: "Invalid value.", location: "tc", size: "large" });
-        e.preventDefault();
-    }
-    else {
-        $("input[name='gunkNumber_M_N_0_2']").val(Number($("input[name='totalNumber_M_N']").val()) - Number($("input[name='maleNumber_M_N_0_2']").val()) - Number($("input[name='femaleNumber_M_N_0_2']").val()));
-        $("input[name='gunkPercent_O_N_0_2']").val(Math.round(Number($("input[name='gunkNumber_M_N_0_2']").val()) / Number(totalNum) * 100));
-        $("input[name='aunkNumber_M_N_0_2']").val(Number($("input[name='totalNumber_M_N']").val()) - Number($("input[name='adultNumber_M_N_0_2']").val()) - Number($("input[name='juvNumber_M_N_0_2']").val()));
-        $("input[name='aunkPercent_O_N_0_2']").val(Math.round(Number($("input[name='aunkNumber_M_N_0_2']").val()) / Number(totalNum) * 100));
-        $("input[name='woundsPercent_O_N_0_2']").val(Math.round(Number($("input[name='woundsCount_M_N_0_2']").val()) / Number(totalNum) * 100));
-        $("input[name^='YSyndromesPercent_O_N']").val(Math.round(Number($("input[name^='YSyndromesCount_M_N']").val()) / Number(totalNum) * 100));
-    }
+    //var diff; var diff1;
+    //diff = Number($("input[name='totalNumber_M_N']").val()) - Number($("input[name='maleNumber_M_N_0_2']").val()) - Number($("input[name='femaleNumber_M_N_0_2']").val());
+    //diff1 = Number($("input[name='totalNumber_M_N']").val()) - Number($("input[name='adultNumber_M_N_0_2']").val()) - Number($("input[name='juvNumber_M_N_0_2']").val());
+    //if (diff < 0 || diff1 < 0) {
+    //    $.growl.notice({ title: "", message: "Invalid value.", location: "bc", size: "small" });
+    //    //e.preventDefault();
+    //}
+    //else {}
+    $("input[name='gunkNumber_M_N_0_2']").val(Number($("input[name='totalNumber_M_N']").val()) - Number($("input[name='maleNumber_M_N_0_2']").val()) - Number($("input[name='femaleNumber_M_N_0_2']").val()));
+    $("input[name='gunkPercent_O_N_0_2']").val(Math.round(Number($("input[name='gunkNumber_M_N_0_2']").val()) / Number(totalNum) * 100));
+    $("input[name='aunkNumber_M_N_0_2']").val(Number($("input[name='totalNumber_M_N']").val()) - Number($("input[name='adultNumber_M_N_0_2']").val()) - Number($("input[name='juvNumber_M_N_0_2']").val()));
+    $("input[name='aunkPercent_O_N_0_2']").val(Math.round(Number($("input[name='aunkNumber_M_N_0_2']").val()) / Number(totalNum) * 100));
+    $("input[name='woundsPercent_O_N_0_2']").val(Math.round(Number($("input[name='woundsCount_M_N_0_2']").val()) / Number(totalNum) * 100));
+    $("input[name^='YSyndromesPercent_O_N']").val(Math.round(Number($("input[name^='YSyndromesCount_M_N']").val()) / Number(totalNum) * 100));
 });
 
 $(document).on('blur', 'input.totalNumber', function (e) {
