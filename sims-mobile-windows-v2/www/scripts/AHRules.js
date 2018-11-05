@@ -339,8 +339,8 @@ $(document).on('change', 'select[id="commonName"]', function () {
                     });
                     //Check the default pathogens
                     $.each(val.testFors, function (key3, val3) {
-                        divTestTypes.find('input[type="checkbox"][name="PTestFor_M_S_' + samples + '_' + val3 + '"].minimal').iCheck('check');
-                        divTestTypes.find('input[type="checkbox"][name="PTestFor_M_S_' + samples + '_' + val3 + '"].minimal').val("Y");
+                        divTestTypes.find('input[type="checkbox"][name^="PTestFor_M_S_' + samples + '_' + val3 + '_"].minimal').iCheck('check');
+                        divTestTypes.find('input[type="checkbox"][name^="PTestFor_M_S_' + samples + '_' + val3 + '_"].minimal').val("Y");
                     });
                     divTestTypes.find("input[type='checkbox'].minimal:not([value='Y'])").val("N");
                     that2.addClass('preSelectedSample');
@@ -1591,7 +1591,7 @@ function objectifyAHFormforSave(formArray) {
 }
 function packageAHFormforSubmit(data) {
     var modData = JSON.parse(JSON.stringify(data));
-    var feralAnimalObservations = { "activityId": "", "SiteId": "", "submittedBy": "", "feralAnimalObservation": [] };
+    var feralAnimalObservations = { "activityId": "", "siteId": "", "submittedBy": "", "feralAnimalObservation": [] };
     var animalGroupObservations = { "animalGroupObservation": [] };
     var observation = { "samples": { "sample": [] }, "attachments": { "attachment": [] } };
     var locationDatum = { "srsName": "", "wkt": "" };
@@ -1638,8 +1638,8 @@ function packageAHFormforSubmit(data) {
             if (fname === 'AnimalDisciplineCode') { discipline = value; return true; }
             if (fname === 'activityId' && discipline === "SF") { feralAnimalObservations.activityId = value; return true; }
             if (fname === 'activityId' && discipline === "G") { observation['activityId'] = value; return true; }
-            if (fname === 'SiteId' && discipline === "SF") { feralAnimalObservations.SiteId = value; return true; }
-            if (fname === 'SiteId' && discipline === "G") { observation['SiteId'] = value; return true; }
+            if (fname === 'SiteId' && discipline === "SF") { feralAnimalObservations.siteId = value; return true; }
+            if (fname === 'SiteId' && discipline === "G") { observation['siteId'] = value; return true; }
             if (fname === 'submittedBy' && discipline === "SF") { feralAnimalObservations.submittedBy = { "id": value.toString() }; return true; }
             if (fname === 'submittedBy' && discipline === "G") { observation['submittedBy'] = { "id": value.toString() }; return true; }
 
@@ -1655,7 +1655,7 @@ function packageAHFormforSubmit(data) {
             if (fname === 'ObservationStaffId') { observation['observer'] = { "id": value.toString() }; return true; }
 
             /* group animal stuff */
-            if (fname === 'managementType') { observation['managementType'] = value; return true; }
+            //if (fname === 'managementType') { observation['managementType'] = value; return true; }
             if (fname === 'totalNumber') { observation['totalNumber'] = value; return true; }
             if (fname === 'obsProximity') { observation['obsProximity'] = value; return true; }
             if (fname === 'optSyndromes') { return true; }
@@ -1689,8 +1689,8 @@ function packageAHFormforSubmit(data) {
             if (fname === 'aunkPercent') { return true; }
 
             if (fname === 'maleNumber') {
-                var gcc = { "genderClass": "", "estimatedCount": 0 };
-                gcc.genderClass = "M";
+                var gcc = { "gender": "", "estimatedCount": 0 };
+                gcc.gender = "M";
                 gcc.estimatedCount = value;
                 genderCountChoice.push(gcc);
                 return true;
@@ -1698,8 +1698,8 @@ function packageAHFormforSubmit(data) {
             if (fname === 'malePercent') { return true; }
 
             if (fname === 'femaleNumber') {
-                var gcc = { "genderClass": "", "estimatedCount": 0 };
-                gcc.genderClass = "F";
+                var gcc = { "gender": "", "estimatedCount": 0 };
+                gcc.gender = "F";
                 gcc.estimatedCount = value;
                 genderCountChoice.push(gcc);
                 return true;
@@ -1707,8 +1707,8 @@ function packageAHFormforSubmit(data) {
             if (fname === 'femalePercent') { return true; }
 
             if (fname === 'gunkNumber') {
-                var gcc = { "genderClass": "", "estimatedCount": 0 };
-                gcc.genderClass = "U";
+                var gcc = { "gender": "", "estimatedCount": 0 };
+                gcc.gender = "U";
                 gcc.estimatedCount = value;
                 genderCountChoice.push(gcc);
                 observation['genderCountChoice'] = genderCountChoice;
@@ -1998,12 +1998,16 @@ function objectifyAHFormforSubmit(data) {//serialize data function
         if (item.samples.sample.length === 0) { delete item.samples; }
         if (item.postMortem.postMortemConducted === 'N') { delete item.postMortem.postMortemBodySystems; }
         if (item.animalCondition.wound.woundsPresent === 'N') { delete item.animalCondition.wound.maggotsPresent; }
-        if (item.attachments.attachment.length === 0) { delete item.attachments; }
+        if (item.attachments && item.attachments.attachment.length === 0) { delete item.attachments; }
         if (item.samples) {
             $.each(item.samples.sample, function (j, itemx) {
                 if (itemx.attachments.attachment.length === 0) { delete itemx.attachments; }
             });
         }
+    });
+    $.each(jsonData.animalGroupObservation, function (i, item) {
+        if (item.woundCountChoice.woundsPresent === 'N') { item.woundCountChoice.estimatedCount = 0; }
+        if (item.attachments && item.attachments.attachment.length === 0) { delete item.attachments; }
     });
     CleanUp(jsonData);
     delete jsonData.status;
@@ -2110,6 +2114,10 @@ function preValidateAH() {
         var fnum = v.name.split("_")[3];
         var ftype = v.name.split("_")[4];
         if (v.value === "" || v.value === 0) {
+            if (fname === 'adultNumber' && v.value === 0) { return true; }
+            if (fname === 'juvNumber' && v.value === 0) { return true; }
+            if (fname === 'maleNumber' && v.value === 0) { return true; }
+            if (fname === 'femaleNumber' && v.value === 0) { return true; }
             if (fname === 'status') return true;
             if (fname === 'aunkNumber') return true;
             if (fname === 'gunkNumber') return true;
@@ -2363,7 +2371,7 @@ function IterateAH(data) {
                 syndromesFlag = 0;
                 return true;
             }
-            if (fname === 'additionalObservations' && syndromeFlag === 1 && value === '') {
+            if (fname === 'additionalObservations' && (syndromeFlag === 1 || woundsFlag === 1 ) && value === '') {
                 vError = 1;
                 vErrDescription.push("<a href='#' class='btn btn-sm btn-default ripple btnErrorAH' data-j='" + index + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + index + '"]').data("name") + " field cannot be empty.");
                 vFailed = true;
@@ -2446,6 +2454,10 @@ function IterateAH(data) {
                 return false;
             }
             if (fMOC === 'M' && fNSD === 'N' && value === 0) {
+                if (fname === 'adultNumber' && value === 0) { return true; }
+                if (fname === 'juvNumber' && value === 0) { return true; }
+                if (fname === 'maleNumber' && value === 0) { return true; }
+                if (fname === 'femaleNumber' && value === 0) { return true; }
                 if (fname === 'status') return true;
                 if (fname === 'aunkNumber') return true;
                 if (fname === 'gunkNumber') return true;
@@ -2704,6 +2716,10 @@ function Iterate2AH(data) {
                 return false;
             }
             if (fMOC === 'M' && fNSD === 'N' && value === 0) {
+                if (fname === 'adultNumber' && value === 0) { return true; }
+                if (fname === 'juvNumber' && value === 0) { return true; }
+                if (fname === 'maleNumber' && value === 0) { return true; }
+                if (fname === 'femaleNumber' && value === 0) { return true; }
                 if (fname === 'status') return true;
                 if (fname === 'aunkNumber') return true;
                 if (fname === 'gunkNumber') return true;
