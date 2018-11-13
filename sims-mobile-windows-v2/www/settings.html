@@ -11,9 +11,6 @@
                 <li class="ripple">
                     <a href="#tab_MS" data-toggle="tab"><i class="fa fa-map mxr-5"></i>Maps</a>
                 </li>
-                <!--<li class="ripple">
-                    <a href="#tab_SR" data-toggle="tab"><i class="fa fa-server mxr-5"></i>Server</a>
-                </li>-->
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_AS">
@@ -136,39 +133,68 @@
                 <div class="tab-pane" id="tab_MS">
                     <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
                         <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                            Base Maps
-                            <br />Last downloaded on:&nbsp;<label class="mapBNotes text-sm">09/09/1900</label>
+                            <h5>Start Zoom</h5>
+                            <small>Set the start zoom for the maps.</small>
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                            <a href="#" class="btn btn-sm btn-default ripple downloadBaseMaps pull-right"><i class="fa fa-download"></i>&nbsp;Download</a><br /><br />
+                            <select class="form-control" name="startZoom">
+                                <option value=6>6</option>
+                                <option value=7>7</option>
+                                <option value=8>8</option>
+                                <option value=9>9</option>
+                                <option value=10>10</option>
+                                <option value=11>11</option>
+                                <option value=12>12</option>
+                                <option value=13>13</option>
+                                <option value=14>14</option>
+                                <option value=15>15</option>
+                                <option value=16>16</option>
+                                <option value=17>17</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm activityMaps">
+                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
                         <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                            <h5>End Zoom</h5>
+                            <small>Set the end zoom for the maps.</small>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                            <select class="form-control" name="endZoom">
+                                <option value=7>7</option>
+                                <option value=8>8</option>
+                                <option value=9>9</option>
+                                <option value=10>10</option>
+                                <option value=11>11</option>
+                                <option value=12>12</option>
+                                <option value=13>13</option>
+                                <option value=14>14</option>
+                                <option value=15>15</option>
+                                <option value=16>16</option>
+                                <option value=17>17</option>
+                                <option value=18>18</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                            <h5>Base Maps</h5>
+                            Last downloaded on:&nbsp;<label class="mapBNotes text-sm">09/09/1900</label>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                            <a href="#" class="btn btn-sm btn-default ripple downloadBaseMaps"><i class="fa fa-download"></i>&nbsp;Download</a><br /><br />
+                        </div>
+                    </div>
+                    <div class="row col-md-12 col-sm-12 col-xs-12 obsForm activityMaps">
+                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                            <h5>Current Activity Maps</h5>
                             <select class="form-control" id="curActivities"></select><br />
                             Last downloaded on:&nbsp;<label class="mapNotes text-sm">09/09/1900</label>
                         </div>
                         <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                            <a href="#" class="btn btn-sm btn-default ripple downloadMaps pull-right"><i class="fa fa-download"></i>&nbsp;Download</a><br /><br />
+                            <a href="#" class="btn btn-sm btn-default ripple downloadMaps"><i class="fa fa-download"></i>&nbsp;Download</a><br /><br />
                         </div>
                     </div>
                 </div>
-                <!--<div class="tab-pane" id="tab_SR">
-                    <div class="row col-md-12 col-sm-12 col-xs-12 border-bottom obsForm">
-                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                            <h5>Server Mode</h5>
-                            <small>Point the app to one of these servers: DEV, SIT, UAT or PROD</small>
-                        </div>
-                        <div class="form-group col-md-6 col-sm-6 col-xs-6">
-                            <select class="form-control pull-right" id="serverMode">
-                                <option value=PROD>Production</option>
-                                <option value=UAT>UAT</option>
-                                <option value=SIT>SIT</option>
-                                <option value=DEV>Development</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>-->
             </div>
         </div>
     </div>

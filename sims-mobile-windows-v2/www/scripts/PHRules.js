@@ -29,7 +29,6 @@ var programId;
 var taxaData;
 var taxaBotEnt;
 var taxaBotPath;
-var t0 = 0, t1 = 0, t3 = 0;
 var lastSiteValue;
 var lastSurvActValue;
 var numPlants = 0;
@@ -326,7 +325,6 @@ function getNextID(e) {
     });
 }
 function loadModal(pagename) {
-    var t0, t1;
     var x = 0;
     var y = 0;
     $.ajax({
@@ -334,14 +332,11 @@ function loadModal(pagename) {
         beforeSend: function (xhr) {
             $('#modalProgress').modal();
             $('#mb6 .progText').text("Loading ...");
-            $('#mb6 .progress').addClass('hide');
-            $('#mb6 .fa-clock-o').addClass('hide');
             $('#mb').empty();
             $('#mt').empty();
             $('#mt2').empty();
             $(document).find('script[id="pageScript"]').remove();
             $('#mb').load(pagename + '.html');
-            t0 = performance.now();
             bsamples = 0;
             esamples = 0;
             psamples = 0;
@@ -964,8 +959,6 @@ function loadModal(pagename) {
         }, 300);
     }).done(function () {
         $('#modalProgress').modal('hide');
-        t1 = performance.now();
-        $('#perfTime').html("<i class='fa fa-clock-o text-info'></i>&nbsp;" + Math.round((t1 - t0)) + " ms");
     });
 }
 function objectifyPHFormforSave(formArray) {
@@ -3892,8 +3885,6 @@ function DisableFormPH() {
     $('#newObservationPH').addClass('disabled');
 
     $('#mb6 .progText').text("Sync in progress ...");
-    $('#mb6 .progress').addClass('hide');
-    $('#mb6 .fa-clock-o').addClass('hide');
     $('#modalProgress').modal();
     setTimeout(StartSyncPH, 1000);
 }
@@ -4043,5 +4034,4 @@ function EnableFormPH() {
     $('#newObservationPH').attr('disabled', false);
     $('#newObservationPH').removeClass('disabled');
     $('#mb6 .progText').text("");
-    $('#modalProgress').modal('hide');
 }

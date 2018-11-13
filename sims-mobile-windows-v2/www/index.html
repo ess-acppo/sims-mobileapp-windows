@@ -85,8 +85,8 @@
                                     <th>AnimalID</th>
                                     <th>Date</th>
                                     <th>Location</th>
-                                    <th>Datum</th>
-                                    <th>Status</th>
+                                    <th>Comments</th>
+                                    <th>&nbsp;</th>
                                 </tr>
                             </thead>
                         </table>
@@ -159,7 +159,7 @@
                                     <th>Waypoint</th>
                                     <th>Location</th>
                                     <th>Datum</th>
-                                    <th>Status</th>
+                                    <th>&nbsp;</th>
                                 </tr>
                             </thead>
                         </table>
@@ -417,7 +417,8 @@
                 <div class="modal-body" id="mb5" style="overflow-x:hidden">
                 </div>
                 <div class="modal-footer" style="padding-bottom:20px;">
-                    <button type="button" class="btn btn-md ripple btn-default" id="SaveSettingsExit"><i class="fa fa-save"></i>&nbsp;Save</button>
+                    <button type="button" class="btn btn-md ripple btn-default" id="SaveSettings"><i class="fa fa-save"></i>&nbsp;Save</button>
+                    <button type="button" class="btn btn-md ripple btn-default" id="SaveSettingsExit"><i class="fa fa-save"></i>&nbsp;Save'Exit</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -426,22 +427,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body" id="mb8">
-                    <div class="row col-md-12 col-sm-12 col-xs-12 mt-5">
+                    <div class="row col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px;">
                         <div class="form-group col-md-3 col-sm-3 col-xs-3 text-center">
                             <i class="fa fa-circle-o-notch fa-3x fa-spin text-info"></i>
+                            <i class="fa fa-check-circle-o fa-3x text-success hide"></i>
                         </div>
                         <div class="form-group col-md-9 col-sm-9 col-xs-9">
-                            <span class="progText">Loading...</span>
-                        </div>
-                    </div>
-                    <div class="row col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
-                                    0%
-                                </div>
-                            </div>
-                            <i class="fa fa-clock-o text-info hide"></i>&nbsp;<small class="progTime hide"></small>
+                            <span class="progText">Loading...</span><br /><br />
+                            <button class="btn btn-sm btn-info hide closeDownload pull-right" id="closeDownload">Close</button>
                         </div>
                     </div>
                 </div>
@@ -452,22 +445,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body" id="mb6">
-                    <div class="row col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px;">
+                    <div class="row col-md-12 col-sm-12 col-xs-12" style="margin-top: 20px;">
                         <div class="form-group col-md-3 col-sm-3 col-xs-3 text-center">
                             <i class="fa fa-circle-o-notch fa-3x fa-spin text-info"></i>
+                            <i class="fa fa-check-circle-o fa-3x text-success hide"></i>
                         </div>
                         <div class="form-group col-md-9 col-sm-9 col-xs-9">
-                            <span class="progText">Loading...</span>
-                        </div>
-                    </div>
-                    <div class="row col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
-                                    0%
-                                </div>
-                            </div>
-                            <i class="fa fa-clock-o text-info hide"></i>&nbsp;<small class="progTime hide"></small>
+                            <span class="progText">Loading...</span><br /><br />
+                            <button class="btn btn-sm btn-info hide closeProgress pull-right" id="closeProgress">Close</button>
                         </div>
                     </div>
                 </div>
