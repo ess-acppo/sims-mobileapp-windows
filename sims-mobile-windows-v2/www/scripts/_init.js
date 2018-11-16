@@ -1831,13 +1831,26 @@ $(document).on('hidden.bs.modal', '#modalPHGrid', function () {
 $(document).on('hidden.bs.modal', '#modalAHGrid', function () {
     table.destroy();
 });
-$(document).on('hidden.bs.modal', '#modalForm', function () {
+$(document).on('hidden.bs.modal', '#modalForm', function (e) {
+    if (newMarker && (curIdx === -1 || curIdx === -2)) {
+        newMarker.setMap(null);
+    }
     clearMarkers();
     if (AppMode === "PH") {
         loadMapMarkers();
     }
     if (AppMode === "AH") {
         loadMapMarkersAH();
+    }
+});
+$(document).on('hidden.bs.modal', '#modalPHMenu', function () {
+    if (newMarker && (curIdx === -1 || curIdx === -2)) {
+        newMarker.setMap(null);
+    }
+});
+$(document).on('hidden.bs.modal', '#modalAHMenu', function () {
+    if (newMarker && (curIdx === -1 || curIdx === -2)) {
+        newMarker.setMap(null);
     }
 });
 $(document).on('click', 'a.btnResetData', function (e) {
@@ -2091,21 +2104,6 @@ $(document).on('click', '#showFormAH', function (e) {
         loadModalAH(formName);
         $('#modalForm').modal();
         $('#modalAHMenu').modal('hide');
-    }
-});
-$(document).on('hidden.bs.modal', '#modalForm', function () {
-    if (newMarker && (curIdx === -1 || curIdx === -2)) {
-        newMarker.setMap(null);
-    }
-});
-$(document).on('hidden.bs.modal', '#modalPHMenu', function () {
-    if (newMarker && (curIdx === -1 || curIdx === -2)) {
-        newMarker.setMap(null);
-    }
-});
-$(document).on('hidden.bs.modal', '#modalAHMenu', function () {
-    if (newMarker && (curIdx === -1 || curIdx === -2)) {
-        newMarker.setMap(null);
     }
 });
 $(document).on('change', 'input:checkbox', function (e) {
