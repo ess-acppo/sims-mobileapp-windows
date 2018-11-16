@@ -53,7 +53,6 @@ var numSampleAttachments = 0;
 var downerId;
 var downerTeam;
 var TILE_SIZE = 256;
-var tiles = 0;
 var minX;
 var minY;
 var maxX;
@@ -86,6 +85,7 @@ var paths = [];
 var trackPath;
 var myPos;
 var downloadDone = 0;
+var boundaryCorr = 0.003;
 /* Framework Variables */
 
 /* Core Framework Code */
@@ -640,11 +640,13 @@ function initSettings() {
             }
             loadstaffData();
             loadSitePolygons();
-            if (resSettings.settings.mapSets[0].curActivity > 0) getCurrentActivityBounds(resSettings.settings.mapSets[0].curActivity);
-            if (cX && cY) {
-                var yLatLng = new google.maps.LatLng(cX, cY);
-                map.setZoom(8);
-                map.setCenter(yLatLng);
+            if (resSettings.settings.mapSets[0].curActivity > 0) {
+                getCurrentActivityBounds(resSettings.settings.mapSets[0].curActivity);
+                if (cX && cY) {
+                    var yLatLng = new google.maps.LatLng(cX, cY);
+                    map.setZoom(8);
+                    map.setCenter(yLatLng);
+                }
             }
             if ($("#modalProgress").data('bs.modal') && $("#modalProgress").data('bs.modal').isShown) { $('#modalProgress').modal('hide'); }
         });
@@ -2136,29 +2138,6 @@ $(document).on('click', '#closeProgress', function (e) {
 $(document).on('click', '#closeDownload', function (e) {
     $('#modalDownload').modal('hide');
 });
-function getMapTiles(zoom) {
-    if (allLats.length > 0 && allLngs.length > 0) {
-        var scale = 1 << zoom;
-        allLats.sort();
-        allLngs.sort();
-        minX = allLats[0];
-        minY = allLngs[0];
-        maxX = allLats[allLats.length - 1];
-        maxY = allLngs[allLngs.length - 1];
-        var minLatLng = new google.maps.LatLng(minX, minY);
-        var maxLatLng = new google.maps.LatLng(maxX, maxY);
-        var wC1 = project(minLatLng);
-        var wC2 = project(maxLatLng);
-        var pC1x = Math.floor(wC1.x * scale / TILE_SIZE);
-        var pC1y = Math.floor(wC1.y * scale / TILE_SIZE);
-        var pC2x = Math.floor(wC2.x * scale / TILE_SIZE);
-        var pC2y = Math.floor(wC2.y * scale / TILE_SIZE);
-        $('#modalDownload').modal();
-        $('#mb8 .progText').text("Download in progress ...");
-        tiles = 0;
-        fetchAndSaveTile(pC1x, pC1y, zoom, pC2x, pC1y, pC2y);
-    }
-}
 /* SprinQ Framework Code */
 
 /* SIMS Framework */
@@ -2807,60 +2786,14 @@ function clearCache(appMode) {
             break;
     }
 }
-function getCurrentActivityTiles(str, zoom) {
-    var AData;
-    if (AppMode === 'PH') { AData = ActivityData; }
-    if (AppMode === 'AH') { AData = ActivityDataAH; }
-    if (Number(str) === 99999) { return true; }
-    curLats = []; curLngs = [];
-    if (AData.activities) {
-        var arr = AData.activities.filter(function (el) {
-            return (el.activityId === Number(str));
-        });
-        if (arr && arr.length > 0) {
-            $.each(arr[0].sites, function (key, val) {
-                var wkt = new Wkt.Wkt();
-                wkt.read(val.locationDatum.wkt);
-                wkt.toObject();
-                for (var k = 0; k < wkt.toJson().coordinates[0].length; k++) {
-                    curLats.push(wkt.toJson().coordinates[0][k][1]);
-                    curLngs.push(wkt.toJson().coordinates[0][k][0]);
-                }
-            });
-            if (curLats.length > 0 && curLngs.length > 0) {
-                var scale = 1 << zoom;
-                cX = curLats[0];
-                cY = curLngs[0];
-                curLats.sort();
-                curLngs.sort();
-                minX = curLats[0] - 0.01;
-                minY = curLngs[0] - 0.01;
-                maxX = curLats[curLats.length - 1] + 0.01;
-                maxY = curLngs[curLngs.length - 1] + 0.01;
-                var minLatLng = new google.maps.LatLng(minX, minY);
-                var maxLatLng = new google.maps.LatLng(maxX, maxY);
-                var wC1 = project(minLatLng);
-                var wC2 = project(maxLatLng);
-                var pC1x = Math.floor(wC1.x * scale / TILE_SIZE);
-                var pC1y = Math.floor(wC1.y * scale / TILE_SIZE);
-                var pC2x = Math.floor(wC2.x * scale / TILE_SIZE);
-                var pC2y = Math.floor(wC2.y * scale / TILE_SIZE);
-                tiles = 0;
-                fetchAndSaveTile(pC1x, pC1y, zoom, pC2x, pC1y, pC2y);
-            }
-        }
-    }
-}
-function getMapBounds() {
-    if (allLats.length > 0 && allLngs.length > 0) {
-        allLats.sort();
-        allLngs.sort();
-        minX = allLats[0];
-        minY = allLngs[0];
-        maxX = allLats[allLats.length - 1];
-        maxY = allLngs[allLngs.length - 1];
-    }
-}
+function getCurrentActivityTiles(str, A, B, startZoom, endZoom) {
+    var scale = 1 << startZoom;
+    var pC1x = Math.floor(A.x * scale / TILE_SIZE);
+    var pC1y = Math.floor(A.y * scale / TILE_SIZE);
+    var pC2x = Math.floor(B.x * scale / TILE_SIZE);
+    var pC2y = Math.floor(B.y * scale / TILE_SIZE);
+    fetchAndSaveTile(pC1x, pC1y, startZoom, endZoom, pC2x, pC1y, pC2y, str, A, B);
+ }
 function getCurrentActivityBounds(str) {
     var AData;
     if (AppMode === 'PH') AData = ActivityData;
@@ -2883,14 +2816,17 @@ function getCurrentActivityBounds(str) {
         if (curLats.length > 0 && curLngs.length > 0) {
             cX = curLats[0];
             cY = curLngs[0];
-            curLats.sort();
-            curLngs.sort();
+            curLats.sort(sortNumber);
+            curLngs.sort(sortNumber);
             minX = curLats[0];
             minY = curLngs[0];
             maxX = curLats[curLats.length - 1];
             maxY = curLngs[curLngs.length - 1];
         }
     }
+}
+function sortNumber(a, b) {
+    return a - b;
 }
 /* SIMS Framework */
 
@@ -3219,7 +3155,8 @@ function logRecord(record) {
 }
 $(document).on('click', 'a.downloadBaseMaps', function (e) {
     var url = resSettings.settings.mapSets[0].downloadPath;
-    var numfiles = resSettings.settings.mapSets[0].numfiles;
+    //var numfiles = resSettings.settings.mapSets[0].numfiles;
+    var numfiles = $(this).data("files");
     var mapset = "BASE";
     downloadDone = 0;
     $('#mb8 .progText').text("Download in progress ...");
@@ -3232,69 +3169,103 @@ $(document).on('click', 'a.downloadBaseMaps', function (e) {
 $(document).on('click', 'a.downloadMaps', function (e) {
     var str = $('#curActivities').val();
     if (str === "0") { return true; }
-    downloadDone = 0;
-    $('#mb8 .progText').text("Download in progress ...");
-    $('#mb8 .fa-spin').removeClass('hide');
-    $('#mb8 .fa-check-circle-o').addClass('hide');
-    $('#mb8 .closeDownload').addClass('hide');
-    $('#modalDownload').modal();
-    $.when(getCurrentActivityTiles(str, 11))
-        .then(getCurrentActivityTiles(str, 12))
-        .then(getCurrentActivityTiles(str, 13))
-        .then(getCurrentActivityTiles(str, 14))
-        .then(getCurrentActivityTiles(str, 15))
-        .then(getCurrentActivityTiles(str, 16))
-        .then(getCurrentActivityTiles(str, 17))
-        .then(getCurrentActivityTiles(str, 18))
-        .done(function () {
-            resSettings.settings.mapSets[0].lastDownloadDate = new Date().toString();
-            db.transaction(function (tx) {
-                tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
-                    $('#form3').find('label.mapNotes').text(new Date().toString());
-                });
-            }, function (err) {
-                $.growl({ title: "", message: "An error occured while updating mapsets. " + err.message, location: "tc", size: "large" });
-            });
+    var AData;
+    if (AppMode === 'PH') { AData = ActivityData; }
+    if (AppMode === 'AH') { AData = ActivityDataAH; }
+    if (Number(str) === 99999) { return true; }
+    curLats = []; curLngs = [];
+    if (AData.activities) {
+        var arr = AData.activities.filter(function (el) {
+            return (el.activityId === Number(str));
         });
+        if (arr && arr.length > 0) {
+            $.each(arr[0].sites, function (key, val) {
+                var wkt = new Wkt.Wkt();
+                wkt.read(val.locationDatum.wkt);
+                wkt.toObject();
+                for (var k = 0; k < wkt.toJson().coordinates[0].length; k++) {
+                    curLats.push(wkt.toJson().coordinates[0][k][1]);
+                    curLngs.push(wkt.toJson().coordinates[0][k][0]);
+                }
+            });
+            if (curLats.length > 0 && curLngs.length > 0) {
+                cX = curLats[0];
+                cY = curLngs[0];
+                curLats.sort(sortNumber);
+                curLngs.sort(sortNumber);
+                minX = curLats[0] + 0.004;
+                minY = curLngs[0] - 0.004;
+                maxX = curLats[curLats.length - 1] - 0.004;
+                maxY = curLngs[curLngs.length - 1] + 0.004;
+                if (minX < maxX) {
+                    var xchange = minX;
+                    minX = maxX;
+                    maxX = xchange;
+                }
+                var minLatLng = new google.maps.LatLng(minX, minY);
+                var maxLatLng = new google.maps.LatLng(maxX, maxY);
+                var wC1 = project(minLatLng);
+                var wC2 = project(maxLatLng);
+
+                $('#mb8 .progText').text("Download in progress ...");
+                $('#mb8 .fa-spin').removeClass('hide');
+                $('#mb8 .fa-check-circle-o').addClass('hide');
+                $('#mb8 .closeDownload').addClass('hide');
+                $('#modalDownload').modal();
+                $.when(getCurrentActivityTiles(str, wC1, wC2, 11, 18))
+                    .done(function () {
+                        resSettings.settings.mapSets[0].lastDownloadDate = new Date().toString();
+                        db.transaction(function (tx) {
+                            tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
+                                $('#form3').find('label.mapNotes').text(new Date().toString());
+                            });
+                        }, function (err) {
+                            $.growl({ title: "", message: "An error occured while updating mapsets. " + err.message, location: "tc", size: "large" });
+                        });
+                    });
+            }
+        }
+    }
 });
-function fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit) {
+function fetchAndSaveTile(i, j, startZoom, endZoom, xlimit, ystart, ylimit, str, A, B) {
     window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (fs) {
-        var numtiles = Math.pow(2, zoom);
+        var numtiles = Math.pow(2, startZoom);
         var xhr = new XMLHttpRequest();
-        var url = "http://mt1.google.com/vt/lyrs=y&x=" + i + "&y=" + j + "&z=" + zoom;
+        var url = "http://mt1.google.com/vt/lyrs=y&x=" + i + "&y=" + j + "&z=" + startZoom;
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
         xhr.onloadstart = function () {
-            tiles++;
-            $('#mb8 .progText').text("Download in progress ...");
+            $('#mb8 .progText').text("Zoom " + startZoom + ": Download in progress ...");
         };
         xhr.onloadend = function () {
-            if (downloadDone === 1) {
-                $('#mb8 .progText').text("Download Complete");
-                $('#mb8 .fa-spin').addClass('hide');
-                $('#mb8 .fa-check-circle-o').removeClass('hide');
-                $('#mb8 .closeDownload').removeClass('hide');
-                return false;
-            }
             if (this.status === 200) {
                 var blob = new Blob([this.response], { type: "image/jpeg" });
                 fs.getDirectory("maps", { create: true, exclusive: false }, function (dir0Entry) {
-                    dir0Entry.getDirectory(zoom.toString(), { create: true, exclusive: false }, function (dir2Entry) {
+                    dir0Entry.getDirectory(startZoom.toString(), { create: true, exclusive: false }, function (dir2Entry) {
                         dir2Entry.getDirectory(i.toString(), { create: true, exclusive: false }, function (dir4Entry) {
                             dir4Entry.getFile(j + ".jpg", { create: true, exclusive: false }, function (fileEntry) {
                                 fileEntry.createWriter(function (fileWriter) {
                                     fileWriter.onwriteend = function () {
-                                        if (i <= xlimit) {
-                                            if (j <= ylimit) {
-                                                j++;
-                                                fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit);
+                                        if (startZoom <= endZoom) {
+                                            if (i <= xlimit) {
+                                                if (j <= ylimit) {
+                                                    j++;
+                                                    fetchAndSaveTile(i, j, startZoom, endZoom, xlimit, ystart, ylimit, str, A, B);
+                                                } else {
+                                                    i++;
+                                                    j = ystart;
+                                                    fetchAndSaveTile(i, j, startZoom, endZoom, xlimit, ystart, ylimit, str, A, B);
+                                                }
                                             } else {
-                                                i++;
-                                                j = ystart;
-                                                fetchAndSaveTile(i, j, zoom, xlimit, ystart, ylimit);
+                                                startZoom++;
+                                                getCurrentActivityTiles(str, A, B, startZoom, endZoom);
                                             }
                                         } else {
-                                            downloadDone = 1;
+                                            $('#mb8 .progText').text("Download Complete");
+                                            $('#mb8 .fa-spin').addClass('hide');
+                                            $('#mb8 .fa-check-circle-o').removeClass('hide');
+                                            $('#mb8 .closeDownload').removeClass('hide');
+                                            return false;
                                         }
                                     };
                                     fileWriter.onerror = function (e) {
@@ -3388,7 +3359,7 @@ function removefileWin(filename) {
 function writeFileWin(fileEntry, filename, dataObj, i, n) {
     fileEntry.createWriter(function (fileWriter) {
         fileWriter.onwriteend = function () {
-            $('#mb8 .progText').text("Extracting files. This might take a while ...");
+            //$('#mb8 .progText').text("Extracting files. This might take a while ...");
             setTimeout(processzipWin(fileEntry.toURL(), "maps"), 20000);
         };
         fileWriter.onerror = function (e) {

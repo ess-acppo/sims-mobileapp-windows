@@ -8,7 +8,7 @@
         "emptyTilePath": "maps/empty.jpg",
         "greenTilePath": "maps/green.jpg",
         "downloadPath": "http://dev-sims.oztaxa.com/files/maps/BASE/",
-        "numfiles": 3,
+        "numfiles": 4,
         "startZoom": 6,
         "endZoom": 18,
         "activeFlag": 1,
