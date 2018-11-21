@@ -1089,10 +1089,15 @@ function loadData() {
                 "columns": [
                     { "data": "id_M_N" },
                     {
-                        "data": "AnimalDisciplineCode_M_S",
+                        "data": null,
                         "render": function (data, type, row, meta) {
-                            if (data === 'SF') return "Single Feral";
-                            if (data === 'G') return "Group";
+                            var returnStr = "&nbsp;";
+                            if (data["AnimalAttachmentD_M_S_0_A"] && data["AnimalAttachmentD_M_S_0_A"] !== "") {
+                                returnStr = "<i class='fa fa-paperclip text-info'/>&nbsp;";
+                            }
+                            if (data["AnimalDisciplineCode_M_S"] === 'SF') returnStr = returnStr + "Single Feral";
+                            if (data["AnimalDisciplineCode_M_S"] === 'G') returnStr = returnStr + "Group";
+                            return returnStr;
                         }
                     },
                     {
@@ -1131,10 +1136,12 @@ function loadData() {
                         }
                     },
                     {
-                        "data": "status_M_N",
+                        "data": null,
                         "render": function (data, type, row, meta) {
-                            if (data === 0) return "<i class='fa fa-save text-info'/>";
-                            if (data === 1) return "<i class='fa fa-check text-success'/>";
+                            var returnStr;
+                            if (data["status_M_N"] === 0) returnStr = "<i class='fa fa-save text-info'/>";
+                            if (data["status_M_N"] === 1) returnStr = "<i class='fa fa-check text-success'/>";
+                            return returnStr;
                         }
                     }
                 ],
@@ -3191,10 +3198,10 @@ $(document).on('click', 'a.downloadMaps', function (e) {
                 cY = curLngs[0];
                 curLats.sort(sortNumber);
                 curLngs.sort(sortNumber);
-                minX = curLats[0] + 0.004;
-                minY = curLngs[0] - 0.004;
-                maxX = curLats[curLats.length - 1] - 0.004;
-                maxY = curLngs[curLngs.length - 1] + 0.004;
+                minX = curLats[0] + 0.005;
+                minY = curLngs[0] - 0.005;
+                maxX = curLats[curLats.length - 1] - 0.005;
+                maxY = curLngs[curLngs.length - 1] + 0.005;
                 if (minX < maxX) {
                     var xchange = minX;
                     minX = maxX;
@@ -3210,7 +3217,7 @@ $(document).on('click', 'a.downloadMaps', function (e) {
                 $('#mb8 .fa-check-circle-o').addClass('hide');
                 $('#mb8 .closeDownload').addClass('hide');
                 $('#modalDownload').modal();
-                $.when(getCurrentActivityTiles(str, wC1, wC2, 11, 18))
+                $.when(getCurrentActivityTiles(str, wC1, wC2, 12, 18))
                     .done(function () {
                         resSettings.settings.mapSets[0].lastDownloadDate = new Date().toString();
                         db.transaction(function (tx) {

@@ -1376,10 +1376,12 @@ function loadModalAH(pagename) {
                 if (results.observations.length === 0) {
                     $('#form1').find("input[type='number'][name^='id']").val(1);
                 } else { $('#form1').find("input[type='number'][name^='id']").val(results.observations[results.observations.length - 1].id_M_N + 1); }
+                if (curDiscipline === 'G') {
+                    $('#form1').find("input[type='number'][name='animalNumber_M_N']").val(getNextAnimalID(resSettings.settings.device.animalPrefix));
+                }
                 $('#form1').find("input[type='number'][name^='submittedBy_M_N']").val(resSettings.settings.device.ownerId);
                 $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
                 $('#form1').find("input[type='number'][name='status_M_N']").val("0");
-                $('#form1').find("input[type='number'][name='animalNumber_M_N']").val(getNextAnimalID(resSettings.settings.device.animalPrefix));
                 $('#form1').find("input[type='radio'][name='obsProximity_M_S_0_1'][value='AR']").iCheck('check');
                 $('#form1').find("input[type='radio'][name='optSyndromes_M_S_0_2'][value='N']").iCheck('check');
                 $('#form1').find("input[type='radio'][name='woundsPresentG_M_S_0_2'][value='N']").iCheck('check');
@@ -1392,9 +1394,14 @@ function loadModalAH(pagename) {
     }).done(function () {
         reAdjust();
         $('#numSamples').text(samples);
+        if (curDiscipline === 'G') {
+            $('#Save').addClass('hide');
+            $('#SaveExit').addClass('hide');
+        } else {
+            $('#Save').removeClass('hide');
+            $('#SaveExit').removeClass('hide');
+        }
         $('#modalProgress').modal('hide');
-        //$('#Save').addClass('hide');
-        //$('#SaveExit').addClass('hide');
     });
 }
 $(document).on('ifChecked', 'input[type="checkbox"].minimal', function (event) {
@@ -1658,6 +1665,7 @@ function packageAHFormforSubmit(data) {
     var syndromeCnt = 0;
     var discipline = "";
     var PMFlag = 0;
+    var gSyndromeFlag = 0;
     $.each(modData, function (index, value) {
         if (isNaN(index)) {
             var fname = index.split("_")[0];
@@ -1689,7 +1697,7 @@ function packageAHFormforSubmit(data) {
             //if (fname === 'managementType') { observation['managementType'] = value; return true; }
             if (fname === 'totalNumber') { observation['totalNumber'] = value; return true; }
             if (fname === 'obsProximity') { observation['obsProximity'] = value; return true; }
-            if (fname === 'optSyndromes') { return true; }
+            if (fname === 'optSyndromes') { gSyndromeFlag = 1; return true; }
 
             if (fname === 'adultNumber') {
                 var accc = { "ageClass": "", "estimatedCount": 0 };
@@ -2013,6 +2021,7 @@ function packageAHFormforSubmit(data) {
     if (discipline === "G") {
         delete observation.samples;
         if (observation.attachments && observation.attachments.attachment.length === 0) { delete observation.attachments; }
+        if (gSyndromeFlag === 1) { delete observation.syndromeCountChoice; }
         animalGroupObservations.animalGroupObservation.push(observation);
         return animalGroupObservations;
     }
