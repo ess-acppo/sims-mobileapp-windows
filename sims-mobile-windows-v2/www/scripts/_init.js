@@ -946,13 +946,13 @@ function myLoc() {
         navigator.geolocation.getCurrentPosition(function (position) {
             if (AppMode === "PH" && checkMapBoundsByPos(position)) {
                 var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                map.setZoom(resSettings.settings.mapSets[0].startZoom);
+                map.setZoom(Number(resSettings.settings.mapSets[0].startZoom));
                 map.setCenter(pos);
                 placeMarker(pos);
             }
             if (AppMode === "AH") {
                 var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                map.setZoom(resSettings.settings.mapSets[0].startZoom);
+                map.setZoom(Number(resSettings.settings.mapSets[0].startZoom));
                 map.setCenter(pos);
                 placeMarker(pos);
             }
