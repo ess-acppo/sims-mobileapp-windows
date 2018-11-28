@@ -3103,7 +3103,7 @@ function restoreDatabase() {
         if (file) {
             $.confirm({
                 title: 'Confirm Restore!',
-                content: 'Do you want to restore data from this backup?',
+                content: 'Do you want to restore data from this backup? You may lose the observations that were recorded after this backup!',
                 buttons: {
                     Ok: function () {
                         file.copyAsync(Windows.Storage.ApplicationData.current.localFolder, "sims.db", Windows.Storage.NameCollisionOption.replaceExisting).done(function () {

@@ -1378,6 +1378,18 @@ function preValidate() {
             vFailed = true;
             return false;
         }
+        if (fname === 'AltitudeNo' && v.value.toString().indexOf('.') > -1) {
+            vError = 1;
+            vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + v.name + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + v.name + '"]').data("name") + " field is invalid.");
+            vFailed = true;
+            return false;
+        }
+        if (fname === 'CollectedAltitudeNo' && v.value.toString().indexOf('.') > -1) {
+            vError = 1;
+            vErrDescription.push("<a href='#' class='btn btn-sm btn-default btnError' data-j='" + v.name + "' data-k='" + ftype + "' data-l='" + fnum + "'>Go</a>" + $('[name="' + v.name + '"]').data("name") + " field is invalid.");
+            vFailed = true;
+            return false;
+        }
         if ($.isNumeric(v.value) === false) {
             if (fname === 'SiteId') return true;
             if (fname === 'PlantTaxonId') return true;
