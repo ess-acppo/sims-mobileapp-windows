@@ -4046,4 +4046,5 @@ function EnableFormPH() {
     $('#newObservationPH').attr('disabled', false);
     $('#newObservationPH').removeClass('disabled');
     $('#mb6 .progText').text("");
+    $('#modalProgress').modal('hide');
 }
