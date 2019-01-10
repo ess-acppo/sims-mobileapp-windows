@@ -1556,9 +1556,9 @@ $(document).on('click', '#settings', function (e) {
                 $('#form3').find('select[id="curActivities"]').val(resSettings.settings.mapSets[0].curActivity);
                 $('#form3').find('select[id="doTeam"]').find('option').remove().end().append("<option value=NONE>- select -</option><option value=NPH>NPH</option><option value=BPH>BPH</option><option value=IPH>IPH</option>");
                 if (resSettings.settings.device.ownerTeam === "NAF") {
-                    $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append("<option value=NONE>- select -</option>");
+                    //$('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append("<option value=NONE>- select -</option>");
                 } else {
-                    $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData(resSettings.settings.device.ownerTeam))).val(resSettings.settings.device.ownerId);
+                    //$('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData(resSettings.settings.device.ownerTeam))).val(resSettings.settings.device.ownerId);
                     if (resSettings.settings.device.ownerTeam) { $('#form3').find('select[id="doTeam"]').val(resSettings.settings.device.ownerTeam); }
                 }
             }
@@ -1575,9 +1575,9 @@ $(document).on('click', '#settings', function (e) {
                 $('#form3').find('select[id="curActivities"]').val(resSettings.settings.mapSets[0].curActivity);
                 $('#form3').find('select[id="doTeam"]').find('option').remove().end().append("<option value=NONE>- select -</option><option value=NAF>NAF</option>");
                 if (resSettings.settings.device.ownerTeam !== "NAF") {
-                    $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append("<option value=NONE>- select -</option>");
+                    //$('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append("<option value=NONE>- select -</option>");
                 } else {
-                    $('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData(resSettings.settings.device.ownerTeam))).val(resSettings.settings.device.ownerId);
+                    //$('#form3').find('select[id="deviceOwner"]').find('option').remove().end().append($(getStaffData(resSettings.settings.device.ownerTeam))).val(resSettings.settings.device.ownerId);
                     if (resSettings.settings.device.ownerTeam) { $('#form3').find('select[id="doTeam"]').val(resSettings.settings.device.ownerTeam); }
                 }
             }
@@ -1613,9 +1613,9 @@ $(document).on('click', '#SaveSettings', function (e) {
     resSettings.settings.mapSets[0].curActivity = $('#form3').find('select[id="curActivities"]').val();
     if (Number($('#form3').find('select[id="curActivities"]').val()) > 0) { getCurrentActivityBounds($('#form3').find('select[id="curActivities"]').val()); }
     /* Set Device Owner */
-    resSettings.settings.device.ownerId = $('#form3').find('select[id="deviceOwner"]').val();
+    //resSettings.settings.device.ownerId = $('#form3').find('select[id="deviceOwner"]').val();
     resSettings.settings.device.ownerTeam = $('#form3').find('select[id="doTeam"]').val();
-    resSettings.settings.device.ownerName = $('#form3').find('select[id="deviceOwner"]').text();
+    //resSettings.settings.device.ownerName = $('#form3').find('select[id="deviceOwner"]').text();
     if ($('#form3').find('input[id="debugMode"]').val() === 'Y') {
         resSettings.settings.device.debugMode = 1;
         debugMode = 1;
@@ -1651,9 +1651,9 @@ $(document).on('click', '#SaveSettingsExit', function (e) {
     resSettings.settings.mapSets[0].curActivity = $('#form3').find('select[id="curActivities"]').val();
     if (Number($('#form3').find('select[id="curActivities"]').val()) > 0) { getCurrentActivityBounds($('#form3').find('select[id="curActivities"]').val()); }
     /* Set Device Owner */
-    resSettings.settings.device.ownerId = $('#form3').find('select[id="deviceOwner"]').val();
+    //resSettings.settings.device.ownerId = $('#form3').find('select[id="deviceOwner"]').val();
     resSettings.settings.device.ownerTeam = $('#form3').find('select[id="doTeam"]').val();
-    resSettings.settings.device.ownerName = $('#form3').find('select[id="deviceOwner"]').text();
+    //resSettings.settings.device.ownerName = $('#form3').find('select[id="deviceOwner"]').text();
     if ($('#form3').find('input[id="debugMode"]').val() === 'Y') {
         resSettings.settings.device.debugMode = 1;
         debugMode = 1;
@@ -2445,6 +2445,9 @@ function loadstaffData() {
         option1 = option1 + ' value="' + val.id + '">';
         option1 = option1 + val.displayName + "</option>";
         staffData = staffData + option1;
+        if (curUserName.toLowerCase() === val.logonId) {
+            curUserId = val.id;
+        }
     });
     $("#form1").find('select[name^="ObservationStaffId_M_N"]').find('option').remove().end().append($(staffData));
 }
@@ -2529,7 +2532,7 @@ function fetchSettings() {
                 resSettings = JSON.parse(res.rows.item(0).settingsval);
                 AppMode = resSettings.settings.app.appMode;
                 settings.innerHTML = AppMode;
-                downerId = resSettings.settings.device.ownerId;
+                //downerId = resSettings.settings.device.ownerId;
                 downerTeam = resSettings.settings.device.ownerTeam;
                 debugMode = resSettings.settings.device.debugMode;
                 $("#serverMode").val(resSettings.settings.app.serverMode);
@@ -2565,7 +2568,7 @@ function fetchSettings() {
                         });
                         AppMode = resSettings.settings.app.appMode;
                         settings.innerHTML = AppMode;
-                        downerId = resSettings.settings.device.ownerId;
+                        //downerId = resSettings.settings.device.ownerId;
                         downerTeam = resSettings.settings.device.ownerTeam;
                         debugMode = resSettings.settings.device.debugMode;
                         $("#serverMode").val(resSettings.settings.app.serverMode);
@@ -2586,7 +2589,7 @@ function fetchServerDetails(serverMode, appMode) {
     AppMode = resSettings.settings.app.appMode;
     settings.innerHTML = AppMode;
     appEnv.innerHTML = serverMode;
-    downerId = resSettings.settings.device.ownerId;
+    //downerId = resSettings.settings.device.ownerId;
     downerTeam = resSettings.settings.device.ownerTeam;
     debugMode = resSettings.settings.device.debugMode;
     devServerAddress = resSettings.settings.app.devServerAddress;

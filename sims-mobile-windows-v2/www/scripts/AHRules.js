@@ -1350,7 +1350,7 @@ function loadModalAH(pagename) {
                 });
                 $('#form1').find("input[type='number'][name^='id']").val(curIdx);
                 $('#form1').find("input[type='number'][name='status_M_N']").val(curIdx);
-                $('#form1').find("input[type='number'][name^='submittedBy_M_N']").val(resSettings.settings.device.ownerId);
+                $('#form1').find("input[type='number'][name^='submittedBy_M_N']").val(curUserId);
                 $('.nextid').text('');
             }
             else {
@@ -1391,8 +1391,8 @@ function loadModalAH(pagename) {
                 if (curDiscipline === 'SF') {
                     $('#form1').find("input[type='number'][name='animalNumber_M_N']").val(getNextAnimalID(resSettings.settings.device.animalPrefix));
                 }
-                $('#form1').find("input[type='number'][name^='submittedBy_M_N']").val(resSettings.settings.device.ownerId);
-                $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
+                $('#form1').find("input[type='number'][name^='submittedBy_M_N']").val(curUserId);
+                $('#form1').find("select[name^='ObservationStaffId']").val(curUserId);
                 $('#form1').find("input[type='number'][name='status_M_N']").val("0");
                 $('#form1').find("input[type='radio'][name='obsProximity_M_S_0_1'][value='AR']").iCheck('check');
                 $('#form1').find("input[type='radio'][name='optSyndromes_M_S_0_2'][value='N']").iCheck('check');
@@ -1515,12 +1515,12 @@ $(document).on('focus', "#SurvActivityIdAH", function (e) {
         if (that.val() === "0") return;
         if (curDiscipline === "SF" && samples === 0) {
             refreshActivityDataAH(str);
-            $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
+            $('#form1').find("select[name^='ObservationStaffId']").val(curUserId);
             return;
         }
         if (curDiscipline === "G" && samples === 0) {
             refreshActivityDataAH(str);
-            $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
+            $('#form1').find("select[name^='ObservationStaffId']").val(curUserId);
             return;
         }
         $.confirm({
@@ -1539,7 +1539,7 @@ $(document).on('focus', "#SurvActivityIdAH", function (e) {
                     $('#numSamples').text("");
                     $('#numAttachments').text("");
                     refreshActivityDataAH(str);
-                    $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
+                    $('#form1').find("select[name^='ObservationStaffId']").val(curUserId);
                 },
                 cancel: function () {
                     that.val(lastSurvActValue);

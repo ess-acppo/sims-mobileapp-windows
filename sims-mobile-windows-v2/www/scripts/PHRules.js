@@ -909,7 +909,7 @@ function loadModal(pagename) {
                 });
                 $('#form1').find("input[type='text'][name^='id']").val(curIdx);
                 $('#form1').find("input[type='text'][name='TimeHourCount_M_S']").inputmask("99:99");
-                $('#form1').find("input[type='number'][name^='SubmittedByStaffId']").val(resSettings.settings.device.ownerId);
+                $('#form1').find("input[type='number'][name^='SubmittedByStaffId']").val(curUserId);
                 $('.nextid').text('');
                 //console.timeEnd('load Modal');
             }
@@ -950,8 +950,8 @@ function loadModal(pagename) {
                 } else { $('#form1').find("input[type='number'][name^='id']").val(results.observations[results.observations.length - 1].id_M_N + 1); }
                 $('#form1').find("input[type='number'][name^='status']").val("0");
                 $('#form1').find("input[type='text'][name^='PlantDisciplineCode']").val(curDiscipline);
-                $('#form1').find("input[type='number'][name^='SubmittedByStaffId']").val(resSettings.settings.device.ownerId);
-                $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
+                $('#form1').find("input[type='number'][name^='SubmittedByStaffId']").val(curUserId);
+                $('#form1').find("select[name^='ObservationStaffId']").val(curUserId);
                 $('#form1').find("input[type='text'][name='TimeHourCount_M_S']").inputmask("99:99").val("00:10");
                 $('.nextid').text('');
                 //loadSiteData($('#form1').find("select[name='SiteId_O_N']").val());
@@ -1872,7 +1872,7 @@ function SubmitRecord(formArray) {//serialize data function
             "plantHealthObservation": ""
         }
     };
-    formArray["SubmittedByStaffId"] = resSettings.settings.device.ownerId;
+    formArray["SubmittedByStaffId"] = curUserId;
     obsWrapper.body.plantHealthObservation = formArray;
     return obsWrapper;
 }
@@ -3489,19 +3489,19 @@ $(document).on('focus', '#SurvActivityIdPH', function (e) {
         if (curDiscipline === "B" && numPlants === 0 && bsamples === 0) {
             refreshActivityData(str);
             loadstaffData();
-            $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
+            $('#form1').find("select[name^='ObservationStaffId']").val(curUserId);
             return;
         }
         if (curDiscipline === "E" && numEntoHosts === 0 && esamples === 0) {
             refreshActivityData(str);
             loadstaffData();
-            $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
+            $('#form1').find("select[name^='ObservationStaffId']").val(curUserId);
             return;
         }
         if (curDiscipline === "P" && numPathHosts === 0 && psamples === 0) {
             refreshActivityData(str);
             loadstaffData();
-            $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
+            $('#form1').find("select[name^='ObservationStaffId']").val(curUserId);
             return;
         }
         $.confirm({
@@ -3526,7 +3526,7 @@ $(document).on('focus', '#SurvActivityIdPH', function (e) {
                     $('#numAttachments').text("");
                     refreshActivityData(str);
                     loadstaffData();
-                    $('#form1').find("select[name^='ObservationStaffId']").val(resSettings.settings.device.ownerId);
+                    $('#form1').find("select[name^='ObservationStaffId']").val(curUserId);
                 },
                 cancel: function () {
                     that.val(lastSurvActValue);
@@ -3828,10 +3828,10 @@ $(document).on('contextmenu', 'div.entobox', function () {
 $(document).on('contextmenu', 'div.sample', function () {
     $(this).find("[data-action=collapse]").trigger('click');
 });
-$(document).on('change', 'select[id="doTeam"]', function () {
-    var str = $(this).val();
-    $('#deviceOwner').find('option').remove().end().append($(getStaffData(str)));
-});
+//$(document).on('change', 'select[id="doTeam"]', function () {
+//    var str = $(this).val();
+//    $('#deviceOwner').find('option').remove().end().append($(getStaffData(str)));
+//});
 $(document).on('click', 'a.btnError', function (e) {
     e.preventDefault();
     var x = $(this).data("j");
