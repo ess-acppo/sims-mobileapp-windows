@@ -49,6 +49,7 @@
       "devServerAddress": "https://online-dev.agriculture.gov.au/",
       "sitServerAddress": "https://online-sit.agriculture.gov.au/",
       "uatServerAddress": "https://online-uat.agriculture.gov.au/",
+      "preProdServerAddress": "https://online-ppr.agriculture.gov.au/",
       "prodServerAddress": "https://online.agriculture.gov.au/",
       "authAddress": "ords-ext/rest/sims/plant_health/referenceCodes",
       "authAddressAH": "ords-ext/rest/sims/animal/referenceCodes",

@@ -8,6 +8,7 @@ var ServerAddress;
 var devServerAddress;
 var sitServerAddress;
 var uatServerAddress;
+var preProdServerAddress;
 var prodServerAddress;
 var authAddress;
 var ActivityAddress;
@@ -2595,6 +2596,10 @@ function fetchServerDetails(serverMode, appMode) {
     devServerAddress = resSettings.settings.app.devServerAddress;
     sitServerAddress = resSettings.settings.app.sitServerAddress;
     uatServerAddress = resSettings.settings.app.uatServerAddress;
+    if (!resSettings.settings.app.preProdServerAddress) {
+        preProdServerAddress = "https://online-ppr.agriculture.gov.au/";
+        resSettings.settings.app.preProdServerAddress = "https://online-ppr.agriculture.gov.au/";
+    } else { preProdServerAddress = resSettings.settings.app.preProdServerAddress; }   
     prodServerAddress = resSettings.settings.app.prodServerAddress;
     switch (appMode) {
         case "PH":
@@ -2623,6 +2628,17 @@ function fetchServerDetails(serverMode, appMode) {
                     break;
                 case "UAT":
                     ServerAddress = uatServerAddress;
+                    authAddress = ServerAddress + resSettings.settings.app.authAddress;
+                    ActivityAddress = ServerAddress + resSettings.settings.app.activityAddress;
+                    refCodesAddress = ServerAddress + resSettings.settings.app.refCodesAddress;
+                    BPHStaffAddress = ServerAddress + resSettings.settings.app.BPHStaffAddress;
+                    IPHStaffAddress = ServerAddress + resSettings.settings.app.IPHStaffAddress;
+                    NPHStaffAddress = ServerAddress + resSettings.settings.app.NPHStaffAddress;
+                    taxaAddress = ServerAddress + resSettings.settings.app.taxaAddress;
+                    submitPHObsAddress = ServerAddress + resSettings.settings.app.submitPHObsAddress;
+                    break;
+                case "PREPROD":
+                    ServerAddress = preProdServerAddress;
                     authAddress = ServerAddress + resSettings.settings.app.authAddress;
                     ActivityAddress = ServerAddress + resSettings.settings.app.activityAddress;
                     refCodesAddress = ServerAddress + resSettings.settings.app.refCodesAddress;
@@ -2669,6 +2685,16 @@ function fetchServerDetails(serverMode, appMode) {
                     break;
                 case "UAT":
                     ServerAddress = uatServerAddress;
+                    authAddress = ServerAddress + resSettings.settings.app.authAddressAH;
+                    ActivityAddressAH = ServerAddress + resSettings.settings.app.activityAddressAH;
+                    refCodesAddressAH = ServerAddress + resSettings.settings.app.refCodesAddressAH;
+                    NAFStaffAddress = ServerAddress + resSettings.settings.app.NAFStaffAddress;
+                    speciesTaxonSyndromSamplesAddress = ServerAddress + resSettings.settings.app.speciesTaxonSyndromSamplesAddress;
+                    submitAHFAObsAddress = ServerAddress + resSettings.settings.app.submitAHFAObsAddress;
+                    submitAHGObsAddress = ServerAddress + resSettings.settings.app.submitAHGObsAddress;
+                    break;
+                case "PREPROD":
+                    ServerAddress = preProdServerAddress;
                     authAddress = ServerAddress + resSettings.settings.app.authAddressAH;
                     ActivityAddressAH = ServerAddress + resSettings.settings.app.activityAddressAH;
                     refCodesAddressAH = ServerAddress + resSettings.settings.app.refCodesAddressAH;
