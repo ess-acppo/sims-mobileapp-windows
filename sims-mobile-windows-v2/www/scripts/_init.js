@@ -600,7 +600,7 @@ function initSettings() {
                             mm = '0' + mm;
                         }
                         today = dd.toString() + '/' + mm.toString() + '/' + yyyy.toString();
-                        results = JSON.parse(data);
+                        results = data; //JSON.parse(data);
                         db.transaction(function (tx) {
                             tx.executeSql("DELETE FROM observations", [], function (tx, res) {
                                 //alert("Rows deleted.");
@@ -2541,7 +2541,7 @@ function fetchSettings() {
                     url: "data/settings.json",
                     contentType: "json",
                     success: function (dataS) {
-                        resSettings = JSON.parse(dataS);
+                        resSettings = dataS; //JSON.parse(dataS);
                         db.transaction(function (tx) {
                             tx.executeSql("DELETE FROM settings", [], function (tx, res) {
                                 //alert("Rows deleted.");
