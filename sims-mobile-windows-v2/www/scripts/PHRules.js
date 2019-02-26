@@ -844,8 +844,8 @@ function loadModal(pagename) {
                                     //$('div.sample').eq(key1).find("input[type='radio'][name^='" + key2 + "']").val(value2);
                                     $('div.sample').eq(key1).find("select[name^='" + key2 + "']").val(value2);
                                     $('div.sample').eq(key1).find("textarea[name^='" + key2 + "']").val(value2);
-                                    if (key1.startsWith('CollectedAltitudeNo') && value > 0) { $('div.sample').eq(key1).find("input[name='CollectedAltitudeNo_O_N']").val(value); }
-                                    if (key1.startsWith('CollectedAltitudeNo') && value === 0) { $('div.sample').eq(key1).find("input[name='CollectedAltitudeNo_O_N']").val(""); }
+                                    if (key2.startsWith('CollectedAltitudeNo') && value > 0) { $('div.sample').eq(key1).find("input[name='CollectedAltitudeNo_O_N']").val(value); }
+                                    if (key2.startsWith('CollectedAltitudeNo') && value === 0) { $('div.sample').eq(key1).find("input[name='CollectedAltitudeNo_O_N']").val(""); }
                                     if (key2 === "attachments") {
                                         $.each(value2.attachment, function (key3, value3) {
                                             $.ajax({

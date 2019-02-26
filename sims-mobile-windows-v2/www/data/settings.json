@@ -10,7 +10,7 @@
         "downloadPath": "http://dev-sims.oztaxa.com/files/maps/BASE/",
         "numfiles": 4,
         "startZoom": 6,
-        "endZoom": 18,
+        "endZoom": 16,
         "activeFlag": 1,
         "downloaded": 0,
         "lastDownloadBDate": "09/09/1900",

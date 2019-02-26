@@ -3246,7 +3246,12 @@ $(document).on('click', 'a.downloadMaps', function (e) {
                 $('#mb8 .fa-check-circle-o').addClass('hide');
                 $('#mb8 .closeDownload').addClass('hide');
                 $('#modalDownload').modal();
-                $.when(getCurrentActivityTiles(str, wC1, wC2, 12, 18))
+                window.plugins.insomnia.keepAwake();
+                $.when(getCurrentActivityTiles(str, wC1, wC2, 12, 15))
+                    .then(getCurrentActivityTiles(str, wC1, wC2, 15, 16))
+                    .then(getCurrentActivityTiles(str, wC1, wC2, 16, 17))
+                    //.then(getCurrentActivityTiles(str, wC1, wC2, 17, 18))
+                    //.then(getCurrentActivityTiles(str, wC1, wC2, 18, 19))
                     .done(function () {
                         resSettings.settings.mapSets[0].lastDownloadDate = new Date().toString();
                         db.transaction(function (tx) {
@@ -3269,7 +3274,8 @@ function fetchAndSaveTile(i, j, startZoom, endZoom, xlimit, ystart, ylimit, str,
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
         xhr.onloadstart = function () {
-            $('#mb8 .progText').text("Zoom " + startZoom + ": Download in progress ...");
+            //$('#mb8 .progText').text("Zoom " + startZoom + ": Download in progress ...");
+            $('#mb8 .progText').text("Download in progress ...");
         };
         xhr.onloadend = function () {
             if (this.status === 200) {
@@ -3280,7 +3286,7 @@ function fetchAndSaveTile(i, j, startZoom, endZoom, xlimit, ystart, ylimit, str,
                             dir4Entry.getFile(j + ".jpg", { create: true, exclusive: false }, function (fileEntry) {
                                 fileEntry.createWriter(function (fileWriter) {
                                     fileWriter.onwriteend = function () {
-                                        if (startZoom <= endZoom) {
+                                        if (startZoom < endZoom) {
                                             if (i <= xlimit) {
                                                 if (j <= ylimit) {
                                                     j++;
@@ -3292,14 +3298,16 @@ function fetchAndSaveTile(i, j, startZoom, endZoom, xlimit, ystart, ylimit, str,
                                                 }
                                             } else {
                                                 startZoom++;
+                                                if (startZoom === endZoom && startZoom === 17) {
+                                                    $('#mb8 .progText').text("Download Complete");
+                                                    $('#mb8 .fa-spin').addClass('hide');
+                                                    $('#mb8 .fa-check-circle-o').removeClass('hide');
+                                                    $('#mb8 .closeDownload').removeClass('hide');
+                                                    window.plugins.insomnia.allowSleepAgain();
+                                                    return false;
+                                                }
                                                 getCurrentActivityTiles(str, A, B, startZoom, endZoom);
                                             }
-                                        } else {
-                                            $('#mb8 .progText').text("Download Complete");
-                                            $('#mb8 .fa-spin').addClass('hide');
-                                            $('#mb8 .fa-check-circle-o').removeClass('hide');
-                                            $('#mb8 .closeDownload').removeClass('hide');
-                                            return false;
                                         }
                                     };
                                     fileWriter.onerror = function (e) {
