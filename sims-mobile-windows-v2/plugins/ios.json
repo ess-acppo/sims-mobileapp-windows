@@ -1,0 +1,54 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-camera": {
+            "CAMERA_USAGE_DESCRIPTION": " ",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "au.agriculture.ESFA"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "au.agriculture.ESFA"
+        },
+        "cordova-plugin-fastclick": {
+            "PACKAGE_NAME": "au.agriculture.ESFA"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "au.agriculture.ESFA"
+        },
+        "cordova-plugin-file-opener2": {
+            "PACKAGE_NAME": "au.agriculture.ESFA"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "au.agriculture.ESFA"
+        },
+        "cordova-plugin-insomnia": {
+            "PACKAGE_NAME": "au.agriculture.ESFA"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "au.agriculture.ESFA"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "au.agriculture.ESFA"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "au.agriculture.ESFA"
+        },
+        "cordova-plugin-zeep": {
+            "PACKAGE_NAME": "au.agriculture.ESFA"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "au.agriculture.ESFA"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "au.agriculture.ESFA"
+        }
+    }
+}
