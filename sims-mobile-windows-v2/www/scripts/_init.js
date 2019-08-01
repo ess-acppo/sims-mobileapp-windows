@@ -3247,21 +3247,39 @@ $(document).on('click', 'a.downloadMaps', function (e) {
                 $('#mb8 .closeDownload').addClass('hide');
                 $('#modalDownload').modal();
                 window.plugins.insomnia.keepAwake();
-                $.when(getCurrentActivityTiles(str, wC1, wC2, 12, 15))
-                    .then(getCurrentActivityTiles(str, wC1, wC2, 15, 16))
-                    .then(getCurrentActivityTiles(str, wC1, wC2, 16, 17))
-                    //.then(getCurrentActivityTiles(str, wC1, wC2, 17, 18))
-                    //.then(getCurrentActivityTiles(str, wC1, wC2, 18, 19))
-                    .done(function () {
-                        resSettings.settings.mapSets[0].lastDownloadDate = new Date().toString();
-                        db.transaction(function (tx) {
-                            tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
-                                $('#form3').find('label.mapNotes').text(new Date().toString());
+                if (AppMode === 'AH') {
+                    $.when(getCurrentActivityTiles(str, wC1, wC2, 12, 15))
+                        .then(getCurrentActivityTiles(str, wC1, wC2, 15, 16))
+                        //.then(getCurrentActivityTiles(str, wC1, wC2, 16, 17))
+                        //.then(getCurrentActivityTiles(str, wC1, wC2, 17, 18))
+                        //.then(getCurrentActivityTiles(str, wC1, wC2, 18, 19))
+                        .done(function () {
+                            resSettings.settings.mapSets[0].lastDownloadDate = new Date().toString();
+                            db.transaction(function (tx) {
+                                tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
+                                    $('#form3').find('label.mapNotes').text(new Date().toString());
+                                });
+                            }, function (err) {
+                                $.growl({ title: "", message: "An error occured while updating mapsets. " + err.message, location: "tc", size: "large" });
                             });
-                        }, function (err) {
-                            $.growl({ title: "", message: "An error occured while updating mapsets. " + err.message, location: "tc", size: "large" });
                         });
-                    });
+                } else {
+                    $.when(getCurrentActivityTiles(str, wC1, wC2, 12, 15))
+                        .then(getCurrentActivityTiles(str, wC1, wC2, 15, 16))
+                        .then(getCurrentActivityTiles(str, wC1, wC2, 16, 17))
+                        //.then(getCurrentActivityTiles(str, wC1, wC2, 17, 18))
+                        //.then(getCurrentActivityTiles(str, wC1, wC2, 18, 19))
+                        .done(function () {
+                            resSettings.settings.mapSets[0].lastDownloadDate = new Date().toString();
+                            db.transaction(function (tx) {
+                                tx.executeSql("UPDATE settings SET settingsval = ? WHERE id = ?", [JSON.stringify(resSettings), 1], function (tx, res) {
+                                    $('#form3').find('label.mapNotes').text(new Date().toString());
+                                });
+                            }, function (err) {
+                                $.growl({ title: "", message: "An error occured while updating mapsets. " + err.message, location: "tc", size: "large" });
+                            });
+                        });
+                }
             }
         }
     }
@@ -3274,8 +3292,8 @@ function fetchAndSaveTile(i, j, startZoom, endZoom, xlimit, ystart, ylimit, str,
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
         xhr.onloadstart = function () {
-            //$('#mb8 .progText').text("Zoom " + startZoom + ": Download in progress ...");
-            $('#mb8 .progText').text("Download in progress ...");
+            $('#mb8 .progText').text("Zoom " + startZoom + ": Download in progress ...");
+            //$('#mb8 .progText').text("Download in progress ...");
         };
         xhr.onloadend = function () {
             if (this.status === 200) {
@@ -3298,14 +3316,26 @@ function fetchAndSaveTile(i, j, startZoom, endZoom, xlimit, ystart, ylimit, str,
                                                 }
                                             } else {
                                                 startZoom++;
-                                                if (startZoom === endZoom && startZoom === 17) {
-                                                    $('#mb8 .progText').text("Download Complete");
-                                                    $('#mb8 .fa-spin').addClass('hide');
-                                                    $('#mb8 .fa-check-circle-o').removeClass('hide');
-                                                    $('#mb8 .closeDownload').removeClass('hide');
-                                                    window.plugins.insomnia.allowSleepAgain();
-                                                    return false;
+                                                if (AppMode === 'AH') {
+                                                    if (startZoom === endZoom && startZoom === 15) {
+                                                        $('#mb8 .progText').text("Download Complete");
+                                                        $('#mb8 .fa-spin').addClass('hide');
+                                                        $('#mb8 .fa-check-circle-o').removeClass('hide');
+                                                        $('#mb8 .closeDownload').removeClass('hide');
+                                                        window.plugins.insomnia.allowSleepAgain();
+                                                        return false;
+                                                    }
+                                                } else {
+                                                    if (startZoom === endZoom && startZoom === 17) {
+                                                        $('#mb8 .progText').text("Download Complete");
+                                                        $('#mb8 .fa-spin').addClass('hide');
+                                                        $('#mb8 .fa-check-circle-o').removeClass('hide');
+                                                        $('#mb8 .closeDownload').removeClass('hide');
+                                                        window.plugins.insomnia.allowSleepAgain();
+                                                        return false;
+                                                    }
                                                 }
+                                                
                                                 getCurrentActivityTiles(str, A, B, startZoom, endZoom);
                                             }
                                         }
