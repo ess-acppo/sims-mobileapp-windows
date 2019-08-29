@@ -263,3 +263,6 @@ __pycache__/
 # Git
 .git/*
 .gitconfig
+
+# Build.json
+sims-mobile-windows-v2\build.json
