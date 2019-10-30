@@ -1883,7 +1883,7 @@ $(document).on('click', 'a.btnResetData', function (e) {
                             mm = '0' + mm;
                         }
                         today = dd.toString() + '/' + mm.toString() + '/' + yyyy.toString();
-                        results = JSON.parse(data);
+                        results = JSON.parse(JSON.stringify(data));
                         db.transaction(function (tx) {
                             tx.executeSql("DELETE FROM observations", [], function (tx, res) {
                                 //alert("Rows deleted.");
