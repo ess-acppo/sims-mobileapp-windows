@@ -45,7 +45,7 @@
     },
     "app": {
       "appMode": "PH",
-      "serverMode": "DEV",
+      "serverMode": "PREPROD",
       "devServerAddress": "https://online-dev.agriculture.gov.au/",
       "sitServerAddress": "https://online-sit.agriculture.gov.au/",
       "uatServerAddress": "https://online-uat.agriculture.gov.au/",
