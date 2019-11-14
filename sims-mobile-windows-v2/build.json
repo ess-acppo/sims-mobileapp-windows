@@ -10,7 +10,9 @@
   },
   "windows": {
     "release": {
-      "packageCertificateKeyFile": "res\\native\\windows\\CordovaApp.pfx"
+      "packageCertificateKeyFile": "C:\\ESFA\\Certificate\\esfa-key.pfx",
+      "packageThumbprint": "05C4B2DEA3C6BBAE7BF0E4FC5D477909C16D9E30",
+      "publisherId": "CN=Department of Agriculture"
     }
   }
 }

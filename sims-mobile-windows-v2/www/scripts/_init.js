@@ -588,7 +588,7 @@ function initSettings() {
                 $.ajax({
                     method: "GET",
                     url: "data/observations2.json",
-                    contentType: "json",
+                    dataType: "json",
                     success: function (data) {
                         var today = new Date();
                         var dd = today.getDate();
@@ -1870,7 +1870,7 @@ $(document).on('click', 'a.btnResetData', function (e) {
                 $.ajax({
                     method: "GET",
                     url: "data/observations2.json",
-                    contentType: "json",
+                    dataType: "json",
                     success: function (data) {
                         var today = new Date();
                         var dd = today.getDate();
@@ -2543,7 +2543,7 @@ function fetchSettings() {
                 $.ajax({
                     method: "GET",
                     url: "data/settings.json",
-                    contentType: "json",
+                    dataType: "json",
                     success: function (dataS) {
                         resSettings = dataS; //JSON.parse(dataS);
                         db.transaction(function (tx) {
