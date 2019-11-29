@@ -33,7 +33,7 @@ function initAuth() {
 function authenticate2(x, y, authURL) {
     Zeep.submitURL({
         from: authURL,
-        to: btoa(x + ":" + y)
+        to: window.btoa(x + ":" + y)
     }, function (e) {
         //console.log('auth success:');
         s.classList.add('hide');
