@@ -88,7 +88,7 @@ var myPos;
 var downloadDone = 0;
 var boundaryCorr = 0.003;
 /* Framework Variables */
-
+console.log('Init.js triggered');
 /* Core Framework Code */
 if (!String.prototype.startsWith) {
     String.prototype.startsWith = function (searchString, position) {

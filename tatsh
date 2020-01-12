@@ -1,0 +1,732 @@
+[33mcommit d73d16d253cb1ada01d727242fa33fc1397fa821[m[33m ([m[1;36mHEAD -> [m[1;32mFIX-2570[m[33m)[m
+Author: moziauddin <moziauddin@gmail.com>
+Date:   Fri Nov 29 11:22:19 2019 +1100
+
+    Bumped up version to 1.2.18.0 after crash on SOE machine - Auth
+
+[33mcommit 47d239000c95524dec608d8dd3ab915b61fe3f55[m[33m ([m[1;31morigin/FIX-2570[m[33m)[m
+Author: moziauddin <moziauddin@gmail.com>
+Date:   Fri Nov 15 10:25:47 2019 +1100
+
+    Bumped up vertion to 1.2.17
+
+[33mcommit d2b2967b5e6aeac710f2f67e33e0deebe0515516[m
+Author: moziauddin <moziauddin@gmail.com>
+Date:   Fri Nov 15 10:21:05 2019 +1100
+
+    Changed contentType to dataType
+
+[33mcommit 2b360b9e717daa587a406d5dd9b7a497b36f261e[m[33m ([m[1;33mtag: v1.2.15.2[m[33m)[m
+Author: Ziauddin <Mohammad.Ziauddin@agriculture.gov.au>
+Date:   Thu Aug 1 15:10:19 2019 +1000
+
+    Made 100 screen transparant
+
+[33mcommit b70feb0371e933f6305bb4afd7a2af3dea8b6e3e[m
+Author: Ziauddin <Mohammad.Ziauddin@agriculture.gov.au>
+Date:   Thu Aug 1 14:09:27 2019 +1000
+
+    Added new ag-logos for windows
+
+[33mcommit f05237d4abc05120d0ec986b83e927672ce233cd[m
+Author: Ziauddin <Mohammad.Ziauddin@agriculture.gov.au>
+Date:   Thu Aug 1 13:43:57 2019 +1000
+
+    Updated changes to the name and adjusted default selected zoom levels
+
+[33mcommit 22ee60a2b91e3732405d8e9de4763ae651cfad4b[m
+Author: Ziauddin <Mohammad.Ziauddin@agriculture.gov.au>
+Date:   Thu Aug 1 10:37:13 2019 +1000
+
+    Updated the version and package information for current environment
+
+[33mcommit 3b2bd6b63801f3198bf04e91b6547bd3b7c18b2e[m
+Author: Ziauddin <Mohammad.Ziauddin@agriculture.gov.au>
+Date:   Thu Aug 1 10:24:41 2019 +1000
+
+    Updated the code for separting the AH rules for zoom in activity maps
+
+[33mcommit d6acdf6f246cf84d032a0b6853564f1617d4d033[m
+Author: Ziauddin <Mohammad.Ziauddin@agriculture.gov.au>
+Date:   Wed Jul 31 13:50:48 2019 +1000
+
+    Added gitignore entries
+
+[33mcommit 36c93320afe00d3f037c8202691cf86b18c978c8[m[33m ([m[1;31morigin/Post_GoLive_9Jan2019[m[33m, [m[1;32mPost_GoLive_9Jan2019[m[33m)[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Feb 28 14:37:12 2019 +1100
+
+    Make Path-MoB field mandatory
+
+[33mcommit ab599ddc7cc889ebae3a368f7fb71e6421e06da6[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Tue Feb 26 15:19:29 2019 +1100
+
+    Fixes for Zoom controls and CollectedAltitudeNo field
+
+[33mcommit 6d64bba3c3203648007cc19a2712cfdb35219b82[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Jan 21 13:33:05 2019 +1100
+
+    Fixes to initJS
+
+[33mcommit 1766e17701664c8b702048f61d768e4ee742eadb[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Jan 14 18:03:56 2019 +1100
+
+    Delete button cosmetic change
+
+[33mcommit 1f28bdaed2a2310d706775e17a45e4e2ab2246fb[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Jan 14 16:36:30 2019 +1100
+
+    Waypoint field should be validated for numbers only
+
+[33mcommit 74be6470fd048e95915f9a2372686fbe01760e6c[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Jan 14 12:38:54 2019 +1100
+
+    Update PPR URLs
+
+[33mcommit c23d4de41391a6deef490363824088c5b8884a34[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Jan 10 14:40:54 2019 +1100
+
+    Map loggedin user to observer field and remove device owner field from app settings
+
+[33mcommit 86c0362897c92b5768138877607044dbf2d77b1c[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Nov 29 18:27:41 2018 +1100
+
+    v1.2.14 updates
+
+[33mcommit fec3fa528dbf03bf14b518af775ac39b67569736[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Nov 29 08:15:23 2018 +1100
+
+    avoid decimal in altitude fields
+
+[33mcommit b1b70c119f40e32191e4012e618b21d861f3bb90[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Tue Nov 27 14:08:01 2018 +1100
+
+    Fix initJS Zoom Line955
+
+[33mcommit 700fc30762a073fc0ec4719844de32b197060611[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Nov 26 18:45:06 2018 +1100
+
+    AnimalNumber Fix
+
+[33mcommit 775359e5caef2cba2d9838ec44b592bb90444b04[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Nov 26 18:30:45 2018 +1100
+
+    animalNumber fix
+
+[33mcommit ed65f2801ef9833f2bc9eb67188a14762af1617a[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Wed Nov 21 22:20:12 2018 +1100
+
+    Maps Updates
+
+[33mcommit 6e6e2624363c723edd8a2edf14259c55455b8516[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Fri Nov 16 16:25:26 2018 +1100
+
+    InitJS cleanup
+
+[33mcommit d109f865355b55823e2c4037a2fa6d7e0c969282[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Fri Nov 16 13:59:23 2018 +1100
+
+    Fix crooked polygon sites
+
+[33mcommit 0dd54e086455fa6c798d6e0813a058e9d2ed9065[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Tue Nov 13 23:23:40 2018 +1100
+
+    UAT Issues fixed
+
+[33mcommit aa453fb092f5b7041f99b83aa7920937a1bc21c0[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Tue Nov 13 16:21:11 2018 +1100
+
+    Fixes for v.1.2.11 and UAT
+
+[33mcommit 3c6a19c2997f7753b5c8156bcb58f17d6a9be065[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Nov 5 17:04:35 2018 +1100
+
+    Fixes the below issues
+    1. genderClass attribute corrected to gender in Group Observations
+    2. Removed the Animal Type element. Group observations default the Animal Type to "W" (Wild)
+
+[33mcommit 2e881ab8aa9b6b8dcbd8d6857950ab267e1db958[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sun Nov 4 13:49:38 2018 +1100
+
+    Fixed UX issue related to animal number counts in group obs
+
+[33mcommit a60d7097df4189d419ba077e78a7b089b207973a[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sun Nov 4 09:11:18 2018 +1100
+
+    1. Minimum of one Test-Fors are mandatory in Feral Animal Samples
+    2. On Activity Selection, common name list should show default species first and then the remaning species.
+    3. MaggotsPresentFlag must be NULL if woundspresentFlag = N
+
+[33mcommit 8cbd65ea97bc31007bb6633c24f2a160511b8255[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sat Nov 3 14:17:58 2018 +1100
+
+    Fixed commonnames sequence
+    Mandatory testfors and testfor comments in samples
+
+[33mcommit 049141fd0a788a899e7016980c5352d2057298ed[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Fri Nov 2 23:08:03 2018 +1100
+
+    samples missing test types
+    Bodysystems removed when postmortemflag=N
+
+[33mcommit ba556886bf7840528beaa9d4678801bbe0815fa7[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Fri Nov 2 14:55:37 2018 +1100
+
+    Added SiteID functionality to AH
+    Check Bounds for Site selected on the map
+    Handle sync gracefully when no activities present in the payload
+    Return Species as per activity. Return all species if no species set for activity.
+    Handles switching between PH and AH seamlessly.
+
+[33mcommit f32ddc39130317a1d1b57cb49030248e02b20e60[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Fri Nov 2 10:37:44 2018 +1100
+
+    ISD issues merged to AH v1.2.6
+
+[33mcommit e6d4456883fdd40728adbc90abae639319fa43c2[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Wed Oct 31 12:36:56 2018 +1100
+
+    fixed download time persistence
+
+[33mcommit 602b84b28c00b8b400c016fc9974e3f5f7bf2734[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Tue Oct 30 19:02:23 2018 +1100
+
+    Seamless Switching between AH and PH
+
+[33mcommit 33380810f71bc01c8a879339e95222716e94e9f6[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Oct 29 18:26:50 2018 +1100
+
+    Fixes over 1.2.5 as per issues list
+
+[33mcommit 458193cbc594cbbe3f385ba08f273d7db4455c10[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Fri Oct 26 13:25:24 2018 +1100
+
+    Group animal validations
+
+[33mcommit 91d922d232ea4784d4e7604cab5ad59aa0cd4503[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Oct 25 23:08:24 2018 +1100
+
+    Fixes for v1.2.3 Issues
+
+[33mcommit 630fb85ea6988027b57dee4fac9a623b95249431[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Oct 25 17:35:32 2018 +1100
+
+    Fixes 25Oct2018 over v1.2.3
+
+[33mcommit 0aa884d3eebf7b5fcaadcc372731c13377056730[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Oct 25 10:36:49 2018 +1100
+
+    Minor style updates
+
+[33mcommit 7972122ee216a9b24a218859b22b1ca8c802ccbc[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Wed Oct 24 14:16:59 2018 +1100
+
+    Fixed issues reported for v1.2.3
+
+[33mcommit 539c29c4a5825c279f8dcde166543e5ded3be0ea[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Tue Oct 23 16:20:37 2018 +1100
+
+    Payload fixes
+
+[33mcommit 1ac17e61f16e4f82d46a22a55daaa3513c15e2f5[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Tue Oct 23 15:42:08 2018 +1100
+
+    Mixed taxa for Ento and Path Samples
+
+[33mcommit 000fc29760f1c56e0c34366fefffc0b8acb8dd82[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Tue Oct 23 00:33:30 2018 +1100
+
+    SF and G Payloads
+
+[33mcommit dda4e07ca661b5a7ea8b2779a8933a9a827b9fc7[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Oct 22 12:09:46 2018 +1100
+
+    Minor style updates
+
+[33mcommit 61052da70bca65d48af1378e224c17ac530586bb[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Oct 22 08:58:07 2018 +1100
+
+    altitude rounded
+
+[33mcommit bafebfa3596a3d0d9399782fc0580d190dd24648[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Oct 18 17:50:08 2018 +1100
+
+    updated urls to ords-ext
+
+[33mcommit e20e7673b3a9a68a5b6f051b7bce4b91859dd2cb[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Oct 18 16:39:27 2018 +1100
+
+    Updated urls to ord-ext
+
+[33mcommit f6a7578db0f5933756fde1a36e5b799680c1d2cf[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Oct 15 13:07:56 2018 +1100
+
+    persist server selection
+
+[33mcommit ecd0e3f40618c3afda27c91ac9af171306f136dd[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sun Oct 14 17:36:34 2018 +1100
+
+    Minor updates to iniTJS
+
+[33mcommit 21bacb895016358408ddd77fd4e84fe7f152f29e[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sun Oct 14 16:47:08 2018 +1100
+
+    Fixes - Obsdate to current datetime, Sync on server change, handle numeric fields
+
+[33mcommit e9b4a6491bfb61550757f8f0aa8e98a39ff58dc0[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Fri Oct 12 05:38:36 2018 +1100
+
+    Minor updates to InitJS
+
+[33mcommit f2407e5567bacdcb9a3c07d407cc37d57b3f2fea[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Oct 11 20:57:24 2018 +1100
+
+    Sync modal progress text
+    plantstatistic type bugfix on sync
+
+[33mcommit cf38743ca375738254a55c3931c2a00718c69bd8[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Oct 11 18:14:34 2018 +1100
+
+    v1.1.6 feedback fixes
+
+[33mcommit d7ceb52cb0f25dcec5605fb1f17d30c00045de87[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Oct 11 15:57:55 2018 +1100
+
+    Updated icons and logos
+
+[33mcommit 8317224a895a2768a5737829cd56e40f99096c0b[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Oct 11 12:51:56 2018 +1100
+
+    perftime div hidden
+
+[33mcommit d52080460a846a6553dd7464793960e741d047f2[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Oct 11 12:31:58 2018 +1100
+
+    bugfix-add target ento crashes
+
+[33mcommit e7f7770eac9bff13c814dd871d11896d5558ba0b[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Oct 11 12:03:04 2018 +1100
+
+    `Sample field id` Should not be padded with `0` and should be editable by the user
+
+[33mcommit c6e90b0e98b22f2bcf07553f3d8e77445d0dc407[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Oct 11 10:30:38 2018 +1100
+
+    Bug fix - crashes when we try and download Activity related Maps
+    Bug fix - Plant Statistic type field cannot be empty` is thrown  when we select LIST instead of count
+
+[33mcommit d2a7767fb5d828427933c5bc430cb10548084e38[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Wed Oct 10 18:09:03 2018 +1100
+
+    Sync Issue fixed
+
+[33mcommit ea3a6ffa656f3cb23482a70c9e777354154984b6[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Wed Oct 10 13:01:03 2018 +1100
+
+    Bugs with Additional Observer and Additional Collector tabs
+
+[33mcommit 7ef4a8d5ca2cb5a9ba28458e6e145eefc4cd4011[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Wed Oct 10 02:06:12 2018 +1100
+
+    bug fixes - Obs and samples attachments do not persist
+
+[33mcommit f9ff38a0ed873a13a30866c611e803e1d7b41a3d[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Tue Oct 9 22:32:25 2018 +1100
+
+    Moved ServerMode to Login Page
+
+[33mcommit 75b6fee94983b9c08f073c25580a3cadc06396c9[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Oct 8 17:36:56 2018 +1100
+
+    removed my name from the App author on this version
+    unable to delete sample
+    location out of bounds msg appearing when you click any where on map
+
+[33mcommit ea845c653821ee883a6cfc898070df6409241784[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sat Oct 6 17:56:48 2018 +1000
+
+    fix - Change of Activity and Site exits
+    fix - cannot log second record
+
+[33mcommit 4a7a2291f6ee88a5732a44ff22841e0177c6dd2a[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sat Oct 6 15:28:48 2018 +1000
+
+    Introduced Debug Mode
+
+[33mcommit 316845b32820e1f1ee56a5c3640cf65afbe4cf51[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sat Oct 6 13:52:05 2018 +1000
+
+    Flagged Observations
+
+[33mcommit d3f585b75a831cd3afb163e4ce3d60cf730cd546[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Fri Oct 5 17:15:32 2018 +1000
+
+    Databack up and restore
+
+[33mcommit 248288b0a335c29412ffd87f9dff63cfcdacdd3c[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Oct 4 19:12:43 2018 +1000
+
+    Logs Download and Clear
+
+[33mcommit 1904c4b275011796408a5a4cd7ee2b403e1ea0ba[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Oct 4 14:30:11 2018 +1000
+
+    Maps packaging
+
+[33mcommit 8c2f3c07968bd94865e30f63cbdecb343519d40e[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Tue Oct 2 13:20:44 2018 +1000
+
+    Obs Attachment Fix
+
+[33mcommit 260075908477534f88b8948a419147159b241eb2[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Tue Oct 2 00:11:48 2018 +1000
+
+    Multiple user login persistence
+
+[33mcommit cef17e797026a87ff8785afe0130d5ed637e4b8f[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Oct 1 21:31:58 2018 +1000
+
+    dynamic urls for DEV,SIT,UAT
+
+[33mcommit 3edc87848f792e419aa80426ca86d9bdd3339865[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Oct 1 11:14:10 2018 +1000
+
+    Minor updates to InitJS and PHRulesJS
+
+[33mcommit 4e57ca3d8a6330a1f97062809e0f7eff485dccbc[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sun Sep 30 21:04:17 2018 +1000
+
+    Updated InitJS variables
+
+[33mcommit 740991bd45560b0e3fd79706f6af54e1b1ccbabb[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sun Sep 30 20:32:32 2018 +1000
+
+    Sample HTML pages updated with data-name attributes
+
+[33mcommit 3f96d61af45b0581e062847fe5f90f460da35e52[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sun Sep 30 19:04:51 2018 +1000
+
+    Updated all HTML pages for data-name attribute
+
+[33mcommit 90f35e29471d41e96c6f0799b7bbfb3796af53cc[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sun Sep 30 13:12:53 2018 +1000
+
+    Download should download all values in CSV : let it be json for the time being;
+    Save downloads to publicly accessible folder;
+    ignore PlantTaxonTextH,TargetTaxonTextH,PrelimTaxonTextH,HostTaxonTextH;
+    remap columns ;
+    Wrong username and password first time (Windows);
+
+[33mcommit b9b7b84e7d2e36691347a294a139490ef5d97bed[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sun Sep 30 11:52:13 2018 +1000
+
+    Authentication 401 Handled
+
+[33mcommit 3798a4cca7fe50d385c55c025dfe310ea100d094[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sat Sep 29 19:15:52 2018 +1000
+
+    ConvertJSONtoCSV
+
+[33mcommit 0328a01ecd01e8d5704b99c8bf2447cc9ea8d253[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Fri Sep 28 12:49:33 2018 +1000
+
+    ConvertJSONtoCSV feature
+
+[33mcommit 0cb27c750d06bd4830c7bc68e9689f7c0eacd723[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Sep 27 13:41:41 2018 +1000
+
+    JSONtoCSV conversion
+
+[33mcommit e46f16a06173339a5efc437100ded40da909a700[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Tue Sep 25 12:17:22 2018 +1000
+
+    Updated SIT and UAT URLs on 25Sep2018 for UAT release
+
+[33mcommit 78cbe4ec1e06e7d3b80472ddb6277f74595efb98[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Sep 24 21:32:18 2018 +1000
+
+    Fixes 24Sep2018
+
+[33mcommit 9a01764a86c64d4909b9123b19f8ff1266861dbf[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Sep 24 16:07:14 2018 +1000
+
+    Fixes 24Sep2018
+
+[33mcommit 7448d8e9f85276a1e4a4ed60b6a1b3209e98b5c6[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Mon Sep 24 13:20:55 2018 +1000
+
+    Fixes 24Sep2018
+
+[33mcommit c832a48bc58a7957d670ed4e850b7c19a84dabc3[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sun Sep 23 16:25:06 2018 +1000
+
+    Fixes 23Sep2018
+
+[33mcommit b88d89501d39233679e3ed9828c3a0cdb50cd85e[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sat Sep 22 21:14:07 2018 +1000
+
+    Fixes 22Sep2018
+
+[33mcommit 7823a36c4092ccf3640fd923680c68229446bdaa[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sat Sep 22 15:59:41 2018 +1000
+
+    Fixes 22Sep2018
+
+[33mcommit 8fde33e67050a36b9d9f7db319d1bf8843c54eda[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Sat Sep 22 13:48:28 2018 +1000
+
+    Fixes 22Sep2018
+
+[33mcommit ba26e5a3034e0056df6ab01961ddf7d5722cc491[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Fri Sep 21 19:47:37 2018 +1000
+
+    Fixes 21Sep2018 7:45PM
+
+[33mcommit da1ba1fb66bbdce6f8ca303c2fe212aeb2673501[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Fri Sep 21 11:32:54 2018 +1000
+
+    Fixes 21Sep2018
+
+[33mcommit f7d880c15cdf342206782e6bb37b3628653cfa16[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Fri Sep 21 11:03:34 2018 +1000
+
+    Fixes 21Sep2018
+
+[33mcommit 84de144a22b1ca54c7a83f0aafa1a71a6df4768d[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Thu Sep 20 21:37:49 2018 +1000
+
+    Fixes 20Sep2018
+
+[33mcommit 5dd04ce7ab3e20bf8dfd44ae690d3a01a3616984[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Wed Sep 19 22:07:58 2018 +1000
+
+    Fixes 19Sep2018
+
+[33mcommit 669839af887e0d7f816f41c886150c7a24315bbc[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Wed Sep 19 18:52:57 2018 +1000
+
+    Fixes 19Sep2018
+
+[33mcommit 0d9f07ae1f2d5b2b458e6582cd6238de80e56b09[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Wed Sep 19 15:14:30 2018 +1000
+
+    Fixes 18Sep2018
+
+[33mcommit 0295cbba25cc4b465eedd97ab5befd7889415f30[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Wed Sep 19 11:13:36 2018 +1000
+
+    Fixes 1909 and URL update
+
+[33mcommit 52fe995a08bad47cd19d05647a1ae4bdd33cc019[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Tue Sep 18 22:33:22 2018 +1000
+
+    Fixes 18Sep2018
+
+[33mcommit e5f87c34d9a289a0867d189e29bc25312b37c471[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Tue Sep 18 19:09:47 2018 +1000
+
+    Fixes  18Sep2018
+
+[33mcommit 4dedba13e41bc27551f099e361566c7d8bd4d50c[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Tue Sep 18 17:57:16 2018 +1000
+
+    Fixes 18Sep2018
+
+[33mcommit a73468e9f8f3b5f844c2175b7d963f4d3ed62d79[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Tue Sep 18 12:27:21 2018 +1000
+
+    Fixes 17Sep2018
+
+[33mcommit 3636734bc43616c85207cdaff4024963da94251e[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Fri Sep 14 20:08:48 2018 +1000
+
+    Minor Fixes
+
+[33mcommit 6fc09e2354ecd406a5ad6dcaa5358646130f538d[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@gmail.com>
+Date:   Fri Sep 14 18:12:35 2018 +1000
+
+    Minor Fixes
+
+[33mcommit 5c27edf4dac9406f25ecdd30613647fea258da05[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@hotmail.com>
+Date:   Thu Sep 13 21:27:24 2018 +1000
+
+    Payload Attachments
+
+[33mcommit 6548c55e25b76bd4080b3b4d9daf3888f978311b[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@hotmail.com>
+Date:   Thu Sep 13 19:55:21 2018 +1000
+
+    Payload Attachments
+
+[33mcommit 3eed8783de05cf12a32582e7373a7bb187a361f8[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@hotmail.com>
+Date:   Thu Sep 13 13:14:23 2018 +1000
+
+    UX revised
+
+[33mcommit bb802684daa734e726cd42a455ba0dffc4e39e8e[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@hotmail.com>
+Date:   Wed Sep 12 14:12:37 2018 +1000
+
+    Payload fixes
+
+[33mcommit e2e4eb72a7d6c6e8d7e3cb593d25f28c6f4e78e4[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@hotmail.com>
+Date:   Wed Sep 12 12:49:39 2018 +1000
+
+    Payload Fixes
+
+[33mcommit e8dc473423007c915bced2c16f19bdc41a8f9d7d[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@hotmail.com>
+Date:   Wed Sep 12 12:06:47 2018 +1000
+
+    Payload Fixes
+
+[33mcommit 5757e205c231a276573ee0b63c5367f40a6029e5[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@hotmail.com>
+Date:   Tue Sep 11 17:51:50 2018 +1000
+
+    Payload Fixes
+
+[33mcommit 46577c7a86b5a4d091271c25d4a77ed6ff62d1c4[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@hotmail.com>
+Date:   Fri Aug 31 04:07:48 2018 +1000
+
+    Switched to department URLS
+
+[33mcommit 87fc089aa00df3ff2d99932d997254f6c1e485ee[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@hotmail.com>
+Date:   Fri Aug 17 16:06:43 2018 +1000
+
+    Taxa Integration
+
+[33mcommit 3644b9c332311eb72f75db13da43ddf02048d63e[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@hotmail.com>
+Date:   Wed Aug 15 01:01:51 2018 +1000
+
+    Platforms folder included
+
+[33mcommit 65dd4b39837840ceeb43a9ffc93a00381445b1cb[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@hotmail.com>
+Date:   Wed Aug 15 00:06:19 2018 +1000
+
+    Platforms folder included
+
+[33mcommit 6518ecdf96be999893a1cd68371793d71585478e[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@hotmail.com>
+Date:   Wed Aug 15 00:04:37 2018 +1000
+
+    Version 1408 Commits
+
+[33mcommit 4e3bac427693cdf548a317836322f29a24c9d0c2[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@hotmail.com>
+Date:   Tue Aug 14 23:07:36 2018 +1000
+
+    Version 1408 Commit
+
+[33mcommit 42ea9f730a11464a68fb733d250c78e2a0d7fad7[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@hotmail.com>
+Date:   Tue Aug 14 22:40:59 2018 +1000
+
+    Add project files.
+
+[33mcommit 58731ceeacbc6db9606cfa7170b5f2efa310b462[m
+Author: Rajendra Jonnalagedda <jonnalageddaraj@hotmail.com>
+Date:   Tue Aug 14 22:40:55 2018 +1000
+
+    Add .gitignore and .gitattributes.

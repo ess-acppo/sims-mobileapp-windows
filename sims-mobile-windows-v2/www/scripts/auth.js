@@ -8,6 +8,7 @@ var curUser;
 var curUserId;
 var ServMode;
 var AppMode2;
+var errorCode;
 /* Auth variables */
 
 function initAuth() {
@@ -16,6 +17,9 @@ function initAuth() {
             var unameValue = document.querySelector('.auth-username').value;
             var pwdValue = document.querySelector('.auth-password').value;
             authURL = fetchServerDetails($("#serverMode").val(), $("#appMode2").val());
+            console.log('The servermode is:' + $("#serverMode").val());
+            console.log('The appMode2 is:' + $("#appMode2").val());
+            console.log('The auth URL in initAuth is:' + authURL);
             ServMode = $("#serverMode").val();
             AppMode2 = $("#appMode2").val();
             s = document.querySelector('.auth-send .fa-spin');
@@ -31,28 +35,32 @@ function initAuth() {
         });
 }
 function authenticate2(x, y, authURL) {
-    Zeep.submitURL({
-        from: authURL,
-        to: window.btoa(x + ":" + y)
-    }, function (e) {
-        //console.log('auth success:');
-        s.classList.add('hide');
-        icon.classList.add('fa-check');
-        icon.classList.remove('fa-times');
-        text.innerHTML = 'Login success!';
-        derive_key(x, y);
-        authCode = "Basic " + btoa(x + ":" + y);
-        $.when(updateSettings(ServMode, AppMode2)).then(clearCache(AppMode2)).then(fetchSettings()).done(initSettings());
-        $('.auth-username').attr('disabled', false);
-        $('.auth-username').removeClass('disabled');
-        $('.auth-password').attr('disabled', false);
-        $('.auth-password').removeClass('disabled');
-        $('.auth-send').attr('disabled', false);
-        $('.auth-send').removeClass('disabled');
-        $('#modalAuth').modal('hide');
-        curUserName = x;
-        }, function (e) {
-            //console.log('auth fail:', e);
+    $.ajax({
+        method: 'GET',
+        url: authURL,
+        dataType: 'json',
+        headers: {
+            "Authorization": "Basic " + btoa(x + ":" + y)
+        },
+        success: function () {
+            s.classList.add('hide');
+            icon.classList.add('fa-check');
+            icon.classList.remove('fa-times');
+            text.innerHTML = 'Login success!';
+            derive_key(x, y);
+            authCode = "Basic " + btoa(x + ":" + y);
+            $.when(updateSettings(ServMode, AppMode2)).then(clearCache(AppMode2)).then(fetchSettings()).done(initSettings());
+            $('.auth-username').attr('disabled', false);
+            $('.auth-username').removeClass('disabled');
+            $('.auth-password').attr('disabled', false);
+            $('.auth-password').removeClass('disabled');
+            $('.auth-send').attr('disabled', false);
+            $('.auth-send').removeClass('disabled');
+            $('#modalAuth').modal('hide');
+            curUserName = x;
+        },
+        error: function (xhr, status, e) {
+            console.log('Error function triggered with error' + e)
             $('.auth-username').attr('disabled', false);
             $('.auth-username').removeClass('disabled');
             $('.auth-password').attr('disabled', false);
@@ -62,7 +70,8 @@ function authenticate2(x, y, authURL) {
             s.classList.add('hide');
             icon.classList.add('fa-times');
             icon.classList.remove('fa-check');
-            text.innerHTML = 'Login Failed!';
+            text.innerHTML = 'Login Failed with error: ' + xhr.status + ':' + xhr.responseText;
+        }
     });
 }
 function authenticate3(x, y) {
@@ -93,7 +102,7 @@ function authenticate3(x, y) {
             s.classList.add('hide');
             icon.classList.add('fa-times');
             icon.classList.remove('fa-check');
-            text.innerHTML = 'Login Failed!';
+            text.innerHTML = 'Incorrect Password!';
             return;
         }
         if (arr.length > 0 && key === arr[0].hashedPassword) {
